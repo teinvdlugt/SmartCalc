@@ -47,7 +47,7 @@ public class FactorizationActivity extends ActionBarActivity {
         resultFactors.setText("");
 
         try {
-            Integer[] resultArray = PrimeCalculater.factorize(Integer.parseInt(numberEditText.getText().toString()));
+            Integer[] resultArray = PrimeCalculator.factorize(Integer.parseInt(numberEditText.getText().toString()));
             for (int i = 0; i < resultArray.length; i++) {
                 if (i == 0) {
                     resultFactors.append(resultArray[i].toString());
