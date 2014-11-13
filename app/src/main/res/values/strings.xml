@@ -2,5 +2,8 @@
 <resources>
 
     <string name="app_name">Integer Factorization</string>
+    <string name="number_to_factorize_hint">Number to Factorize</string>
+    <string name="factorize_button">Factorize</string>
+    <string name="result_text_view">Integer factors:</string>
 
 </resources>

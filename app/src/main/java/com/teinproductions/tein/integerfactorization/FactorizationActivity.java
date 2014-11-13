@@ -4,14 +4,24 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class FactorizationActivity extends ActionBarActivity {
+
+    EditText numberEditText;
+    TextView resultFactors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_factorization);
+
+        numberEditText = (EditText) findViewById(R.id.number_edit_text);
+        resultFactors = (TextView) findViewById(R.id.result_factors_text_view);
+
     }
 
 
@@ -32,5 +42,9 @@ public class FactorizationActivity extends ActionBarActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClickFactorize(View view) {
+
     }
 }
