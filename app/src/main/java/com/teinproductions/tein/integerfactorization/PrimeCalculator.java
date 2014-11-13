@@ -21,7 +21,7 @@ public class PrimeCalculator {
 
         }
 
-        return (Integer[]) factors.toArray();
+        return convertToArray(factors);
     }
 
     public static Integer[] makePrimesUpTo(int integer) {
@@ -33,7 +33,7 @@ public class PrimeCalculator {
             }
         }
 
-        return (Integer[]) primes.toArray();
+        return convertToArray(primes);
     }
 
     public static boolean isPrimeNumber(int integer) {
@@ -45,6 +45,17 @@ public class PrimeCalculator {
         }
 
         return numberOfFactors == 2;
+    }
+
+    public static Integer[] convertToArray(ArrayList<Integer> integers) {
+
+        Integer[] result = new Integer[integers.size()];
+        for (int i = 0; i < result.length; i++)
+        {
+            result[i] = integers.get(i);
+        }
+
+        return result;
     }
 
 }

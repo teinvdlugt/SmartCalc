@@ -1,5 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -44,21 +45,52 @@ public class FactorizationActivity extends ActionBarActivity {
 
     public void onClickFactorize(View view) {
 
-        resultFactors.setText("");
+        new Factorize().execute();
 
-        try {
-            Integer[] resultArray = PrimeCalculator.factorize(Integer.parseInt(numberEditText.getText().toString()));
-            for (int i = 0; i < resultArray.length; i++) {
+    }
+
+    class Factorize extends AsyncTask<Void, Void, Void> {
+
+        String result;
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+                Integer[] resultArray = PrimeCalculator.factorize(Integer.parseInt(numberEditText.getText().toString()));
+
+                outputResult(resultArray);
+
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            resultFactors.setText(result);
+
+        }
+
+        private void outputResult(Integer[] factors) {
+
+            StringBuilder stringBuilder = new StringBuilder("");
+
+            for (int i = 0; i < factors.length; i++) {
                 if (i == 0) {
-                    resultFactors.append(resultArray[i].toString());
+                    stringBuilder.append(factors[i].toString());
                 } else {
-                    resultFactors.append(", " + resultArray[i].toString());
+                    stringBuilder.append(", " + factors[i].toString());
                 }
             }
 
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+            result = stringBuilder.toString();
+
         }
 
     }
+
 }
