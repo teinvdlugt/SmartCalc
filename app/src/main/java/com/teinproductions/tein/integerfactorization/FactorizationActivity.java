@@ -38,13 +38,27 @@ public class FactorizationActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
         return super.onOptionsItemSelected(item);
     }
 
     public void onClickFactorize(View view) {
+
+        resultFactors.setText("");
+
+        try {
+            Integer[] resultArray = PrimeCalculater.factorize(Integer.parseInt(numberEditText.getText().toString()));
+            for (int i = 0; i < resultArray.length; i++) {
+                if (i == 0) {
+                    resultFactors.append(resultArray[i].toString());
+                } else {
+                    resultFactors.append(", " + resultArray[i].toString());
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
 
     }
 }
