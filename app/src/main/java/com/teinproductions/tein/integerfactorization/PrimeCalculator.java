@@ -21,6 +21,10 @@ public class PrimeCalculator {
 
         }
 
+        if (factors.size() == 0) {
+            factors.add(integer);
+        }
+
         return convertToArray(factors);
     }
 
@@ -42,14 +46,14 @@ public class PrimeCalculator {
             if (integer % 2 == 0 && integer != i) {
                 return false;
             }
-        } return true;
+        }
+        return true;
     }
 
     public static Integer[] convertToArray(ArrayList<Integer> integers) {
 
         Integer[] result = new Integer[integers.size()];
-        for (int i = 0; i < result.length; i++)
-        {
+        for (int i = 0; i < result.length; i++) {
             result[i] = integers.get(i);
         }
 

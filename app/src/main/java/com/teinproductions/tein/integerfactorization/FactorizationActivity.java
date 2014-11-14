@@ -1,5 +1,7 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -14,6 +18,10 @@ public class FactorizationActivity extends ActionBarActivity {
 
     EditText numberEditText;
     TextView resultFactors;
+    RelativeLayout resultContainer;
+    ProgressBar progressBar;
+
+    int animationDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +30,13 @@ public class FactorizationActivity extends ActionBarActivity {
 
         numberEditText = (EditText) findViewById(R.id.number_edit_text);
         resultFactors = (TextView) findViewById(R.id.result_factors_text_view);
+        resultContainer = (RelativeLayout) findViewById(R.id.result_layout);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        progressBar.setAlpha(0f);
+        progressBar.setVisibility(View.GONE);
 
     }
 
@@ -44,6 +59,27 @@ public class FactorizationActivity extends ActionBarActivity {
     }
 
     public void onClickFactorize(View view) {
+
+        if (Integer.parseInt(numberEditText.getText().toString()) > 50000) {
+            // Make an animation only when is lasts long enough.
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar
+                    .animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
+
+            resultContainer
+                    .animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            resultContainer.setVisibility(View.GONE);
+                        }
+                    });
+        }
 
         new Factorize().execute();
 
@@ -73,6 +109,27 @@ public class FactorizationActivity extends ActionBarActivity {
 
             resultFactors.setText(result);
 
+            if (Integer.parseInt(numberEditText.getText().toString()) > 50000) {
+                resultContainer.setAlpha(0f);
+                resultContainer.setVisibility(View.VISIBLE);
+
+                resultContainer
+                        .animate()
+                        .alpha(1f)
+                        .setDuration(animationDuration)
+                        .setListener(null);
+
+                progressBar
+                        .animate()
+                        .alpha(0f)
+                        .setDuration(animationDuration)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
+            }
         }
 
         private void outputResult(Integer[] factors) {

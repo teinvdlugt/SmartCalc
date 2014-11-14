@@ -26,20 +26,36 @@
         android:text="@string/factorize_button"
         android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/result_text_view"
+    <RelativeLayout
+        android:id="@+id/result_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/factorize_button">
+
+        <TextView
+            android:id="@+id/result_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/result_text_view"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/result_factors_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/result_text_view"
+            android:textSize="40sp" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@style/progress_bar_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/factorize_button"
-        android:text="@string/result_text_view"
-        android:textColor="@android:color/black"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/result_factors_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/result_text_view"
-        android:textSize="40sp" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
 </RelativeLayout>
