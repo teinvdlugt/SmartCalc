@@ -21,6 +21,8 @@ public class FactorizationActivity extends ActionBarActivity {
     RelativeLayout resultContainer;
     ProgressBar progressBar;
 
+    public static String RESULTTEXT;
+
     int animationDuration;
 
     @Override
@@ -150,4 +152,23 @@ public class FactorizationActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(RESULTTEXT, resultFactors.getText().toString());
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            resultFactors.setText(savedInstanceState.getString(RESULTTEXT));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
 }
