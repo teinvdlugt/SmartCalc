@@ -27,7 +27,7 @@ public class PrimeCalculator {
     public static Integer[] makePrimesUpTo(int integer) {
         ArrayList<Integer> primes = new ArrayList<Integer>();
 
-        for (int i = 2; i <= integer; i++) {
+        for (int i = 2; i <= integer / 2; i++) {
             if (isPrimeNumber(i)) {
                 primes.add(i);
             }
@@ -37,6 +37,12 @@ public class PrimeCalculator {
     }
 
     public static boolean isPrimeNumber(int integer) {
+
+        if (integer == 2) {
+            return true;
+        } else if (integer % 2 == 0) {
+            return false;
+        }
 
         int numberOfFactors = 0;
         // Possible error: is 1 excluded?
