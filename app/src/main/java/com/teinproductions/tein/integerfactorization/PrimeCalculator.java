@@ -38,19 +38,11 @@ public class PrimeCalculator {
 
     public static boolean isPrimeNumber(int integer) {
 
-        if (integer == 2) {
-            return true;
-        } else if (integer % 2 == 0) {
-            return false;
-        }
-
-        int numberOfFactors = 0;
-        // Possible error: is 1 excluded?
-        for (int i = 1; i <= integer; i++) {
-            if (integer % i == 0) numberOfFactors++;
-        }
-
-        return numberOfFactors == 2;
+        for (int i = 2; i <= integer / 2; i++) {
+            if (integer % 2 == 0 && integer != i) {
+                return false;
+            }
+        } return true;
     }
 
     public static Integer[] convertToArray(ArrayList<Integer> integers) {
