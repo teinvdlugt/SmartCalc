@@ -78,7 +78,7 @@ public class PrimeCalculator {
 
         ArrayList<Integer> numbers = new ArrayList<Integer>();
 
-        for (int num : factorList1) {
+        for (Integer num : factorList1) {
             if (factorList2.contains(num)) {
                 numbers.add(num);
                 factorList2.remove(num);
@@ -96,19 +96,12 @@ public class PrimeCalculator {
     }
 
     public static Integer findGCF(Integer[] factors1, Integer[] factors2) {
-        ArrayList<Integer> factorList1 = new ArrayList<Integer>();
-        ArrayList<Integer> factorList2 = new ArrayList<Integer>();
+        ArrayList<Integer> factorList1 = convertToArrayList(factors1);
+        ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
         ArrayList<Integer> numbers = new ArrayList<Integer>();
 
-        for (Integer factor : factors1) {
-            factorList1.add(factor);
-        }
-        for (Integer factor : factors2) {
-            factorList2.add(factor);
-        }
-
-        for (int num : factorList1) {
+        for (Integer num : factorList1) {
             if (factorList2.contains(num)) {
                 numbers.add(num);
                 factorList2.remove(num);
@@ -146,7 +139,7 @@ public class PrimeCalculator {
 
         Integer LCM = 1;
 
-        for(Integer num : numbers) {
+        for (Integer num : numbers) {
             LCM *= num;
         }
 
@@ -173,7 +166,7 @@ public class PrimeCalculator {
 
         Integer LCM = 1;
 
-        for(Integer num : numbers) {
+        for (Integer num : numbers) {
             LCM *= num;
         }
 

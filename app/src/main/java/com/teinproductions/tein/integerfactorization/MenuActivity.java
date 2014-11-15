@@ -69,6 +69,8 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 case 0:
                     makeIntent(FactorizationActivity.class);
                     break;
+                case 1:
+                    makeIntent(GCFActivity.class);
                 default:
                     break;
             }

@@ -5,5 +5,8 @@
     <string name="number_to_factorize_hint">Number to Factorize</string>
     <string name="factorize_button">Factorize</string>
     <string name="result_text_view">Integer factors:</string>
+    <string name="number_1">Number 1</string>
+    <string name="number_2">Number 2</string>
+    <string name="calculate">Calculate</string>
 
 </resources>
