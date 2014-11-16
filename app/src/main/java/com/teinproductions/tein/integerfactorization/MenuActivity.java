@@ -9,7 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 
 import java.util.Arrays;
 
-public class MenuActivity extends ActionBarActivity implements MenuFragment.onMenuItemClickListener{
+public class MenuActivity extends ActionBarActivity implements MenuFragment.onMenuItemClickListener {
 
     private String[] mainList = {"Maths"};
     private String[] mathsList = {"Integer factorization", "GCF", "LCM"};
@@ -36,7 +36,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
 
     }
 
-    private void showNewMenu(String[] listOfStrings){
+    private void showNewMenu(String[] listOfStrings) {
 
         MenuFragment mathsListFragment = MenuFragment.newInstance(listOfStrings);
 
@@ -57,7 +57,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
     @Override
     public void onItemClicked(String[] strings, int position) {
         if (Arrays.equals(strings, mainList)) {
-            switch(position){
+            switch (position) {
                 case 0:
                     showNewMenu(mathsList);
                     break;
@@ -65,12 +65,15 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     break;
             }
         } else if (Arrays.equals(strings, mathsList)) {
-            switch(position) {
+            switch (position) {
                 case 0:
                     makeIntent(FactorizationActivity.class);
                     break;
                 case 1:
                     makeIntent(GCFActivity.class);
+                    break;
+                case 2:
+                    makeIntent(LCMActivity.class);
                 default:
                     break;
             }

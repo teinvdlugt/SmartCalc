@@ -8,5 +8,7 @@
     <string name="number_1">Number 1</string>
     <string name="number_2">Number 2</string>
     <string name="calculate">Calculate</string>
+    <string name="greatest_common_factor">Greatest Common Factor</string>
+    <string name="least_common_multiple">Least Common Multiple</string>
 
 </resources>

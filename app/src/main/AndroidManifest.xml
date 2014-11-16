@@ -15,7 +15,12 @@
 
         <activity
             android:name=".GCFActivity"
-            android:label="Greatest Common Factor">
+            android:label="@string/greatest_common_factor">
+        </activity>
+
+        <activity
+            android:name=".LCMActivity"
+            android:label="@string/least_common_multiple">
         </activity>
 
         <activity
