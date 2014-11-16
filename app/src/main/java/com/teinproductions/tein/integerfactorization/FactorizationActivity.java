@@ -18,7 +18,6 @@ public class FactorizationActivity extends ActionBarActivity {
 
     EditText numberEditText;
     TextView resultFactors;
-    RelativeLayout resultContainer;
     ProgressBar progressBar;
 
     public static String RESULTTEXT;
@@ -32,7 +31,6 @@ public class FactorizationActivity extends ActionBarActivity {
 
         numberEditText = (EditText) findViewById(R.id.number_edit_text);
         resultFactors = (TextView) findViewById(R.id.result_factors_text_view);
-        resultContainer = (RelativeLayout) findViewById(R.id.result_layout);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
@@ -71,14 +69,14 @@ public class FactorizationActivity extends ActionBarActivity {
                     .setDuration(animationDuration)
                     .setListener(null);
 
-            resultContainer
+            resultFactors
                     .animate()
                     .alpha(0f)
                     .setDuration(animationDuration)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            resultContainer.setVisibility(View.GONE);
+                            resultFactors.setVisibility(View.GONE);
                         }
                     });
         }
@@ -109,13 +107,12 @@ public class FactorizationActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            resultFactors.setText(result);
-
             if (Integer.parseInt(numberEditText.getText().toString()) > 50000) {
-                resultContainer.setAlpha(0f);
-                resultContainer.setVisibility(View.VISIBLE);
+                resultFactors.setText(result);
+                resultFactors.setAlpha(0f);
+                resultFactors.setVisibility(View.VISIBLE);
 
-                resultContainer
+                resultFactors
                         .animate()
                         .alpha(1f)
                         .setDuration(animationDuration)
@@ -129,6 +126,23 @@ public class FactorizationActivity extends ActionBarActivity {
                             @Override
                             public void onAnimationEnd(Animator animation) {
                                 progressBar.setVisibility(View.GONE);
+                            }
+                        });
+            } else {
+                resultFactors.setAlpha(1f);
+                resultFactors
+                        .animate()
+                        .alpha(0f)
+                        .setDuration(animationDuration)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                resultFactors.setText(result);
+                                resultFactors
+                                        .animate()
+                                        .alpha(1f)
+                                        .setDuration(animationDuration)
+                                        .setListener(null);
                             }
                         });
             }

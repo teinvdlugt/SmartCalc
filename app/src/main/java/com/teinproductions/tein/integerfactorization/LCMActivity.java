@@ -87,24 +87,44 @@ public class LCMActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            resultTextView.setText(result.toString());
-            resultTextView.setAlpha(0f);
-            resultTextView.setVisibility(View.VISIBLE);
-            resultTextView
-                    .animate()
-                    .alpha(1f)
-                    .setDuration(animationDuration)
-                    .setListener(null);
-            progressBar
-                    .animate()
-                    .alpha(0f)
-                    .setDuration(animationDuration)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
+            if (num1 + num2 > 60000) {
+                resultTextView.setText(result.toString());
+                resultTextView.setAlpha(0f);
+                resultTextView.setVisibility(View.VISIBLE);
+                resultTextView
+                        .animate()
+                        .alpha(1f)
+                        .setDuration(animationDuration)
+                        .setListener(null);
+                progressBar
+                        .animate()
+                        .alpha(0f)
+                        .setDuration(animationDuration)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
+            } else {
+                resultTextView.setAlpha(1f);
+                resultTextView
+                        .animate()
+                        .alpha(0f)
+                        .setDuration(animationDuration)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                resultTextView.setText(result.toString());
+                                resultTextView
+                                        .animate()
+                                        .alpha(1f)
+                                        .setDuration(animationDuration)
+                                        .setListener(null);
+                            }
+                        });
+
+            }
         }
     }
 
