@@ -1,6 +1,8 @@
 package com.teinproductions.tein.integerfactorization;
 
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,9 +13,12 @@ import android.widget.TextView;
 
 public class GCFActivity extends ActionBarActivity {
 
-    private EditText number1,number2;
+    private EditText number1, number2;
     private ProgressBar progressBar;
     private TextView resultTextView;
+    private Integer num1, num2;
+
+    int animationDuration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +30,40 @@ public class GCFActivity extends ActionBarActivity {
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         resultTextView = (TextView) findViewById(R.id.result_gcf_or_lcm);
 
+        animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
         progressBar.setVisibility(View.GONE);
 
     }
 
     public void onClickCalculate(View view) {
+
+        try {
+            num1 = Integer.parseInt(number1.getText().toString());
+            num2 = Integer.parseInt(number2.getText().toString());
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        if (num1 + num2 > 60000) {
+            progressBar.setAlpha(0f);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar
+                    .animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
+            resultTextView
+                    .animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            resultTextView.setVisibility(View.GONE);
+                        }
+                    });
+        }
 
         new GCFCreator().execute();
 
@@ -43,11 +77,8 @@ public class GCFActivity extends ActionBarActivity {
         protected Void doInBackground(Void... params) {
 
             try {
-                int num1 = Integer.parseInt(number1.getText().toString());
-                int num2 = Integer.parseInt(number2.getText().toString());
-
                 result = PrimeCalculator.findGCF(num1, num2);
-            } catch (NumberFormatException e) {
+            } catch (NullPointerException e) {
                 e.printStackTrace();
             }
 
@@ -57,6 +88,24 @@ public class GCFActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             resultTextView.setText(result.toString());
+            resultTextView.setAlpha(0f);
+            resultTextView.setVisibility(View.VISIBLE);
+            resultTextView
+                    .animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
+            progressBar
+                    .animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
         }
     }
 
