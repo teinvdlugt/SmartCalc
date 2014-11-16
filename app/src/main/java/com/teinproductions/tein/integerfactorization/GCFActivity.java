@@ -6,7 +6,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -31,6 +33,16 @@ public class GCFActivity extends ActionBarActivity {
         resultTextView = (TextView) findViewById(R.id.result_gcf_or_lcm);
 
         animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        number2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    onClickCalculate(null);
+                    return true;
+                } return false;
+            }
+        });
 
         progressBar.setVisibility(View.GONE);
 

@@ -24,7 +24,8 @@
         android:layout_below="@id/number_1"
         android:hint="@string/number_2"
         android:inputType="number"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:imeOptions="actionGo"/>
 
     <Button
         android:id="@+id/calculate_button"
