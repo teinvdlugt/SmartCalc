@@ -10,5 +10,7 @@
     <string name="calculate">Calculate</string>
     <string name="greatest_common_factor">Greatest Common Factor</string>
     <string name="least_common_multiple">Least Common Multiple</string>
+    <string name="invalid_number_title">Invalid number</string>
+    <string name="invalid_number_message">Please enter a valid number.</string>
 
 </resources>

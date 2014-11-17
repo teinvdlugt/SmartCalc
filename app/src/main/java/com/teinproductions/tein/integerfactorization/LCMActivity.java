@@ -53,31 +53,47 @@ public class LCMActivity extends ActionBarActivity {
         try {
             num1 = Integer.parseInt(number1.getText().toString());
             num2 = Integer.parseInt(number2.getText().toString());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
 
-        if (num1 + num2 > 60000) {
-            progressBar.setAlpha(0f);
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar
-                    .animate()
-                    .alpha(1f)
-                    .setDuration(animationDuration)
-                    .setListener(null);
-            resultTextView
-                    .animate()
+            if (num1 + num2 > 60000) {
+                progressBar.setAlpha(0f);
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar
+                        .animate()
+                        .alpha(1f)
+                        .setDuration(animationDuration)
+                        .setListener(null);
+                resultTextView
+                        .animate()
+                        .alpha(0f)
+                        .setDuration(animationDuration)
+                        .setListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                resultTextView.setVisibility(View.GONE);
+                            }
+                        });
+            }
+
+            new GCFCreator().execute();
+
+        } catch (NumberFormatException e) {
+            CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
+
+            // Empty the result text view
+            resultTextView.animate()
                     .alpha(0f)
                     .setDuration(animationDuration)
                     .setListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            resultTextView.setVisibility(View.GONE);
+                            resultTextView.setText("");
+                            resultTextView.animate()
+                                    .alpha(1f)
+                                    .setDuration(animationDuration)
+                                    .setListener(null);
                         }
                     });
         }
-
-        new GCFCreator().execute();
 
     }
 
@@ -137,6 +153,25 @@ public class LCMActivity extends ActionBarActivity {
                         });
 
             }
+        }
+    }
+    
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("RESULT", resultTextView.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            resultTextView.setText(savedInstanceState.getString("RESULT"));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
     }
 
