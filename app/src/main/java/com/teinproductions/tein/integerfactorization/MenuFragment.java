@@ -1,6 +1,7 @@
 package com.teinproductions.tein.integerfactorization;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ListFragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 public class MenuFragment extends ListFragment {
 
@@ -26,7 +28,7 @@ public class MenuFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setListAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, strings));
+        setListAdapter(new MenuAdapter(getActivity(), strings));
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }
@@ -73,4 +75,24 @@ public class MenuFragment extends ListFragment {
         }
 
     }
+
+
+    public class MenuAdapter extends ArrayAdapter<String>{
+
+        public MenuAdapter(Context context, String[] strings) {
+            super(context, R.layout.list_item_menu, strings);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater theInflater = LayoutInflater.from(getContext());
+            View theView = theInflater.inflate(R.layout.list_item_menu, parent, false);
+
+            TextView theTextView = (TextView) theView.findViewById(R.id.menu_text);
+            theTextView.setText(getItem(position));
+
+            return theView;
+        }
+    }
+
 }
