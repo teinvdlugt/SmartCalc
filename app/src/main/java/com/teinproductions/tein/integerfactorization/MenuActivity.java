@@ -13,6 +13,8 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
 
     private String[] mainList;
     private String[] mathsList;
+    private String[] physicsList;
+    private String[] specialRelativityList;
 
     private FragmentManager fragManager;
 
@@ -22,8 +24,10 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         fragManager = getSupportFragmentManager();
         setContentView(R.layout.activity_menu);
 
-        mainList = new String[]{getString(R.string.maths)};
+        mainList = new String[]{getString(R.string.maths),getString(R.string.physics)};
         mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
+        physicsList = new String[]{getString(R.string.special_relativity)};
+        specialRelativityList = new String[]{getString(R.string.adding_velocities)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -61,6 +65,9 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 case 0:
                     showNewMenu(mathsList);
                     break;
+                case 1:
+                    showNewMenu(physicsList);
+                    break;
                 default:
                     break;
             }
@@ -74,6 +81,22 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     break;
                 case 2:
                     makeIntent(LCMActivity.class);
+                default:
+                    break;
+            }
+        } else if (Arrays.equals(strings, physicsList)) {
+            switch (position) {
+                case 0:
+                    showNewMenu(specialRelativityList);
+                    break;
+                default:
+                    break;
+            }
+        } else if (Arrays.equals(strings, specialRelativityList)) {
+            switch (position) {
+                case 0:
+                    makeIntent(VelocityAdding.class);
+                    break;
                 default:
                     break;
             }

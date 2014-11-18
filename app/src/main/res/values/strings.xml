@@ -15,5 +15,11 @@
     <string name="maths">Maths</string>
     <string name="integer_factorization">Integer factorization</string>
     <string name="menu">Menu</string>
+    <string name="physics">Physics</string>
+    <string name="special_relativity">Special Relativity</string>
+    <string name="adding_velocities">Adding velocities</string>
+    <string name="velocity1">Velocity 1</string>
+    <string name="velocity2">Velocity 2</string>
+    <string name="add_button_text">Add</string>
 
 </resources>
