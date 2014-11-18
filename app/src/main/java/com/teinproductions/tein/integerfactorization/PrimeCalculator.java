@@ -173,5 +173,4 @@ public class PrimeCalculator {
         return LCM;
 
     }
-
 }

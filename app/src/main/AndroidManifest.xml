@@ -28,7 +28,7 @@
 
         <activity
             android:name=".MenuActivity"
-            android:label="Menu">
+            android:label="@string/menu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

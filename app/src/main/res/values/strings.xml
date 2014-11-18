@@ -12,5 +12,8 @@
     <string name="least_common_multiple">Least Common Multiple</string>
     <string name="invalid_number_title">Invalid number</string>
     <string name="invalid_number_message">Please enter a valid number.</string>
+    <string name="maths">Maths</string>
+    <string name="integer_factorization">Integer factorization</string>
+    <string name="menu">Menu</string>
 
 </resources>

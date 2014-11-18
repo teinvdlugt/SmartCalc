@@ -11,18 +11,19 @@ import java.util.Arrays;
 
 public class MenuActivity extends ActionBarActivity implements MenuFragment.onMenuItemClickListener {
 
-    private String[] mainList = {"Maths"};
-    private String[] mathsList = {"Integer factorization", "GCF", "LCM"};
+    private String[] mainList;
+    private String[] mathsList;
 
     private FragmentManager fragManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         fragManager = getSupportFragmentManager();
-
         setContentView(R.layout.activity_menu);
+
+        mainList = new String[]{getString(R.string.maths)};
+        mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -31,7 +32,6 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     .beginTransaction()
                     .add(R.id.menu_fragment_container, mainListFragment)
                     .commit();
-
         }
 
     }
@@ -78,5 +78,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     break;
             }
         }
+
+
     }
 }
