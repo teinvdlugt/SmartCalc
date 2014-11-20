@@ -21,5 +21,15 @@
     <string name="velocity1">Velocity 1</string>
     <string name="velocity2">Velocity 2</string>
     <string name="add_button_text">Add</string>
+    <string name="meters_per_second">Meters/sec</string>
+    <string name="km_per_hour">Km/hour</string>
+    <string name="meters_per_second_abbr">m/s</string>
+    <string name="km_per_hour_abbr">km/h</string>
+    <string name="miles_per_hour">Miles/hour</string>
+    <string name="miles_per_hour_abbr">mph</string>
+    <string name="feet_per_second">Feet/sec</string>
+    <string name="feet_per_second_abbr">ft/s</string>
+    <string name="knots">Knots</string>
+    <string name="knots_abbr">kn</string>
 
 </resources>
