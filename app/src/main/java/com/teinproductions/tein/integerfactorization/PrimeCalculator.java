@@ -33,6 +33,35 @@ public class PrimeCalculator {
         }
     }
 
+    public static Integer[] factorize(Long integer) {
+
+        ArrayList<Integer> factors = new ArrayList<Integer>();
+
+        if (integer == 0 || integer == 1) {
+            return null;
+        }
+
+        Double squareRoot = Math.sqrt(integer);
+
+        int j = 2;
+        while (1 + 1 == 2) {
+            if (integer == 1) {
+                return convertToArray(factors);
+            }
+            if (j > squareRoot && j != integer) {
+                factors.add(Integer.parseInt(integer.toString()));
+                return convertToArray(factors);
+            } else if (integer % j == 0) {
+                factors.add(j);
+                integer /= j;
+                squareRoot = Math.sqrt(integer);
+                continue;
+            }
+
+            j = findNextPrimeNumber(j);
+        }
+    }
+
     public static Integer findNextPrimeNumber(Integer integer) {
 
         int i = integer + 1;

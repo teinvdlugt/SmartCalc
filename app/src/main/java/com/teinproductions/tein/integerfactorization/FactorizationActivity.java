@@ -21,7 +21,7 @@ public class FactorizationActivity extends ActionBarActivity {
     EditText numberEditText;
     TextView resultFactors;
     ProgressBar progressBar;
-    Integer input;
+    Long input;
 
     public static String RESULTTEXT;
 
@@ -74,47 +74,16 @@ public class FactorizationActivity extends ActionBarActivity {
     public void onClickFactorize(View view) {
 
         try {
-            input = Integer.parseInt(numberEditText.getText().toString());
-            if (input > 50000) {
-                // Make an animation only when is lasts long enough.
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar
-                        .animate()
-                        .alpha(1f)
-                        .setDuration(animationDuration)
-                        .setListener(null);
-
-                resultFactors
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                resultFactors.setVisibility(View.GONE);
-                            }
-                        });
-            }
+            input = Long.parseLong(numberEditText.getText().toString());
 
             new Factorize().execute();
         } catch (NumberFormatException e) {
 
+            e.printStackTrace();
+
             CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
 
-            // Empty the result text view
-            resultFactors.animate()
-                    .alpha(0f)
-                    .setDuration(animationDuration)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            resultFactors.setText("");
-                            resultFactors.animate()
-                                    .alpha(1f)
-                                    .setDuration(animationDuration)
-                                    .setListener(null);
-                        }
-                    });
+            resultFactors.setText("");
         }
 
     }
@@ -141,45 +110,7 @@ public class FactorizationActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
 
-            if (Integer.parseInt(numberEditText.getText().toString()) > 50000) {
-                resultFactors.setText(result);
-                resultFactors.setAlpha(0f);
-                resultFactors.setVisibility(View.VISIBLE);
-
-                resultFactors
-                        .animate()
-                        .alpha(1f)
-                        .setDuration(animationDuration)
-                        .setListener(null);
-
-                progressBar
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        });
-            } else {
-                resultFactors.setAlpha(1f);
-                resultFactors
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                resultFactors.setText(result);
-                                resultFactors
-                                        .animate()
-                                        .alpha(1f)
-                                        .setDuration(animationDuration)
-                                        .setListener(null);
-                            }
-                        });
-            }
+            resultFactors.setText(result);
         }
 
         private void outputResult(Integer[] factors) {
