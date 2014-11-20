@@ -5,27 +5,44 @@ import java.util.ArrayList;
 public class PrimeCalculator {
 
     public static Integer[] factorize(int integer) {
+
         ArrayList<Integer> factors = new ArrayList<Integer>();
-        Integer[] primes = makePrimesUpTo(integer);
 
-        for (int prime : primes) {
+        if (integer == 0 || integer == 1) {
+            return null;
+        }
 
-            while (1 + 1 == 2) {
-                if (integer % prime == 0) {
-                    factors.add(prime);
-                    integer /= prime;
-                } else {
-                    break;
-                }
+        Double squareRoot = Math.sqrt(integer);
+
+        int j = 2;
+        while (1 + 1 == 2) {
+            if (integer == 1) {
+                return convertToArray(factors);
+            }
+            if (j > squareRoot && j != integer) {
+                factors.add(integer);
+                return convertToArray(factors);
+            } else if (integer % j == 0) {
+                factors.add(j);
+                integer /= j;
+                squareRoot = Math.sqrt(integer);
+                continue;
             }
 
+            j = findNextPrimeNumber(j);
+        }
+    }
+
+    public static Integer findNextPrimeNumber(Integer integer) {
+
+        int i = integer + 1;
+        while (1 + 1 == 2) {
+            if (isPrimeNumber(i)) {
+                return i;
+            }
+            i++;
         }
 
-        if (factors.size() == 0) {
-            factors.add(integer);
-        }
-
-        return convertToArray(factors);
     }
 
     public static Integer[] makePrimesUpTo(int integer) {
