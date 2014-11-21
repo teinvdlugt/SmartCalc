@@ -163,6 +163,32 @@ public class PrimeCalculator {
         return GCF;
     }
 
+    public static Integer findLongGCF(Long num1, Long num2) {
+        Integer[] factors1 = factorize(num1);
+        Integer[] factors2 = factorize(num2);
+
+        ArrayList<Integer> factorList1 = convertToArrayList(factors1);
+        ArrayList<Integer> factorList2 = convertToArrayList(factors2);
+
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+
+        for (Integer num : factorList1) {
+            if (factorList2.contains(num)) {
+                numbers.add(num);
+                factorList2.remove(num);
+            }
+        }
+
+        Integer GCF = 1;
+
+        for (int number : numbers) {
+            GCF *= number;
+        }
+
+        return GCF;
+
+    }
+
     public static Integer findLCM(Integer int1, Integer int2) {
         Integer[] factors1 = factorize(int1);
         Integer[] factors2 = factorize(int2);
@@ -218,5 +244,34 @@ public class PrimeCalculator {
 
         return LCM;
 
+    }
+
+    public static Integer findLongLCM(Long num1, Long num2) {
+        Integer[] factors1 = factorize(num1);
+        Integer[] factors2 = factorize(num2);
+
+        ArrayList<Integer> factorList1 = convertToArrayList(factors1);
+        ArrayList<Integer> factorList2 = convertToArrayList(factors2);
+
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+
+        for (Integer num : factorList1) {
+            numbers.add(num);
+            if (factorList2.contains(num)) {
+                factorList2.remove(factorList2.indexOf(num));
+            }
+        }
+
+        for (Integer num : factorList2) {
+            numbers.add(num);
+        }
+
+        Integer LCM = 1;
+
+        for (Integer num : numbers) {
+            LCM *= num;
+        }
+
+        return LCM;
     }
 }

@@ -9,10 +9,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewPropertyAnimator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -76,14 +76,40 @@ public class FactorizationActivity extends ActionBarActivity {
         try {
             input = Long.parseLong(numberEditText.getText().toString());
 
-            new Factorize().execute();
+            progressBar.setAlpha(0f);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
+
+            resultFactors.animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            resultFactors.setVisibility(View.GONE);
+                            new Factorize().execute();
+                        }
+                    });
+
         } catch (NumberFormatException e) {
-
-            e.printStackTrace();
-
             CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
 
-            resultFactors.setText("");
+            resultFactors.animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            resultFactors.setText("");
+                            resultFactors.animate()
+                                    .alpha(1f)
+                                    .setDuration(animationDuration)
+                                    .setListener(null);
+                        }
+                    });
         }
 
     }
@@ -111,6 +137,21 @@ public class FactorizationActivity extends ActionBarActivity {
         protected void onPostExecute(Void aVoid) {
 
             resultFactors.setText(result);
+            resultFactors.setVisibility(View.VISIBLE);
+            resultFactors.animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
+            progressBar.animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
+
         }
 
         private void outputResult(Integer[] factors) {

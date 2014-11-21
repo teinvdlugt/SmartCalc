@@ -18,7 +18,7 @@ public class GCFActivity extends ActionBarActivity {
     private EditText number1, number2;
     private ProgressBar progressBar;
     private TextView resultTextView;
-    private Integer num1, num2;
+    private Long num1, num2;
 
     int animationDuration;
 
@@ -40,7 +40,8 @@ public class GCFActivity extends ActionBarActivity {
                 if (actionId == EditorInfo.IME_ACTION_GO) {
                     onClickCalculate(null);
                     return true;
-                } return false;
+                }
+                return false;
             }
         });
 
@@ -51,30 +52,26 @@ public class GCFActivity extends ActionBarActivity {
     public void onClickCalculate(View view) {
 
         try {
-            num1 = Integer.parseInt(number1.getText().toString());
-            num2 = Integer.parseInt(number2.getText().toString());
+            num1 = Long.parseLong(number1.getText().toString());
+            num2 = Long.parseLong(number2.getText().toString());
 
-            if (num1 + num2 > 60000) {
-                progressBar.setAlpha(0f);
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar
-                        .animate()
-                        .alpha(1f)
-                        .setDuration(animationDuration)
-                        .setListener(null);
-                resultTextView
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                resultTextView.setVisibility(View.GONE);
-                            }
-                        });
-            }
+            progressBar.setAlpha(0f);
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
 
-            new GCFCreator().execute();
+            resultTextView.animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            resultTextView.setVisibility(View.GONE);
+                            new GCFCreator().execute();
+                        }
+                    });
 
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
@@ -105,7 +102,7 @@ public class GCFActivity extends ActionBarActivity {
         protected Void doInBackground(Void... params) {
 
             try {
-                result = PrimeCalculator.findGCF(num1, num2);
+                result = PrimeCalculator.findLongGCF(num1, num2);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -115,44 +112,22 @@ public class GCFActivity extends ActionBarActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (num1 + num2 > 60000) {
-                resultTextView.setText(result.toString());
-                resultTextView.setAlpha(0f);
-                resultTextView.setVisibility(View.VISIBLE);
-                resultTextView
-                        .animate()
-                        .alpha(1f)
-                        .setDuration(animationDuration)
-                        .setListener(null);
-                progressBar
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                progressBar.setVisibility(View.GONE);
-                            }
-                        });
-            } else {
-                resultTextView.setAlpha(1f);
-                resultTextView
-                        .animate()
-                        .alpha(0f)
-                        .setDuration(animationDuration)
-                        .setListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                resultTextView.setText(result.toString());
-                                resultTextView
-                                        .animate()
-                                        .alpha(1f)
-                                        .setDuration(animationDuration)
-                                        .setListener(null);
-                            }
-                        });
 
-            }
+            resultTextView.setText(result.toString());
+            resultTextView.setVisibility(View.VISIBLE);
+            resultTextView.animate()
+                    .alpha(1f)
+                    .setDuration(animationDuration)
+                    .setListener(null);
+            progressBar.animate()
+                    .alpha(0f)
+                    .setDuration(animationDuration)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            progressBar.setVisibility(View.GONE);
+                        }
+                    });
 
         }
     }
