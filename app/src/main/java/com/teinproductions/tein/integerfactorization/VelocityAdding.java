@@ -2,35 +2,24 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
-public class VelocityAdding extends ActionBarActivity {
-
-    private TextView resultTextView;
-    private EditText number1, number2;
-    private Spinner spinner1, spinner2, spinnerResult;
-    Integer animationDuration;
+public class VelocityAdding extends EditTextActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_velocity_adding);
+    public void doYourStuff() {
+        editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-        resultTextView = (TextView) findViewById(R.id.result_text_view);
-        number1 = (EditText) findViewById(R.id.number_1);
-        number2 = (EditText) findViewById(R.id.number_2);
-        number2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        editText2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_GO) {
@@ -40,23 +29,21 @@ public class VelocityAdding extends ActionBarActivity {
                 return false;
             }
         });
-        spinner1 = (Spinner) findViewById(R.id.spinner_number1);
-        spinner2 = (Spinner) findViewById(R.id.spinner_number2);
-        spinnerResult = (Spinner) findViewById(R.id.result_spinner);
-        spinnerSetup();
 
-        animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        resultDeclaration.setVisibility(View.GONE);
+
+        spinnerSetup();
     }
 
-    public void onClickCalculate(View view) {
+    public void onClickButton(View view) {
 
         try {
-            Double input1 = Double.parseDouble(number1.getText().toString());
-            Double input2 = Double.parseDouble(number2.getText().toString());
+            Double input1 = Double.parseDouble(editText1.getText().toString());
+            Double input2 = Double.parseDouble(editText2.getText().toString());
 
             Units.Velocity velocity1 = Units.Velocity.values()[spinner1.getSelectedItemPosition()];
             Units.Velocity velocity2 = Units.Velocity.values()[spinner2.getSelectedItemPosition()];
-            Units.Velocity resultVelocity = Units.Velocity.values()[spinnerResult.getSelectedItemPosition()];
+            Units.Velocity resultVelocity = Units.Velocity.values()[resultSpinner.getSelectedItemPosition()];
 
             Double num1 = Units.Velocity.convert(velocity1, Units.Velocity.MPS, input1);
             Double num2 = Units.Velocity.convert(velocity2, Units.Velocity.MPS, input2);
@@ -65,19 +52,13 @@ public class VelocityAdding extends ActionBarActivity {
             final Double result = (num1 + num2) / (1 + (num1 * num2) / (c * c));
             final Double output = Units.Velocity.convert(Units.Velocity.MPS, resultVelocity, result);
 
-            resultTextView.animate()
-                    .alpha(0f)
-                    .setDuration(animationDuration)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            resultTextView.setText(new DecimalFormat("0.################").format(output));
-                            resultTextView.animate()
-                                    .alpha(1f)
-                                    .setDuration(animationDuration)
-                                    .setListener(null);
-                        }
-                    });
+            fadeOut(resultTextView, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    resultTextView.setText(new DecimalFormat("0.################").format(output));
+                    fadeIn(resultTextView, null);
+                }
+            });
 
         } catch (NumberFormatException e) {
             e.printStackTrace();
@@ -110,15 +91,15 @@ public class VelocityAdding extends ActionBarActivity {
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getWords(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerResult.setAdapter(adapter);
+        resultSpinner.setAdapter(adapter);
 
         spinner1.setOnItemSelectedListener(itemSelectedListener);
         spinner2.setOnItemSelectedListener(itemSelectedListener);
-        spinnerResult.setOnItemSelectedListener(itemSelectedListener);
+        resultSpinner.setOnItemSelectedListener(itemSelectedListener);
 
         spinner1.setSelection(0);
         spinner2.setSelection(0);
-        spinnerResult.setSelection(0);
+        resultSpinner.setSelection(0);
 
     }
 
