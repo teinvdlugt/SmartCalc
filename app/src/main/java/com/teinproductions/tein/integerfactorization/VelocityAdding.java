@@ -3,14 +3,9 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import java.text.DecimalFormat;
 
 public class VelocityAdding extends EditTextActivity {
 
@@ -36,17 +31,23 @@ public class VelocityAdding extends EditTextActivity {
             Units.Velocity velocity2 = Units.Velocity.values()[spinner2.getSelectedItemPosition()];
             Units.Velocity resultVelocity = Units.Velocity.values()[resultSpinner.getSelectedItemPosition()];
 
-            Double num1 = Units.Velocity.convert(velocity1, Units.Velocity.MPS, input1);
-            Double num2 = Units.Velocity.convert(velocity2, Units.Velocity.MPS, input2);
+            Double num1 = velocity1.convertTo(Units.Velocity.MPS, input1);
+            Double num2 = velocity2.convertTo(Units.Velocity.MPS, input2);
 
-            Double c = 299792485.0;
-            final Double result = (num1 + num2) / (1 + (num1 * num2) / (c * c));
-            final Double output = Units.Velocity.convert(Units.Velocity.MPS, resultVelocity, result);
+            final Double C = Units.Velocity.C;
+
+            if (num1 > C || num2 > C) {
+                CustomDialog.tooFast(getFragmentManager());
+                return;
+            }
+
+            final Double result = (num1 + num2) / (1 + (num1 * num2) / (C * C));
+            final Double output = Units.Velocity.MPS.convertTo(resultVelocity, result);
 
             fadeOut(resultTextView, new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    resultTextView.setText(new DecimalFormat("0.################").format(output));
+                    resultTextView.setText(Units.format(output));
                     fadeIn(resultTextView, null);
                 }
             });

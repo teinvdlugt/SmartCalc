@@ -73,7 +73,7 @@ public class LCMActivity extends ActionBarActivity {
                     });
 
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
+            CustomDialog.invalidNumber(getFragmentManager());
 
             // Empty the result text view
             resultTextView.animate()

@@ -95,7 +95,7 @@ public class FactorizationActivity extends ActionBarActivity {
                     });
 
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
+            CustomDialog.invalidNumber(getFragmentManager());
 
             resultFactors.animate()
                     .alpha(0f)

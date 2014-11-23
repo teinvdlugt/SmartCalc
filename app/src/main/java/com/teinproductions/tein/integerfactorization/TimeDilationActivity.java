@@ -4,8 +4,6 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
 
-import java.text.DecimalFormat;
-
 public class TimeDilationActivity extends EditTextActivity {
 
     @Override
@@ -54,29 +52,21 @@ public class TimeDilationActivity extends EditTextActivity {
             Units.Time time2 = Units.Time.values()[(spinner2.getSelectedItemPosition())];
             Units.Time resultTime = Units.Time.values()[(resultSpinner.getSelectedItemPosition())];
 
-            Double num1 = Units.Velocity.convert(velocity1, Units.Velocity.MPS, input1);
-            Double num2 = Units.Time.convert(time2, Units.Time.SEC, input2);
+            Double num1 = velocity1.convertTo(Units.Velocity.MPS, input1);
+            Double num2 = time2.convertTo(Units.Time.SEC, input2);
 
             if (num1 > Units.Velocity.C) {
-                CustomDialog.tooFast().show(getFragmentManager(), "theDialog");
+                CustomDialog.tooFast(getFragmentManager());
                 editText1.setText("");
             }
 
             Double dilated = num2 / (Math.sqrt(1 - ((num1 * num1) / (Units.Velocity.C * Units.Velocity.C))));
 
-            Double result = Units.Time.convert(Units.Time.SEC, resultTime, dilated);
+            Double result = Units.Time.SEC.convertTo(resultTime, dilated);
 
-            if (result == 0) {
-                resultTextView.setText("0");
-            } else if (Math.abs(result) > 0 && Math.abs(result) <= 0.0001) {
-                resultTextView.setText(new DecimalFormat("0.##########E0").format(result));
-            } else if (Math.abs(result) < 1000000) {
-                resultTextView.setText(new DecimalFormat("0.##########").format(result));
-            } else if (Math.abs(result) >= 1000000) {
-                resultTextView.setText(new DecimalFormat("0.##########E0").format(result));
-            }
+            resultTextView.setText(Units.format(result));
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber().show(getFragmentManager(), "theDialog");
+            CustomDialog.invalidNumber(getFragmentManager());
         }
     }
 }

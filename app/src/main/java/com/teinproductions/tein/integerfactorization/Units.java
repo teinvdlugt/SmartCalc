@@ -3,6 +3,8 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.content.Context;
 
+import java.text.DecimalFormat;
+
 public class Units {
 
     public enum Velocity {
@@ -23,8 +25,8 @@ public class Units {
 
         public static Double C = 299792485.0;
 
-        public static Double convert(Velocity original, Velocity converted, Double value) {
-            return value / original.getFactor() * converted.getFactor();
+        public Double convertTo(Velocity converted, Double value) {
+            return value / this.getFactor() * converted.getFactor();
         }
 
         public Double getFactor() {
@@ -83,8 +85,8 @@ public class Units {
         private Double factor;
         private int word, abbreviation;
 
-        public static Double convert(Time original, Time converted, Double value) {
-            return value / original.getFactor() * converted.getFactor();
+        public Double convertTo(Time converted, Double value) {
+            return value / this.getFactor() * converted.getFactor();
         }
 
         public static String[] getWords(Context context) {
@@ -117,6 +119,18 @@ public class Units {
 
         public String getAbbreviation(Context context) {
             return context.getResources().getString(this.abbreviation);
+        }
+    }
+
+    public static String format(Double input) {
+        if (input == 0) {
+            return "0";
+        } else if (Math.abs(input) > 0 && Math.abs(input) <= 0.0001) {
+            return new DecimalFormat("0.##########E0").format(input);
+        } else if (Math.abs(input) < 1000000) {
+            return new DecimalFormat("0.##########").format(input);
+        } else {
+            return new DecimalFormat("0.##########E0").format(input);
         }
     }
 
