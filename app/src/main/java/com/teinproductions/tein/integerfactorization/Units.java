@@ -122,6 +122,62 @@ public class Units {
         }
     }
 
+    public enum Length {
+        MILLIMETER(1000.0, R.string.millimeter, R.string.millimeter_abbr),
+        CENTIMETER(100.0, R.string.centimeter, R.string.centimeter_abbr),
+        METER(1.0, R.string.meter, R.string.meter_abbr),
+        KILOMETER(0.001, R.string.kilometer, R.string.kilometer_abbr),
+        YARD(1.09361, R.string.yard, R.string.yard_abbr),
+        MILE(0.000621371, R.string.mile, R.string.mile_abbr),
+        FOOT(3.28084, R.string.foot, R.string.foot_abbr),
+        INCH(39.3701, R.string.inch, R.string.inch_abbr);
+
+        Length(Double factor, int word, int abbreviation) {
+            this.factor = factor;
+            this.word = word;
+            this.abbreviation = abbreviation;
+        }
+
+        private Double factor;
+        private int word, abbreviation;
+
+        public Double convertTo(Length converted, Double value) {
+            return value / this.getFactor() * converted.getFactor();
+        }
+
+        public static String[] getWords(Context context) {
+            String[] output = new String[Length.values().length];
+
+            for (int i = 0; i < Length.values().length; i++) {
+                output[i] = Length.values()[i].getWord(context);
+            }
+
+            return output;
+        }
+
+        public static String[] getAbbreviations(Context context) {
+            String[] output = new String[Length.values().length];
+
+            for (int i = 0; i < Length.values().length; i++) {
+                output[i] = Length.values()[i].getAbbreviation(context);
+            }
+
+            return output;
+        }
+
+        public Double getFactor() {
+            return this.factor;
+        }
+
+        public String getWord(Context context) {
+            return context.getString(this.word);
+        }
+
+        public String getAbbreviation(Context context) {
+            return context.getString(this.abbreviation);
+        }
+    }
+
     public static String format(Double input) {
         if (input == 0) {
             return "0";

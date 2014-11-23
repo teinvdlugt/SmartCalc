@@ -24,10 +24,10 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         fragManager = getSupportFragmentManager();
         setContentView(R.layout.activity_menu);
 
-        mainList = new String[]{getString(R.string.maths),getString(R.string.physics)};
+        mainList = new String[]{getString(R.string.maths), getString(R.string.physics)};
         mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
         physicsList = new String[]{getString(R.string.special_relativity)};
-        specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation)};
+        specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -100,11 +100,11 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 case 1:
                     makeIntent(TimeDilationActivity.class);
                     break;
+                case 2:
+                    makeIntent(LengthContractionActivity.class);
                 default:
                     break;
             }
         }
-
-
     }
 }

@@ -39,6 +39,12 @@
         </activity>
 
         <activity
+            android:name=".LengthContractionActivity"
+            android:label="@string/length_contraction"
+            android:windowSoftInputMode="stateVisible">
+        </activity>
+
+        <activity
             android:name=".MenuActivity"
             android:label="@string/menu">
             <intent-filter>
