@@ -4,7 +4,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -41,6 +43,18 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
         doYourStuff();
 
+    }
+
+    public void clickButtonWhenFilledEditText(EditText editText) {
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    onClickButton(null);
+                    return true;
+                } return false;
+            }
+        });
     }
 
     protected abstract void doYourStuff();

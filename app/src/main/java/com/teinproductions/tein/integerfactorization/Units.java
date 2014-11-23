@@ -21,6 +21,8 @@ public class Units {
         private Double factor;
         private Integer word, abbreviation;
 
+        public static Double C = 299792485.0;
+
         public static Double convert(Velocity original, Velocity converted, Double value) {
             return value / original.getFactor() * converted.getFactor();
         }

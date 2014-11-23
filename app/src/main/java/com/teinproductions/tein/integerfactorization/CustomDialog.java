@@ -38,7 +38,7 @@ public class CustomDialog extends DialogFragment {
 
     }
 
-    public static CustomDialog newInstance(int title, int message){
+    public static CustomDialog newInstance(int title, int message) {
         CustomDialog theDialog = new CustomDialog();
         Bundle args = new Bundle();
         args.putInt(MESSAGE, message);
@@ -48,8 +48,12 @@ public class CustomDialog extends DialogFragment {
         return theDialog;
     }
 
-    public static CustomDialog invalidNumber(){
+    public static CustomDialog invalidNumber() {
         return CustomDialog.newInstance(R.string.invalid_number_title, R.string.invalid_number_message);
+    }
+
+    public static CustomDialog tooFast() {
+        return CustomDialog.newInstance(R.string.faster_than_light, R.string.faster_than_light_message);
     }
 
 

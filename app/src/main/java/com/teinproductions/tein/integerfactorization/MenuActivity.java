@@ -27,7 +27,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         mainList = new String[]{getString(R.string.maths),getString(R.string.physics)};
         mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
         physicsList = new String[]{getString(R.string.special_relativity)};
-        specialRelativityList = new String[]{getString(R.string.adding_velocities)};
+        specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -96,6 +96,9 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
             switch (position) {
                 case 0:
                     makeIntent(VelocityAdding.class);
+                    break;
+                case 1:
+                    makeIntent(TimeDilationActivity.class);
                     break;
                 default:
                     break;

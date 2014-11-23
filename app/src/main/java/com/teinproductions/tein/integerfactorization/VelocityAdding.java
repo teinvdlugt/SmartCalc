@@ -19,16 +19,7 @@ public class VelocityAdding extends EditTextActivity {
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-        editText2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    onClickCalculate(null);
-                    return true;
-                }
-                return false;
-            }
-        });
+        clickButtonWhenFilledEditText(editText2);
 
         resultDeclaration.setVisibility(View.GONE);
 

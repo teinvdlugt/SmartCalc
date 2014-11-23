@@ -32,7 +32,7 @@
     <string name="knots">Knots</string>
     <string name="knots_abbr">kn</string>
     <string name="contracted_length">Contracted Length: </string>
-    <string name="propper_time">Propper Time</string>
+    <string name="proper_time">Proper Time</string>
     <string name="nanoseconds">Nanoseconds</string>
     <string name="nanoseconds_abbr">ns</string>
     <string name="microsecond">Microseconds</string>
@@ -58,5 +58,9 @@
     <string name="century">Centuries</string>
     <string name="century_abbr">cent</string>
     <string name="dilated_time">Dilated Time</string>
+    <string name="velocity">Velocity</string>
+    <string name="time_dilation">Time Dilation</string>
+    <string name="faster_than_light">Faster than light</string>
+    <string name="faster_than_light_message">Don\'t be silly! You can\'t go that fast!</string>
 
 </resources>
