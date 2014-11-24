@@ -4,91 +4,54 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.KeyEvent;
+import android.text.InputType;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
-public class LCMActivity extends ActionBarActivity {
+public class LCMActivity extends EditTextActivity {
 
-    private EditText number1, number2;
-    private ProgressBar progressBar;
-    private TextView resultTextView;
     private Long num1, num2;
 
-    int animationDuration;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gcf_or_lcm);
+    protected void doYourStuff() {
+        editText1.setHint(getString(R.string.number_1));
+        editText2.setHint(getString(R.string.number_2));
+        editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
+        editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-        number1 = (EditText) findViewById(R.id.number_1);
-        number2 = (EditText) findViewById(R.id.number_2);
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        resultTextView = (TextView) findViewById(R.id.result_gcf_or_lcm);
+        spinner1.setVisibility(View.GONE);
+        spinner2.setVisibility(View.GONE);
+        resultSpinner.setVisibility(View.GONE);
 
-        animationDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
-
-        number2.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    onClickCalculate(null);
-                    return true;
-                } return false;
-            }
-        });
-
-        progressBar.setVisibility(View.GONE);
-
+        clickButtonWhenFilledEditText(editText2);
+        saveResultTextViewText = true;
     }
 
-    public void onClickCalculate(View view) {
+    public void onClickButton(View view) {
 
         try {
-            num1 = Long.parseLong(number1.getText().toString());
-            num2 = Long.parseLong(number2.getText().toString());
+            num1 = Long.parseLong(editText1.getText().toString());
+            num2 = Long.parseLong(editText2.getText().toString());
 
-            progressBar.setAlpha(0f);
-            progressBar.setVisibility(View.VISIBLE);
-            progressBar.animate()
-                    .alpha(1f)
-                    .setDuration(animationDuration)
-                    .setListener(null);
+            fadeIn(progressBar, null);
 
-            resultTextView.animate()
-                    .alpha(0f)
-                    .setDuration(animationDuration)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            resultTextView.setVisibility(View.GONE);
-                            new LCMCreator().execute();
-                        }
-                    });
+            fadeOut(resultTextView, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    resultTextView.setVisibility(View.GONE);
+                    new LCMCreator().execute();
+                }
+            });
 
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber(getFragmentManager());
 
-            // Empty the result text view
-            resultTextView.animate()
-                    .alpha(0f)
-                    .setDuration(animationDuration)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            resultTextView.setText("");
-                            resultTextView.animate()
-                                    .alpha(1f)
-                                    .setDuration(animationDuration)
-                                    .setListener(null);
-                        }
-                    });
+            fadeOut(resultTextView, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    resultTextView.setText("");
+                    fadeIn(resultTextView, null);
+                }
+            });
         }
 
     }
@@ -113,41 +76,13 @@ public class LCMActivity extends ActionBarActivity {
         protected void onPostExecute(Void aVoid) {
 
             resultTextView.setText(result.toString());
-            resultTextView.setVisibility(View.VISIBLE);
-            resultTextView.animate()
-                    .alpha(1f)
-                    .setDuration(animationDuration)
-                    .setListener(null);
-            progressBar.animate()
-                    .alpha(0f)
-                    .setDuration(animationDuration)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            progressBar.setVisibility(View.GONE);
-                        }
-                    });
-
+            fadeIn(resultTextView, null);
+            fadeOut(progressBar, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
         }
     }
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("RESULT", resultTextView.getText().toString());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        try {
-            resultTextView.setText(savedInstanceState.getString("RESULT"));
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
