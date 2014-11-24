@@ -4,7 +4,6 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 
@@ -24,6 +23,7 @@ public class GCFActivity extends EditTextActivity {
         resultSpinner.setVisibility(View.GONE);
 
         clickButtonWhenFilledEditText(editText2);
+        saveResultTextViewText = true;
     }
 
     public void onClickButton(View view) {
@@ -82,25 +82,6 @@ public class GCFActivity extends EditTextActivity {
                     progressBar.setVisibility(View.GONE);
                 }
             });
-        }
-    }
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString("RESULT", resultTextView.getText().toString());
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        try {
-            resultTextView.setText(savedInstanceState.getString("RESULT"));
-        } catch (NullPointerException e) {
-            e.printStackTrace();
         }
     }
 }

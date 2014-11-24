@@ -14,11 +14,12 @@ public class VelocityAdding extends EditTextActivity {
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
 
-        clickButtonWhenFilledEditText(editText2);
-
         resultDeclaration.setVisibility(View.GONE);
 
         spinnerSetup();
+
+        clickButtonWhenFilledEditText(editText2);
+        saveResultTextViewText = true;
     }
 
     public void onClickButton(View view) {

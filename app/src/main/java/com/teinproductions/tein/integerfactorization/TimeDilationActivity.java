@@ -57,6 +57,7 @@ public class TimeDilationActivity extends EditTextActivity {
         resultSpinner.setOnItemSelectedListener(itemSelectedListener);
 
         clickButtonWhenFilledEditText(editText2);
+        saveResultTextViewText = true;
     }
 
     @Override

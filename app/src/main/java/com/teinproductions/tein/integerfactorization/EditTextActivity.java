@@ -22,6 +22,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
     protected Button button;
 
     protected Integer animDuration;
+    protected Boolean saveResultTextViewText = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,4 +83,22 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
     protected abstract void onClickButton(View view);
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (saveResultTextViewText) {
+            outState.putString("RESULT", resultTextView.getText().toString());
+        }
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            resultTextView.setText(savedInstanceState.getString("RESULT"));
+        } catch (NullPointerException ignored) {}
+    }
 }
