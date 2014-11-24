@@ -2,9 +2,11 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
@@ -42,8 +44,20 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
         animDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         doYourStuff();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void clickButtonWhenFilledEditText(EditText editText) {
@@ -53,7 +67,8 @@ public abstract class EditTextActivity extends ActionBarActivity {
                 if (actionId == EditorInfo.IME_ACTION_GO) {
                     onClickButton(null);
                     return true;
-                } return false;
+                }
+                return false;
             }
         });
     }
@@ -99,6 +114,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
         try {
             resultTextView.setText(savedInstanceState.getString("RESULT"));
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 }

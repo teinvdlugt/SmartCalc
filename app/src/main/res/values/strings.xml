@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Integer Factorization</string>
+    <string name="app_name">SmartCalc</string>
     <string name="number_to_factorize_hint">Number to Factorize</string>
     <string name="factorize_button">Factorize</string>
     <string name="factorize_result_declaration">Integer factors:</string>
