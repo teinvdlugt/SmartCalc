@@ -54,14 +54,14 @@
     <string name="years">Years</string>
     <string name="years_abbr">yr</string>
     <string name="decade">Decades</string>
-    <string name="decade_abbr">dec</string>
+    <string name="decade_abbr">deci</string>
     <string name="century">Centuries</string>
     <string name="century_abbr">cent</string>
-    <string name="dilated_time">Dilated Time</string>
+    <string name="dilated_time">Dilated Time:</string>
     <string name="velocity">Velocity</string>
     <string name="time_dilation">Time Dilation</string>
     <string name="faster_than_light">Faster than light</string>
-    <string name="faster_than_light_message">Don\'t be silly! You can\'t go that fast!</string>
+    <string name="faster_than_light_message">You\'re kidding, right?</string>
     <string name="proper_length">Proper Length</string>
     <string name="kilometer">Kilometers</string>
     <string name="kilometer_abbr">km</string>
@@ -70,7 +70,7 @@
     <string name="millimeter">Millimeters</string>
     <string name="millimeter_abbr">mm</string>
     <string name="foot">Feet</string>
-    <string name="foot_abbr">ft.</string>
+    <string name="foot_abbr">ft</string>
     <string name="mile">Miles</string>
     <string name="mile_abbr">mi.</string>
     <string name="yard">Yards</string>
@@ -78,7 +78,7 @@
     <string name="inch">Inches</string>
     <string name="inch_abbr">in</string>
     <string name="nautical_mile">Nautical Miles</string>
-    <string name="nautical_mile_abbr">n.m.</string>
+    <string name="nautical_mile_abbr">NM</string>
     <string name="meter">Meters</string>
     <string name="meter_abbr">m</string>
     <string name="length_contraction">Length Contraction</string>

@@ -13,9 +13,10 @@ public class VelocityAdding extends EditTextActivity {
     public void doYourStuff() {
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
-
+        editText1.setHint(getString(R.string.velocity1));
+        editText2.setHint(getString(R.string.velocity2));
         resultDeclaration.setVisibility(View.GONE);
-
+        button.setText(getString(R.string.add_button_text));
         spinnerSetup();
 
         clickButtonWhenFilledEditText(editText2);
