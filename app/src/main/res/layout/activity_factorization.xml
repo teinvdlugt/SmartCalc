@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/factorize_button"
-        android:text="@string/result_text_view"
+        android:text="@string/factorize_result_declaration"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
 
