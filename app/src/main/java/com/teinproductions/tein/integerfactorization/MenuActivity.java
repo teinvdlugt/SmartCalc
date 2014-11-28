@@ -14,7 +14,8 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
     private String[] mainList;
     private String[] mathsList;
     private String[] physicsList;
-    private String[] specialRelativityList;
+        private String[] specialRelativityList;
+    private String[] chemistryList;
 
     private FragmentManager fragManager;
 
@@ -24,10 +25,11 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         fragManager = getSupportFragmentManager();
         setContentView(R.layout.activity_menu);
 
-        mainList = new String[]{getString(R.string.maths), getString(R.string.physics)};
+        mainList = new String[]{getString(R.string.maths), getString(R.string.physics), getString(R.string.chemistry)};
         mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
         physicsList = new String[]{getString(R.string.special_relativity)};
-        specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
+            specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
+        chemistryList = new String[]{getString(R.string.elements)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -68,6 +70,9 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 case 1:
                     showNewMenu(physicsList);
                     break;
+                case 2:
+                    showNewMenu(chemistryList);
+                    break;
                 default:
                     break;
             }
@@ -102,6 +107,14 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     break;
                 case 2:
                     makeIntent(LengthContractionActivity.class);
+                default:
+                    break;
+            }
+        } else if (Arrays.equals(strings, chemistryList)) {
+            switch (position) {
+                case 0 :
+                    makeIntent(ElementPagerActivity.class);
+                    break;
                 default:
                     break;
             }

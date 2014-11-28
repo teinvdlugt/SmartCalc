@@ -18,4 +18,10 @@
         <item name="android:textColor">@android:color/white</item>
     </style>
 
+    <style name="molu_theme" parent="Theme.AppCompat">
+        <item name="android:colorPrimary">#ffff0f0f</item>
+        <item name="android:colorPrimaryDark">#ffcc0000</item>
+        <item name="android:colorAccent">#fff7ff41</item>
+    </style>
+
 </resources>
