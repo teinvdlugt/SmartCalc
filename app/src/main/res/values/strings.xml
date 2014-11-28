@@ -84,32 +84,24 @@
     <string name="length_contraction">Length Contraction</string>
 
     <!-- Molu -->
-    <string name="app_name">Molu</string>
     <string name="mol_text_view">Mol:</string>
     <string name="mass_text_view">Mass in u:</string>
-    <string name="edit_text_1">Element</string>
-    <string name="gram_text_view">Mass in g:</string>
-    <string name="calculate_button">Calculate</string>
+    <string name="mass_in_g">Mass in g:</string>
+    <string name="particles">Particles:</string>
+    <string name="element">Element</string>
+    <string name="elements">Elements</string>
+    <string name="error">Error</string>
     <string name="no_element_given_dialog_fragment_message">Type your element in the \'element\' box</string>
     <string name="no_element_given_dialog_fragment_title">No Element</string>
     <string name="not_an_element_dialog_fragment_message">This is not an element</string>
-    <string name="not_an_element_dialog_fragment_title">Error</string>
-    <string name="ok_positive_button_dialog">OK</string> <!-- TODO replace with android.R.strings.ok -->
-    <string name="too_many_arguments_title">Error</string>
     <string name="too_many_arguments_message">Fill only one of the unit boxes</string>
-    <string name="element_action_bar_string_title">Elements</string>
-    <string name="Element_info_activity_label">Elements</string>
-    <string name="particles_text_view">Particles:</string>
-    <string name="invalid_number_dialog_title">Invalid number</string>
-    <string name="invalid_number_dialog_message">Please enter a valid number</string>
     <string name="fragment_element_atomic_mass">Atomic Mass:</string>
     <string name="fragment_element_abbreviation">Abbreviation:</string>
     <string name="fragment_element_atomic_number">Atomic Number:</string>
-    <string name="action_bar_pager_show_list">List</string>
-    <string name="try_the_new_user_interface">Try the new User Interface!</string>
-    <string name="year_of_disc_unknown">Unknown</string>
-    <string name="before_christ">B.C.</string>
     <string name="year_of_discovery_text">Year of Discovery:</string>
+    <string name="action_bar_pager_show_list">List</string>
+    <string name="unknown">Unknown</string>
+    <string name="before_christ">B.C.</string>
 
     <!-- All Elements -->
     <string name="hydrogen">Hydrogen</string>

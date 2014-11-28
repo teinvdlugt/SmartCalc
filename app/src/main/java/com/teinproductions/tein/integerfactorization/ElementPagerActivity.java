@@ -1,6 +1,5 @@
 package com.teinproductions.tein.integerfactorization;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -50,10 +49,10 @@ public class ElementPagerActivity extends ActionBarActivity
             public void onPageSelected(int position) {
                 invalidateOptionsMenu();
                 if(position == 0){
-                    actionBar.setTitle(R.string.Element_info_activity_label);
+                    actionBar.setTitle(R.string.elements);
                     actionBar.selectTab(null);
                 } else {
-                    actionBar.setTitle(Element.values()[position - 1].getName());
+                    actionBar.setTitle(Element.values()[position - 1].getName(ElementPagerActivity.this));
                     actionBar.selectTab(actionBar.getTabAt(position - 1));
                 }
             }
@@ -65,7 +64,7 @@ public class ElementPagerActivity extends ActionBarActivity
         });
 
 
-        actionBar = actionBar;
+        actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         ActionBar.TabListener tabListener = new ActionBar.TabListener(){
@@ -91,20 +90,16 @@ public class ElementPagerActivity extends ActionBarActivity
         for (int i = 0; i < Element.values().length; i++){
         actionBar.addTab(
                 actionBar.newTab()
-                .setText(Element.values()[i].getName())
+                .setText(Element.values()[i].getName(this))
                 .setTabListener(tabListener));
         }
 
         theViewPager.setCurrentItem(0);
         actionBar.selectTab(null);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         setContentView(theViewPager);
-
-        Intent intent = getIntent();
-        if()
-
     }
-
 
 
     @Override
@@ -116,13 +111,13 @@ public class ElementPagerActivity extends ActionBarActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.pager_activity_show_list_action){
-            theViewPager.setCurrentItem(0, true);
-            return true;
+        switch(item.getItemId()){
+            case R.id.pager_activity_show_list_action:
+                theViewPager.setCurrentItem(0, true);
+                return true;
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

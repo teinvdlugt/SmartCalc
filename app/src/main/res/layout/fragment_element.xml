@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_element_table_layout"
         android:id="@+id/fragment_element_container"
-        android:name="com.teinproductions.tein.molu.CalculateFragment"
+        android:name="com.teinproductions.tein.integerfactorization.CalculateFragment"
         tools:layout="@layout/calculate_fragment">
 
     </fragment>

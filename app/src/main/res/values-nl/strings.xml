@@ -84,21 +84,17 @@
     <string name="length_contraction">Lengtecontractie</string>
 
     <!-- Molu -->
-    <string name="app_name">Molu</string>
     <string name="mol_text_view">Mol:</string>
     <string name="mass_text_view">Massa in u:</string>
-    <string name="edit_text_1">Element</string>
-    <string name="gram_text_view">Massa in g:</string>
-    <string name="calculate_button">Bereken</string>
+    <string name="element">Element</string>
+    <string name="mass_in_g">Massa in g:</string>
     <string name="no_element_given_dialog_fragment_message">Typ je element in de \'element\' tekstbox.</string>
     <string name="no_element_given_dialog_fragment_title">Geen Element</string>
     <string name="not_an_element_dialog_fragment_message">Dit is geen element</string>
-    <string name="not_an_element_dialog_fragment_title">Error</string>
     <string name="ok_positive_button_dialog">OK</string>
-    <string name="too_many_arguments_title">Error</string>
-    <string name="element_action_bar_string_title">Elementen</string>
-    <string name="Element_info_activity_label">Elementen</string>
-    <string name="particles_text_view">Deeltjes:</string>
+    <string name="error">Error</string>
+    <string name="elements">Elementen</string>
+    <string name="particles">Deeltjes:</string>
     <string name="action_bar_pager_show_list">Lijst</string>
     <string name="fragment_element_abbreviation">Afkorting:</string>
     <string name="fragment_element_atomic_mass">Atoommassa:</string>
@@ -107,7 +103,7 @@
     <string name="invalid_number_dialog_title">Ongeldig getal</string>
     <string name="too_many_arguments_message">Vul slechts één van de drie tekstvelden</string>
     <string name="try_the_new_user_interface">Probeer de nieuwe versie!</string>
-    <string name="year_of_disc_unknown">Onbekend</string>
+    <string name="unknown">Onbekend</string>
     <string name="before_christ">v.Chr.</string>
     <string name="year_of_discovery_text">Ontdekking:</string>
 

@@ -71,7 +71,7 @@ public class CustomDialog extends DialogFragment {
 
         CustomDialog
                 .newInstance(
-                        R.string.not_an_element_dialog_fragment_title,
+                        R.string.error,
                         R.string.not_an_element_dialog_fragment_message)
                 .show(fragManager, "theDialog");
 

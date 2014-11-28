@@ -34,7 +34,7 @@ public class ElementFragment extends Fragment {
         atomicMassTextView.setText(new DecimalFormat().format(element.getMass()) + "u");
         abbreviationTextView.setText(element.getAbbreviation());
         atomicNumberTextView.setText(new DecimalFormat().format(element.getAtomicNumber()));
-        yearOfDiscTextView.setText(element.getDiscYearString());
+        yearOfDiscTextView.setText(element.getDiscYearString(getActivity()));
 
         return theView;
     }
