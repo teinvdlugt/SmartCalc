@@ -57,5 +57,23 @@ public class CustomDialog extends DialogFragment {
         CustomDialog.newInstance(R.string.faster_than_light, R.string.faster_than_light_message).show(fragManager, "tooFastDialog");
     }
 
+    public static void elementEmpty(FragmentManager fragManager) {
 
+        CustomDialog
+                .newInstance(
+                        R.string.no_element_given_dialog_fragment_title,
+                        R.string.no_element_given_dialog_fragment_message)
+                .show(fragManager, "theDialog");
+
+    }
+
+    public static void noElement(FragmentManager fragManager) {
+
+        CustomDialog
+                .newInstance(
+                        R.string.not_an_element_dialog_fragment_title,
+                        R.string.not_an_element_dialog_fragment_message)
+                .show(fragManager, "theDialog");
+
+    }
 }

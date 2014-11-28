@@ -3,4 +3,15 @@
 
     <color name="menu_text_color">@android:color/black</color>
 
+    <color name="blue_text">@android:color/darker_gray</color>
+    <color name="green_text">@android:color/darker_gray</color>
+
+    <color name="copper">#ffd99058</color>
+    <color name="gold">#ffd7a500</color>
+    <color name="gray">@android:color/darker_gray</color>
+    <color name="red">#ffeb140f</color>
+    <color name="silver">#ff969696</color>
+    <color name="slate_gray">#ff708090</color>
+    <color name="yellow">#ffb1b100</color>
+
 </resources>

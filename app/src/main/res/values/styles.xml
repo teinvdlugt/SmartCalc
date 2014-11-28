@@ -7,4 +7,15 @@
 
     <style name="progress_bar_style" parent="@android:style/Widget.ProgressBar" />
 
+    <style name="text_view_style">\
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="number_edit_style" parent="text_view_style">
+        <item name="android:inputType">numberDecimal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
 </resources>
