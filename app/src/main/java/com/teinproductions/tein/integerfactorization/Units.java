@@ -178,6 +178,64 @@ public class Units {
         }
     }
 
+    public enum Mass {
+        MILLIGRAM(1000000.0, R.string.milligram, R.string.milligram_abbr),
+        GRAM(1000.0, R.string.gram, R.string.gram_abbr),
+        KILOGRAMS(1.0, R.string.kilogram, R.string.kilogram_abbr),
+        TONNE(0.001, R.string.tonne, R.string.tonne_abbr),
+        LONG_TON(0.000984207, R.string.long_ton, R.string.long_ton_abbr),
+        SHORT_TON(0.00110231, R.string.short_ton, R.string.short_ton_abbr),
+        STONE(0.157473, R.string.stone, R.string.stone_abbr),
+        POUND(2.20462, R.string.pound, R.string.pound_abbr),
+        OUNCE(35.274, R.string.ounce, R.string.ounce_abbr);
+
+        Double factor;
+        int word, abbreviation;
+
+        Mass(Double factor, int word, int abbreviation) {
+            this.factor = factor;
+            this.word = word;
+            this.abbreviation = abbreviation;
+        }
+
+        public Double convertTo(Mass converted, Double value) {
+            return value / this.factor * converted.getFactor();
+        }
+
+        public static String[] getWords(Context context) {
+            String[] output = new String[Mass.values().length];
+
+            for (int i = 0; i < Mass.values().length; i++) {
+                output[i] = Mass.values()[i].getWord(context);
+            }
+
+            return output;
+        }
+
+        public static String[] getAbbreviations(Context context) {
+            String[] output = new String[Mass.values().length];
+
+            for (int i = 0; i < Mass.values().length; i++) {
+                output[i] = Mass.values()[i].getAbbreviation(context);
+            }
+
+            return output;
+        }
+
+        public Double getFactor() {
+            return factor;
+        }
+
+        public String getWord(Context context) {
+            return context.getString(word);
+        }
+
+        public String getAbbreviation(Context context) {
+            return context.getString(abbreviation);
+        }
+
+    }
+
     public static String format(Double input) {
         if (input == 0) {
             return "0";

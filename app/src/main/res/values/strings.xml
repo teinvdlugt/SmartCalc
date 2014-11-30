@@ -223,5 +223,26 @@
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
     <string name="chemistry">Chemistry</string>
+    <string name="enter_your_weight">Enter your weight</string>
+    <string name="enter_your_length">Enter your length</string>
+    <string name="your_bmi_is">Your BMI is:</string>
+    <string name="kilogram">Kilograms</string>
+    <string name="kilogram_abbr">kg</string>
+    <string name="tonne">Tonnes</string>
+    <string name="tonne_abbr">t</string>
+    <string name="gram">Grams</string>
+    <string name="gram_abbr">g</string>
+    <string name="milligram">Milligrams</string>
+    <string name="milligram_abbr">mg</string>
+    <string name="long_ton">Long tons</string>
+    <string name="long_ton_abbr">LT</string>
+    <string name="short_ton">Short tons</string>
+    <string name="short_ton_abbr">ST</string>
+    <string name="stone">Stones</string>
+    <string name="stone_abbr">st</string>
+    <string name="pound">Pounds</string>
+    <string name="pound_abbr">lb</string>
+    <string name="ounce">Ounces</string>
+    <string name="ounce_abbr">oz</string>
 
 </resources>
