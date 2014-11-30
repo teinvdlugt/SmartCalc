@@ -244,5 +244,7 @@
     <string name="pound_abbr">lb</string>
     <string name="ounce">Ounces</string>
     <string name="ounce_abbr">oz</string>
+    <string name="bmi_title">Calculate Your BMI</string>
+    <string name="biology">Biology</string>
 
 </resources>

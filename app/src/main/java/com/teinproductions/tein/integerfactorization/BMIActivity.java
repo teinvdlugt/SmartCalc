@@ -41,7 +41,7 @@ public class BMIActivity extends EditTextActivity {
             Double BMI = weight / length / length;
 
             resultTextView.setText(Units.format(BMI));
-
+            
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber(getFragmentManager());
         }

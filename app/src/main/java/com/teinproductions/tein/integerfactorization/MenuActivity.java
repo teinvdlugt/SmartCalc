@@ -16,6 +16,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
     private String[] physicsList;
         private String[] specialRelativityList;
     private String[] chemistryList;
+    private String[] biologyList;
 
     private FragmentManager fragManager;
 
@@ -25,11 +26,12 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         fragManager = getSupportFragmentManager();
         setContentView(R.layout.activity_menu);
 
-        mainList = new String[]{getString(R.string.maths), getString(R.string.physics), getString(R.string.chemistry)};
+        mainList = new String[]{getString(R.string.maths), getString(R.string.physics), getString(R.string.chemistry), getString(R.string.biology)};
         mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
         physicsList = new String[]{getString(R.string.special_relativity)};
             specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
         chemistryList = new String[]{getString(R.string.elements)};
+        biologyList = new String[]{getString(R.string.bmi_title)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -73,6 +75,8 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 case 2:
                     showNewMenu(chemistryList);
                     break;
+                case 3:
+                    showNewMenu(biologyList);
                 default:
                     break;
             }
@@ -114,6 +118,14 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
             switch (position) {
                 case 0 :
                     makeIntent(ElementPagerActivity.class);
+                    break;
+                default:
+                    break;
+            }
+        } else if (Arrays.equals(strings, biologyList)) {
+            switch (position) {
+                case 0 :
+                    makeIntent(BMIActivity.class);
                     break;
                 default:
                     break;
