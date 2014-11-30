@@ -19,7 +19,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
     protected EditText editText1, editText2;
     protected Spinner spinner1, spinner2, resultSpinner;
-    protected TextView resultTextView, resultDeclaration;
+    protected TextView resultTextView, resultDeclaration, resultExplanation;
     protected ProgressBar progressBar;
     protected Button button;
 
@@ -38,6 +38,8 @@ public abstract class EditTextActivity extends ActionBarActivity {
         resultSpinner = (Spinner) findViewById(R.id.result_spinner);                    // Needs Adapter
         resultTextView = (TextView) findViewById(R.id.result_text_view);
         resultDeclaration = (TextView) findViewById(R.id.result_declaration_text_view); // Needs text
+        resultExplanation = (TextView) findViewById(R.id.result_explanation);           // Text depends on result, hidden by default
+        resultExplanation.setVisibility(View.GONE);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
         button = (Button) findViewById(R.id.calculate_button);                          // Standard text is "Calculate"
@@ -104,6 +106,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
         if (saveResultTextViewText) {
             outState.putString("RESULT", resultTextView.getText().toString());
+            outState.putString("RESULT_EXPLANATION", resultExplanation.getText().toString());
         }
 
     }
@@ -114,6 +117,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
         try {
             resultTextView.setText(savedInstanceState.getString("RESULT"));
+            resultExplanation.setText(savedInstanceState.getString("RESULT_EXPLANATION"));
         } catch (NullPointerException ignored) {
         }
     }

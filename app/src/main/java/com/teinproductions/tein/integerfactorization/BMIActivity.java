@@ -26,6 +26,7 @@ public class BMIActivity extends EditTextActivity {
 
         resultDeclaration.setText(getString(R.string.your_bmi_is));
         resultSpinner.setVisibility(View.GONE);
+        resultExplanation.setVisibility(View.VISIBLE);
 
         saveResultTextViewText = true;
 
@@ -71,7 +72,7 @@ public class BMIActivity extends EditTextActivity {
                 return BMIState.MODERATELY_OBESE;
             } else if (BMI < 40) {
                 return BMIState.SEVERELY_OBESE;
-            } else if (BMI >= 40) {
+            } else {
                 return BMIState.VERY_SEVERELY_OBESE;
             }
         }
@@ -97,6 +98,13 @@ public class BMIActivity extends EditTextActivity {
                 public void onAnimationEnd(Animator animation) {
                     resultTextView.setText(new DecimalFormat("0.##").format(BMI));
                     fadeIn(resultTextView, null);
+                    fadeOut(resultExplanation, new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            resultExplanation.setText(BMIState.getBMIState(BMI).getText(BMIActivity.this));
+                            fadeIn(resultExplanation, null);
+                        }
+                    });
                 }
             });
 
