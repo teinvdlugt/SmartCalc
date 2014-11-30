@@ -14,4 +14,12 @@
     <color name="slate_gray">#ff708090</color>
     <color name="yellow">#ffb1b100</color>
 
+    <color name="very_severely_underweight">#ff9999ff</color>
+    <color name="severely_underweight">#ffff99ff</color>
+    <color name="underweight">#ffffcce5</color>
+    <color name="good_weight">#ff64ff65</color>
+    <color name="overweight">#ffff9999</color>
+    <color name="moderately_obese">#ffff9999</color>
+    <color name="severely_obese">#ffff6666</color>
+    <color name="very_severely_obese">#ffff0000</color>
 </resources>

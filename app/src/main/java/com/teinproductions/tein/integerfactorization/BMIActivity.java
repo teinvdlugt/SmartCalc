@@ -2,6 +2,7 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -27,6 +28,53 @@ public class BMIActivity extends EditTextActivity {
         resultSpinner.setVisibility(View.GONE);
 
         saveResultTextViewText = true;
+
+    }
+
+    public enum BMIState {
+        VERY_SEVERELY_UNDERWEIGHT(R.string.very_severely_underweight, R.color.very_severely_underweight),
+        SEVERELY_UNDERWEIGHT(R.string.severely_underweight, R.color.severely_underweight),
+        UNDERWEIGHT(R.string.underweight, R.color.underweight),
+        GOOD_WEIGHT(R.string.excellent_good_weight, R.color.good_weight),
+        OVERWEIGHT(R.string.overweight, R.color.overweight),
+        MODERATELY_OBESE(R.string.moderately_obese, R.color.moderately_obese),
+        SEVERELY_OBESE(R.string.severely_obese, R.color.severely_obese),
+        VERY_SEVERELY_OBESE(R.string.very_severely_obese, R.color.very_severely_obese);
+
+        BMIState(int text, int color) {
+            this.text = text;
+            this.color = color;
+        }
+
+        int text, color;
+
+        public String getText(Context context) {
+            return context.getString(text);
+        }
+
+        public int getColor() {
+            return color;
+        }
+
+        public static BMIState getBMIState(Double BMI) {
+            if (BMI < 15) {
+                return BMIState.VERY_SEVERELY_UNDERWEIGHT;
+            } else if (BMI < 16) {
+                return BMIState.SEVERELY_UNDERWEIGHT;
+            } else if (BMI < 18.5) {
+                return BMIState.UNDERWEIGHT;
+            } else if (BMI < 25) {
+                return BMIState.GOOD_WEIGHT;
+            } else if (BMI < 30) {
+                return BMIState.OVERWEIGHT;
+            } else if (BMI < 35) {
+                return BMIState.MODERATELY_OBESE;
+            } else if (BMI < 40) {
+                return BMIState.SEVERELY_OBESE;
+            } else if (BMI >= 40) {
+                return BMIState.VERY_SEVERELY_OBESE;
+            }
+        }
 
     }
 
