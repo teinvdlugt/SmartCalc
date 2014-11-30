@@ -1,8 +1,12 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
+import java.text.DecimalFormat;
 
 public class BMIActivity extends EditTextActivity {
 
@@ -38,10 +42,16 @@ public class BMIActivity extends EditTextActivity {
             Double weight = massUnit.convertTo(Units.Mass.KILOGRAMS, weightNumber);
             Double length = lengthUnit.convertTo(Units.Length.METER, lengthNumber);
 
-            Double BMI = weight / length / length;
+            final Double BMI = weight / length / length;
 
-            resultTextView.setText(Units.format(BMI));
-            
+            fadeOut(resultTextView, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    resultTextView.setText(new DecimalFormat("0.##").format(BMI));
+                    fadeIn(resultTextView, null);
+                }
+            });
+
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber(getFragmentManager());
         }
