@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
@@ -122,16 +123,17 @@ public class BMIActivity extends EditTextActivity {
     }
 
     private void animateBackgroundColor(BMIState state) {
-        Integer colorFrom;
-        colorFrom = backgroundColor;
-        if (colorFrom == null) {
+        final Integer colorFrom;
+        if (backgroundColor == null) {
             colorFrom = getResources().getColor(android.R.color.white);
+        } else {
+            colorFrom = backgroundColor;
         }
-        Integer colorTo = getResources().getColor(state.getColor());
+        final Integer colorTo = getResources().getColor(state.getColor());
 
         backgroundColor = colorTo;
 
-        ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        final ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
         animator.setDuration(animDuration);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -139,6 +141,22 @@ public class BMIActivity extends EditTextActivity {
                 rootLayout.setBackgroundColor((Integer) animation.getAnimatedValue());
             }
         });
+
+        animator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                final ValueAnimator actionBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+                actionBarAnimator.setDuration(animDuration);
+                actionBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable((Integer) animation.getAnimatedValue()));
+                    }
+                });
+                actionBarAnimator.start();
+            }
+        });
+
         animator.start();
 
     }
@@ -174,7 +192,9 @@ public class BMIActivity extends EditTextActivity {
 
         try {
             backgroundColor = savedInstanceState.getInt("BACKGROUND_COLOR");
+
             rootLayout.setBackgroundColor(backgroundColor);
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(backgroundColor));
         } catch (NullPointerException ignored) {
         }
 
