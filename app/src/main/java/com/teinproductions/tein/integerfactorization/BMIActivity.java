@@ -2,6 +2,8 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.ArgbEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
@@ -107,8 +109,7 @@ public class BMIActivity extends EditTextActivity {
                             resultExplanation.setText(state.getText(BMIActivity.this));
                             fadeIn(resultExplanation, null);
 
-                            backgroundColor = getResources().getColor(state.getColor());
-                            rootLayout.setBackgroundColor(backgroundColor);
+                            animateBackgroundColor(state);
 
                         }
                     });
@@ -118,6 +119,28 @@ public class BMIActivity extends EditTextActivity {
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber(getFragmentManager());
         }
+    }
+
+    private void animateBackgroundColor(BMIState state) {
+        Integer colorFrom;
+        colorFrom = backgroundColor;
+        if (colorFrom == null) {
+            colorFrom = getResources().getColor(android.R.color.white);
+        }
+        Integer colorTo = getResources().getColor(state.getColor());
+
+        backgroundColor = colorTo;
+
+        ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        animator.setDuration(animDuration);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                rootLayout.setBackgroundColor((Integer) animation.getAnimatedValue());
+            }
+        });
+        animator.start();
+
     }
 
     private void setAdapters() {
