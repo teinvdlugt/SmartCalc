@@ -227,5 +227,40 @@
     <string name="livermorium">Livermorium</string>
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
+    <string name="biology">Biologie</string>
+    <string name="bmi_title">Bereken je BMI</string>
+    <string name="chemistry">Scheikunde</string>
+    <string name="enter_your_length">Je lengte</string>
+    <string name="enter_your_weight">Je gewicht</string>
+    <string name="gram">Gram</string>
+    <string name="kilogram">Kilogram</string>
+    <string name="long_ton">Engelse Pond</string>
+    <string name="milligram">Milligram</string>
+    <string name="ounce">Ons</string>
+    <string name="pound">Pond</string>
+    <string name="tonne">Ton</string>
+    <string name="your_bmi_is">Je BMI is:</string>
+
+    <string-array name="BMIStateNames">
+        <item>Extreem Ondergewicht</item>
+        <item>Erg Ondergewicht</item>
+        <item>Ondergewicht</item>
+        <item>Goed Gewicht</item>
+        <item>Overgewicht</item>
+        <item>Obesitas</item>
+        <item>Erge Obesitas</item>
+        <item>Extreme Obesitas</item>
+    </string-array>
+
+    <string-array name="BMIStateValues">
+        <item>Minder dan 15</item>
+        <item>15 tot 16</item>
+        <item>16 tot 18.5</item>
+        <item>18.5 tot 25</item>
+        <item>25 tot 30</item>
+        <item>30 tot 35</item>
+        <item>35 tot 40</item>
+        <item>Meer dan 40</item>
+    </string-array>
 
 </resources>

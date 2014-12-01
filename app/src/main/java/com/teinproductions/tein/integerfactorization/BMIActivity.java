@@ -5,11 +5,19 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.text.DecimalFormat;
 
@@ -37,25 +45,49 @@ public class BMIActivity extends EditTextActivity {
 
     }
 
-    public enum BMIState {
-        VERY_SEVERELY_UNDERWEIGHT(R.string.very_severely_underweight, R.color.very_severely_underweight),
-        SEVERELY_UNDERWEIGHT(R.string.severely_underweight, R.color.severely_underweight),
-        UNDERWEIGHT(R.string.underweight, R.color.underweight),
-        GOOD_WEIGHT(R.string.excellent_good_weight, R.color.good_weight),
-        OVERWEIGHT(R.string.overweight, R.color.overweight),
-        MODERATELY_OBESE(R.string.moderately_obese, R.color.moderately_obese),
-        SEVERELY_OBESE(R.string.severely_obese, R.color.severely_obese),
-        VERY_SEVERELY_OBESE(R.string.very_severely_obese, R.color.very_severely_obese);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
 
-        BMIState(int text, int color) {
-            this.text = text;
+        getMenuInflater().inflate(R.menu.element_pager, menu);
+        MenuItem menuItem = menu.findItem(R.id.pager_activity_show_list_action);
+        menuItem.setTitle(getString(R.string.info));
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.pager_activity_show_list_action:
+                Intent intent = new Intent(this, BMIInfoActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public enum BMIState {
+        VERY_SEVERELY_UNDERWEIGHT(R.color.very_severely_underweight),
+        SEVERELY_UNDERWEIGHT(R.color.severely_underweight),
+        UNDERWEIGHT(R.color.underweight),
+        GOOD_WEIGHT(R.color.good_weight),
+        OVERWEIGHT(R.color.overweight),
+        MODERATELY_OBESE(R.color.moderately_obese),
+        SEVERELY_OBESE(R.color.severely_obese),
+        VERY_SEVERELY_OBESE(R.color.very_severely_obese);
+
+        BMIState(int color) {
             this.color = color;
         }
 
-        private int text, color;
+        private int color;
 
-        public String getText(Context context) {
-            return context.getString(text);
+        public String getName(Context context) {
+            return context.getResources().getStringArray(R.array.BMIStateNames)[this.ordinal()];
+        }
+
+        public String getValue(Context context) {
+            return context.getResources().getStringArray(R.array.BMIStateValues)[this.ordinal()];
         }
 
         public int getColor() {
@@ -107,7 +139,7 @@ public class BMIActivity extends EditTextActivity {
                     fadeOut(resultExplanation, new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            resultExplanation.setText(state.getText(BMIActivity.this));
+                            resultExplanation.setText(state.getName(BMIActivity.this));
                             fadeIn(resultExplanation, null);
 
                             animateBackgroundColor(state);
@@ -182,8 +214,11 @@ public class BMIActivity extends EditTextActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putInt("BACKGROUND_COLOR", backgroundColor);
-
+        if (backgroundColor == null) {
+            outState.putInt("BACKGROUND_COLOR", 0);
+        } else {
+            outState.putInt("BACKGROUND_COLOR", backgroundColor);
+        }
     }
 
     @Override
@@ -192,6 +227,9 @@ public class BMIActivity extends EditTextActivity {
 
         try {
             backgroundColor = savedInstanceState.getInt("BACKGROUND_COLOR");
+            if (backgroundColor == 0) {
+                throw new NullPointerException("background was empty");
+            }
 
             rootLayout.setBackgroundColor(backgroundColor);
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(backgroundColor));

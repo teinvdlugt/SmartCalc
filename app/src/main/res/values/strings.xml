@@ -246,13 +246,28 @@
     <string name="ounce_abbr">oz</string>
     <string name="bmi_title">Calculate Your BMI</string>
     <string name="biology">Biology</string>
-    <string name="very_severely_underweight">Very Severely Underweight</string>
-    <string name="severely_underweight">Severely Underweight</string>
-    <string name="underweight">Underweight</string>
-    <string name="excellent_good_weight">Excellent!</string>
-    <string name="overweight">Overweight</string>
-    <string name="moderately_obese">Moderately Obese</string>
-    <string name="severely_obese">Severely Obese</string>
-    <string name="very_severely_obese">Very Severely Obese</string>
+    <string name="info">Info</string>
+
+    <string-array name="BMIStateNames">
+        <item>Very Severely Underweight</item>
+        <item>Severely Underweight</item>
+        <item>Underweight</item>
+        <item>Good Weight</item>
+        <item>Overweight</item>
+        <item>Moderately Obese</item>
+        <item>Severely Obese</item>
+        <item>Very Severely Obese</item>
+    </string-array>
+
+    <string-array name="BMIStateValues">
+        <item>Less than 15</item>
+        <item>15 to 16</item>
+        <item>16 to 18.5</item>
+        <item>18.5 to 25</item>
+        <item>25 to 30</item>
+        <item>30 to 35</item>
+        <item>35 to 40</item>
+        <item>Greater than 40</item>
+    </string-array>
 
 </resources>
