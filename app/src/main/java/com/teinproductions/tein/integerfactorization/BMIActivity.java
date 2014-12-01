@@ -3,6 +3,7 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -11,6 +12,7 @@ import java.text.DecimalFormat;
 
 public class BMIActivity extends EditTextActivity {
 
+    Integer backgroundColor;
 
     @Override
     protected void doYourStuff() {
@@ -47,7 +49,7 @@ public class BMIActivity extends EditTextActivity {
             this.color = color;
         }
 
-        int text, color;
+        private int text, color;
 
         public String getText(Context context) {
             return context.getString(text);
@@ -92,6 +94,7 @@ public class BMIActivity extends EditTextActivity {
             Double length = lengthUnit.convertTo(Units.Length.METER, lengthNumber);
 
             final Double BMI = weight / length / length;
+            final BMIState state = BMIState.getBMIState(BMI);
 
             fadeOut(resultTextView, new AnimatorListenerAdapter() {
                 @Override
@@ -101,8 +104,12 @@ public class BMIActivity extends EditTextActivity {
                     fadeOut(resultExplanation, new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
-                            resultExplanation.setText(BMIState.getBMIState(BMI).getText(BMIActivity.this));
+                            resultExplanation.setText(state.getText(BMIActivity.this));
                             fadeIn(resultExplanation, null);
+
+                            backgroundColor = getResources().getColor(state.getColor());
+                            rootLayout.setBackgroundColor(backgroundColor);
+
                         }
                     });
                 }
@@ -130,4 +137,23 @@ public class BMIActivity extends EditTextActivity {
         spinner2.setAdapter(adapter);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("BACKGROUND_COLOR", backgroundColor);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            backgroundColor = savedInstanceState.getInt("BACKGROUND_COLOR");
+            rootLayout.setBackgroundColor(backgroundColor);
+        } catch (NullPointerException ignored) {
+        }
+
+    }
 }

@@ -2,21 +2,21 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
-import android.text.InputType;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public abstract class EditTextActivity extends ActionBarActivity {
 
+    protected LinearLayout rootLayout;
     protected EditText editText1, editText2;
     protected Spinner spinner1, spinner2, resultSpinner;
     protected TextView resultTextView, resultDeclaration, resultExplanation;
@@ -31,6 +31,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_with_edit_texts);
 
+        rootLayout = (LinearLayout) findViewById(R.id.root_layout);
         editText1 = (EditText) findViewById(R.id.edit_text1);                           // Needs Hint and InputType
         editText2 = (EditText) findViewById(R.id.edit_text2);                           // Needs Hint and InputType
         spinner1 = (Spinner) findViewById(R.id.spinner1);                               // Needs Adapter
