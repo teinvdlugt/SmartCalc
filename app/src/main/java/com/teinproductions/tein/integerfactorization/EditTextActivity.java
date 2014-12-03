@@ -40,9 +40,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
         resultTextView = (TextView) findViewById(R.id.result_text_view);
         resultDeclaration = (TextView) findViewById(R.id.result_declaration_text_view); // Needs text
         resultExplanation = (TextView) findViewById(R.id.result_explanation);           // Text depends on result, hidden by default
-        resultExplanation.setVisibility(View.GONE);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        progressBar.setVisibility(View.GONE);
         button = (Button) findViewById(R.id.calculate_button);                          // Standard text is "Calculate"
 
         animDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
