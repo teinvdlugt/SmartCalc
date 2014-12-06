@@ -9,6 +9,24 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
+    <TextView
+        android:id="@+id/plus_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="+"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/i"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="i"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
     <EditText
         android:id="@+id/number1_a"
         style="@style/EditTextStyle"
@@ -21,14 +39,6 @@
         android:gravity="end"
         android:hint="a"
         android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/plus_sign"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:text="+"
-        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/number1_b"
@@ -43,21 +53,31 @@
         android:hint="b"
         android:inputType="numberDecimal" />
 
-    <TextView
-        android:id="@+id/i"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="i"
-        android:textSize="30sp"
-        android:textStyle="italic" />
-
     <Spinner
         android:id="@+id/operator_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/number1_a" />
+
+    <TextView
+        android:id="@+id/plus_sign2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/operator_spinner"
+        android:layout_centerHorizontal="true"
+        android:text="+"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/i2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/operator_spinner"
+        android:text="i"
+        android:textSize="30sp"
+        android:textStyle="italic" />
 
     <EditText
         android:id="@+id/number2_a"
@@ -73,15 +93,6 @@
         android:hint="a"
         android:inputType="numberDecimal" />
 
-    <TextView
-        android:id="@+id/plus_sign2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/operator_spinner"
-        android:layout_centerHorizontal="true"
-        android:text="+"
-        android:textSize="30sp" />
-
     <EditText
         android:id="@+id/number2_b"
         style="@style/EditTextStyle"
@@ -95,17 +106,6 @@
         android:gravity="end"
         android:hint="b"
         android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/i2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/operator_spinner"
-        android:text="i"
-        android:textSize="30sp"
-        android:textStyle="italic" />
 
     <Button
         android:id="@+id/calculate_button"

@@ -1,5 +1,7 @@
 package com.teinproductions.tein.integerfactorization;
 
+import java.text.DecimalFormat;
+
 public class Complex {
 
     private double real, imaginary;
@@ -59,12 +61,14 @@ public class Complex {
         Double real = this.getReal();
         Double imaginary = this.getImaginary();
 
+        DecimalFormat format = new DecimalFormat();
+
         if (imaginary == 0) {
-            return real.toString();
+            return format.format(real);
         } else if (real == 0) {
-            return imaginary.toString() + "i";
+            return format.format(imaginary) + "i";
         } else {
-            return real.toString() + " + " + imaginary.toString() + "i";
+            return format.format(real) + " + " + format.format(imaginary) + "i";
         }
 
     }

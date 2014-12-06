@@ -27,7 +27,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         setContentView(R.layout.activity_menu);
 
         mainList = new String[]{getString(R.string.maths), getString(R.string.physics), getString(R.string.chemistry), getString(R.string.biology)};
-        mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple)};
+        mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple), getString(R.string.complex_numbers)};
         physicsList = new String[]{getString(R.string.special_relativity)};
             specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
         chemistryList = new String[]{getString(R.string.elements)};
@@ -90,6 +90,10 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     break;
                 case 2:
                     makeIntent(LCMActivity.class);
+                    break;
+                case 3:
+                    makeIntent(ComplexActivity.class);
+                    break;
                 default:
                     break;
             }

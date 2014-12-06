@@ -62,6 +62,12 @@
         </activity>
 
         <activity
+            android:name=".ComplexActivity"
+            android:label="@string/complex_numbers"
+            android:windowSoftInputMode="stateVisible">
+        </activity>
+
+        <activity
             android:name=".MenuActivity"
             android:label="@string/app_name">
             <intent-filter>
