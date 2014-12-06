@@ -52,7 +52,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 .beginTransaction()
                 .replace(R.id.menu_fragment_container, mathsListFragment)
                 .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit();
 
     }
@@ -116,7 +116,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
             }
         } else if (Arrays.equals(strings, chemistryList)) {
             switch (position) {
-                case 0 :
+                case 0:
                     makeIntent(ElementPagerActivity.class);
                     break;
                 default:
@@ -124,7 +124,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
             }
         } else if (Arrays.equals(strings, biologyList)) {
             switch (position) {
-                case 0 :
+                case 0:
                     makeIntent(BMIActivity.class);
                     break;
                 default:

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/menu_text_margin"
         android:textColor="@color/menu_text_color"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-light"/>
 
 </FrameLayout>
