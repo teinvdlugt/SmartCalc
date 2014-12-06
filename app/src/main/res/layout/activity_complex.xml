@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <EditText
+        android:id="@+id/number1_a"
+        style="@style/EditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@id/plus_sign"
+        android:layout_toStartOf="@id/plus_sign"
+        android:gravity="end"
+        android:hint="a" />
+
+    <TextView
+        android:id="@+id/plus_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="+"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/number1_b"
+        style="@style/EditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/plus_sign"
+        android:layout_toLeftOf="@id/i"
+        android:layout_toRightOf="@id/plus_sign"
+        android:layout_toStartOf="@id/i"
+        android:gravity="end"
+        android:hint="b" />
+
+    <TextView
+        android:id="@+id/i"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="i"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+    <Spinner
+        android:id="@+id/operator_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number1_a" />
+
+    <EditText
+        android:id="@+id/number2_a"
+        style="@style/EditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/operator_spinner"
+        android:layout_toLeftOf="@id/plus_sign2"
+        android:layout_toStartOf="@id/plus_sign2"
+        android:gravity="end"
+        android:hint="a" />
+
+    <TextView
+        android:id="@+id/plus_sign2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/operator_spinner"
+        android:layout_centerHorizontal="true"
+        android:text="+"
+        android:textSize="30sp" />
+
+    <EditText
+        android:id="@+id/number2_b"
+        style="@style/EditTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/operator_spinner"
+        android:layout_toEndOf="@id/plus_sign"
+        android:layout_toLeftOf="@id/i2"
+        android:layout_toRightOf="@id/plus_sign2"
+        android:layout_toStartOf="@id/i2"
+        android:gravity="end"
+        android:hint="b" />
+
+    <TextView
+        android:id="@+id/i2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/operator_spinner"
+        android:text="i"
+        android:textSize="30sp"
+        android:textStyle="italic" />
+
+    <Button
+        android:id="@+id/calculate_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number2_a"
+        android:text="@string/calculate" />
+
+    <TextView
+        android:id="@+id/result_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/calculate_button"
+        android:gravity="center"
+        android:textSize="40sp" />
+
+</RelativeLayout>
