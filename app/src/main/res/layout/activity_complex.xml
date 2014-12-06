@@ -19,7 +19,8 @@
         android:layout_toLeftOf="@id/plus_sign"
         android:layout_toStartOf="@id/plus_sign"
         android:gravity="end"
-        android:hint="a" />
+        android:hint="a"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/plus_sign"
@@ -39,7 +40,8 @@
         android:layout_toRightOf="@id/plus_sign"
         android:layout_toStartOf="@id/i"
         android:gravity="end"
-        android:hint="b" />
+        android:hint="b"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/i"
@@ -68,7 +70,8 @@
         android:layout_toLeftOf="@id/plus_sign2"
         android:layout_toStartOf="@id/plus_sign2"
         android:gravity="end"
-        android:hint="a" />
+        android:hint="a"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/plus_sign2"
@@ -90,7 +93,8 @@
         android:layout_toRightOf="@id/plus_sign2"
         android:layout_toStartOf="@id/i2"
         android:gravity="end"
-        android:hint="b" />
+        android:hint="b"
+        android:inputType="numberDecimal" />
 
     <TextView
         android:id="@+id/i2"
@@ -108,6 +112,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/number2_a"
+        android:onClick="onClickCalculate"
         android:text="@string/calculate" />
 
     <TextView

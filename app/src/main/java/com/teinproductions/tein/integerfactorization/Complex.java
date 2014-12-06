@@ -54,6 +54,21 @@ public class Complex {
         return this.pow(2);
     }
 
+    @Override
+    public String toString() {
+        Double real = this.getReal();
+        Double imaginary = this.getImaginary();
+
+        if (imaginary == 0) {
+            return real.toString();
+        } else if (real == 0) {
+            return imaginary.toString() + "i";
+        } else {
+            return real.toString() + " + " + imaginary.toString() + "i";
+        }
+
+    }
+
     public double getReal() {
         return real;
     }
