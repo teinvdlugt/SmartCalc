@@ -1,5 +1,7 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
@@ -8,28 +10,36 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class ComplexActivity extends ActionBarActivity {
 
-    EditText number1a, number1b, number2a, number2b;
+    EditText number1a, number1b, number2a, number2b, powerET;
     Spinner operatorSpinner;
     TextView resultTextView;
+    RelativeLayout number2Container;
 
-    public static String[] operators = {"+", "-", "×", "÷"};
+    Integer animDuration;
+
+    public static String[] operators = {"+", "-", "×", "÷", "^"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complex);
 
+        animDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
         number1a = (EditText) findViewById(R.id.number1_a);
         number1b = (EditText) findViewById(R.id.number1_b);
         number2a = (EditText) findViewById(R.id.number2_a);
         number2b = (EditText) findViewById(R.id.number2_b);
+        powerET = (EditText) findViewById(R.id.the_power);
         operatorSpinner = (Spinner) findViewById(R.id.operator_spinner);
         resultTextView = (TextView) findViewById(R.id.result_text_view);
+        number2Container = (RelativeLayout) findViewById(R.id.number2_container);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.my_spinner_textview,
@@ -39,7 +49,45 @@ public class ComplexActivity extends ActionBarActivity {
         operatorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onClickCalculate(null);
+                if (position == 4) {
+                    if (number2Container.getVisibility() == View.VISIBLE) {
+                        number2Container.animate()
+                                .alpha(0f)
+                                .setDuration(animDuration)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        number2Container.setVisibility(View.GONE);
+                                        powerET.setAlpha(0f);
+                                        powerET.setVisibility(View.VISIBLE);
+                                        powerET.animate()
+                                                .alpha(1f)
+                                                .setDuration(animDuration)
+                                                .setListener(null);
+                                    }
+                                });
+                    }
+                } else {
+                    if (number2Container.getVisibility() == View.GONE) {
+                        powerET.animate()
+                                .alpha(0f)
+                                .setDuration(animDuration)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        powerET.setVisibility(View.GONE);
+                                        number2Container.setAlpha(0f);
+                                        number2Container.setVisibility(View.VISIBLE);
+                                        number2Container.animate()
+                                                .alpha(1f)
+                                                .setDuration(animDuration)
+                                                .setListener(null);
+                                    }
+                                });
+                    }
+
+                    onClickCalculate(null);
+                }
             }
 
             @Override
@@ -64,13 +112,9 @@ public class ComplexActivity extends ActionBarActivity {
     public void onClickCalculate(View view) {
         double number1aInput;
         double number1bInput;
-        double number2aInput;
-        double number2bInput;
         try {
             number1aInput = Double.parseDouble(number1a.getText().toString());
             number1bInput = Double.parseDouble(number1b.getText().toString());
-            number2aInput = Double.parseDouble(number2a.getText().toString());
-            number2bInput = Double.parseDouble(number2b.getText().toString());
         } catch (NumberFormatException e) {
             if (view != null) {
                 CustomDialog.invalidNumber(getFragmentManager());
@@ -79,28 +123,74 @@ public class ComplexActivity extends ActionBarActivity {
         }
 
         Complex number1 = new Complex(number1aInput, number1bInput);
-        Complex number2 = new Complex(number2aInput, number2bInput);
-
         Complex result;
 
-        switch (operatorSpinner.getSelectedItemPosition()) {
-            case 0:
-                result = Complex.add(number1, number2);
-                break;
-            case 1:
-                result = Complex.substract(number1, number2);
-                break;
-            case 2:
-                result = Complex.multiply(number1, number2);
-                break;
-            case 3:
-                result = Complex.divide(number1, number2);
-                break;
-            default:
-                // Otherwise "result might not have been initialized"
-                result = new Complex(0, 0);
+        if (operatorSpinner.getSelectedItemPosition() == 4) {
+            int power;
+            try {
+                power = Integer.parseInt(powerET.getText().toString());
+            } catch (NumberFormatException e) {
+                if (view != null) {
+                    CustomDialog.invalidNumber(getFragmentManager());
+                }
+                return;
+            }
+
+            result = number1.pow(power);
+
+        } else {
+            double number2aInput;
+            double number2bInput;
+
+            try {
+                number2aInput = Double.parseDouble(number2a.getText().toString());
+                number2bInput = Double.parseDouble(number2b.getText().toString());
+            } catch (NumberFormatException e) {
+                if (view != null) {
+                    CustomDialog.invalidNumber(getFragmentManager());
+                }
+                return;
+            }
+
+            Complex number2 = new Complex(number2aInput, number2bInput);
+
+            switch (operatorSpinner.getSelectedItemPosition()) {
+                case 0:
+                    result = Complex.add(number1, number2);
+                    break;
+                case 1:
+                    result = Complex.substract(number1, number2);
+                    break;
+                case 2:
+                    result = Complex.multiply(number1, number2);
+                    break;
+                case 3:
+                    result = Complex.divide(number1, number2);
+                    break;
+                default:
+                    // Otherwise "result might not have been initialized"
+                    result = new Complex(0, 0);
+            }
+
         }
 
         resultTextView.setText(result.toString());
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString("RESULT", resultTextView.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        try {
+            resultTextView.setText(savedInstanceState.getString("RESULT"));
+        } catch (NullPointerException ignored) {
+        }
     }
 }
