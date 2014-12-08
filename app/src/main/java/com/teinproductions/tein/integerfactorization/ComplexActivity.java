@@ -2,7 +2,9 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -30,9 +32,9 @@ public class ComplexActivity extends ActionBarActivity {
         resultTextView = (TextView) findViewById(R.id.result_text_view);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item,
+                R.layout.my_spinner_textview,
                 operators);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(R.layout.my_spinner_textview);
         operatorSpinner.setAdapter(adapter);
         operatorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -43,6 +45,17 @@ public class ComplexActivity extends ActionBarActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        number2b.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    onClickCalculate(number2b);
+                    return true;
+                }
+                return false;
             }
         });
 
