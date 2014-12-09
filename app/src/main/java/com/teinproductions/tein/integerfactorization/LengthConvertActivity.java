@@ -19,6 +19,9 @@ public class LengthConvertActivity extends ConvertActivity {
 
         spinner1.setAdapter(adapter);
         spinner2.setAdapter(adapter);
+
+        spinner1.setSelection(2);
+        spinner2.setSelection(6);
     }
 
     @Override

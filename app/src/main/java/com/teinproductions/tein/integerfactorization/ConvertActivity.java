@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -27,6 +28,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(contentView());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner2 = (Spinner) findViewById(R.id.spinner2);
@@ -49,16 +51,34 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 return false;
             }
         };
+
+        editText1.setOnEditorActionListener(editorActionListener);
+        editText2.setOnEditorActionListener(editorActionListener);
     }
 
-    protected abstract @LayoutRes int contentView();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    protected abstract
+    @LayoutRes
+    int contentView();
+
     protected abstract void setAdapters();
 
     protected void setOnClickListeners() {
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onClickConvert(editText1);
+                onClickConvert(spinner1);
+                // Just a random spinner
             }
 
             @Override
@@ -70,7 +90,8 @@ public abstract class ConvertActivity extends ActionBarActivity {
         spinner1.setOnItemSelectedListener(listener);
         try {
             spinner1b.setOnItemSelectedListener(listener);
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
 
         listener = new AdapterView.OnItemSelectedListener() {
             @Override
@@ -87,7 +108,8 @@ public abstract class ConvertActivity extends ActionBarActivity {
         spinner2.setOnItemSelectedListener(listener);
         try {
             spinner2b.setOnItemSelectedListener(listener);
-        } catch (NullPointerException ignored) {}
+        } catch (NullPointerException ignored) {
+        }
     }
 
     public void onClickConvert(View view) {
@@ -118,17 +140,23 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 editText1.requestFocus();
                 return;
             }
-        } else if (view == button) {
-            if (isValidDecimalNumberInput(editText1.getText().toString())) {
-                input1 = Double.parseDouble(editText1.getText().toString());
-                input2 = null;
-                editText2.setText(convert().toString());
-                input1 = null;
-            } else if (isValidDecimalNumberInput(editText2.getText().toString())) {
-                input2 = Double.parseDouble(editText2.getText().toString());
-                input1 = null;
-                editText1.setText(convert().toString());
-                input2 = null;
+        } else if (view == button || view == spinner1) {
+            if (getCurrentFocus() == editText1) {
+                if (isValidDecimalNumberInput(editText1.getText().toString())) {
+                    onClickConvert(editText1);
+                } else if (isValidDecimalNumberInput(editText2.getText().toString())) {
+                    onClickConvert(editText2);
+                } else if (view == button) {
+                    CustomDialog.invalidNumber(getFragmentManager());
+                }
+            } else if (getCurrentFocus() == editText2) {
+                if (isValidDecimalNumberInput(editText2.getText().toString())) {
+                    onClickConvert(editText2);
+                } else if (isValidDecimalNumberInput(editText1.getText().toString())) {
+                    onClickConvert(editText1);
+                } else if (view == button) {
+                    CustomDialog.invalidNumber(getFragmentManager());
+                }
             } else {
                 editText1.setText("");
                 editText2.setText("");
