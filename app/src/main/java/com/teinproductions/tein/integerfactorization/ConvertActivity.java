@@ -93,8 +93,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
     public void onClickConvert(View view) {
         selected1 = spinner1.getSelectedItemPosition();
         selected2 = spinner2.getSelectedItemPosition();
-        if (spinner1b == null && spinner2b == null) {
-        } else {
+        if (spinner1b != null && spinner2b != null) {
             selected1b = spinner1b.getSelectedItemPosition();
             selected2b = spinner2b.getSelectedItemPosition();
         }
@@ -104,6 +103,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 input1 = Double.parseDouble(editText1.getText().toString());
                 input2 = null;
                 editText2.setText(convert().toString());
+                input1 = null;
             } catch (NumberFormatException e) {
                 editText2.requestFocus();
                 return;
@@ -113,6 +113,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 input2 = Double.parseDouble(editText2.getText().toString());
                 input1 = null;
                 editText1.setText(convert().toString());
+                input2 = null;
             } catch (NumberFormatException e) {
                 editText1.requestFocus();
                 return;
@@ -122,10 +123,15 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 input1 = Double.parseDouble(editText1.getText().toString());
                 input2 = null;
                 editText2.setText(convert().toString());
+                input1 = null;
             } else if (isValidDecimalNumberInput(editText2.getText().toString())) {
                 input2 = Double.parseDouble(editText2.getText().toString());
                 input1 = null;
                 editText1.setText(convert().toString());
+                input2 = null;
+            } else {
+                editText1.setText("");
+                editText2.setText("");
             }
         }
     }

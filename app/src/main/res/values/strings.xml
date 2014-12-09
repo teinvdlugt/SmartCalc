@@ -249,6 +249,8 @@
     <string name="info">Info</string>
     <string name="complex_numbers">Complex Numbers</string>
     <string name="convert">Convert</string>
+    <string name="converter">Converter</string>
+    <string name="length">Length</string>
 
     <string-array name="BMIStateNames">
         <item>Very Severely Underweight</item>
