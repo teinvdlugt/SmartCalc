@@ -133,7 +133,6 @@
 
     </FrameLayout>
 
-
     <Button
         android:id="@+id/calculate_button"
         android:layout_width="match_parent"
