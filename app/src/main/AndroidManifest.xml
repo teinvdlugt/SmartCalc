@@ -69,7 +69,13 @@
 
         <activity
             android:name=".LengthConvertActivity"
-            android:label="Length Conversion"
+            android:label="@string/length_conversion"
+            android:windowSoftInputMode="stateVisible">
+        </activity>
+
+        <activity
+            android:name=".TimeConvertActivity"
+            android:label="@string/time_conversion"
             android:windowSoftInputMode="stateVisible">
         </activity>
 

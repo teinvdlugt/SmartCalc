@@ -251,6 +251,9 @@
     <string name="convert">Convert</string>
     <string name="converter">Converter</string>
     <string name="length">Length</string>
+    <string name="time">Time</string>
+    <string name="length_conversion">Length Conversion</string>
+    <string name="time_conversion">Time Conversion</string>
 
     <string-array name="BMIStateNames">
         <item>Very Severely Underweight</item>
