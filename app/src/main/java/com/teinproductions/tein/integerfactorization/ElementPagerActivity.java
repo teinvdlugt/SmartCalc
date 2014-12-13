@@ -1,5 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -48,9 +49,26 @@ public class ElementPagerActivity extends ActionBarActivity
         });
 
         theViewPager.setCurrentItem(0);
-        slidingTabLayout.setViewPager(theViewPager);
-    }
 
+        slidingTabLayout.setViewPager(theViewPager);
+        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        slidingTabLayout.setBackground(new ColorDrawable(R.color.molu_colorPrimaryDark));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
