@@ -262,6 +262,8 @@
     <string name="nanometer_abbr">nm</string>
     <string name="planck_length">Planck Lengths</string>
     <string name="planck_length_abbr">ℓP</string>
+    <string name="xs_drawer_open">show a list of all elements</string>
+    <string name="xs_drawer_close">close list</string>
 
     <string-array name="BMIStateNames">
         <item>Very Severely Underweight</item>

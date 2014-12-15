@@ -4,47 +4,80 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 public class ElementPagerActivity extends ActionBarActivity
-        implements ElementListFragment.onElementClickListener,
-        CalculateFragment.OnCalculateClickListener {
+        implements CalculateFragment.OnCalculateClickListener {
 
     private ViewPager theViewPager;
     private SlidingTabLayout slidingTabLayout;
+
+    private DrawerLayout drawerLayout;
+    private ListView drawerListView;
+    private ActionBarDrawerToggle drawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_element_pager);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         theViewPager = (ViewPager) findViewById(R.id.view_pager);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerListView = (ListView) findViewById(R.id.drawer_listView);
+        drawerToggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                null,
+                R.string.xs_drawer_open,
+                R.string.xs_drawer_close
+        );
+        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
+        final String[] elementNames = new String[Element.values().length];
+        for (int i = 0; i < Element.values().length; i++) {
+            elementNames[i] = Element.values()[i].getName(this);
+        }
+        drawerListView.setAdapter(new ElementListAdapter(this, elementNames));
+        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                drawerLayout.closeDrawer(drawerListView);
+                theViewPager.setCurrentItem(position, true);
+            }
+        });
+        drawerListView.setBackgroundColor(getResources().getColor(android.R.color.background_dark));
+
+        setUpViewPagerAndSlidingTabLayout();
+    }
+
+    private void setUpViewPagerAndSlidingTabLayout() {
         theViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                if (position == 0) {
-                    return new ElementListFragment();
-                }
-                return Element.values()[position - 1].toFragment();
+                return Element.values()[position].toFragment();
             }
 
             @Override
             public int getCount() {
-                return Element.values().length + 1;
+                return Element.values().length;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                if (position == 0) {
-                    return getString(R.string.action_bar_pager_show_list);
-                }
-                return Element.values()[position - 1].getName(ElementPagerActivity.this);
+                return Element.values()[position].getName(ElementPagerActivity.this);
             }
         });
 
@@ -73,7 +106,6 @@ public class ElementPagerActivity extends ActionBarActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.element_pager, menu);
-        menu.findItem(R.id.pager_activity_show_list_action).setVisible(!(theViewPager.getCurrentItem() == 0));
         return true;
     }
 
@@ -81,7 +113,11 @@ public class ElementPagerActivity extends ActionBarActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pager_activity_show_list_action:
-                theViewPager.setCurrentItem(0, true);
+                if (drawerLayout.isDrawerOpen(drawerListView)) {
+                    drawerLayout.closeDrawer(drawerListView);
+                } else {
+                    drawerLayout.openDrawer(drawerListView);
+                }
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -100,12 +136,7 @@ public class ElementPagerActivity extends ActionBarActivity
     }
 
     @Override
-    public void onElementClick(int position) {
-        theViewPager.setCurrentItem(position + 1, true);
-    }
-
-    @Override
     public Element onRequestElement() {
-        return Element.values()[theViewPager.getCurrentItem() - 1];
+        return Element.values()[theViewPager.getCurrentItem()];
     }
 }
