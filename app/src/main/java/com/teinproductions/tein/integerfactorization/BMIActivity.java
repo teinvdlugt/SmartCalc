@@ -67,20 +67,22 @@ public class BMIActivity extends EditTextActivity {
     }
 
     public enum BMIState {
-        VERY_SEVERELY_UNDERWEIGHT(R.color.very_severely_underweight),
-        SEVERELY_UNDERWEIGHT(R.color.severely_underweight),
-        UNDERWEIGHT(R.color.underweight),
-        GOOD_WEIGHT(R.color.good_weight),
-        OVERWEIGHT(R.color.overweight),
-        MODERATELY_OBESE(R.color.moderately_obese),
-        SEVERELY_OBESE(R.color.severely_obese),
-        VERY_SEVERELY_OBESE(R.color.very_severely_obese);
+        VERY_SEVERELY_UNDERWEIGHT(R.color.very_severely_underweight, R.color.very_severely_underweight_dark),
+        SEVERELY_UNDERWEIGHT(R.color.severely_underweight, R.color.severely_underweight_dark),
+        UNDERWEIGHT(R.color.underweight, R.color.underweight_dark),
+        GOOD_WEIGHT(R.color.good_weight, R.color.good_weight_dark),
+        OVERWEIGHT(R.color.overweight, R.color.overweight_dark),
+        MODERATELY_OBESE(R.color.moderately_obese, R.color.moderately_obese_dark),
+        SEVERELY_OBESE(R.color.severely_obese, R.color.severely_obese_dark),
+        VERY_SEVERELY_OBESE(R.color.very_severely_obese, R.color.very_severely_obese_dark);
 
-        BMIState(int color) {
+        BMIState(int color, int colorDark) {
             this.color = color;
+            this.colorDark = colorDark;
         }
 
         private int color;
+        private int colorDark;
 
         public String getName(Context context) {
             return context.getResources().getStringArray(R.array.BMIStateNames)[this.ordinal()];
@@ -92,6 +94,10 @@ public class BMIActivity extends EditTextActivity {
 
         public int getColor() {
             return color;
+        }
+
+        public int getColorDark() {
+            return colorDark;
         }
 
         public static BMIState getBMIState(Double BMI) {

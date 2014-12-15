@@ -6,6 +6,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -22,6 +23,7 @@ public class BMIInfoActivity extends ActionBarActivity {
 
     LinearLayout rootLayout;
     Integer backgroundColor;
+    Integer backgroundColorDark;
     Integer animDuration;
 
     @Override
@@ -49,7 +51,7 @@ public class BMIInfoActivity extends ActionBarActivity {
 
     }
 
-    private void animateBackgroundColor(BMIActivity.BMIState state) {
+    private void animateBackgroundColor(final BMIActivity.BMIState state) {
         final Integer colorFrom;
         if (backgroundColor == null) {
             colorFrom = getResources().getColor(android.R.color.white);
@@ -80,6 +82,35 @@ public class BMIInfoActivity extends ActionBarActivity {
                         getSupportActionBar().setBackgroundDrawable(new ColorDrawable((Integer) animation.getAnimatedValue()));
                     }
                 });
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    actionBarAnimator.addListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            final Integer colorFromDark;
+                            if (backgroundColorDark == null) {
+                                colorFromDark = getResources().getColor(android.R.color.darker_gray);
+                            } else {
+                                colorFromDark = backgroundColorDark;
+                            }
+                            final Integer colorToDark = getResources().getColor(state.getColorDark());
+
+                            backgroundColorDark = colorToDark;
+
+                            final ValueAnimator statusBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFromDark, colorToDark);
+                            statusBarAnimator.setDuration(animDuration);
+                            statusBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                @Override
+                                public void onAnimationUpdate(ValueAnimator animation) {
+                                    getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
+                                }
+                            });
+
+                            statusBarAnimator.start();
+                        }
+                    });
+                }
+
                 actionBarAnimator.start();
             }
         });

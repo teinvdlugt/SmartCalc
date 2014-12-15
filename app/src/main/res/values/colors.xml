@@ -23,6 +23,15 @@
     <color name="severely_obese">#ffff6666</color>
     <color name="very_severely_obese">#ffff0000</color>
 
+    <color name="very_severely_underweight_dark">#ff6767af</color>
+    <color name="severely_underweight_dark">#ffaf59af</color>
+    <color name="underweight_dark">#ffaf8599</color>
+    <color name="good_weight_dark">#ff4caf4d</color>
+    <color name="overweight_dark">#ffaf6262</color>
+    <color name="moderately_obese_dark">#ffaf6565</color>
+    <color name="severely_obese_dark">#ffaf4444</color>
+    <color name="very_severely_obese_dark">#ffaf0000</color>
+
     <color name="molu_colorPrimary">#ffff0f0f</color>
     <color name="molu_colorPrimaryDark">#ffcc0000</color>
     <color name="molu_colorAccent">#fff7ff41</color>
