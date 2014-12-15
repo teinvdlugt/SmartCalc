@@ -37,7 +37,7 @@ public class LengthContractionActivity extends EditTextActivity {
         resultSpinner.setAdapter(adapter);
 
         spinner1.setSelection(0);
-        spinner2.setSelection(2);
+        spinner2.setSelection(5);
         resultSpinner.setSelection(2);
 
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {

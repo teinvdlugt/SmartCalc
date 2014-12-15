@@ -240,6 +240,7 @@
     <string name="pound">Pond</string>
     <string name="tonne">Ton</string>
     <string name="your_bmi_is">Je BMI is:</string>
+    <string name="micrometer_abbr">μm</string>
 
     <string-array name="BMIStateNames">
         <item>Extreem Ondergewicht</item>

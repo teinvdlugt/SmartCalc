@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +20,7 @@ public class ElementPagerActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_element_pager);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         theViewPager = (ViewPager) findViewById(R.id.view_pager);

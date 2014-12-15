@@ -123,6 +123,9 @@ public class Units {
     }
 
     public enum Length {
+        PLANCKLENGTH(1873559000000000000000000000000000.0, R.string.planck_length, R.string.planck_length_abbr),
+        NANOMETER(1000000000.0, R.string.nanometer, R.string.nanometer_abbr),
+        MICROMETER(1000000.0, R.string.micrometer, R.string.micrometer_abbr),
         MILLIMETER(1000.0, R.string.millimeter, R.string.millimeter_abbr),
         CENTIMETER(100.0, R.string.centimeter, R.string.centimeter_abbr),
         METER(1.0, R.string.meter, R.string.meter_abbr),
@@ -247,5 +250,7 @@ public class Units {
             return new DecimalFormat("0.##########E0").format(input);
         }
     }
+
+    public static final Double G = 00000000000.667384;
 
 }

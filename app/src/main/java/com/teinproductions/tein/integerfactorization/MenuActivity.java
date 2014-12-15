@@ -29,7 +29,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
 
         mainList = new String[]{getString(R.string.maths), getString(R.string.physics), getString(R.string.chemistry), getString(R.string.biology), getString(R.string.converter)};
         mathsList = new String[]{getString(R.string.integer_factorization), getString(R.string.greatest_common_factor), getString(R.string.least_common_multiple), getString(R.string.complex_numbers)};
-        physicsList = new String[]{getString(R.string.special_relativity)};
+        physicsList = new String[]{getString(R.string.special_relativity), getString(R.string.schwarzchild_radius)};
             specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
         chemistryList = new String[]{getString(R.string.elements)};
         biologyList = new String[]{getString(R.string.bmi_title)};
@@ -107,6 +107,8 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                 case 0:
                     showNewMenu(specialRelativityList);
                     break;
+                case 1:
+                    makeIntent(SchwarzschildRadiusActivity.class);
                 default:
                     break;
             }

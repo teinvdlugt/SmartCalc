@@ -45,6 +45,11 @@
         </activity>
 
         <activity
+            android:name=".SchwarzschildRadiusActivity"
+            android:label="@string/schwarzchild_radius"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
             android:name=".ElementPagerActivity"
             android:label="@string/elements"
             android:theme="@style/molu_theme">

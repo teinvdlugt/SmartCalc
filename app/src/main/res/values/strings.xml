@@ -254,6 +254,14 @@
     <string name="time">Time</string>
     <string name="length_conversion">Length Conversion</string>
     <string name="time_conversion">Time Conversion</string>
+    <string name="mass">Mass</string>
+    <string name="schwarzchild_radius">Schwarzchild Radius</string>
+    <string name="micrometer">Micrometers</string>
+    <string name="micrometer_abbr">μm</string>
+    <string name="nanometer">Nanometers</string>
+    <string name="nanometer_abbr">nm</string>
+    <string name="planck_length">Planck Lengths</string>
+    <string name="planck_length_abbr">ℓP</string>
 
     <string-array name="BMIStateNames">
         <item>Very Severely Underweight</item>

@@ -21,8 +21,8 @@ public class LengthConvertActivity extends ConvertActivity {
         spinner2.setAdapter(adapter);
 
         // "false" is so that the onSelectedItemListener is not triggered
-        spinner1.setSelection(2, false);
-        spinner2.setSelection(6, false);
+        spinner1.setSelection(5, false);
+        spinner2.setSelection(9, false);
     }
 
     @Override

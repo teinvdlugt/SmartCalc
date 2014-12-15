@@ -35,7 +35,7 @@ public class BMIActivity extends EditTextActivity {
 
         setAdapters();
         spinner1.setSelection(2);
-        spinner2.setSelection(2);
+        spinner2.setSelection(5);
 
         resultDeclaration.setText(getString(R.string.your_bmi_is));
         resultSpinner.setVisibility(View.GONE);

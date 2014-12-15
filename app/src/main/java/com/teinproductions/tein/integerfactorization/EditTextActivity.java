@@ -61,12 +61,12 @@ public abstract class EditTextActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void clickButtonWhenFilledEditText(EditText editText) {
+    public void clickButtonWhenFilledEditText(final EditText editText) {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_GO) {
-                    onClickButton(null);
+                    onClickButton(editText);
                     return true;
                 }
                 return false;
