@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -19,14 +20,8 @@ public class CalculateFragment extends Fragment {
 
     private EditText molEditText, gramEditText, particlesEditText;
     private TextView molarMassTextView;
+    private LinearLayout massLayout;
     private Button calculateButton;
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +32,8 @@ public class CalculateFragment extends Fragment {
         gramEditText = (EditText) theView.findViewById(R.id.gram_edit_text);
         particlesEditText = (EditText) theView.findViewById(R.id.particles_edit_text);
         molarMassTextView = (TextView) theView.findViewById(R.id.mass_amount_text_view);
+        massLayout = (LinearLayout) theView.findViewById(R.id.mass_layout);
+        if (massViewHider.hideMassView()) massLayout.setVisibility(View.GONE);
         calculateButton = (Button) theView.findViewById(R.id.calculate_button);
 
         molEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -117,7 +114,7 @@ public class CalculateFragment extends Fragment {
             CustomDialog.invalidNumber(getActivity().getFragmentManager());
 
             return false;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
     }
@@ -142,7 +139,7 @@ public class CalculateFragment extends Fragment {
             CustomDialog.invalidNumber(getActivity().getFragmentManager());
 
             return false;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
 
@@ -168,20 +165,20 @@ public class CalculateFragment extends Fragment {
             CustomDialog.invalidNumber(getActivity().getFragmentManager());
 
             return false;
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
 
     }
 
 
-    public static String format(Double d){
+    public static String format(Double d) {
 
         DecimalFormat formatterBig = new DecimalFormat("0.#####E0");
         DecimalFormat formatterSmall = new DecimalFormat("0.#####");
         DecimalFormat formatterInteger = new DecimalFormat("0");
 
-        if (d == 0){
+        if (d == 0) {
             return "0";
         } else if (d > 99999 || d < 0.00001) {
             return formatterBig.format(d);
@@ -193,11 +190,14 @@ public class CalculateFragment extends Fragment {
 
 
     private OnCalculateClickListener onCalculateClickListener;
+    private MassViewHider massViewHider;
 
     public interface OnCalculateClickListener {
-
         public Element onRequestElement();
+    }
 
+    public interface MassViewHider {
+        public boolean hideMassView();
     }
 
     @Override
@@ -206,8 +206,9 @@ public class CalculateFragment extends Fragment {
 
         try {
             onCalculateClickListener = (OnCalculateClickListener) activity;
+            massViewHider = (MassViewHider) activity;
         } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString() + " must implement OnCalculateClickListener");
+            throw new ClassCastException(activity.toString() + " must implement OnCalculateClickListener and MassViewHider");
         }
     }
 }

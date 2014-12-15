@@ -16,7 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ElementPagerActivity extends ActionBarActivity
-        implements CalculateFragment.OnCalculateClickListener {
+        implements CalculateFragment.OnCalculateClickListener,
+        CalculateFragment.MassViewHider {
 
     private ViewPager theViewPager;
     private SlidingTabLayout slidingTabLayout;
@@ -127,16 +128,12 @@ public class ElementPagerActivity extends ActionBarActivity
     }
 
     @Override
-    public void onBackPressed() {
-        if (theViewPager.getCurrentItem() == 0) {
-            super.onBackPressed();
-        } else {
-            theViewPager.setCurrentItem(0);
-        }
+    public Element onRequestElement() {
+        return Element.values()[theViewPager.getCurrentItem()];
     }
 
     @Override
-    public Element onRequestElement() {
-        return Element.values()[theViewPager.getCurrentItem()];
+    public boolean hideMassView() {
+        return true;
     }
 }
