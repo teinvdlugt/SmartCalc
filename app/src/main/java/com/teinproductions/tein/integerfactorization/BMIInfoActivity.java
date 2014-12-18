@@ -2,7 +2,6 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
@@ -21,10 +20,15 @@ import android.widget.TextView;
 
 public class BMIInfoActivity extends ActionBarActivity {
 
-    LinearLayout rootLayout;
-    Integer backgroundColor;
-    Integer backgroundColorDark;
-    Integer animDuration;
+    private LinearLayout rootLayout;
+
+    private Integer backgroundColorID;
+    private Integer backgroundColorActionBarID;
+    private Integer backgroundColorStatusBarID;
+
+    private static String BACKGROUNDCOLORID = "BACKGROUNDCOLORID";
+    private static String BACKGROUNDCOLORACTIONBARID = "BACKGROUNDCOLORACTIONBARID";
+    private static String BACKGROUNDCOLORSTATUSBARID = "BACKGROUNDCOLORSTATUSBARID";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,89 +40,102 @@ public class BMIInfoActivity extends ActionBarActivity {
         String[] values = getResources().getStringArray(R.array.BMIStateValues);
 
         ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new BMIInfoAdapter(this, names, values));
+        listView.setAdapter(new BMIInfoAdapter(this));
 
         rootLayout = (LinearLayout) findViewById(R.id.root_layout);
-        animDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 BMIActivity.BMIState state = BMIActivity.BMIState.values()[position];
-                animateBackgroundColor(state);
+                animateBackgroundColors(state);
             }
         });
 
     }
 
-    private void animateBackgroundColor(final BMIActivity.BMIState state) {
+    private void animateBackgroundColors(final BMIActivity.BMIState state) {
         final Integer colorFrom;
-        if (backgroundColor == null) {
+        final Integer colorTo;
+        final Integer colorFromActionBar;
+        final Integer colorToActionBar;
+        final Integer colorFromStatusBar;
+        final Integer colorToStatusBar;
+
+        // initialize colorFrom and colorTo
+        if (backgroundColorID == null) {
             colorFrom = getResources().getColor(android.R.color.white);
         } else {
-            colorFrom = backgroundColor;
+            colorFrom = getResources().getColor(backgroundColorID);
         }
-        final Integer colorTo = getResources().getColor(state.getColor());
+        backgroundColorID = state.getColorID();
+        colorTo = getResources().getColor(backgroundColorID);
 
-        backgroundColor = colorTo;
+        // Initialize colorFromActionBar and colorToActionBar
+        if (backgroundColorActionBarID == null) {
+            colorFromActionBar = getResources().getColor(android.R.color.darker_gray);
+        } else {
+            colorFromActionBar = getResources().getColor(backgroundColorActionBarID);
+        }
+        backgroundColorActionBarID = state.getColorActionBarID();
+        colorToActionBar = getResources().getColor(backgroundColorActionBarID);
 
-        final ValueAnimator animator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-        animator.setDuration(animDuration);
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                rootLayout.setBackgroundColor((Integer) animation.getAnimatedValue());
-            }
-        });
+        // Initialize colorFromStatusBar and colorToStatusBar
+        if (backgroundColorStatusBarID == null) {
+            colorFromStatusBar = getResources().getColor(android.R.color.darker_gray);
+        } else {
+            colorFromStatusBar = getResources().getColor(backgroundColorStatusBarID);
+        }
+        backgroundColorStatusBarID = state.getColorStatusBarID();
+        colorToStatusBar = getResources().getColor(backgroundColorStatusBarID);
 
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                final ValueAnimator actionBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
-                actionBarAnimator.setDuration(animDuration);
-                actionBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        // animate the background color
+        BMIActivity.BMIState.animateColor(
+                getApplicationContext(),
+                colorFrom,
+                colorTo,
+                new ValueAnimator.AnimatorUpdateListener() {
                     @Override
                     public void onAnimationUpdate(ValueAnimator animation) {
-                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable((Integer) animation.getAnimatedValue()));
+                        rootLayout.setBackgroundColor((Integer) animation.getAnimatedValue());
+                    }
+                },
+                new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        // After that, animate the color of the action bar
+                        BMIActivity.BMIState.animateColor(
+                                getApplicationContext(),
+                                colorFromActionBar,
+                                colorToActionBar,
+                                new ValueAnimator.AnimatorUpdateListener() {
+                                    @Override
+                                    public void onAnimationUpdate(ValueAnimator animation) {
+                                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable((Integer) animation.getAnimatedValue()));
+                                    }
+                                },
+                                new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        // After that, if lollipop or higher, animate the color of the status bar
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                            BMIActivity.BMIState.animateColor(
+                                                    getApplicationContext(),
+                                                    colorFromStatusBar,
+                                                    colorToStatusBar,
+                                                    new ValueAnimator.AnimatorUpdateListener() {
+                                                        @Override
+                                                        public void onAnimationUpdate(ValueAnimator animation) {
+                                                            getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
+                                                        }
+                                                    },
+                                                    null);
+                                        }
+                                    }
+                                });
                     }
                 });
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    actionBarAnimator.addListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            final Integer colorFromDark;
-                            if (backgroundColorDark == null) {
-                                colorFromDark = getResources().getColor(android.R.color.darker_gray);
-                            } else {
-                                colorFromDark = backgroundColorDark;
-                            }
-                            final Integer colorToDark = getResources().getColor(state.getColorDark());
-
-                            backgroundColorDark = colorToDark;
-
-                            final ValueAnimator statusBarAnimator = ValueAnimator.ofObject(new ArgbEvaluator(), colorFromDark, colorToDark);
-                            statusBarAnimator.setDuration(animDuration);
-                            statusBarAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                @Override
-                                public void onAnimationUpdate(ValueAnimator animation) {
-                                    getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
-                                }
-                            });
-
-                            statusBarAnimator.start();
-                        }
-                    });
-                }
-
-                actionBarAnimator.start();
-            }
-        });
-
-        animator.start();
-
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -134,14 +151,8 @@ public class BMIInfoActivity extends ActionBarActivity {
 
     public class BMIInfoAdapter extends ArrayAdapter<String> {
 
-        private String[] names;
-        private String[] values;
-
-        public BMIInfoAdapter(Context context, String[] names, String[] values) {
-            super(context, R.layout.bmi_info_row_layout, names);
-
-            this.names = names;
-            this.values = values;
+        public BMIInfoAdapter(Context context) {
+            super(context, R.layout.bmi_info_row_layout, BMIActivity.BMIState.getNames(context));
         }
 
         @Override
@@ -152,10 +163,41 @@ public class BMIInfoActivity extends ActionBarActivity {
             TextView name = (TextView) theView.findViewById(R.id.state_name);
             TextView value = (TextView) theView.findViewById(R.id.state_value);
 
-            name.setText(names[position]);
-            value.setText(values[position]);
+            name.setText(BMIActivity.BMIState.values()[position].getName(getContext()));
+            value.setText(BMIActivity.BMIState.values()[position].getValue(getContext()));
 
             return theView;
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        // Save the background colors
+        try {
+            outState.putInt(BACKGROUNDCOLORID, backgroundColorID);
+            outState.putInt(BACKGROUNDCOLORACTIONBARID, backgroundColorActionBarID);
+            outState.putInt(BACKGROUNDCOLORSTATUSBARID, backgroundColorStatusBarID);
+        } catch (NullPointerException ignored) {
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Set the background colors
+        try {
+            backgroundColorID = savedInstanceState.getInt(BACKGROUNDCOLORID);
+            backgroundColorActionBarID = savedInstanceState.getInt(BACKGROUNDCOLORACTIONBARID);
+            backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUNDCOLORSTATUSBARID);
+
+            rootLayout.setBackgroundColor(getResources().getColor(backgroundColorID));
+            getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(backgroundColorActionBarID)));
+            getWindow().setStatusBarColor(getResources().getColor(backgroundColorStatusBarID));
+        } catch (NullPointerException ignored) {
+        }
+
     }
 }

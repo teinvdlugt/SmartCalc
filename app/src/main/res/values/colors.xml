@@ -23,14 +23,23 @@
     <color name="severely_obese">#ffff6666</color>
     <color name="very_severely_obese">#ffff0000</color>
 
-    <color name="very_severely_underweight_dark">#ff6767af</color>
-    <color name="severely_underweight_dark">#ffaf59af</color>
-    <color name="underweight_dark">#ffaf8599</color>
-    <color name="good_weight_dark">#ff4caf4d</color>
-    <color name="overweight_dark">#ffaf6262</color>
-    <color name="moderately_obese_dark">#ffaf6565</color>
-    <color name="severely_obese_dark">#ffaf4444</color>
-    <color name="very_severely_obese_dark">#ffaf0000</color>
+    <color name="very_severely_underweight_actionBar">#ff8383cd</color>
+    <color name="severely_underweight_actionBar">#ffcd72cd</color>
+    <color name="underweight_actionBar">#ffcda1b7</color>
+    <color name="good_weight_actionBar">#ff4ecd4f</color>
+    <color name="overweight_actionBar">#ffcd7b7b</color>
+    <color name="moderately_obese_actionBar">#ffcd7f7f</color>
+    <color name="severely_obese_actionBar">#ffcd4747</color>
+    <color name="very_severely_obese_actionBar">#ffcd0000</color>
+
+    <color name="very_severely_underweight_statusBar">#ff6767af</color>
+    <color name="severely_underweight_statusBar">#ffaf59af</color>
+    <color name="underweight_statusBar">#ffaf8599</color>
+    <color name="good_weight_statusBar">#ff4caf4d</color>
+    <color name="overweight_statusBar">#ffaf6262</color>
+    <color name="moderately_obese_statusBar">#ffaf6565</color>
+    <color name="severely_obese_statusBar">#ffaf4444</color>
+    <color name="very_severely_obese_statusBar">#ffaf0000</color>
 
     <color name="molu_colorPrimary">#ffff0f0f</color>
     <color name="molu_colorPrimaryDark">#ffcc0000</color>
