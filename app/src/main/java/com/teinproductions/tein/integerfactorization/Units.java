@@ -237,6 +237,44 @@ public class Units {
 
     }
 
+    public enum Temperature {
+        KELVIN, CELSIUS, FAHRENHEIT;
+
+        public Double convertTo(Temperature converted, Double value) {
+            // Formula for conversion between Celsius and Fahrenheit:
+            // F = C * 9/5 + 32
+            // C = (F - 32) * 5/9
+            // http://www.mathatube.com/fahrenheit-to-celsius-converter.html
+
+            switch (this) {
+                case KELVIN:
+                    switch (converted) {
+                        case CELSIUS:
+                            return value - 273;
+                        case FAHRENHEIT:
+                            return CELSIUS.convertTo(FAHRENHEIT, value - 273);
+                    }
+                case CELSIUS:
+                    switch (converted) {
+                        case KELVIN:
+                            return value + 273;
+                        case FAHRENHEIT:
+                            return value * 9/5 + 32;
+                    }
+                case FAHRENHEIT:
+                    switch (converted) {
+                        case KELVIN:
+                            return FAHRENHEIT.convertTo(CELSIUS, value) + 273;
+                        case CELSIUS:
+                            return (value - 32) * 5/9;
+                    }
+                default:
+                    return null;
+
+            }
+        }
+    }
+
     public static String format(Double input) {
         if (input == 0) {
             return "0";
@@ -250,5 +288,6 @@ public class Units {
     }
 
     public static final Double G = 00000000000.667384;
+    public static final Double nA = 602214000000000000000000.0;
 
 }
