@@ -238,7 +238,16 @@ public class Units {
     }
 
     public enum Temperature {
-        KELVIN, CELSIUS, FAHRENHEIT;
+        KELVIN(R.string.kelvin, R.string.kelvin_abbr),
+        CELSIUS(R.string.celsius, R.string.celsius_abbr),
+        FAHRENHEIT(R.string.fahrenheit, R.string.fahrenheit_abbr);
+
+        private int word, abbreviation;
+
+        Temperature(int word, int abbreviation) {
+            this.word = word;
+            this.abbreviation = abbreviation;
+        }
 
         public Double convertTo(Temperature converted, Double value) {
             // Formula for conversion between Celsius and Fahrenheit:
@@ -259,20 +268,45 @@ public class Units {
                         case KELVIN:
                             return value + 273;
                         case FAHRENHEIT:
-                            return value * 9/5 + 32;
+                            return value * 9 / 5 + 32;
                     }
                 case FAHRENHEIT:
                     switch (converted) {
                         case KELVIN:
                             return FAHRENHEIT.convertTo(CELSIUS, value) + 273;
                         case CELSIUS:
-                            return (value - 32) * 5/9;
+                            return (value - 32) * 5 / 9;
                     }
                 default:
                     return null;
 
             }
         }
+
+        public String getWord(Context context) {
+            return context.getResources().getString(word);
+        }
+
+        public static String[] getWords(Context context) {
+            String[] names = new String[values().length];
+            for (int i = 0; i < names.length; i++) {
+                names[i] = values()[i].getWord(context);
+            }
+            return names;
+        }
+
+        public String getAbbreviation(Context context) {
+            return context.getResources().getString(abbreviation);
+        }
+
+        public static String[] getAbbreviations(Context context) {
+            String[] abbreviations = new String[values().length];
+            for (int i = 0; i < abbreviations.length; i++) {
+                abbreviations[i] = values()[i].getAbbreviation(context);
+            }
+            return abbreviations;
+        }
+
     }
 
     public static String format(Double input) {

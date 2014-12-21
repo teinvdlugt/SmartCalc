@@ -36,9 +36,6 @@ public class BMIInfoActivity extends ActionBarActivity {
         setContentView(R.layout.list_view_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String[] names = getResources().getStringArray(R.array.BMIStateNames);
-        String[] values = getResources().getStringArray(R.array.BMIStateValues);
-
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(new BMIInfoAdapter(this));
 

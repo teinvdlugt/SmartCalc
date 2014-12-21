@@ -12,7 +12,7 @@ import java.text.DecimalFormat;
 
 public class ElementFragment extends Fragment {
 
-    TextView atomicMassTextView, abbreviationTextView, atomicNumberTextView, yearOfDiscTextView;
+    TextView atomicMassTextView, abbreviationTextView, atomicNumberTextView, yearOfDiscTextView, densityTextView;
 
     @Nullable
     @Override
@@ -24,8 +24,9 @@ public class ElementFragment extends Fragment {
         abbreviationTextView = (TextView) theView.findViewById(R.id.fragment_element_abbreviation);
         atomicNumberTextView = (TextView) theView.findViewById(R.id.fragment_element_atomic_number);
         yearOfDiscTextView = (TextView) theView.findViewById(R.id.fragment_element_year_of_disc);
+        densityTextView = (TextView) theView.findViewById(R.id.fragment_element_density);
 
-        if(getArguments() == null){
+        if (getArguments() == null) {
             return theView;
         }
 
@@ -35,11 +36,16 @@ public class ElementFragment extends Fragment {
         abbreviationTextView.setText(element.getAbbreviation());
         atomicNumberTextView.setText(new DecimalFormat().format(element.getAtomicNumber()));
         yearOfDiscTextView.setText(element.getDiscYearString(getActivity()));
+        if (element.getDensity() != null) {
+            densityTextView.setText(new DecimalFormat().format(element.getDensity()) + " " + getString(R.string.gpcm3));
+        } else {
+            densityTextView.setText(R.string.unknown);
+        }
 
         return theView;
     }
 
-    public static ElementFragment newInstance(Element element){
+    public static ElementFragment newInstance(Element element) {
         ElementFragment elementFragment = new ElementFragment();
         Bundle args = new Bundle();
         args.putSerializable("element", element);

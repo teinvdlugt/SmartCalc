@@ -40,6 +40,8 @@ public class Complex {
     }
 
     public Complex pow(int exponent) {
+        // http://nl.wikipedia.org/wiki/Formule_van_Euler TODO to the power of a complex number
+
         if (exponent == 0) return new Complex(1, 0);
         if (exponent == 1) return this;
 

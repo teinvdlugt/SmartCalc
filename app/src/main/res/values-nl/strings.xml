@@ -23,7 +23,6 @@
     <string name="add_button_text">Optellen</string>
     <string name="meters_per_second">Meter/sec</string>
     <string name="km_per_hour">Km/uur</string>
-    <string name="meters_per_second_abbr">m/s</string>
     <string name="km_per_hour_abbr">km/u</string>
     <string name="miles_per_hour">Mijl per uur</string>
     <string name="miles_per_hour_abbr">mph</string>
@@ -64,7 +63,6 @@
     <string name="faster_than_light_message">Je maakt een grapje?</string>
     <string name="proper_length">Eigenlengte</string>
     <string name="kilometer">Kilometer</string>
-    <string name="kilometer_abbr">km</string>
     <string name="centimeter">Centimeter</string>
     <string name="centimeter_abbr">cm</string>
     <string name="millimeter">Millimeter</string>
@@ -91,7 +89,6 @@
     <string name="no_element_given_dialog_fragment_message">Typ je element in de \'element\' tekstbox.</string>
     <string name="no_element_given_dialog_fragment_title">Geen Element</string>
     <string name="not_an_element_dialog_fragment_message">Dit is geen element</string>
-    <string name="ok_positive_button_dialog">OK</string>
     <string name="error">Error</string>
     <string name="elements">Elementen</string>
     <string name="particles">Deeltjes:</string>
@@ -99,10 +96,7 @@
     <string name="fragment_element_abbreviation">Afkorting:</string>
     <string name="fragment_element_atomic_mass">Atoommassa:</string>
     <string name="fragment_element_atomic_number">Atoomnummer:</string>
-    <string name="invalid_number_dialog_message">Voer een geldig getal in.</string>
-    <string name="invalid_number_dialog_title">Ongeldig getal</string>
     <string name="too_many_arguments_message">Vul slechts één van de drie tekstvelden</string>
-    <string name="try_the_new_user_interface">Probeer de nieuwe versie!</string>
     <string name="unknown">Onbekend</string>
     <string name="before_christ">v.Chr.</string>
     <string name="year_of_discovery_text">Ontdekking:</string>
@@ -241,6 +235,8 @@
     <string name="tonne">Ton</string>
     <string name="your_bmi_is">Je BMI is:</string>
     <string name="micrometer_abbr">μm</string>
+    <string name="gpcm3">g/cm3</string>
+    <string name="volume_in_l">Volume in L:</string>
 
     <string-array name="BMIStateNames">
         <item>Extreem Ondergewicht</item>
@@ -263,5 +259,45 @@
         <item>35 tot 40</item>
         <item>Meer dan 40</item>
     </string-array>
+    <string name="celsius">Graden Celsius</string>
+    <string name="celsius_abbr">°C</string>
+    <string name="complex_numbers">Complexe Getallen</string>
+    <string name="convert">Omrekenen</string>
+    <string name="converter">Eenheden omrekenen</string>
+    <string name="density">Dichtheid</string>
+    <string name="fahrenheit">Graden Fahrenheit</string>
+    <string name="fahrenheit_abbr">°F</string>
+    <string name="gas">Gas</string>
+    <string name="gram_abbr">g</string>
+    <string name="info">Info</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="kelvin_abbr">K</string>
+    <string name="kilogram_abbr">kg</string>
+    <string name="length">Lengte</string>
+    <string name="length_conversion">Lengte-eenheden omrekenen</string>
+    <string name="long_ton_abbr">LT</string>
+    <string name="mass">Massa</string>
+    <string name="micrometer">Micrometer</string>
+    <string name="milligram_abbr">mg</string>
+    <string name="nanometer">Nanometer</string>
+    <string name="xs_drawer_close">Sluit de lijst</string>
+    <string name="xs_drawer_open">Open een lijst met alle elementen</string>
+    <string name="volume">Volume</string>
+    <string name="unknown_volume_toast_message">Volume kon niet worden berekend vanwege onbekende dichtheid</string>
+    <string name="tonne_abbr">t</string>
+    <string name="time_conversion">Tijdeenheden omrekenen</string>
+    <string name="time">Tijd</string>
+    <string name="temperature">Temperatuur:</string>
+    <string name="stone_abbr">st</string>
+    <string name="stone">Stones</string>
+    <string name="solid_or_liquid">Vast/Vloeibaar</string>
+    <string name="schwarzchild_radius">Schwarzchild Radius</string>
+    <string name="planck_length">Planck-lengten</string>
+    <string name="ounce_abbr">oz</string>
+    <string name="kilometer_abbr" translatable="false">km</string>
+    <string name="meters_per_second_abbr">m/s</string>
+    <string name="nanometer_abbr">nm</string>
+    <string name="planck_length_abbr">ℓP</string>
+    <string name="pound_abbr">lb</string>
 
 </resources>

@@ -136,6 +136,7 @@ public enum Element {
         this.mass = mass;
         this.atomicNumber = atomicNumber;
         this.discYear = yearOfDiscovery;
+        this.density = density;
     }
 
 
@@ -205,7 +206,7 @@ public enum Element {
     }
 
     public Double getDensity() {
-        return mass;
+        return density;
     }
 
     public Integer getAtomicNumber() {
