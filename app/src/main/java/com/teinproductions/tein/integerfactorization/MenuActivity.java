@@ -33,7 +33,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
             specialRelativityList = new String[]{getString(R.string.adding_velocities), getString(R.string.time_dilation), getString(R.string.length_contraction)};
         chemistryList = new String[]{getString(R.string.elements)};
         biologyList = new String[]{getString(R.string.bmi_title)};
-        converterList = new String[]{getString(R.string.length), getString(R.string.time)};
+        converterList = new String[]{getString(R.string.length), getString(R.string.time), getString(R.string.temperature)};
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(mainList);
@@ -148,6 +148,9 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
                     break;
                 case 1:
                     makeIntent(TimeConvertActivity.class);
+                    break;
+                case 2:
+                    makeIntent(TemperatureConvertActivity.class);
                 default:
                     break;
             }

@@ -282,12 +282,13 @@
     <string name="nanometer">Nanometer</string>
     <string name="xs_drawer_close">Sluit de lijst</string>
     <string name="xs_drawer_open">Open een lijst met alle elementen</string>
-    <string name="volume">Volume</string>
+    <string name="volume">Volume:</string>
     <string name="unknown_volume_toast_message">Volume kon niet worden berekend vanwege onbekende dichtheid</string>
     <string name="tonne_abbr">t</string>
     <string name="time_conversion">Tijdeenheden omrekenen</string>
     <string name="time">Tijd</string>
-    <string name="temperature">Temperatuur:</string>
+    <string name="temperature_text_view">Temperatuur:</string>
+    <string name="temperature">Temperatuur</string>
     <string name="stone_abbr">st</string>
     <string name="stone">Stones</string>
     <string name="solid_or_liquid">Vast/Vloeibaar</string>

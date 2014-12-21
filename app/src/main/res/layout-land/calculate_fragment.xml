@@ -152,8 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/temperature" />
-
+            android:text="@string/temperature_text_view" />
 
         <Spinner
             android:id="@+id/temperature_spinner"

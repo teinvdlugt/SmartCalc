@@ -127,6 +127,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 editText2.setText(convert().toString());
                 input1 = null;
             } catch (NumberFormatException e) {
+                editText1.setText("");
                 editText2.requestFocus();
                 return;
             }
@@ -137,22 +138,23 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 editText1.setText(convert().toString());
                 input2 = null;
             } catch (NumberFormatException e) {
+                editText2.setText("");
                 editText1.requestFocus();
                 return;
             }
         } else if (view == button || view == spinner1) {
             if (getCurrentFocus() == editText1) {
-                if (isValidDecimalNumberInput(editText1.getText().toString())) {
+                if (CalculateFragment.hasValidDecimalInput(editText1)) {
                     onClickConvert(editText1);
-                } else if (isValidDecimalNumberInput(editText2.getText().toString())) {
+                } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
                     onClickConvert(editText2);
                 } else if (view == button) {
                     CustomDialog.invalidNumber(getFragmentManager());
                 }
             } else if (getCurrentFocus() == editText2) {
-                if (isValidDecimalNumberInput(editText2.getText().toString())) {
+                if (CalculateFragment.hasValidDecimalInput(editText1)) {
                     onClickConvert(editText2);
-                } else if (isValidDecimalNumberInput(editText1.getText().toString())) {
+                } else if (CalculateFragment.hasValidDecimalInput(editText1)) {
                     onClickConvert(editText1);
                 } else if (view == button) {
                     CustomDialog.invalidNumber(getFragmentManager());
@@ -161,15 +163,6 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 editText1.setText("");
                 editText2.setText("");
             }
-        }
-    }
-
-    public static boolean isValidDecimalNumberInput(String input) {
-        try {
-            Double someDouble = Double.parseDouble(input);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 

@@ -1,10 +1,8 @@
 package com.teinproductions.tein.integerfactorization;
 
-
 import android.widget.ArrayAdapter;
 
-public class LengthConvertActivity extends ConvertActivity {
-
+public class TemperatureConvertActivity extends ConvertActivity {
     @Override
     protected int contentView() {
         return R.layout.activity_convert1;
@@ -14,25 +12,23 @@ public class LengthConvertActivity extends ConvertActivity {
     protected void setAdapters() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
-                Units.Length.getAbbreviations(this));
+                Units.Temperature.getAbbreviations(TemperatureConvertActivity.this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner1.setAdapter(adapter);
         spinner2.setAdapter(adapter);
-
-        // "false" is so that the onSelectedItemListener is not triggered
-        spinner1.setSelection(5, false);
-        spinner2.setSelection(9, false);
+        spinner1.setSelection(2, false);
+        spinner2.setSelection(1, false);
     }
 
     @Override
     protected Double convert() {
-        Units.Length length1 = Units.Length.values()[selected1];
-        Units.Length length2 = Units.Length.values()[selected2];
+        Units.Temperature temp1 = Units.Temperature.values()[selected1];
+        Units.Temperature temp2 = Units.Temperature.values()[selected2];
         if (input1 != null && input2 == null) {
-            return length1.convertTo(length2, input1);
+            return temp1.convertTo(temp2, input1);
         } else if (input1 == null && input2 != null) {
-            return length2.convertTo(length1, input2);
+            return temp2.convertTo(temp1, input2);
         }
 
         return 0.0;
