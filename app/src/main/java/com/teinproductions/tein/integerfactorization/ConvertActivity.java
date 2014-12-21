@@ -20,7 +20,6 @@ public abstract class ConvertActivity extends ActionBarActivity {
     protected EditText editText1, editText2;
     protected Button button;
 
-    protected int selected1, selected2, selected1b, selected2b;
     protected Double result;
     protected Double input1, input2;
 
@@ -58,7 +57,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -88,38 +87,15 @@ public abstract class ConvertActivity extends ActionBarActivity {
         };
 
         spinner1.setOnItemSelectedListener(listener);
-        try {
-            spinner1b.setOnItemSelectedListener(listener);
-        } catch (NullPointerException ignored) {
-        }
-
-        listener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onClickConvert(editText2);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        };
-
         spinner2.setOnItemSelectedListener(listener);
         try {
+            spinner1b.setOnItemSelectedListener(listener);
             spinner2b.setOnItemSelectedListener(listener);
         } catch (NullPointerException ignored) {
         }
     }
 
     public void onClickConvert(View view) {
-        selected1 = spinner1.getSelectedItemPosition();
-        selected2 = spinner2.getSelectedItemPosition();
-        if (spinner1b != null && spinner2b != null) {
-            selected1b = spinner1b.getSelectedItemPosition();
-            selected2b = spinner2b.getSelectedItemPosition();
-        }
-
         if (view == editText1) {
             try {
                 input1 = Double.parseDouble(editText1.getText().toString());
@@ -129,7 +105,6 @@ public abstract class ConvertActivity extends ActionBarActivity {
             } catch (NumberFormatException e) {
                 editText1.setText("");
                 editText2.requestFocus();
-                return;
             }
         } else if (view == editText2) {
             try {
@@ -140,28 +115,18 @@ public abstract class ConvertActivity extends ActionBarActivity {
             } catch (NumberFormatException e) {
                 editText2.setText("");
                 editText1.requestFocus();
-                return;
             }
         } else if (view == button || view == spinner1) {
-            if (getCurrentFocus() == editText1) {
-                if (CalculateFragment.hasValidDecimalInput(editText1)) {
-                    onClickConvert(editText1);
-                } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
-                    onClickConvert(editText2);
-                } else if (view == button) {
-                    CustomDialog.invalidNumber(getFragmentManager());
-                }
-            } else if (getCurrentFocus() == editText2) {
-                if (CalculateFragment.hasValidDecimalInput(editText1)) {
-                    onClickConvert(editText2);
-                } else if (CalculateFragment.hasValidDecimalInput(editText1)) {
-                    onClickConvert(editText1);
-                } else if (view == button) {
-                    CustomDialog.invalidNumber(getFragmentManager());
-                }
-            } else {
-                editText1.setText("");
-                editText2.setText("");
+            if (editText1.hasFocus() && CalculateFragment.hasValidDecimalInput(editText1)) {
+                onClickConvert(editText1);
+            } else if (editText2.hasFocus() && CalculateFragment.hasValidDecimalInput(editText2)) {
+                onClickConvert(editText2);
+            } else if (CalculateFragment.hasValidDecimalInput(editText1)) {
+                onClickConvert(editText1);
+            } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
+                onClickConvert(editText2);
+            } else if (view == button) {
+                CustomDialog.invalidNumber(getFragmentManager());
             }
         }
     }

@@ -23,8 +23,8 @@ public class TemperatureConvertActivity extends ConvertActivity {
 
     @Override
     protected Double convert() {
-        Units.Temperature temp1 = Units.Temperature.values()[selected1];
-        Units.Temperature temp2 = Units.Temperature.values()[selected2];
+        Units.Temperature temp1 = Units.Temperature.values()[spinner1.getSelectedItemPosition()];
+        Units.Temperature temp2 = Units.Temperature.values()[spinner2.getSelectedItemPosition()];
         if (input1 != null && input2 == null) {
             return temp1.convertTo(temp2, input1);
         } else if (input1 == null && input2 != null) {

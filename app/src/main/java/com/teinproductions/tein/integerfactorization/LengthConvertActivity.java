@@ -27,8 +27,8 @@ public class LengthConvertActivity extends ConvertActivity {
 
     @Override
     protected Double convert() {
-        Units.Length length1 = Units.Length.values()[selected1];
-        Units.Length length2 = Units.Length.values()[selected2];
+        Units.Length length1 = Units.Length.values()[spinner1.getSelectedItemPosition()];
+        Units.Length length2 = Units.Length.values()[spinner2.getSelectedItemPosition()];
         if (input1 != null && input2 == null) {
             return length1.convertTo(length2, input1);
         } else if (input1 == null && input2 != null) {

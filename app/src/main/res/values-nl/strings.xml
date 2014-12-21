@@ -82,13 +82,10 @@
     <string name="length_contraction">Lengtecontractie</string>
 
     <!-- Molu -->
-    <string name="mol_text_view">Mol:</string>
-    <string name="mass_text_view">Massa in u:</string>
+    <string name="mol">Mol:</string>
+    <string name="mass_in_u">Massa in u:</string>
     <string name="element">Element</string>
     <string name="mass_in_g">Massa in g:</string>
-    <string name="no_element_given_dialog_fragment_message">Typ je element in de \'element\' tekstbox.</string>
-    <string name="no_element_given_dialog_fragment_title">Geen Element</string>
-    <string name="not_an_element_dialog_fragment_message">Dit is geen element</string>
     <string name="error">Error</string>
     <string name="elements">Elementen</string>
     <string name="particles">Deeltjes:</string>
@@ -96,13 +93,11 @@
     <string name="fragment_element_abbreviation">Afkorting:</string>
     <string name="fragment_element_atomic_mass">Atoommassa:</string>
     <string name="fragment_element_atomic_number">Atoomnummer:</string>
-    <string name="too_many_arguments_message">Vul slechts één van de drie tekstvelden</string>
     <string name="unknown">Onbekend</string>
     <string name="before_christ">v.Chr.</string>
     <string name="year_of_discovery_text">Ontdekking:</string>
 
-
-    <!-- All Elements -->
+    <!-- All elements -->
     <string name="hydrogen">Waterstof</string>
     <string name="helium">Helium</string>
     <string name="lithium">Lithium</string>
@@ -282,12 +277,11 @@
     <string name="nanometer">Nanometer</string>
     <string name="xs_drawer_close">Sluit de lijst</string>
     <string name="xs_drawer_open">Open een lijst met alle elementen</string>
-    <string name="volume">Volume:</string>
     <string name="unknown_volume_toast_message">Volume kon niet worden berekend vanwege onbekende dichtheid</string>
     <string name="tonne_abbr">t</string>
     <string name="time_conversion">Tijdeenheden omrekenen</string>
     <string name="time">Tijd</string>
-    <string name="temperature_text_view">Temperatuur:</string>
+    <string name="temperature_colon">Temperatuur:</string>
     <string name="temperature">Temperatuur</string>
     <string name="stone_abbr">st</string>
     <string name="stone">Stones</string>
@@ -295,7 +289,7 @@
     <string name="schwarzchild_radius">Schwarzchild Radius</string>
     <string name="planck_length">Planck-lengten</string>
     <string name="ounce_abbr">oz</string>
-    <string name="kilometer_abbr" translatable="false">km</string>
+    <string name="kilometer_abbr">km</string>
     <string name="meters_per_second_abbr">m/s</string>
     <string name="nanometer_abbr">nm</string>
     <string name="planck_length_abbr">ℓP</string>

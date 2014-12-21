@@ -258,6 +258,8 @@ public class Units {
             switch (this) {
                 case KELVIN:
                     switch (converted) {
+                        case KELVIN:
+                            return value;
                         case CELSIUS:
                             return value - 273;
                         case FAHRENHEIT:
@@ -267,6 +269,8 @@ public class Units {
                     switch (converted) {
                         case KELVIN:
                             return value + 273;
+                        case CELSIUS:
+                            return value;
                         case FAHRENHEIT:
                             return value * 9 / 5 + 32;
                     }
@@ -276,10 +280,11 @@ public class Units {
                             return FAHRENHEIT.convertTo(CELSIUS, value) + 273;
                         case CELSIUS:
                             return (value - 32) * 5 / 9;
+                        case FAHRENHEIT:
+                            return value;
                     }
                 default:
                     return null;
-
             }
         }
 

@@ -2,28 +2,107 @@
 <resources>
 
     <string name="app_name">SmartCalc</string>
+    <string name="menu">Menu</string>
+
+    <!-- MATHS -->
+    <string name="maths">Maths</string>
+    <!-- factorization -->
+    <string name="integer_factorization">Integer factorization</string>
     <string name="number_to_factorize_hint">Number to Factorize</string>
     <string name="factorize_button">Factorize</string>
     <string name="factorize_result_declaration">Integer factors:</string>
-    <string name="number_1">Number 1</string>
-    <string name="number_2">Number 2</string>
-    <string name="calculate">Calculate</string>
+
     <string name="greatest_common_factor">Greatest Common Factor</string>
+
     <string name="least_common_multiple">Least Common Multiple</string>
-    <string name="invalid_number_title">Invalid number</string>
-    <string name="invalid_number_message">Please enter a valid number.</string>
-    <string name="maths">Maths</string>
-    <string name="integer_factorization">Integer factorization</string>
-    <string name="menu">Menu</string>
+
+    <string name="complex_numbers">Complex Numbers</string>
+
+    <!-- PHYSICS -->
     <string name="physics">Physics</string>
     <string name="special_relativity">Special Relativity</string>
     <string name="adding_velocities">Adding velocities</string>
     <string name="velocity1">Velocity 1</string>
     <string name="velocity2">Velocity 2</string>
     <string name="add_button_text">Add</string>
+
+    <string name="time_dilation">Time Dilation</string>
+    <string name="proper_time">Proper Time</string>
+    <string name="dilated_time">Dilated Time:</string>
+
+    <string name="length_contraction">Length Contraction</string>
+    <string name="proper_length">Proper Length</string>
+    <string name="contracted_length">Contracted Length: </string>
+
+    <string name="faster_than_light">Faster than light</string>
+    <string name="faster_than_light_message">You\'re kidding, right?</string>
+
+    <string name="mass">Mass</string>
+    <string name="schwarzchild_radius">Schwarzchild Radius</string>
+
+    <!-- CHEMISTRY -->
+    <string name="chemistry">Chemistry</string>
+    <string name="mol">Mol:</string>
+    <string name="mass_in_u">Mass in u:</string>
+    <string name="mass_in_g">Mass in g:</string>
+    <string name="particles">Particles:</string>
+    <string name="volume_in_l">Volume in L:</string>
+    <string name="temperature_colon">Temperature:</string>
+    <string name="element">Element</string>
+    <string name="elements">Elements</string>
+    <string name="fragment_element_atomic_mass">Atomic Mass:</string>
+    <string name="fragment_element_abbreviation">Abbreviation:</string>
+    <string name="fragment_element_atomic_number">Atomic Number:</string>
+    <string name="year_of_discovery_text">Year of Discovery:</string>
+    <string name="density">Density:</string>
+    <string name="action_bar_pager_show_list">List</string>
+    <string name="unknown">Unknown</string>
+    <string name="before_christ">B.C.</string>
+    <string name="xs_drawer_open">show a list of all elements</string>
+    <string name="xs_drawer_close">close list</string>
+    <string name="gpcm3">g/cm3</string>
+
+    <string name="unknown_volume_toast_message">Volume could not be calculated due to unknown density</string>
+    <string name="solid_or_liquid">Solid/Liquid</string>
+    <string name="gas">Gas</string>
+
+    <!-- BIOLOGY -->
+    <string name="biology">Biology</string>
+    <string name="bmi_title">Calculate Your BMI</string>
+    <string name="enter_your_weight">Enter your weight</string>
+    <string name="enter_your_length">Enter your length</string>
+    <string name="your_bmi_is">Your BMI is:</string>
+    <string name="info">Info</string>
+    <string-array name="BMIStateNames">
+        <item>Very Severely Underweight</item>
+        <item>Severely Underweight</item>
+        <item>Underweight</item>
+        <item>Good Weight</item>
+        <item>Overweight</item>
+        <item>Moderately Obese</item>
+        <item>Severely Obese</item>
+        <item>Very Severely Obese</item>
+    </string-array>
+
+    <string-array name="BMIStateValues">
+        <item>Less than 15</item>
+        <item>15 to 16</item>
+        <item>16 to 18.5</item>
+        <item>18.5 to 25</item>
+        <item>25 to 30</item>
+        <item>30 to 35</item>
+        <item>35 to 40</item>
+        <item>Greater than 40</item>
+    </string-array>
+
+    <!-- UNITS -->
+    <string name="convert">Convert</string>
+    <string name="converter">Converter</string>
+
+    <string name="velocity">Velocity</string>
     <string name="meters_per_second">Meters/sec</string>
-    <string name="km_per_hour">Km/hour</string>
     <string name="meters_per_second_abbr">m/s</string>
+    <string name="km_per_hour">Km/hour</string>
     <string name="km_per_hour_abbr">km/h</string>
     <string name="miles_per_hour">Miles/hour</string>
     <string name="miles_per_hour_abbr">mph</string>
@@ -31,8 +110,9 @@
     <string name="feet_per_second_abbr">ft/s</string>
     <string name="knots">Knots</string>
     <string name="knots_abbr">kn</string>
-    <string name="contracted_length">Contracted Length: </string>
-    <string name="proper_time">Proper Time</string>
+
+    <string name="time">Time</string>
+    <string name="time_conversion">Time Conversion</string>
     <string name="nanoseconds">Nanoseconds</string>
     <string name="nanoseconds_abbr">ns</string>
     <string name="microsecond">Microseconds</string>
@@ -57,12 +137,9 @@
     <string name="decade_abbr">deci</string>
     <string name="century">Centuries</string>
     <string name="century_abbr">cent</string>
-    <string name="dilated_time">Dilated Time:</string>
-    <string name="velocity">Velocity</string>
-    <string name="time_dilation">Time Dilation</string>
-    <string name="faster_than_light">Faster than light</string>
-    <string name="faster_than_light_message">You\'re kidding, right?</string>
-    <string name="proper_length">Proper Length</string>
+
+    <string name="length">Length</string>
+    <string name="length_conversion">Length Conversion</string>
     <string name="kilometer">Kilometers</string>
     <string name="kilometer_abbr">km</string>
     <string name="centimeter">Centimeters</string>
@@ -81,27 +158,48 @@
     <string name="nautical_mile_abbr">NM</string>
     <string name="meter">Meters</string>
     <string name="meter_abbr">m</string>
-    <string name="length_contraction">Length Contraction</string>
+    <string name="micrometer">Micrometers</string>
+    <string name="micrometer_abbr">µm</string>
+    <string name="nanometer">Nanometers</string>
+    <string name="nanometer_abbr">nm</string>
+    <string name="planck_length">Planck Lengths</string>
+    <string name="planck_length_abbr">ℓP</string>
 
-    <!-- Molu -->
-    <string name="mol_text_view">Mol:</string>
-    <string name="mass_text_view">Mass in u:</string>
-    <string name="mass_in_g">Mass in g:</string>
-    <string name="particles">Particles:</string>
-    <string name="element">Element</string>
-    <string name="elements">Elements</string>
+    <string name="kilogram">Kilograms</string>
+    <string name="kilogram_abbr">kg</string>
+    <string name="tonne">Tonnes</string>
+    <string name="tonne_abbr">t</string>
+    <string name="gram">Grams</string>
+    <string name="gram_abbr">g</string>
+    <string name="milligram">Milligrams</string>
+    <string name="milligram_abbr">mg</string>
+    <string name="long_ton">Long tons</string>
+    <string name="long_ton_abbr">LT</string>
+    <string name="short_ton">Short tons</string>
+    <string name="short_ton_abbr">ST</string>
+    <string name="stone">Stones</string>
+    <string name="stone_abbr">st</string>
+    <string name="pound">Pounds</string>
+    <string name="pound_abbr">lb</string>
+    <string name="ounce">Ounces</string>
+    <string name="ounce_abbr">oz</string>
+
+    <string name="temperature">Temperature</string>
+    <string name="kelvin">Kelvin</string>
+    <string name="kelvin_abbr">K</string>
+    <string name="celsius">Degrees Celsius</string>
+    <string name="celsius_abbr">°C</string>
+    <string name="fahrenheit">Degrees Fahrenheit</string>
+    <string name="fahrenheit_abbr">°F</string>
+
+    <!-- COMMON -->
+    <string name="number_1">Number 1</string>
+    <string name="number_2">Number 2</string>
+    <string name="calculate">Calculate</string>
+
     <string name="error">Error</string>
-    <string name="no_element_given_dialog_fragment_message">Type your element in the \'element\' box</string>
-    <string name="no_element_given_dialog_fragment_title">No Element</string>
-    <string name="not_an_element_dialog_fragment_message">This is not an element</string>
-    <string name="too_many_arguments_message">Fill only one of the unit boxes</string>
-    <string name="fragment_element_atomic_mass">Atomic Mass:</string>
-    <string name="fragment_element_abbreviation">Abbreviation:</string>
-    <string name="fragment_element_atomic_number">Atomic Number:</string>
-    <string name="year_of_discovery_text">Year of Discovery:</string>
-    <string name="action_bar_pager_show_list">List</string>
-    <string name="unknown">Unknown</string>
-    <string name="before_christ">B.C.</string>
+    <string name="invalid_number_title">Invalid number</string>
+    <string name="invalid_number_message">Please enter a valid number.</string>
 
     <!-- All Elements -->
     <string name="hydrogen">Hydrogen</string>
@@ -222,84 +320,5 @@
     <string name="livermorium">Livermorium</string>
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
-    <string name="chemistry">Chemistry</string>
-    <string name="enter_your_weight">Enter your weight</string>
-    <string name="enter_your_length">Enter your length</string>
-    <string name="your_bmi_is">Your BMI is:</string>
-    <string name="kilogram">Kilograms</string>
-    <string name="kilogram_abbr">kg</string>
-    <string name="tonne">Tonnes</string>
-    <string name="tonne_abbr">t</string>
-    <string name="gram">Grams</string>
-    <string name="gram_abbr">g</string>
-    <string name="milligram">Milligrams</string>
-    <string name="milligram_abbr">mg</string>
-    <string name="long_ton">Long tons</string>
-    <string name="long_ton_abbr">LT</string>
-    <string name="short_ton">Short tons</string>
-    <string name="short_ton_abbr">ST</string>
-    <string name="stone">Stones</string>
-    <string name="stone_abbr">st</string>
-    <string name="pound">Pounds</string>
-    <string name="pound_abbr">lb</string>
-    <string name="ounce">Ounces</string>
-    <string name="ounce_abbr">oz</string>
-    <string name="bmi_title">Calculate Your BMI</string>
-    <string name="biology">Biology</string>
-    <string name="info">Info</string>
-    <string name="complex_numbers">Complex Numbers</string>
-    <string name="convert">Convert</string>
-    <string name="converter">Converter</string>
-    <string name="length">Length</string>
-    <string name="time">Time</string>
-    <string name="length_conversion">Length Conversion</string>
-    <string name="time_conversion">Time Conversion</string>
-    <string name="mass">Mass</string>
-    <string name="schwarzchild_radius">Schwarzchild Radius</string>
-    <string name="micrometer">Micrometers</string>
-    <string name="micrometer_abbr">µm</string>
-    <string name="nanometer">Nanometers</string>
-    <string name="nanometer_abbr">nm</string>
-    <string name="planck_length">Planck Lengths</string>
-    <string name="planck_length_abbr">ℓP</string>
-    <string name="xs_drawer_open">show a list of all elements</string>
-    <string name="xs_drawer_close">close list</string>
-    <string name="volume">Volume:</string>
-    <string name="temperature_text_view">Temperature:</string>
-    <string name="temperature">Temperature</string>
-    <string name="kelvin">Kelvin</string>
-    <string name="kelvin_abbr">K</string>
-    <string name="celsius">Degrees Celsius</string>
-    <string name="celsius_abbr">°C</string>
-    <string name="fahrenheit">Degrees Fahrenheit</string>
-    <string name="fahrenheit_abbr">°F</string>
-    <string name="density">Density:</string>
-    <string name="gpcm3">g/cm3</string>
-    <string name="volume_in_l">Volume in L:</string>
-    <string name="unknown_volume_toast_message">Volume could not be calculated due to unknown density</string>
-    <string name="solid_or_liquid">Solid/Liquid</string>
-    <string name="gas">Gas</string>
-
-    <string-array name="BMIStateNames">
-        <item>Very Severely Underweight</item>
-        <item>Severely Underweight</item>
-        <item>Underweight</item>
-        <item>Good Weight</item>
-        <item>Overweight</item>
-        <item>Moderately Obese</item>
-        <item>Severely Obese</item>
-        <item>Very Severely Obese</item>
-    </string-array>
-
-    <string-array name="BMIStateValues">
-        <item>Less than 15</item>
-        <item>15 to 16</item>
-        <item>16 to 18.5</item>
-        <item>18.5 to 25</item>
-        <item>25 to 30</item>
-        <item>30 to 35</item>
-        <item>35 to 40</item>
-        <item>Greater than 40</item>
-    </string-array>
 
 </resources>

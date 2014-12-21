@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/mol_text_view" />
+            android:text="@string/mol" />
 
         <EditText
             android:id="@+id/mol_edit_text"
@@ -43,7 +43,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/mass_text_view" />
+            android:text="@string/mass_in_u" />
 
         <TextView
             android:id="@+id/mass_amount_text_view"
@@ -152,7 +152,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/temperature_text_view" />
+            android:text="@string/temperature_colon" />
 
         <Spinner
             android:id="@+id/temperature_spinner"

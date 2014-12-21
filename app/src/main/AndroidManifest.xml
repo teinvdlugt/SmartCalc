@@ -8,96 +8,92 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".FactorizationActivity"
-            android:label="@string/integer_factorization"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".GCFActivity"
-            android:label="@string/greatest_common_factor"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".LCMActivity"
-            android:label="@string/least_common_multiple"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".VelocityAdding"
-            android:label="@string/adding_velocities"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".TimeDilationActivity"
-            android:label="@string/time_dilation"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".LengthContractionActivity"
-            android:label="@string/length_contraction"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".SchwarzschildRadiusActivity"
-            android:label="@string/schwarzchild_radius"
-            android:windowSoftInputMode="stateVisible" />
-
-        <activity
-            android:name=".ElementPagerActivity"
-            android:label="@string/elements"
-            android:theme="@style/molu_theme">
-        </activity>
-
-        <activity
-            android:name=".BMIActivity"
-            android:label="@string/bmi_title"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".BMIInfoActivity"
-            android:label="@string/info">
-        </activity>
-
-        <activity
-            android:name=".ComplexActivity"
-            android:label="@string/complex_numbers"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".LengthConvertActivity"
-            android:label="@string/length_conversion"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".TimeConvertActivity"
-            android:label="@string/time_conversion"
-            android:windowSoftInputMode="stateVisible">
-        </activity>
-
-        <activity
-            android:name=".TemperatureConvertActivity"
-            android:label="Temperature Conversion"
-            android:windowSoftInputMode="stateVisible"/>
+        <!-- MENU -->
 
         <activity
             android:name=".MenuActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- MATHS -->
+
+        <activity
+            android:name=".FactorizationActivity"
+            android:label="@string/integer_factorization"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".GCFActivity"
+            android:label="@string/greatest_common_factor"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".LCMActivity"
+            android:label="@string/least_common_multiple"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".ComplexActivity"
+            android:label="@string/complex_numbers"
+            android:windowSoftInputMode="stateVisible" />
+
+        <!-- PHYSICS -->
+
+        <activity
+            android:name=".VelocityAdding"
+            android:label="@string/adding_velocities"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".TimeDilationActivity"
+            android:label="@string/time_dilation"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".LengthContractionActivity"
+            android:label="@string/length_contraction"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".SchwarzschildRadiusActivity"
+            android:label="@string/schwarzchild_radius"
+            android:windowSoftInputMode="stateVisible" />
+
+        <!-- CHEMISTRY -->
+
+        <activity
+            android:name=".ElementPagerActivity"
+            android:label="@string/elements"
+            android:theme="@style/molu_theme" />
+
+        <!-- BIOLOGY -->
+
+        <activity
+            android:name=".BMIActivity"
+            android:label="@string/bmi_title"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".BMIInfoActivity"
+            android:label="@string/info" />
+
+        <!-- CONVERTER -->
+
+        <activity
+            android:name=".LengthConvertActivity"
+            android:label="@string/length_conversion"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".TimeConvertActivity"
+            android:label="@string/time_conversion"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity
+            android:name=".TemperatureConvertActivity"
+            android:label="Temperature Conversion"
+            android:windowSoftInputMode="stateVisible" />
 
     </application>
 

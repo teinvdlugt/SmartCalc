@@ -27,8 +27,8 @@ public class TimeConvertActivity extends ConvertActivity {
 
     @Override
     protected Double convert() {
-        Units.Time time1 = Units.Time.values()[selected1];
-        Units.Time time2 = Units.Time.values()[selected2];
+        Units.Time time1 = Units.Time.values()[spinner1.getSelectedItemPosition()];
+        Units.Time time2 = Units.Time.values()[spinner2.getSelectedItemPosition()];
         if (input1 != null && input2 == null) {
             return time1.convertTo(time2, input1);
         } else if (input1 == null && input2 != null) {
