@@ -320,5 +320,10 @@
     <string name="livermorium">Livermorium</string>
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
+    <string name="Save">Save</string>
+    <string name="name_colon">Name:</string>
+    <string name="custom_particles">Custom Particles</string>
+    <string name="edit_particle">Edit Particle</string>
+    <string name="temperature_conversion">Temperature Conversion</string>
 
 </resources>

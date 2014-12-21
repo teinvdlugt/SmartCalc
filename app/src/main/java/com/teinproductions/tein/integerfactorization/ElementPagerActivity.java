@@ -1,5 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -119,6 +120,10 @@ public class ElementPagerActivity extends ActionBarActivity
                 } else {
                     drawerLayout.openDrawer(drawerListView);
                 }
+                return true;
+            case R.id.pager_activity_edit_button:
+                Intent intent = new Intent(this, CustomParticles.class);
+                startActivity(intent);
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
