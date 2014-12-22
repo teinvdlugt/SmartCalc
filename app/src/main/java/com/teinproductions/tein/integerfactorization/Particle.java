@@ -1,6 +1,13 @@
 package com.teinproductions.tein.integerfactorization;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class Particle implements Serializable {
@@ -47,13 +54,82 @@ public class Particle implements Serializable {
         this.density = density;
     }
 
-    public String toJSON() {
-        // TODO
-        return null;
+    public String toJSON(Context context) {
+        String strName, strAbbr, strMass, strDensity, quote = "\"";
+        if (this.name != null) {
+            strName = quote + this.name + quote;
+        } else {
+            strName = "null";
+        }
+        if (this.abbreviation != null) {
+            Toast.makeText(context, "abbr isn't null", Toast.LENGTH_SHORT).show();
+            strAbbr = quote + this.abbreviation + quote;
+        } else {
+            strAbbr = "null";
+        }
+        if (this.mass != null) {
+            strMass = this.mass.toString();
+        } else {
+            strMass = "null";
+        }
+        if (this.density != null) {
+            strDensity = this.density.toString();
+        } else {
+            strDensity = "null";
+        }
+        return "{\"name\":" + strName + ",\"abbreviation\":" + strAbbr +
+                ",\"mass\":" + strMass + ",\"density\":" + strDensity + "}";
     }
 
-    public static Particle fromJSON(String jsonString) {
-        // TODO
-        return null;
+    public static Particle fromJSON(JSONObject jObject) {
+        String name = null, abbr = null;
+        Double mass = null, density = null;
+        try {
+            if (!jObject.isNull("name")) {
+                name = jObject.getString("name");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (!jObject.isNull("abbreviation")) {
+                abbr = jObject.getString("abbreviation");
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            mass = jObject.getDouble("mass");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            density = jObject.getDouble("density");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return new Particle(name, abbr, mass, density);
+    }
+
+    public static String arrayToJSON(Particle[] particles, Context context) {
+        StringBuilder sb = new StringBuilder("{\"particles\":[");
+        for (Particle particle : particles) {
+            sb.append(particle.toJSON(context));
+        }
+        sb.append("]}");
+        return sb.toString().replace("}{", "},{"); // put commas between the multiple JSONObjects
+    }
+
+    public static Particle[] arrayFromJSON(JSONArray jArray) {
+        Particle[] particles = new Particle[jArray.length()];
+        try {
+            for (int i = 0; i < jArray.length(); i++) {
+                particles[i] = fromJSON(jArray.getJSONObject(i));
+            }
+            return particles;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

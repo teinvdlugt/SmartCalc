@@ -13,6 +13,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class CustomParticles extends ActionBarActivity {
@@ -24,13 +28,23 @@ public class CustomParticles extends ActionBarActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Particle[] particles = new Particle[3];
-        particles[0] = new Particle("One", "1", 1.0, null);
-        particles[1] = new Particle("Two", "2", null, 2.2);
-        particles[2] = new Particle("Three", null, 3.0, 3.3);
+        particles[0] = new Particle("John", "J", 5.6, null);
+        particles[1] = new Particle("Maria", "M", null, 6.5);
+        particles[2] = new Particle(null, "Citroen", 4.5, 0.0000007);
+        // String jsonString = "{\"particles\":[{\"name\":\"One\",\"abbreviation\":\"1\",\"mass\":1.11,\"density\":null}, " +
+        //        "{\"name\":null,\"abbreviation\":null,\"mass\":2.22,\"density\":2.34}, " +
+        //        "{\"name\":\"Three\",\"abbreviation\":\"3\",\"mass\":3.333,\"density\":3.456}]}";
+        String jsonString = Particle.arrayToJSON(particles, this);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(new CustomParticlesListAdapter(this, particles));
-
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("particles");
+            Particle[] particles2 = Particle.arrayFromJSON(jsonArray);
+            ListView listView = (ListView) findViewById(R.id.listView);
+            listView.setAdapter(new CustomParticlesListAdapter(this, particles2));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -62,7 +76,10 @@ public class CustomParticles extends ActionBarActivity {
             ImageView imgEdit = (ImageView) theView.findViewById(R.id.img_edit);
             ImageView imgGo = (ImageView) theView.findViewById(R.id.img_go);
 
-            customParticleName.setText(particles[position].getName());
+            if (particles[position].getName() != null) {
+                customParticleName.setText(particles[position].getName());
+            }
+
             imgEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

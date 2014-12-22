@@ -7,7 +7,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import java.io.Serializable;
 import java.text.DecimalFormat;
 
 public class ParticleEditActivity extends ActionBarActivity {
