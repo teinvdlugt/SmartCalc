@@ -325,5 +325,6 @@
     <string name="custom_particles">Custom Particles</string>
     <string name="edit_particle">Edit Particle</string>
     <string name="temperature_conversion">Temperature Conversion</string>
+    <string name="error_parsing_json">Something went wrong while reading your saved particles.</string>
 
 </resources>

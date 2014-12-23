@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:contentDescription="edit this particle"
-        android:src="@android:drawable/ic_menu_edit" />
+        android:src="@drawable/ic_edit_white_24dp" />
 
     <ImageView
         android:id="@+id/img_go"
@@ -27,6 +27,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:contentDescription="calculate with this particle"
-        android:src="@drawable/ic_action_forward" />
+        android:src="@drawable/ic_arrow_forward_white_24dp" />
 
 </LinearLayout>

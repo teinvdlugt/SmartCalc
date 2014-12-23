@@ -56,4 +56,8 @@ public class CustomDialog extends DialogFragment {
     public static void tooFast(FragmentManager fragManager) {
         CustomDialog.newInstance(R.string.faster_than_light, R.string.faster_than_light_message).show(fragManager, "tooFastDialog");
     }
+
+    public static void errorParsingJSON(FragmentManager fragManager) {
+        CustomDialog.newInstance(R.string.error, R.string.error_parsing_json).show(fragManager, "errorParsingJSONDialog");
+    }
 }

@@ -17,9 +17,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 public class CustomParticles extends ActionBarActivity {
+
+    public static final String FILE_NAME = "particles";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,23 +34,59 @@ public class CustomParticles extends ActionBarActivity {
         setContentView(R.layout.list_view_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Particle[] particles = new Particle[3];
-        particles[0] = new Particle("John", "J", 5.6, null);
-        particles[1] = new Particle("Maria", "M", null, 6.5);
-        particles[2] = new Particle(null, "Citroen", 4.5, 0.0000007);
-        // String jsonString = "{\"particles\":[{\"name\":\"One\",\"abbreviation\":\"1\",\"mass\":1.11,\"density\":null}, " +
-        //        "{\"name\":null,\"abbreviation\":null,\"mass\":2.22,\"density\":2.34}, " +
-        //        "{\"name\":\"Three\",\"abbreviation\":\"3\",\"mass\":3.333,\"density\":3.456}]}";
-        String jsonString = Particle.arrayToJSON(particles, this);
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        listView.setAdapter(new CustomParticlesListAdapter(this, getParticles()));
+    }
+
+    private Particle[] getParticles() {
+        String jsonString = getFile();
+        if (jsonString == null) {
+            // File didn't exist (yet)
+            return new Particle[0];
+        } else {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                JSONArray jsonArray = jsonObject.getJSONArray("particles");
+                return Particle.arrayFromJSON(jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                CustomDialog.errorParsingJSON(getFragmentManager());
+                return new Particle[0];
+            }
+        }
+    }
+
+    private String getFile() {
+        StringBuilder sb;
 
         try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("particles");
-            Particle[] particles2 = Particle.arrayFromJSON(jsonArray);
-            ListView listView = (ListView) findViewById(R.id.listView);
-            listView.setAdapter(new CustomParticlesListAdapter(this, particles2));
-        } catch (JSONException e) {
+            // Opens a stream so we can read from our local file
+            FileInputStream fis = this.openFileInput(FILE_NAME);
+
+            // Gets an input stream for reading data
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+
+            // Used to read the data in small bytes to minimize system load
+            BufferedReader bufferedReader = new BufferedReader(isr);
+
+            // Read the data in bytes until nothing is left to read
+            sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            return sb.toString();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
@@ -83,7 +126,7 @@ public class CustomParticles extends ActionBarActivity {
             imgEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    editParticle(particles[position]);
+                    editParticle(position);
                 }
             });
 
@@ -92,12 +135,13 @@ public class CustomParticles extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return 3;
+            return particles.length;
         }
 
-        private void editParticle(Particle particle) {
+        private void editParticle(int position) {
             Intent intent = new Intent(getContext(), ParticleEditActivity.class);
-            intent.putExtra(ParticleEditActivity.PARTICLE_TO_EDIT, (Serializable) particle);
+            intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
+            intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
             getContext().startActivity(intent);
         }
 

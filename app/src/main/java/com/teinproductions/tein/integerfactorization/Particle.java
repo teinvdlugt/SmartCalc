@@ -1,9 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
 
-import android.content.Context;
-import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +51,7 @@ public class Particle implements Serializable {
         this.density = density;
     }
 
-    public String toJSON(Context context) {
+    public String toJSON() {
         String strName, strAbbr, strMass, strDensity, quote = "\"";
         if (this.name != null) {
             strName = quote + this.name + quote;
@@ -62,7 +59,6 @@ public class Particle implements Serializable {
             strName = "null";
         }
         if (this.abbreviation != null) {
-            Toast.makeText(context, "abbr isn't null", Toast.LENGTH_SHORT).show();
             strAbbr = quote + this.abbreviation + quote;
         } else {
             strAbbr = "null";
@@ -111,10 +107,10 @@ public class Particle implements Serializable {
         return new Particle(name, abbr, mass, density);
     }
 
-    public static String arrayToJSON(Particle[] particles, Context context) {
+    public static String arrayToJSON(Particle[] particles) {
         StringBuilder sb = new StringBuilder("{\"particles\":[");
         for (Particle particle : particles) {
-            sb.append(particle.toJSON(context));
+            sb.append(particle.toJSON());
         }
         sb.append("]}");
         return sb.toString().replace("}{", "},{"); // put commas between the multiple JSONObjects
