@@ -13,7 +13,7 @@
         android:id="@+id/pager_activity_edit_button"
         android:icon="@drawable/ic_edit_white_24dp"
         android:orderInCategory="101"
-        android:title="Custom Particles"
+        android:title="@string/custom_particles"
         app:showAsAction="always" />
 
 </menu>

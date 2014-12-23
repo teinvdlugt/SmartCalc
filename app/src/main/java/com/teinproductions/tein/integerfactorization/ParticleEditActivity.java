@@ -1,12 +1,16 @@
 package com.teinproductions.tein.integerfactorization;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
 
 public class ParticleEditActivity extends ActionBarActivity {
@@ -55,7 +59,7 @@ public class ParticleEditActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -64,13 +68,41 @@ public class ParticleEditActivity extends ActionBarActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        onClickSave(null);
+    }
+
     public void onClickSave(View view) {
         try {
-            String name = nameET.getText().toString(), abbr = abbrET.getText().toString();
-            Double mass = Double.parseDouble(massET.getText().toString()), density = Double.parseDouble(densityET.getText().toString());
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+            String name = nameET.getText().toString(),
+                    abbr = abbrET.getText().toString();
+            Double mass = Double.parseDouble(massET.getText().toString()),
+                    density = Double.parseDouble(densityET.getText().toString());
+            particle.setName(name);
+            particle.setAbbreviation(abbr);
+            particle.setMass(mass);
+            particle.setDensity(density);
 
+            String jsonString = Particle.arrayToJSON(particles);
+
+            FileOutputStream outputStream;
+            outputStream = openFileOutput(CustomParticles.FILE_NAME, Context.MODE_PRIVATE);
+            outputStream.write(jsonString.getBytes());
+            outputStream.close();
+
+            setResult(RESULT_OK);
+            finish();
+
+        } catch (NumberFormatException e) {
+            CustomDialog.invalidNumber(getFragmentManager());
+            return;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to save particle", Toast.LENGTH_SHORT).show();
+
+            setResult(RESULT_CANCELED);
+            finish();
+        }
     }
 }

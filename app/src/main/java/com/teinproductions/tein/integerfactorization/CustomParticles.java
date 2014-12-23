@@ -1,6 +1,5 @@
 package com.teinproductions.tein.integerfactorization;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -27,6 +26,9 @@ import java.io.UnsupportedEncodingException;
 public class CustomParticles extends ActionBarActivity {
 
     public static final String FILE_NAME = "particles";
+    public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
+
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +36,23 @@ public class CustomParticles extends ActionBarActivity {
         setContentView(R.layout.list_view_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        listView = (ListView) findViewById(R.id.listView);
 
-        listView.setAdapter(new CustomParticlesListAdapter(this, getParticles()));
+        String jsonString = "{\"particles\":[{\"name\":\"John\",\"abbreviation\":\"abbr\",\"mass\":0.9,\"density\":1.23}," +
+                "{\"name\":\"Lol\",\"abbreviation\":\"i'm happy\",\"mass\":0.9,\"density\":1.23}," +
+                "{\"name\":\"Erick\",\"abbreviation\":\"i.e.\",\"mass\":0.9,\"density\":1.23}]}";
+
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray("particles");
+            listView.setAdapter(new CustomParticlesListAdapter(this, Particle.arrayFromJSON(jsonArray)));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            CustomDialog.errorParsingJSON(getFragmentManager());
+            listView.setAdapter(new CustomParticlesListAdapter(this, new Particle[0]));
+        }
+
+        // listView.setAdapter(new CustomParticlesListAdapter(this, getParticles()));
     }
 
     private Particle[] getParticles() {
@@ -101,13 +117,25 @@ public class CustomParticles extends ActionBarActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            listView.setAdapter(new CustomParticlesListAdapter(this, getParticles()));
+        }
+
+    }
+
     private static class CustomParticlesListAdapter extends ArrayAdapter<String> {
 
         Particle[] particles;
+        CustomParticles activity;
 
-        public CustomParticlesListAdapter(Context context, Particle[] particles) {
-            super(context, R.layout.list_item_custom_particles);
+        public CustomParticlesListAdapter(CustomParticles activity, Particle[] particles) {
+            super(activity, R.layout.list_item_custom_particles);
             this.particles = particles;
+            this.activity = activity;
         }
 
         @Override
@@ -142,9 +170,7 @@ public class CustomParticles extends ActionBarActivity {
             Intent intent = new Intent(getContext(), ParticleEditActivity.class);
             intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
             intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
-            getContext().startActivity(intent);
+            activity.startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
         }
-
     }
-
 }
