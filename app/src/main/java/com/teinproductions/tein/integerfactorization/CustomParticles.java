@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,13 +24,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.zip.Inflater;
 
 public class CustomParticles extends ActionBarActivity {
 
     public static final String FILE_NAME = "particles";
     public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_PARTICLE = -1;
 
     private ListView listView;
+    private Particle[] particles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,7 @@ public class CustomParticles extends ActionBarActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        String jsonString = "{\"particles\":[{\"name\":\"John\",\"abbreviation\":\"abbr\",\"mass\":0.9,\"density\":1.23}," +
+        /* String jsonString = "{\"particles\":[{\"name\":\"John\",\"abbreviation\":\"abbr\",\"mass\":0.9,\"density\":1.23}," +
                 "{\"name\":\"Lol\",\"abbreviation\":\"i'm happy\",\"mass\":0.9,\"density\":1.23}," +
                 "{\"name\":\"Erick\",\"abbreviation\":\"i.e.\",\"mass\":0.9,\"density\":1.23}]}";
 
@@ -50,27 +55,28 @@ public class CustomParticles extends ActionBarActivity {
             e.printStackTrace();
             CustomDialog.errorParsingJSON(getFragmentManager());
             listView.setAdapter(new CustomParticlesListAdapter(this, new Particle[0]));
-        }
+        } */
 
-        // listView.setAdapter(new CustomParticlesListAdapter(this, getParticles()));
+        // Initialize particles and load the saved particles into the list view
+        reloadParticles();
     }
 
-    private Particle[] getParticles() {
+    private void reloadParticles() {
         String jsonString = getFile();
         if (jsonString == null) {
             // File didn't exist (yet)
-            return new Particle[0];
+            particles = new Particle[0];
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray("particles");
-                return Particle.arrayFromJSON(jsonArray);
+                particles = Particle.arrayFromJSON(jsonArray);
             } catch (JSONException e) {
                 e.printStackTrace();
-                CustomDialog.errorParsingJSON(getFragmentManager());
-                return new Particle[0];
+                particles = new Particle[0];
             }
         }
+        listView.setAdapter(new CustomParticlesListAdapter(this, particles));
     }
 
     private String getFile() {
@@ -107,14 +113,30 @@ public class CustomParticles extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.custom_particle, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_add:
+                addParticle();
+                return true;
             default:
                 return false;
         }
+    }
+
+    private void addParticle() {
+        Intent intent = new Intent(this, ParticleEditActivity.class);
+        intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
+        intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, particles.length); // particles.length is one more than the last index in particles
+        startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
     }
 
     @Override
@@ -122,7 +144,7 @@ public class CustomParticles extends ActionBarActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            listView.setAdapter(new CustomParticlesListAdapter(this, getParticles()));
+            reloadParticles();
         }
 
     }
@@ -168,8 +190,8 @@ public class CustomParticles extends ActionBarActivity {
 
         private void editParticle(int position) {
             Intent intent = new Intent(getContext(), ParticleEditActivity.class);
-            intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
             intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
+            intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
             activity.startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
         }
     }

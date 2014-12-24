@@ -36,10 +36,22 @@ public class ParticleEditActivity extends ActionBarActivity {
 
         particles = (Particle[]) getIntent().getExtras().getSerializable(PARTICLE_ARRAY);
         position = getIntent().getExtras().getInt(PARTICLE_POSITION);
+        if (position == particles.length) {
+            particles = extendParticles(particles);
+        }
         particle = particles[position];
 
         setText();
 
+    }
+
+    private Particle[] extendParticles(Particle[] particles) {
+        Particle[] particlesExtended = new Particle[particles.length + 1];
+        for (int i = 0; i < particles.length; i++) {
+            particlesExtended[i] = particles[i];
+        }
+        particlesExtended[particles.length] = new Particle(null, null, null, null);
+        return particlesExtended;
     }
 
     private void setText() {
@@ -77,8 +89,14 @@ public class ParticleEditActivity extends ActionBarActivity {
         try {
             String name = nameET.getText().toString(),
                     abbr = abbrET.getText().toString();
-            Double mass = Double.parseDouble(massET.getText().toString()),
-                    density = Double.parseDouble(densityET.getText().toString());
+            Double mass, density;
+            try {
+                mass = Double.parseDouble(massET.getText().toString());
+                density = Double.parseDouble(densityET.getText().toString());
+            } catch (NumberFormatException e) {
+                mass = null;
+                density = null;
+            }
             particle.setName(name);
             particle.setAbbreviation(abbr);
             particle.setMass(mass);
@@ -94,9 +112,6 @@ public class ParticleEditActivity extends ActionBarActivity {
             setResult(RESULT_OK);
             finish();
 
-        } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber(getFragmentManager());
-            return;
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to save particle", Toast.LENGTH_SHORT).show();
