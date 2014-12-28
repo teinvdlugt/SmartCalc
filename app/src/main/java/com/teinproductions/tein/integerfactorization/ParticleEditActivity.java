@@ -4,6 +4,7 @@ package com.teinproductions.tein.integerfactorization;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ParticleEditActivity extends ActionBarActivity {
 
@@ -70,10 +73,19 @@ public class ParticleEditActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.particle_edit, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
+                return true;
+            case R.id.action_delete:
+                deleteParticle();
                 return true;
             default:
                 return false;
@@ -86,22 +98,40 @@ public class ParticleEditActivity extends ActionBarActivity {
     }
 
     public void onClickSave(View view) {
-        try {
-            String name = nameET.getText().toString(),
-                    abbr = abbrET.getText().toString();
-            Double mass, density;
-            try {
-                mass = Double.parseDouble(massET.getText().toString());
-                density = Double.parseDouble(densityET.getText().toString());
-            } catch (NumberFormatException e) {
-                mass = null;
-                density = null;
+        // Get the values given by the user
+        String name = nameET.getText().toString(),
+                abbr = abbrET.getText().toString();
+        if (name.equals("")) {
+            if (view != null) {
+                CustomDialog
+                        .newInstance(R.string.no_name, R.string.no_name_dialog_message)
+                        .show(getFragmentManager(), "noNameForParticleDialog");
+            } else {
+                deleteParticle();
             }
-            particle.setName(name);
-            particle.setAbbreviation(abbr);
-            particle.setMass(mass);
-            particle.setDensity(density);
+            return;
+        }
 
+        Double mass = null, density = null;
+        if (CalculateFragment.hasValidDecimalInput(massET)) {
+            mass = Double.parseDouble(massET.getText().toString());
+        }
+        if (CalculateFragment.hasValidDecimalInput(densityET)) {
+            density = Double.parseDouble(densityET.getText().toString());
+        }
+
+        particle.setName(name);
+        particle.setAbbreviation(abbr);
+        particle.setMass(mass);
+        particle.setDensity(density);
+
+        // Save and finish activity
+        saveParticlesAndFinishActivity();
+    }
+
+    private void saveParticlesAndFinishActivity() {
+        try {
+            // Save the values
             String jsonString = Particle.arrayToJSON(particles);
 
             FileOutputStream outputStream;
@@ -109,9 +139,9 @@ public class ParticleEditActivity extends ActionBarActivity {
             outputStream.write(jsonString.getBytes());
             outputStream.close();
 
+            // Finish the activity
             setResult(RESULT_OK);
             finish();
-
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed to save particle", Toast.LENGTH_SHORT).show();
@@ -119,5 +149,20 @@ public class ParticleEditActivity extends ActionBarActivity {
             setResult(RESULT_CANCELED);
             finish();
         }
+    }
+
+    public void deleteParticle() {
+        // Convert particles to ArrayList
+        ArrayList<Particle> particleArrayList = new ArrayList<>();
+        Collections.addAll(particleArrayList, particles);
+
+        particleArrayList.remove(position);
+        // Convert back to Array
+        particles = new Particle[particleArrayList.size()];
+        for (int i = 0; i < particleArrayList.size(); i++) {
+            particles[i] = particleArrayList.get(i);
+        }
+
+        saveParticlesAndFinishActivity();
     }
 }

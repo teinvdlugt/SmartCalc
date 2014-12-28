@@ -327,5 +327,8 @@
     <string name="temperature_conversion">Temperature Conversion</string>
     <string name="error_parsing_json">Something went wrong while reading your saved particles.</string>
     <string name="add_particle">Add</string>
+    <string name="delete">Delete</string>
+    <string name="no_name">No Name</string>
+    <string name="no_name_dialog_message">Please give your particle a name.</string>
 
 </resources>

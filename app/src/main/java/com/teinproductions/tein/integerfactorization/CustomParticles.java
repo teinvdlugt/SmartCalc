@@ -43,20 +43,6 @@ public class CustomParticles extends ActionBarActivity {
 
         listView = (ListView) findViewById(R.id.listView);
 
-        /* String jsonString = "{\"particles\":[{\"name\":\"John\",\"abbreviation\":\"abbr\",\"mass\":0.9,\"density\":1.23}," +
-                "{\"name\":\"Lol\",\"abbreviation\":\"i'm happy\",\"mass\":0.9,\"density\":1.23}," +
-                "{\"name\":\"Erick\",\"abbreviation\":\"i.e.\",\"mass\":0.9,\"density\":1.23}]}";
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("particles");
-            listView.setAdapter(new CustomParticlesListAdapter(this, Particle.arrayFromJSON(jsonArray)));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            CustomDialog.errorParsingJSON(getFragmentManager());
-            listView.setAdapter(new CustomParticlesListAdapter(this, new Particle[0]));
-        } */
-
         // Initialize particles and load the saved particles into the list view
         reloadParticles();
     }
@@ -173,12 +159,15 @@ public class CustomParticles extends ActionBarActivity {
                 customParticleName.setText(particles[position].getName());
             }
 
-            imgEdit.setOnClickListener(new View.OnClickListener() {
+            View.OnClickListener listener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     editParticle(position);
                 }
-            });
+            };
+
+            imgEdit.setOnClickListener(listener);
+            customParticleName.setOnClickListener(listener);
 
             return theView;
         }
