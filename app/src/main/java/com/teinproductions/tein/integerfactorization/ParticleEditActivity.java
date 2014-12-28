@@ -4,10 +4,13 @@ package com.teinproductions.tein.integerfactorization;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.FileOutputStream;
@@ -46,6 +49,16 @@ public class ParticleEditActivity extends ActionBarActivity {
 
         setText();
 
+        densityET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    onClickSave(v);
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     private Particle[] extendParticles(Particle[] particles) {

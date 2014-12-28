@@ -47,7 +47,7 @@
 
         </TableRow>
 
-        <TableRow>
+        <TableRow android:id="@+id/yr_of_disc_layout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_element_table_layout"
-        tools:layout="@layout/calculate_fragment"/>
+        tools:layout="@layout/calculate_fragment" />
 
 
 </RelativeLayout>
