@@ -1,6 +1,8 @@
 package com.teinproductions.tein.integerfactorization;
 
 
+import android.support.v4.app.Fragment;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,5 +129,9 @@ public class Particle implements Serializable {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public ParticleFragment toFragment() {
+        return ParticleFragment.newInstance(this);
     }
 }

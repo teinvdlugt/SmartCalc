@@ -33,7 +33,7 @@ public class ParticleFragment extends Fragment {
             return theView;
         }
 
-        Particle particle = (Particle) getArguments().getSerializable("element");
+        Particle particle = (Particle) getArguments().getSerializable(PARTICLE);
 
         // Abbreviation
         abbreviationTextView.setText(particle.getAbbreviation());
@@ -58,7 +58,7 @@ public class ParticleFragment extends Fragment {
     public static ParticleFragment newInstance(Particle particle) {
         ParticleFragment particleFragment = new ParticleFragment();
         Bundle args = new Bundle();
-        args.putSerializable("particle", particle);
+        args.putSerializable(PARTICLE, particle);
         particleFragment.setArguments(args);
 
         return particleFragment;

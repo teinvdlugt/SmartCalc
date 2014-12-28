@@ -16,6 +16,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+
 public class ElementPagerActivity extends ActionBarActivity
         implements CalculateFragment.OnCalculateClickListener,
         CalculateFragment.MassViewHider {
@@ -26,6 +37,8 @@ public class ElementPagerActivity extends ActionBarActivity
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
     private ActionBarDrawerToggle drawerToggle;
+
+    private Particle[] particles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +65,9 @@ public class ElementPagerActivity extends ActionBarActivity
         for (int i = 0; i < Element.values().length; i++) {
             elementNames[i] = Element.values()[i].getName(this);
         }
+
+        loadParticles();
+
         drawerListView.setAdapter(new ElementListAdapter(this, elementNames));
         drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,27 +79,32 @@ public class ElementPagerActivity extends ActionBarActivity
         drawerListView.setBackgroundColor(getResources().getColor(android.R.color.background_dark));
 
         setUpViewPagerAndSlidingTabLayout();
+        theViewPager.setCurrentItem(0);
     }
 
     private void setUpViewPagerAndSlidingTabLayout() {
         theViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return Element.values()[position].toFragment();
+                Object particleOrElement = ElementPagerActivity.this.getItem(position);
+                return particleOrElement instanceof Particle
+                        ? ((Particle) particleOrElement).toFragment()
+                        : ((Element) particleOrElement).toFragment();
             }
 
             @Override
             public int getCount() {
-                return Element.values().length;
+                return Element.values().length + particles.length;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return Element.values()[position].getName(ElementPagerActivity.this);
+                Object particleOrElement = ElementPagerActivity.this.getItem(position);
+                return particleOrElement instanceof Particle
+                        ? ((Particle) particleOrElement).getName()
+                        : ((Element) particleOrElement).getName(ElementPagerActivity.this);
             }
         });
-
-        theViewPager.setCurrentItem(0);
 
         slidingTabLayout.setViewPager(theViewPager);
         slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -103,6 +124,62 @@ public class ElementPagerActivity extends ActionBarActivity
             }
         });
         slidingTabLayout.setBackground(new ColorDrawable(R.color.molu_colorPrimaryDark));
+    }
+
+    private void loadParticles() {
+        String jsonString = getFile();
+        if (jsonString == null) {
+            particles = new Particle[0];
+        } else {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                JSONArray jsonArray = jsonObject.getJSONArray("particles");
+                particles = Particle.arrayFromJSON(jsonArray);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                particles = new Particle[0];
+            }
+        }
+    }
+
+    private Object getItem(int position) {
+        if (position < particles.length) {
+            return particles[position];
+        }
+        return Element.values()[position - particles.length];
+    }
+
+    private String getFile() {
+        StringBuilder sb;
+
+        try {
+            // Opens a stream so we can read from our local file
+            FileInputStream fis = this.openFileInput(CustomParticles.FILE_NAME);
+
+            // Gets an input stream for reading data
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+
+            // Used to read the data in small bytes to minimize system load
+            BufferedReader bufferedReader = new BufferedReader(isr);
+
+            // Read the data in bytes until nothing is left to read
+            sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            return sb.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
