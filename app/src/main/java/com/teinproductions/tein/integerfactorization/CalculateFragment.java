@@ -176,33 +176,58 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithMol(boolean warn) {
         try {
-            Element passedElement = onCalculateClickListener.onRequestElement();
-            molarMassTextView.setText((new DecimalFormat().format(passedElement.getMass())));
+            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            boolean notEverythingCalculated = false;
 
+            Double mass = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getMass()
+                    : ((Element) particleOrElement).getMass();
+            Double density = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getDensity()
+                    : ((Element) particleOrElement).getDensity();
+
+            if (mass == null) {
+                molarMassTextView.setText(R.string.unknown);
+            } else {
+                molarMassTextView.setText((new DecimalFormat().format(mass)));
+            }
+
+            // Mol
             Double givenMol = Double.parseDouble(String.valueOf(molEditText.getText()));
 
-            Double calculatedGram = passedElement.calculateGramWhenMolGiven(givenMol);
-            gramEditText.setText(format(calculatedGram));
-            Double calculatedParticles = passedElement.calculateParticlesWhenMolGiven(givenMol);
+            // Particles
+            Double calculatedParticles = givenMol * Units.nA;
             particlesEditText.setText(format(calculatedParticles));
-            Double calculatedVolume;
 
+            // Gram
+            Double calculatedGram = null;
+            if (mass == null) {
+                notEverythingCalculated = true;
+            } else {
+                calculatedGram = givenMol * mass;
+                gramEditText.setText(format(calculatedGram));
+            }
+
+            // Volume
+            Double calculatedVolume;
             switch (volumeSpinner.getSelectedItemPosition()) {
                 case 0:
                     // Solid/liquid
-                    Double density = passedElement.getDensity();
                     if (density == null) {
-                        Toast.makeText(getActivity(),
-                                R.string.unknown_volume_toast_message, Toast.LENGTH_LONG).show();
-                        break;
+                        notEverythingCalculated = true;
+                    } else if (calculatedGram != null) {
+                        calculatedVolume = calculatedGram / density;
+                        volumeEditText.setText(format(calculatedVolume));
                     }
-                    calculatedVolume = calculatedGram / density;
-                    volumeEditText.setText(format(calculatedVolume));
                     break;
                 case 1:
                     // Gas
                     calculatedVolume = givenMol * getVm();
                     volumeEditText.setText(format(calculatedVolume));
+            }
+
+            if (notEverythingCalculated) {
+                Toast.makeText(getActivity(), R.string.shortage_of_information_toast_message, Toast.LENGTH_LONG).show();
             }
 
             return true;
@@ -219,33 +244,60 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithGram(boolean warn) {
         try {
-            Element passedElement = onCalculateClickListener.onRequestElement();
-            molarMassTextView.setText((new DecimalFormat().format(passedElement.getMass())));
+            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            boolean notEverythingCalculated = false;
 
+            Double mass = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getMass()
+                    : ((Element) particleOrElement).getMass();
+            Double density = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getDensity()
+                    : ((Element) particleOrElement).getDensity();
+
+            if (mass == null) {
+                molarMassTextView.setText(R.string.unknown);
+            } else {
+                molarMassTextView.setText((new DecimalFormat().format(mass)));
+            }
+
+            // Gram
             Double givenGram = Double.parseDouble(String.valueOf(gramEditText.getText()));
 
-            Double calculatedMol = passedElement.calculateMolWhenGramGiven(givenGram);
-            molEditText.setText(format(calculatedMol));
-            Double calculatedParticles = passedElement.calculateParticlesWhenMolGiven(calculatedMol);
-            particlesEditText.setText(format(calculatedParticles));
-            Double calculatedVolume;
+            // Mol and Particles
+            Double calculatedMol = null;
+            if (mass == null) {
+                notEverythingCalculated = true;
+            } else {
+                calculatedMol = givenGram / mass;
+                molEditText.setText(format(calculatedMol));
+                Double calculatedParticles = calculatedMol * Units.nA;
+                particlesEditText.setText(format(calculatedParticles));
+            }
 
+            // Volume
+            Double calculatedVolume;
             switch (volumeSpinner.getSelectedItemPosition()) {
                 case 0:
                     // Solid/liquid
-                    Double density = passedElement.getDensity();
                     if (density == null) {
-                        Toast.makeText(getActivity(),
-                                R.string.unknown_volume_toast_message, Toast.LENGTH_LONG).show();
-                        break;
+                        notEverythingCalculated = true;
+                    } else {
+                        calculatedVolume = givenGram / density;
+                        volumeEditText.setText(format(calculatedVolume));
                     }
-                    calculatedVolume = givenGram / density;
-                    volumeEditText.setText(format(calculatedVolume));
                     break;
                 case 1:
                     // Gas
-                    calculatedVolume = calculatedMol * getVm();
-                    volumeEditText.setText(format(calculatedVolume));
+                    if (calculatedMol == null) {
+                        notEverythingCalculated = true;
+                    } else {
+                        calculatedVolume = calculatedMol * getVm();
+                        volumeEditText.setText(format(calculatedVolume));
+                    }
+            }
+
+            if (notEverythingCalculated) {
+                Toast.makeText(getActivity(), R.string.shortage_of_information_toast_message, Toast.LENGTH_LONG).show();
             }
 
             return true;
@@ -256,6 +308,7 @@ public class CalculateFragment extends Fragment {
 
             return false;
         } catch (NullPointerException e) {
+            Toast.makeText(getActivity(), R.string.shortage_of_information_toast_message, Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -263,32 +316,57 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithParticles(boolean warn) {
         try {
-            Element passedElement = onCalculateClickListener.onRequestElement();
-            molarMassTextView.setText((new DecimalFormat().format(passedElement.getMass())));
+            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            boolean notEverythingCalculated = false;
 
+            Double mass = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getMass()
+                    : ((Element) particleOrElement).getMass();
+            Double density = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getDensity()
+                    : ((Element) particleOrElement).getDensity();
+
+            if (mass == null) {
+                molarMassTextView.setText(R.string.unknown);
+            } else {
+                molarMassTextView.setText((new DecimalFormat().format(mass)));
+            }
+
+            // Particles
             Integer givenParticles = Integer.parseInt(String.valueOf(particlesEditText.getText()));
 
-            Double calculatedMol = passedElement.calculateMolWhenParticlesGiven(givenParticles);
+            // Mol
+            Double calculatedMol = calculatedMol = givenParticles / Units.nA;
             molEditText.setText(format(calculatedMol));
-            Double calculatedGram = passedElement.calculateGramWhenMolGiven(calculatedMol);
-            gramEditText.setText(format(calculatedGram));
-            Double calculatedVolume;
 
+            // Gram
+            Double calculatedGram = null;
+            if (mass == null) {
+                notEverythingCalculated = true;
+            } else {
+                calculatedGram = calculatedMol * mass;
+                gramEditText.setText(format(calculatedGram));
+            }
+
+            // Volume
+            Double calculatedVolume;
             switch (volumeSpinner.getSelectedItemPosition()) {
                 case 0:
                     // Solid/liquid
-                    Double density = passedElement.getDensity();
                     if (density == null) {
-                        Toast.makeText(getActivity(),
-                                R.string.unknown_volume_toast_message, Toast.LENGTH_LONG).show();
-                        break;
+                        notEverythingCalculated = true;
+                    } else if (calculatedGram != null) {
+                        calculatedVolume = calculatedGram / density;
+                        volumeEditText.setText(format(calculatedVolume));
                     }
-                    calculatedVolume = calculatedGram / density;
-                    volumeEditText.setText(format(calculatedVolume));
                     break;
                 case 1:
                     calculatedVolume = calculatedMol * getVm();
                     volumeEditText.setText(format(calculatedVolume));
+            }
+
+            if (notEverythingCalculated) {
+                Toast.makeText(getActivity(), R.string.shortage_of_information_toast_message, Toast.LENGTH_LONG).show();
             }
 
             return true;
@@ -306,36 +384,71 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithVolume(boolean warn) {
         try {
-            Element passedElement = onCalculateClickListener.onRequestElement();
-            molarMassTextView.setText((new DecimalFormat().format(passedElement.getMass())));
+            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            boolean notEverythingCalculated = false;
+
+            Double mass = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getMass()
+                    : ((Element) particleOrElement).getMass();
+            Double density = particleOrElement instanceof Particle
+                    ? ((Particle) particleOrElement).getDensity()
+                    : ((Element) particleOrElement).getDensity();
+
+            if (mass == null) {
+                molarMassTextView.setText(R.string.unknown);
+            } else {
+                molarMassTextView.setText((new DecimalFormat().format(mass)));
+            }
 
             Double givenVolume = Double.parseDouble(volumeEditText.getText().toString());
-            Double calculatedMol, calculatedGram, calculatedParticles;
+            Double calculatedMol = null, calculatedGram = null, calculatedParticles = null;
 
             switch (volumeSpinner.getSelectedItemPosition()) {
                 case 0:
                     // Solid / liquid
-                    Double density = passedElement.getDensity();
+
+                    // Gram
                     if (density == null) {
-                        Toast.makeText(getActivity(),
-                                R.string.unknown_volume_toast_message, Toast.LENGTH_LONG).show();
-                        break;
+                        notEverythingCalculated = true;
+                    } else {
+                        calculatedGram = givenVolume * density;
+                        gramEditText.setText(format(calculatedGram));
                     }
-                    calculatedGram = givenVolume * density;
-                    gramEditText.setText(format(calculatedGram));
-                    calculatedMol = calculatedGram / passedElement.getMass();
-                    molEditText.setText(format(calculatedMol));
-                    calculatedParticles = calculatedMol * Units.nA;
-                    particlesEditText.setText(format(calculatedParticles));
+
+                    // Mol
+                    if (mass == null) {
+                        notEverythingCalculated = true;
+                    } else if (calculatedGram != null) {
+                        calculatedMol = calculatedGram / mass;
+                        molEditText.setText(format(calculatedMol));
+
+                        // Particles
+                        calculatedParticles = calculatedMol * Units.nA;
+                        particlesEditText.setText(format(calculatedParticles));
+                    }
                     break;
                 case 1:
                     // Gas
+
+                    // Mol
                     calculatedMol = givenVolume / getVm();
                     molEditText.setText(format(calculatedMol));
-                    calculatedGram = calculatedMol * passedElement.getMass();
-                    gramEditText.setText(format(calculatedGram));
+
+                    // Particles
                     calculatedParticles = calculatedMol * Units.nA;
                     particlesEditText.setText(format(calculatedParticles));
+
+                    // Gram
+                    if (mass == null) {
+                        notEverythingCalculated = true;
+                    } else {
+                        calculatedGram = calculatedMol * mass;
+                        gramEditText.setText(format(calculatedGram));
+                    }
+            }
+
+            if (notEverythingCalculated) {
+                Toast.makeText(getActivity(), R.string.shortage_of_information_toast_message, Toast.LENGTH_LONG).show();
             }
 
             return true;
@@ -388,7 +501,7 @@ public class CalculateFragment extends Fragment {
     private MassViewHider massViewHider;
 
     public interface OnCalculateClickListener {
-        public Element onRequestElement();
+        public Object onRequestElement();
     }
 
     public interface MassViewHider {

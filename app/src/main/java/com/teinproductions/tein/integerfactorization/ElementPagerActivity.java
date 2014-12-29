@@ -210,8 +210,8 @@ public class ElementPagerActivity extends ActionBarActivity
     }
 
     @Override
-    public Element onRequestElement() {
-        return Element.values()[theViewPager.getCurrentItem()];
+    public Object onRequestElement() {
+         return getItem(theViewPager.getCurrentItem());
     }
 
     @Override

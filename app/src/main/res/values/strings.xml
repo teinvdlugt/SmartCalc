@@ -330,5 +330,7 @@
     <string name="delete">Delete</string>
     <string name="no_name">No Name</string>
     <string name="no_name_dialog_message">Please give your particle a name.</string>
+    <string name="unknown_mass_toast_message">Gram could not be calculated due to unknown mass</string>
+    <string name="shortage_of_information_toast_message">Some values could not be calculated due to shortage of resources</string>
 
 </resources>
