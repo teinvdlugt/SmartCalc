@@ -31,6 +31,8 @@ public class ElementPagerActivity extends ActionBarActivity
         implements CalculateFragment.OnCalculateClickListener,
         CalculateFragment.MassViewHider {
 
+    public static final int CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE = 1;
+
     private ViewPager theViewPager;
     private SlidingTabLayout slidingTabLayout;
 
@@ -199,8 +201,7 @@ public class ElementPagerActivity extends ActionBarActivity
                 }
                 return true;
             case R.id.pager_activity_edit_button:
-                Intent intent = new Intent(this, CustomParticles.class);
-                startActivity(intent);
+                startCustomParticlesActivity();
                 return true;
             case android.R.id.home:
                 super.onBackPressed();
@@ -209,9 +210,29 @@ public class ElementPagerActivity extends ActionBarActivity
         return super.onOptionsItemSelected(item);
     }
 
+    private void startCustomParticlesActivity() {
+        Intent intent = new Intent(this, CustomParticles.class);
+        startActivityForResult(intent, CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE:
+                if (resultCode == RESULT_OK) {
+                    loadParticles();
+                    setUpViewPagerAndSlidingTabLayout();
+
+                    theViewPager.setCurrentItem(data.getIntExtra(CustomParticles.CALCULATE_WITH_THIS_PARTICLE,
+                            theViewPager.getCurrentItem()));
+                }
+        }
+    }
+
     @Override
     public Object onRequestElement() {
-         return getItem(theViewPager.getCurrentItem());
+        return getItem(theViewPager.getCurrentItem());
     }
 
     @Override

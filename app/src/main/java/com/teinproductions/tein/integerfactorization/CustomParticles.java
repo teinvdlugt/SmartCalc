@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +23,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.util.zip.Inflater;
 
 public class CustomParticles extends ActionBarActivity {
 
     public static final String FILE_NAME = "particles";
     public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
-    public static final int NEW_PARTICLE = -1;
+    public static final String CALCULATE_WITH_THIS_PARTICLE = "com.teinproductions.tein.integerfactorization." +
+            "CALCULATE_WITH_THIS_PARTICLE";
 
     private ListView listView;
     private Particle[] particles;
@@ -135,6 +134,12 @@ public class CustomParticles extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
     private static class CustomParticlesListAdapter extends ArrayAdapter<String> {
 
         Particle[] particles;
@@ -169,6 +174,13 @@ public class CustomParticles extends ActionBarActivity {
             imgEdit.setOnClickListener(listener);
             customParticleName.setOnClickListener(listener);
 
+            imgGo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    calculateWithParticle(position);
+                }
+            });
+
             return theView;
         }
 
@@ -182,6 +194,13 @@ public class CustomParticles extends ActionBarActivity {
             intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
             intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
             activity.startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
+        }
+
+        private void calculateWithParticle(int position) {
+            Intent goingBack = new Intent();
+            goingBack.putExtra(CALCULATE_WITH_THIS_PARTICLE, position);
+            activity.setResult(RESULT_OK, goingBack);
+            activity.finish();
         }
     }
 }
