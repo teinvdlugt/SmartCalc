@@ -41,6 +41,11 @@
             android:label="@string/complex_numbers"
             android:windowSoftInputMode="stateVisible" />
 
+        <activity
+            android:name=".XOrEncoderActivity"
+            android:label="@string/x_or_encoder"
+            android:theme="@style/Theme.AppCompat"/>
+
         <!-- PHYSICS -->
 
         <activity

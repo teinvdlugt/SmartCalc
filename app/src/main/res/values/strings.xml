@@ -320,6 +320,7 @@
     <string name="livermorium">Livermorium</string>
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
+
     <string name="Save">Save</string>
     <string name="name_colon">Name:</string>
     <string name="custom_particles">Custom Particles</string>
@@ -332,5 +333,21 @@
     <string name="no_name_dialog_message">Please give your particle a name.</string>
     <string name="unknown_mass_toast_message">Gram could not be calculated due to unknown mass</string>
     <string name="shortage_of_information_toast_message">Some values could not be calculated due to shortage of resources</string>
+    <string name="plain_text">Plain Text</string>
+    <string name="key">Key</string>
+    <string name="ciphertext">Ciphertext</string>
+    <string name="encode">Encode</string>
+    <string name="decode">Decode</string>
+    <string name="no_key_given_dialog_title">No Key</string>
+    <string name="no_key_given_dialog_message">Please enter a key to encode your message.</string>
+    <string name="no_plain_text_given_dialog_message">Enter a message before encoding.</string>
+    <string name="no_plain_text_given_dialog_title">No Message</string>
+    <string name="encoding_error_dialog_message">Something went wrong while encoding your message. We\'re sorry for the inconvenience.</string>
+    <string name="x_or_encoder">XOR Encoder</string>
+    <string name="no_ciphertext_given_dialog_title">No Ciphertext</string>
+    <string name="no_ciphertext_given_dialog_message">Enter your cipher code before decoding.</string>
+    <string name="no_key_given_dialog_message2">Please enter a key to decode with.</string>
+    <string name="decoding_error_dialog_message">Something went wrong while decoding your message. We\'re sorry for the inconvenience.</string>
+    <string name="copy_ciphertext">Copy Ciphertext</string>
 
 </resources>
