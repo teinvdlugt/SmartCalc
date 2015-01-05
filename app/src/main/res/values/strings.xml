@@ -11,11 +11,8 @@
     <string name="number_to_factorize_hint">Number to Factorize</string>
     <string name="factorize_button">Factorize</string>
     <string name="factorize_result_declaration">Integer factors:</string>
-
     <string name="greatest_common_factor">Greatest Common Factor</string>
-
     <string name="least_common_multiple">Least Common Multiple</string>
-
     <string name="complex_numbers">Complex Numbers</string>
 
     <!-- PHYSICS -->
@@ -25,18 +22,14 @@
     <string name="velocity1">Velocity 1</string>
     <string name="velocity2">Velocity 2</string>
     <string name="add_button_text">Add</string>
-
     <string name="time_dilation">Time Dilation</string>
     <string name="proper_time">Proper Time</string>
     <string name="dilated_time">Dilated Time:</string>
-
     <string name="length_contraction">Length Contraction</string>
     <string name="proper_length">Proper Length</string>
     <string name="contracted_length">Contracted Length: </string>
-
     <string name="faster_than_light">Faster than light</string>
     <string name="faster_than_light_message">You\'re kidding, right?</string>
-
     <string name="mass">Mass</string>
     <string name="schwarzchild_radius">Schwarzchild Radius</string>
 
@@ -61,7 +54,6 @@
     <string name="xs_drawer_open">show a list of all elements</string>
     <string name="xs_drawer_close">close list</string>
     <string name="gpcm3">g/cm3</string>
-
     <string name="unknown_volume_toast_message">Volume could not be calculated due to unknown density</string>
     <string name="solid_or_liquid">Solid/Liquid</string>
     <string name="gas">Gas</string>
@@ -73,6 +65,7 @@
     <string name="enter_your_length">Enter your length</string>
     <string name="your_bmi_is">Your BMI is:</string>
     <string name="info">Info</string>
+
     <string-array name="BMIStateNames">
         <item>Very Severely Underweight</item>
         <item>Severely Underweight</item>
@@ -83,7 +76,6 @@
         <item>Severely Obese</item>
         <item>Very Severely Obese</item>
     </string-array>
-
     <string-array name="BMIStateValues">
         <item>Less than 15</item>
         <item>15 to 16</item>
@@ -98,7 +90,6 @@
     <!-- UNITS -->
     <string name="convert">Convert</string>
     <string name="converter">Converter</string>
-
     <string name="velocity">Velocity</string>
     <string name="meters_per_second">Meters/sec</string>
     <string name="meters_per_second_abbr">m/s</string>
@@ -110,7 +101,6 @@
     <string name="feet_per_second_abbr">ft/s</string>
     <string name="knots">Knots</string>
     <string name="knots_abbr">kn</string>
-
     <string name="time">Time</string>
     <string name="time_conversion">Time Conversion</string>
     <string name="nanoseconds">Nanoseconds</string>
@@ -137,7 +127,6 @@
     <string name="decade_abbr">deci</string>
     <string name="century">Centuries</string>
     <string name="century_abbr">cent</string>
-
     <string name="length">Length</string>
     <string name="length_conversion">Length Conversion</string>
     <string name="kilometer">Kilometers</string>
@@ -164,7 +153,6 @@
     <string name="nanometer_abbr">nm</string>
     <string name="planck_length">Planck Lengths</string>
     <string name="planck_length_abbr">ℓP</string>
-
     <string name="kilogram">Kilograms</string>
     <string name="kilogram_abbr">kg</string>
     <string name="tonne">Tonnes</string>
@@ -183,7 +171,6 @@
     <string name="pound_abbr">lb</string>
     <string name="ounce">Ounces</string>
     <string name="ounce_abbr">oz</string>
-
     <string name="temperature">Temperature</string>
     <string name="kelvin">Kelvin</string>
     <string name="kelvin_abbr">K</string>
@@ -196,7 +183,6 @@
     <string name="number_1">Number 1</string>
     <string name="number_2">Number 2</string>
     <string name="calculate">Calculate</string>
-
     <string name="error">Error</string>
     <string name="invalid_number_title">Invalid number</string>
     <string name="invalid_number_message">Please enter a valid number.</string>
@@ -320,7 +306,6 @@
     <string name="livermorium">Livermorium</string>
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
-
     <string name="Save">Save</string>
     <string name="name_colon">Name:</string>
     <string name="custom_particles">Custom Particles</string>
@@ -349,5 +334,6 @@
     <string name="no_key_given_dialog_message2">Please enter a key to decode with.</string>
     <string name="decoding_error_dialog_message">Something went wrong while decoding your message. We\'re sorry for the inconvenience.</string>
     <string name="copy_ciphertext">Copy Ciphertext</string>
+    <string name="velocity_conversion">Velocity Conversion</string>
 
 </resources>
