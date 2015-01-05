@@ -6,12 +6,12 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class Particle implements Serializable {
+public class CustomParticle implements Serializable {
 
     private String name, abbreviation;
     private Double mass, density;
 
-    public Particle(String name, String abbreviation, Double mass, Double density) {
+    public CustomParticle(String name, String abbreviation, Double mass, Double density) {
         this.name = name;
         this.abbreviation = abbreviation;
         this.mass = mass;
@@ -76,7 +76,7 @@ public class Particle implements Serializable {
                 ",\"mass\":" + strMass + ",\"density\":" + strDensity + "}";
     }
 
-    public static Particle fromJSON(JSONObject jObject) {
+    public static CustomParticle fromJSON(JSONObject jObject) {
         String name = null, abbr = null;
         Double mass = null, density = null;
         try {
@@ -103,25 +103,25 @@ public class Particle implements Serializable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new Particle(name, abbr, mass, density);
+        return new CustomParticle(name, abbr, mass, density);
     }
 
-    public static String arrayToJSON(Particle[] particles) {
+    public static String arrayToJSON(CustomParticle[] customParticles) {
         StringBuilder sb = new StringBuilder("{\"particles\":[");
-        for (Particle particle : particles) {
-            sb.append(particle.toJSON());
+        for (CustomParticle customParticle : customParticles) {
+            sb.append(customParticle.toJSON());
         }
         sb.append("]}");
         return sb.toString().replace("}{", "},{"); // put commas between the multiple JSONObjects
     }
 
-    public static Particle[] arrayFromJSON(JSONArray jArray) {
-        Particle[] particles = new Particle[jArray.length()];
+    public static CustomParticle[] arrayFromJSON(JSONArray jArray) {
+        CustomParticle[] customParticles = new CustomParticle[jArray.length()];
         try {
             for (int i = 0; i < jArray.length(); i++) {
-                particles[i] = fromJSON(jArray.getJSONObject(i));
+                customParticles[i] = fromJSON(jArray.getJSONObject(i));
             }
-            return particles;
+            return customParticles;
         } catch (JSONException e) {
             e.printStackTrace();
             return null;

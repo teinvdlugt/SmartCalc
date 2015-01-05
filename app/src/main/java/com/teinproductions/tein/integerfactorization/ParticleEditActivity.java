@@ -24,9 +24,9 @@ public class ParticleEditActivity extends ActionBarActivity {
     public static final String PARTICLE_POSITION = "com.teinproductions.PARTICLE_POSITION";
 
     private EditText nameET, abbrET, massET, densityET;
-    private Particle[] particles;
+    private CustomParticle[] customParticles;
     private int position;
-    private Particle particle;
+    private CustomParticle customParticle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +39,12 @@ public class ParticleEditActivity extends ActionBarActivity {
         massET = (EditText) findViewById(R.id.mass_edit_text);
         densityET = (EditText) findViewById(R.id.density_edit_text);
 
-        particles = (Particle[]) getIntent().getExtras().getSerializable(PARTICLE_ARRAY);
+        customParticles = (CustomParticle[]) getIntent().getExtras().getSerializable(PARTICLE_ARRAY);
         position = getIntent().getExtras().getInt(PARTICLE_POSITION);
-        if (position == particles.length) {
-            particles = extendParticles(particles);
+        if (position == customParticles.length) {
+            customParticles = extendParticles(customParticles);
         }
-        particle = particles[position];
+        customParticle = customParticles[position];
 
         setText();
 
@@ -57,25 +57,25 @@ public class ParticleEditActivity extends ActionBarActivity {
         });
     }
 
-    private Particle[] extendParticles(Particle[] particles) {
-        Particle[] particlesExtended = new Particle[particles.length + 1];
-        System.arraycopy(particles, 0, particlesExtended, 0, particles.length);
-        particlesExtended[particles.length] = new Particle(null, null, null, null);
+    private CustomParticle[] extendParticles(CustomParticle[] customParticles) {
+        CustomParticle[] particlesExtended = new CustomParticle[customParticles.length + 1];
+        System.arraycopy(customParticles, 0, particlesExtended, 0, customParticles.length);
+        particlesExtended[customParticles.length] = new CustomParticle(null, null, null, null);
         return particlesExtended;
     }
 
     private void setText() {
-        if (particle.getName() != null) {
-            nameET.setText(particle.getName());
+        if (customParticle.getName() != null) {
+            nameET.setText(customParticle.getName());
         }
-        if (particle.getAbbreviation() != null) {
-            abbrET.setText(particle.getAbbreviation());
+        if (customParticle.getAbbreviation() != null) {
+            abbrET.setText(customParticle.getAbbreviation());
         }
-        if (particle.getMass() != null) {
-            massET.setText(new DecimalFormat().format(particle.getMass()));
+        if (customParticle.getMass() != null) {
+            massET.setText(new DecimalFormat().format(customParticle.getMass()));
         }
-        if (particle.getDensity() != null) {
-            densityET.setText(new DecimalFormat().format(particle.getDensity()));
+        if (customParticle.getDensity() != null) {
+            densityET.setText(new DecimalFormat().format(customParticle.getDensity()));
         }
     }
 
@@ -127,10 +127,10 @@ public class ParticleEditActivity extends ActionBarActivity {
             density = Double.parseDouble(densityET.getText().toString());
         }
 
-        particle.setName(name);
-        particle.setAbbreviation(abbr);
-        particle.setMass(mass);
-        particle.setDensity(density);
+        customParticle.setName(name);
+        customParticle.setAbbreviation(abbr);
+        customParticle.setMass(mass);
+        customParticle.setDensity(density);
 
         // Save and finish activity
         saveParticlesAndFinishActivity();
@@ -139,10 +139,10 @@ public class ParticleEditActivity extends ActionBarActivity {
     private void saveParticlesAndFinishActivity() {
         try {
             // Save the values
-            String jsonString = Particle.arrayToJSON(particles);
+            String jsonString = CustomParticle.arrayToJSON(customParticles);
 
             FileOutputStream outputStream;
-            outputStream = openFileOutput(CustomParticles.FILE_NAME, Context.MODE_PRIVATE);
+            outputStream = openFileOutput(CustomParticlesActivity.FILE_NAME, Context.MODE_PRIVATE);
             outputStream.write(jsonString.getBytes());
             outputStream.close();
 
@@ -160,14 +160,14 @@ public class ParticleEditActivity extends ActionBarActivity {
 
     public void deleteParticle() {
         // Convert particles to ArrayList
-        ArrayList<Particle> particleArrayList = new ArrayList<>();
-        Collections.addAll(particleArrayList, particles);
+        ArrayList<CustomParticle> customParticleArrayList = new ArrayList<>();
+        Collections.addAll(customParticleArrayList, customParticles);
 
-        particleArrayList.remove(position);
+        customParticleArrayList.remove(position);
         // Convert back to Array
-        particles = new Particle[particleArrayList.size()];
-        for (int i = 0; i < particleArrayList.size(); i++) {
-            particles[i] = particleArrayList.get(i);
+        customParticles = new CustomParticle[customParticleArrayList.size()];
+        for (int i = 0; i < customParticleArrayList.size(); i++) {
+            customParticles[i] = customParticleArrayList.get(i);
         }
 
         saveParticlesAndFinishActivity();

@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-public class CustomParticles extends ActionBarActivity {
+public class CustomParticlesActivity extends ActionBarActivity {
 
     public static final String FILE_NAME = "particles";
     public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
@@ -32,7 +32,7 @@ public class CustomParticles extends ActionBarActivity {
             "CALCULATE_WITH_THIS_PARTICLE";
 
     private ListView listView;
-    private Particle[] particles;
+    private CustomParticle[] customParticles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,18 +50,18 @@ public class CustomParticles extends ActionBarActivity {
         String jsonString = getFile();
         if (jsonString == null) {
             // File didn't exist (yet)
-            particles = new Particle[0];
+            customParticles = new CustomParticle[0];
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray("particles");
-                particles = Particle.arrayFromJSON(jsonArray);
+                customParticles = CustomParticle.arrayFromJSON(jsonArray);
             } catch (JSONException e) {
                 e.printStackTrace();
-                particles = new Particle[0];
+                customParticles = new CustomParticle[0];
             }
         }
-        listView.setAdapter(new CustomParticlesListAdapter(this, particles));
+        listView.setAdapter(new CustomParticlesListAdapter(this, customParticles));
     }
 
     private String getFile() {
@@ -119,8 +119,8 @@ public class CustomParticles extends ActionBarActivity {
 
     private void addParticle() {
         Intent intent = new Intent(this, ParticleEditActivity.class);
-        intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
-        intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, particles.length); // particles.length is one more than the last index in particles
+        intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, customParticles);
+        intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, customParticles.length); // particles.length is one more than the last index in particles
         startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
     }
 
@@ -142,12 +142,12 @@ public class CustomParticles extends ActionBarActivity {
 
     private static class CustomParticlesListAdapter extends ArrayAdapter<String> {
 
-        Particle[] particles;
-        CustomParticles activity;
+        CustomParticle[] customParticles;
+        CustomParticlesActivity activity;
 
-        public CustomParticlesListAdapter(CustomParticles activity, Particle[] particles) {
+        public CustomParticlesListAdapter(CustomParticlesActivity activity, CustomParticle[] customParticles) {
             super(activity, R.layout.list_item_custom_particles);
-            this.particles = particles;
+            this.customParticles = customParticles;
             this.activity = activity;
         }
 
@@ -160,8 +160,8 @@ public class CustomParticles extends ActionBarActivity {
             ImageView imgEdit = (ImageView) theView.findViewById(R.id.img_edit);
             ImageView imgGo = (ImageView) theView.findViewById(R.id.img_go);
 
-            if (particles[position].getName() != null) {
-                customParticleName.setText(particles[position].getName());
+            if (customParticles[position].getName() != null) {
+                customParticleName.setText(customParticles[position].getName());
             }
 
             View.OnClickListener listener = new View.OnClickListener() {
@@ -186,12 +186,12 @@ public class CustomParticles extends ActionBarActivity {
 
         @Override
         public int getCount() {
-            return particles.length;
+            return customParticles.length;
         }
 
         private void editParticle(int position) {
             Intent intent = new Intent(getContext(), ParticleEditActivity.class);
-            intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, particles);
+            intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, customParticles);
             intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
             activity.startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
         }

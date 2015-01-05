@@ -33,32 +33,32 @@ public class ParticleFragment extends Fragment {
             return theView;
         }
 
-        Particle particle = (Particle) getArguments().getSerializable(PARTICLE);
+        CustomParticle customParticle = (CustomParticle) getArguments().getSerializable(PARTICLE);
 
         // Abbreviation
-        abbreviationTextView.setText(particle.getAbbreviation());
+        abbreviationTextView.setText(customParticle.getAbbreviation());
 
         // Atomic mass
-        if (particle.getMass() == null) {
+        if (customParticle.getMass() == null) {
             atomicMassTextView.setText(R.string.unknown);
         } else {
-            atomicMassTextView.setText(new DecimalFormat().format(particle.getMass()) + " u");
+            atomicMassTextView.setText(new DecimalFormat().format(customParticle.getMass()) + " u");
         }
 
         // Density
-        if (particle.getDensity() == null) {
+        if (customParticle.getDensity() == null) {
             densityTextView.setText(R.string.unknown);
         } else {
-            densityTextView.setText(new DecimalFormat().format(particle.getDensity()) + " " + getString(R.string.gpcm3));
+            densityTextView.setText(new DecimalFormat().format(customParticle.getDensity()) + " " + getString(R.string.gpcm3));
         }
 
         return theView;
     }
 
-    public static ParticleFragment newInstance(Particle particle) {
+    public static ParticleFragment newInstance(CustomParticle customParticle) {
         ParticleFragment particleFragment = new ParticleFragment();
         Bundle args = new Bundle();
-        args.putSerializable(PARTICLE, particle);
+        args.putSerializable(PARTICLE, customParticle);
         particleFragment.setArguments(args);
 
         return particleFragment;

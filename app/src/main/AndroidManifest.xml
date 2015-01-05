@@ -69,7 +69,7 @@
             android:label="@string/elements"
             android:theme="@style/molu_theme" />
         <activity
-            android:name=".CustomParticles"
+            android:name=".CustomParticlesActivity"
             android:label="@string/custom_particles"
             android:theme="@style/molu_theme" />
         <activity

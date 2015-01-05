@@ -1,6 +1,5 @@
 package com.teinproductions.tein.integerfactorization;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -11,15 +10,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,7 +39,7 @@ public class ElementPagerActivity extends ActionBarActivity
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
 
-    private Particle[] particles;
+    private CustomParticle[] customParticles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,21 +88,21 @@ public class ElementPagerActivity extends ActionBarActivity
             @Override
             public Fragment getItem(int position) {
                 Object particleOrElement = ElementPagerActivity.this.getItem(position);
-                return particleOrElement instanceof Particle
-                        ? ((Particle) particleOrElement).toFragment()
+                return particleOrElement instanceof CustomParticle
+                        ? ((CustomParticle) particleOrElement).toFragment()
                         : ((Element) particleOrElement).toFragment();
             }
 
             @Override
             public int getCount() {
-                return Element.values().length + particles.length;
+                return Element.values().length + customParticles.length;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
                 Object particleOrElement = ElementPagerActivity.this.getItem(position);
-                return particleOrElement instanceof Particle
-                        ? ((Particle) particleOrElement).getName()
+                return particleOrElement instanceof CustomParticle
+                        ? ((CustomParticle) particleOrElement).getName()
                         : ((Element) particleOrElement).getName(ElementPagerActivity.this);
             }
         });
@@ -135,24 +130,24 @@ public class ElementPagerActivity extends ActionBarActivity
     private void loadParticles() {
         String jsonString = getFile();
         if (jsonString == null) {
-            particles = new Particle[0];
+            customParticles = new CustomParticle[0];
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray("particles");
-                particles = Particle.arrayFromJSON(jsonArray);
+                customParticles = CustomParticle.arrayFromJSON(jsonArray);
             } catch (JSONException e) {
                 e.printStackTrace();
-                particles = new Particle[0];
+                customParticles = new CustomParticle[0];
             }
         }
     }
 
     private Object getItem(int position) {
-        if (position < particles.length) {
-            return particles[position];
+        if (position < customParticles.length) {
+            return customParticles[position];
         }
-        return Element.values()[position - particles.length];
+        return Element.values()[position - customParticles.length];
     }
 
     private String getFile() {
@@ -160,7 +155,7 @@ public class ElementPagerActivity extends ActionBarActivity
 
         try {
             // Opens a stream so we can read from our local file
-            FileInputStream fis = this.openFileInput(CustomParticles.FILE_NAME);
+            FileInputStream fis = this.openFileInput(CustomParticlesActivity.FILE_NAME);
 
             // Gets an input stream for reading data
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -215,7 +210,7 @@ public class ElementPagerActivity extends ActionBarActivity
     }
 
     private void startCustomParticlesActivity() {
-        Intent intent = new Intent(this, CustomParticles.class);
+        Intent intent = new Intent(this, CustomParticlesActivity.class);
         startActivityForResult(intent, CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE);
     }
 
@@ -228,7 +223,7 @@ public class ElementPagerActivity extends ActionBarActivity
                     loadParticles();
                     setUpViewPagerAndSlidingTabLayout();
 
-                    theViewPager.setCurrentItem(data.getIntExtra(CustomParticles.CALCULATE_WITH_THIS_PARTICLE,
+                    theViewPager.setCurrentItem(data.getIntExtra(CustomParticlesActivity.CALCULATE_WITH_THIS_PARTICLE,
                             theViewPager.getCurrentItem()));
                 }
         }

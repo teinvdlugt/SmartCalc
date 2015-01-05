@@ -178,11 +178,11 @@ public class CalculateFragment extends Fragment {
             Object particleOrElement = onCalculateClickListener.onRequestElement();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getMass()
+            Double mass = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getMass()
                     : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getDensity()
+            Double density = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getDensity()
                     : ((Element) particleOrElement).getDensity();
 
             if (mass == null) {
@@ -246,11 +246,11 @@ public class CalculateFragment extends Fragment {
             Object particleOrElement = onCalculateClickListener.onRequestElement();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getMass()
+            Double mass = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getMass()
                     : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getDensity()
+            Double density = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getDensity()
                     : ((Element) particleOrElement).getDensity();
 
             if (mass == null) {
@@ -318,11 +318,11 @@ public class CalculateFragment extends Fragment {
             Object particleOrElement = onCalculateClickListener.onRequestElement();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getMass()
+            Double mass = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getMass()
                     : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getDensity()
+            Double density = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getDensity()
                     : ((Element) particleOrElement).getDensity();
 
             if (mass == null) {
@@ -386,11 +386,11 @@ public class CalculateFragment extends Fragment {
             Object particleOrElement = onCalculateClickListener.onRequestElement();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getMass()
+            Double mass = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getMass()
                     : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof Particle
-                    ? ((Particle) particleOrElement).getDensity()
+            Double density = particleOrElement instanceof CustomParticle
+                    ? ((CustomParticle) particleOrElement).getDensity()
                     : ((Element) particleOrElement).getDensity();
 
             if (mass == null) {
