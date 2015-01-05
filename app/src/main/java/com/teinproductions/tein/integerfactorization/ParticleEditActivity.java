@@ -59,9 +59,7 @@ public class ParticleEditActivity extends ActionBarActivity {
 
     private Particle[] extendParticles(Particle[] particles) {
         Particle[] particlesExtended = new Particle[particles.length + 1];
-        for (int i = 0; i < particles.length; i++) {
-            particlesExtended[i] = particles[i];
-        }
+        System.arraycopy(particles, 0, particlesExtended, 0, particles.length);
         particlesExtended[particles.length] = new Particle(null, null, null, null);
         return particlesExtended;
     }

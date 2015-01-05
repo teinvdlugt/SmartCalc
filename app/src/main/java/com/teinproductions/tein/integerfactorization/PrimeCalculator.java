@@ -6,7 +6,7 @@ public class PrimeCalculator {
 
     public static Integer[] factorize(int integer) {
 
-        ArrayList<Integer> factors = new ArrayList<Integer>();
+        ArrayList<Integer> factors = new ArrayList<>();
 
         if (integer == 0 || integer == 1) {
             return null;
@@ -35,7 +35,7 @@ public class PrimeCalculator {
 
     public static Integer[] factorize(Long integer) {
 
-        ArrayList<Integer> factors = new ArrayList<Integer>();
+        ArrayList<Integer> factors = new ArrayList<>();
 
         if (integer == 0 || integer == 1) {
             return null;
@@ -75,7 +75,7 @@ public class PrimeCalculator {
     }
 
     public static Integer[] makePrimesUpTo(int integer) {
-        ArrayList<Integer> primes = new ArrayList<Integer>();
+        ArrayList<Integer> primes = new ArrayList<>();
 
         for (int i = 2; i <= integer / 2; i++) {
             if (isPrimeNumber(i)) {
@@ -107,7 +107,7 @@ public class PrimeCalculator {
     }
 
     public static ArrayList<Integer> convertToArrayList(Integer[] integers) {
-        ArrayList<Integer> arrayList = new ArrayList<Integer>();
+        ArrayList<Integer> arrayList = new ArrayList<>();
         for (Integer integer : integers) {
             arrayList.add(integer);
         }
@@ -122,7 +122,7 @@ public class PrimeCalculator {
         ArrayList<Integer> factorList1 = convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         for (Integer num : factorList1) {
             if (factorList2.contains(num)) {
@@ -145,7 +145,7 @@ public class PrimeCalculator {
         ArrayList<Integer> factorList1 = convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         for (Integer num : factorList1) {
             if (factorList2.contains(num)) {
@@ -170,7 +170,7 @@ public class PrimeCalculator {
         ArrayList<Integer> factorList1 = convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         for (Integer num : factorList1) {
             if (factorList2.contains(num)) {
@@ -196,7 +196,7 @@ public class PrimeCalculator {
         ArrayList<Integer> factorList1 = convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         for (Integer num : factorList1) {
             numbers.add(num);
@@ -223,7 +223,7 @@ public class PrimeCalculator {
         ArrayList<Integer> factorList1 = convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         for (Integer num : factorList1) {
             numbers.add(num);
@@ -253,7 +253,7 @@ public class PrimeCalculator {
         ArrayList<Integer> factorList1 = convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = convertToArrayList(factors2);
 
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<Integer> numbers = new ArrayList<>();
 
         for (Integer num : factorList1) {
             numbers.add(num);

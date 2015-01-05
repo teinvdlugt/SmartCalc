@@ -13,7 +13,7 @@ public class SchwarzschildRadiusActivity extends EditTextActivity {
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         editText1.setImeOptions(EditorInfo.IME_ACTION_GO);
         editText1.setHint(R.string.mass);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Mass.getAbbreviations(SchwarzschildRadiusActivity.this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -36,7 +36,7 @@ public class SchwarzschildRadiusActivity extends EditTextActivity {
         spinner2.setVisibility(View.GONE);
 
         resultDeclaration.setText(getString(R.string.schwarzchild_radius) + ":");
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Length.getWords(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

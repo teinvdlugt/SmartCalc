@@ -14,7 +14,6 @@
     <string name="invalid_number_message">Voer een geldig nummer in.</string>
     <string name="maths">Wiskunde</string>
     <string name="integer_factorization">Priemfactoren Berekenen</string>
-    <string name="menu">Menu</string>
     <string name="physics">Natuurkunde</string>
     <string name="special_relativity">Speciale Relativiteit</string>
     <string name="adding_velocities">Snelheden Optellen</string>
@@ -84,7 +83,6 @@
     <!-- Molu -->
     <string name="mol">Mol:</string>
     <string name="mass_in_u">Massa in u:</string>
-    <string name="element">Element</string>
     <string name="mass_in_g">Massa in g:</string>
     <string name="error">Error</string>
     <string name="elements">Elementen</string>
@@ -92,7 +90,6 @@
     <string name="action_bar_pager_show_list">Lijst</string>
     <string name="fragment_element_abbreviation">Afkorting:</string>
     <string name="fragment_element_atomic_mass">Atoommassa:</string>
-    <string name="fragment_element_atomic_number">Atoomnummer:</string>
     <string name="unknown">Onbekend</string>
     <string name="before_christ">v.Chr.</string>
     <string name="year_of_discovery_text">Ontdekking:</string>
@@ -277,7 +274,6 @@
     <string name="nanometer">Nanometer</string>
     <string name="xs_drawer_close">Sluit de lijst</string>
     <string name="xs_drawer_open">Open een lijst met alle elementen</string>
-    <string name="unknown_volume_toast_message">Volume kon niet worden berekend vanwege onbekende dichtheid</string>
     <string name="tonne_abbr">t</string>
     <string name="time_conversion">Tijdeenheden omrekenen</string>
     <string name="time">Tijd</string>

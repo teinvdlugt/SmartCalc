@@ -15,21 +15,21 @@ public class TimeDilationActivity extends EditTextActivity {
         editText2.setHint(getString(R.string.proper_time));
         resultDeclaration.setText(getString(R.string.dilated_time));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getAbbreviations(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner1.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Time.getAbbreviations(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner2.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Time.getWords(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

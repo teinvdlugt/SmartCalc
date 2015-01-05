@@ -61,7 +61,7 @@ public class VelocityAdding extends EditTextActivity {
     }
 
     private void spinnerSetup() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getAbbreviations(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -81,7 +81,7 @@ public class VelocityAdding extends EditTextActivity {
         spinner1.setAdapter(adapter);
         spinner2.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getWords(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -27,8 +27,7 @@ public class CalculateFragment extends Fragment {
     private EditText molEditText, gramEditText, particlesEditText, volumeEditText;
     private TextView molarMassTextView;
     private Spinner volumeSpinner, temperatureSpinner;
-    private LinearLayout massLayout, temperatureLayout;
-    private Button calculateButton;
+    private LinearLayout temperatureLayout;
 
     private int animDuration;
 
@@ -42,13 +41,13 @@ public class CalculateFragment extends Fragment {
         gramEditText = (EditText) theView.findViewById(R.id.gram_edit_text);
         particlesEditText = (EditText) theView.findViewById(R.id.particles_edit_text);
         molarMassTextView = (TextView) theView.findViewById(R.id.mass_amount_text_view);
-        massLayout = (LinearLayout) theView.findViewById(R.id.mass_layout);
         volumeSpinner = (Spinner) theView.findViewById(R.id.volume_spinner);
         volumeEditText = (EditText) theView.findViewById(R.id.volume_edit_text);
         temperatureSpinner = (Spinner) theView.findViewById(R.id.temperature_spinner);
         temperatureLayout = (LinearLayout) theView.findViewById(R.id.temperature_layout);
+        LinearLayout massLayout = (LinearLayout) theView.findViewById(R.id.mass_layout);
         if (massViewHider.hideMassView()) massLayout.setVisibility(View.GONE);
-        calculateButton = (Button) theView.findViewById(R.id.calculate_button);
+        Button calculateButton = (Button) theView.findViewById(R.id.calculate_button);
 
         molEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -336,7 +335,7 @@ public class CalculateFragment extends Fragment {
             Integer givenParticles = Integer.parseInt(String.valueOf(particlesEditText.getText()));
 
             // Mol
-            Double calculatedMol = calculatedMol = givenParticles / Units.nA;
+            Double calculatedMol = givenParticles / Units.nA;
             molEditText.setText(format(calculatedMol));
 
             // Gram
@@ -401,7 +400,7 @@ public class CalculateFragment extends Fragment {
             }
 
             Double givenVolume = Double.parseDouble(volumeEditText.getText().toString());
-            Double calculatedMol = null, calculatedGram = null, calculatedParticles = null;
+            Double calculatedMol, calculatedGram = null, calculatedParticles;
 
             switch (volumeSpinner.getSelectedItemPosition()) {
                 case 0:

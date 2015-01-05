@@ -41,7 +41,7 @@ public class ComplexActivity extends ActionBarActivity {
         resultTextView = (TextView) findViewById(R.id.result_text_view);
         number2Container = (RelativeLayout) findViewById(R.id.number2_container);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 R.layout.my_spinner_textview,
                 operators);
         adapter.setDropDownViewResource(R.layout.my_spinner_textview);

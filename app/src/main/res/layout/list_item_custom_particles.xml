@@ -18,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:contentDescription="edit this particle"
+        android:contentDescription="@string/xs_edit_custom_particle"
         android:src="@drawable/ic_edit_white_24dp" />
 
     <ImageView
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:contentDescription="calculate with this particle"
+        android:contentDescription="@string/xs_calculate_with_this_particle"
         android:src="@drawable/ic_arrow_forward_white_24dp" />
 
 </LinearLayout>

@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">SmartCalc</string>
-    <string name="menu">Menu</string>
 
     <!-- MATHS -->
     <string name="maths">Maths</string>
@@ -41,11 +40,9 @@
     <string name="particles">Particles:</string>
     <string name="volume_in_l">Volume in L:</string>
     <string name="temperature_colon">Temperature:</string>
-    <string name="element">Element</string>
     <string name="elements">Elements</string>
     <string name="fragment_element_atomic_mass">Atomic Mass:</string>
     <string name="fragment_element_abbreviation">Abbreviation:</string>
-    <string name="fragment_element_atomic_number">Atomic Number:</string>
     <string name="year_of_discovery_text">Year of Discovery:</string>
     <string name="density">Density:</string>
     <string name="action_bar_pager_show_list">List</string>
@@ -54,7 +51,6 @@
     <string name="xs_drawer_open">show a list of all elements</string>
     <string name="xs_drawer_close">close list</string>
     <string name="gpcm3">g/cm3</string>
-    <string name="unknown_volume_toast_message">Volume could not be calculated due to unknown density</string>
     <string name="solid_or_liquid">Solid/Liquid</string>
     <string name="gas">Gas</string>
 
@@ -316,7 +312,6 @@
     <string name="delete">Delete</string>
     <string name="no_name">No Name</string>
     <string name="no_name_dialog_message">Please give your particle a name.</string>
-    <string name="unknown_mass_toast_message">Gram could not be calculated due to unknown mass</string>
     <string name="shortage_of_information_toast_message">Some values could not be calculated due to shortage of resources</string>
     <string name="plain_text">Plain Text</string>
     <string name="key">Key</string>
@@ -335,5 +330,12 @@
     <string name="decoding_error_dialog_message">Something went wrong while decoding your message. We\'re sorry for the inconvenience.</string>
     <string name="copy_ciphertext">Copy Ciphertext</string>
     <string name="velocity_conversion">Velocity Conversion</string>
+    <string name="plus_sign">+</string>
+    <string name="i_imaginary_part">i</string>
+    <string name="xs_edit_custom_particle">edit this particle</string>
+    <string name="xs_calculate_with_this_particle">calculate with this particle</string>
+    <string name="forward_slash">/</string>
+    <string name="a">a</string>
+    <string name="b">b</string>
 
 </resources>

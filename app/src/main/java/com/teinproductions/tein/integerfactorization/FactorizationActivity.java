@@ -96,7 +96,7 @@ public class FactorizationActivity extends EditTextActivity {
                 if (i == 0) {
                     stringBuilder.append(factors[i].toString());
                 } else {
-                    stringBuilder.append(", " + factors[i].toString());
+                    stringBuilder.append(", ").append(factors[i].toString());
                 }
             }
 

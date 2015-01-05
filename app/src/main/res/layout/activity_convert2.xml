@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="/"
+                android:text="@string/forward_slash"
                 android:textSize="27sp" />
 
             <Spinner
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="/"
+                android:text="@string/forward_slash"
                 android:textSize="27sp" />
 
             <Spinner

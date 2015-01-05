@@ -1,5 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -10,11 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +43,6 @@ public class ElementPagerActivity extends ActionBarActivity
 
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
-    private ActionBarDrawerToggle drawerToggle;
 
     private Particle[] particles;
 
@@ -53,7 +57,7 @@ public class ElementPagerActivity extends ActionBarActivity
         theViewPager = (ViewPager) findViewById(R.id.view_pager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerListView = (ListView) findViewById(R.id.drawer_listView);
-        drawerToggle = new ActionBarDrawerToggle(
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
                 null,

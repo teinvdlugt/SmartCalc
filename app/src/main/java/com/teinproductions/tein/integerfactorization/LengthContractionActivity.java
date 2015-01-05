@@ -15,21 +15,21 @@ public class LengthContractionActivity extends EditTextActivity {
         editText2.setHint(getString(R.string.proper_length));
         resultDeclaration.setText(getString(R.string.contracted_length));
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getAbbreviations(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner1.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Length.getAbbreviations(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner2.setAdapter(adapter);
 
-        adapter = new ArrayAdapter<String>(this,
+        adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Length.getWords(this));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
