@@ -65,7 +65,7 @@
         <!-- CHEMISTRY -->
 
         <activity
-            android:name=".ElementPagerActivity"
+            android:name=".ParticlePagerActivity"
             android:label="@string/elements"
             android:theme="@style/molu_theme" />
         <activity

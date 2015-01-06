@@ -175,15 +175,11 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithMol(boolean warn) {
         try {
-            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            Particle particle = onCalculateClickListener.onRequestParticle();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getMass()
-                    : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getDensity()
-                    : ((Element) particleOrElement).getDensity();
+            Double mass = particle.getMass();
+            Double density = particle.getDensity();
 
             if (mass == null) {
                 molarMassTextView.setText(R.string.unknown);
@@ -243,15 +239,11 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithGram(boolean warn) {
         try {
-            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            Particle particle = onCalculateClickListener.onRequestParticle();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getMass()
-                    : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getDensity()
-                    : ((Element) particleOrElement).getDensity();
+            Double mass = particle.getMass();
+            Double density = particle.getDensity();
 
             if (mass == null) {
                 molarMassTextView.setText(R.string.unknown);
@@ -315,15 +307,11 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithParticles(boolean warn) {
         try {
-            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            Particle particle = onCalculateClickListener.onRequestParticle();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getMass()
-                    : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getDensity()
-                    : ((Element) particleOrElement).getDensity();
+            Double mass = particle.getMass();
+            Double density = particle.getDensity();
 
             if (mass == null) {
                 molarMassTextView.setText(R.string.unknown);
@@ -383,15 +371,11 @@ public class CalculateFragment extends Fragment {
 
     private boolean calculateWithVolume(boolean warn) {
         try {
-            Object particleOrElement = onCalculateClickListener.onRequestElement();
+            Particle particle = onCalculateClickListener.onRequestParticle();
             boolean notEverythingCalculated = false;
 
-            Double mass = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getMass()
-                    : ((Element) particleOrElement).getMass();
-            Double density = particleOrElement instanceof CustomParticle
-                    ? ((CustomParticle) particleOrElement).getDensity()
-                    : ((Element) particleOrElement).getDensity();
+            Double mass = particle.getMass();
+            Double density = particle.getDensity();
 
             if (mass == null) {
                 molarMassTextView.setText(R.string.unknown);
@@ -404,7 +388,7 @@ public class CalculateFragment extends Fragment {
 
             switch (volumeSpinner.getSelectedItemPosition()) {
                 case 0:
-                    // Solid / liquid
+                    /* Solid / liquid */
 
                     // Gram
                     if (density == null) {
@@ -427,7 +411,7 @@ public class CalculateFragment extends Fragment {
                     }
                     break;
                 case 1:
-                    // Gas
+                    /* Gas */
 
                     // Mol
                     calculatedMol = givenVolume / getVm();
@@ -500,7 +484,7 @@ public class CalculateFragment extends Fragment {
     private MassViewHider massViewHider;
 
     public interface OnCalculateClickListener {
-        public Object onRequestElement();
+        public Particle onRequestParticle();
     }
 
     public interface MassViewHider {

@@ -14,7 +14,7 @@ public class ParticleFragment extends Fragment {
 
     public static final String PARTICLE = "com.teinproductions.integerfactorization.PARTICLE";
 
-    TextView atomicMassTextView, abbreviationTextView, densityTextView;
+    TextView atomicMassTextView, abbreviationTextView, atomicNumberTextView, yearOfDiscTextView, densityTextView;
 
     @Nullable
     @Override
@@ -24,44 +24,57 @@ public class ParticleFragment extends Fragment {
 
         atomicMassTextView = (TextView) theView.findViewById(R.id.fragment_element_atomic_mass);
         abbreviationTextView = (TextView) theView.findViewById(R.id.fragment_element_abbreviation);
+        atomicNumberTextView = (TextView) theView.findViewById(R.id.fragment_element_atomic_number);
+        yearOfDiscTextView = (TextView) theView.findViewById(R.id.fragment_element_year_of_disc);
         densityTextView = (TextView) theView.findViewById(R.id.fragment_element_density);
-
-        theView.findViewById(R.id.yr_of_disc_layout).setVisibility(View.GONE);
-        theView.findViewById(R.id.fragment_element_atomic_number).setVisibility(View.GONE);
 
         if (getArguments() == null) {
             return theView;
         }
 
-        CustomParticle customParticle = (CustomParticle) getArguments().getSerializable(PARTICLE);
+        Particle particle = (Particle) getArguments().getSerializable(PARTICLE);
 
-        // Abbreviation
-        abbreviationTextView.setText(customParticle.getAbbreviation());
-
-        // Atomic mass
-        if (customParticle.getMass() == null) {
+        // Mass
+        if (particle.getMass() == null) {
             atomicMassTextView.setText(R.string.unknown);
         } else {
-            atomicMassTextView.setText(new DecimalFormat().format(customParticle.getMass()) + " u");
+            atomicMassTextView.setText(new DecimalFormat().format(particle.getMass()) + " u");
+        }
+
+        // Abbreviation
+        abbreviationTextView.setText(particle.getAbbreviation());
+
+        // Atomic Number
+        try {
+            atomicNumberTextView.setText(new DecimalFormat().format(particle.getAtomicNumber()));
+        } catch (UnsupportedOperationException e) {
+            atomicNumberTextView.setVisibility(View.GONE);
+        }
+
+        // Year of Discovery
+        try {
+            yearOfDiscTextView.setText(particle.getYearOfDiscoveryString());
+        } catch (UnsupportedOperationException e) {
+            theView.findViewById(R.id.yr_of_disc_layout).setVisibility(View.GONE);
         }
 
         // Density
-        if (customParticle.getDensity() == null) {
+        if (particle.getDensity() == null) {
             densityTextView.setText(R.string.unknown);
         } else {
-            densityTextView.setText(new DecimalFormat().format(customParticle.getDensity()) + " " + getString(R.string.gpcm3));
+            densityTextView.setText(new DecimalFormat().format(particle.getDensity())
+                    + " " + getString(R.string.gpcm3));
         }
 
         return theView;
     }
 
-    public static ParticleFragment newInstance(CustomParticle customParticle) {
+    public static ParticleFragment newInstance(Particle particle) {
         ParticleFragment particleFragment = new ParticleFragment();
         Bundle args = new Bundle();
-        args.putSerializable(PARTICLE, customParticle);
+        args.putSerializable(PARTICLE, particle);
         particleFragment.setArguments(args);
 
         return particleFragment;
     }
-
 }

@@ -171,10 +171,9 @@ public enum Element {
     }
 
 
-    public ElementFragment toFragment() {
-        return ElementFragment.newInstance(this);
+    public ParticleFragment toFragment(Particle particle) {
+        return ParticleFragment.newInstance(particle);
     }
-
 
     public String getName(Context context) {
         return context.getString(name);
@@ -196,11 +195,11 @@ public enum Element {
         return atomicNumber;
     }
 
-    public Integer getDiscYear() {
+    public Integer getYearOfDiscovery() {
         return discYear;
     }
 
-    public String getDiscYearString(Context context) {
+    public String getYearOfDiscoveryString(Context context) {
         if (this.discYear == 0) {
             return context.getString(R.string.unknown);
         } else if (this.discYear < 0) {
@@ -209,6 +208,5 @@ public enum Element {
             return Integer.toString(this.discYear);
         }
     }
-
 }
 

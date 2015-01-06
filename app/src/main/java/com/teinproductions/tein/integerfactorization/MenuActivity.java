@@ -132,7 +132,7 @@ public class MenuActivity extends ActionBarActivity implements MenuFragment.onMe
         } else if (Arrays.equals(strings, chemistryList)) {
             switch (position) {
                 case 0:
-                    makeIntent(ElementPagerActivity.class);
+                    makeIntent(ParticlePagerActivity.class);
                     break;
                 default:
                     break;

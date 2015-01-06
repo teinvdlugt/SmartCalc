@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 
-public class CustomParticle implements Serializable {
+public class CustomParticle implements Particle, Serializable {
 
     private String name, abbreviation;
     private Double mass, density;
@@ -44,6 +44,23 @@ public class CustomParticle implements Serializable {
 
     public Double getDensity() {
         return density;
+    }
+
+    @Override
+    public Integer getYearOfDiscovery() {
+        // This method is not applicable to this class
+        throw new UnsupportedOperationException("Particle.getYearOfDiscovery is not supported by CustomParticle");
+    }
+
+    @Override
+    public String getYearOfDiscoveryString() {
+        throw new UnsupportedOperationException("Particle.getYearOfDiscoveryString is not supported by CustomParticle");
+    }
+
+    @Override
+    public Integer getAtomicNumber() {
+        // This method is not applicable to this class
+        throw new UnsupportedOperationException("Particle.getAtomicNumber is not supported by CustomParticle");
     }
 
     public void setDensity(Double density) {

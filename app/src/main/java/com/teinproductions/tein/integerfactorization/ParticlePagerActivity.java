@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-public class ElementPagerActivity extends ActionBarActivity
+public class ParticlePagerActivity extends ActionBarActivity
         implements CalculateFragment.OnCalculateClickListener,
         CalculateFragment.MassViewHider {
 
@@ -39,7 +39,7 @@ public class ElementPagerActivity extends ActionBarActivity
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
 
-    private CustomParticle[] customParticles;
+    private Particle[] particles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +62,9 @@ public class ElementPagerActivity extends ActionBarActivity
         drawerLayout.setDrawerListener(drawerToggle);
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
-        final String[] elementNames = new String[Element.values().length];
-        for (int i = 0; i < Element.values().length; i++) {
-            elementNames[i] = Element.values()[i].getName(this);
-        }
-
         loadParticles();
 
-        drawerListView.setAdapter(new ElementListAdapter(this, elementNames));
+        drawerListView.setAdapter(new ParticleListAdapter(this, particles));
         drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -87,23 +82,20 @@ public class ElementPagerActivity extends ActionBarActivity
         theViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                Object particleOrElement = ElementPagerActivity.this.getItem(position);
-                return particleOrElement instanceof CustomParticle
-                        ? ((CustomParticle) particleOrElement).toFragment()
-                        : ((Element) particleOrElement).toFragment();
+                return particles[position].toFragment();
             }
 
             @Override
             public int getCount() {
-                return Element.values().length + customParticles.length;
+                return particles.length;
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                Object particleOrElement = ElementPagerActivity.this.getItem(position);
-                return particleOrElement instanceof CustomParticle
-                        ? ((CustomParticle) particleOrElement).getName()
-                        : ((Element) particleOrElement).getName(ElementPagerActivity.this);
+                if (particles[position].getName() == null) {
+                    return "";
+                }
+                return particles[position].getName();
             }
         });
 
@@ -128,26 +120,26 @@ public class ElementPagerActivity extends ActionBarActivity
     }
 
     private void loadParticles() {
+        ElementAdapter[] elementAdapters = ElementAdapter.values(this);
+
         String jsonString = getFile();
+
         if (jsonString == null) {
-            customParticles = new CustomParticle[0];
+            particles = elementAdapters;
         } else {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray jsonArray = jsonObject.getJSONArray("particles");
-                customParticles = CustomParticle.arrayFromJSON(jsonArray);
+                CustomParticle[] customParticles = CustomParticle.arrayFromJSON(jsonArray);
+
+                particles = new Particle[elementAdapters.length + customParticles.length];
+                System.arraycopy(customParticles, 0, particles, 0, customParticles.length);
+                System.arraycopy(elementAdapters, 0, particles, customParticles.length, elementAdapters.length);
             } catch (JSONException e) {
                 e.printStackTrace();
-                customParticles = new CustomParticle[0];
+                particles = elementAdapters;
             }
         }
-    }
-
-    private Object getItem(int position) {
-        if (position < customParticles.length) {
-            return customParticles[position];
-        }
-        return Element.values()[position - customParticles.length];
     }
 
     private String getFile() {
@@ -223,15 +215,17 @@ public class ElementPagerActivity extends ActionBarActivity
                     loadParticles();
                     setUpViewPagerAndSlidingTabLayout();
 
-                    theViewPager.setCurrentItem(data.getIntExtra(CustomParticlesActivity.CALCULATE_WITH_THIS_PARTICLE,
-                            theViewPager.getCurrentItem()));
+                    if (data != null) {
+                        theViewPager.setCurrentItem(data.getIntExtra(CustomParticlesActivity.CALCULATE_WITH_THIS_PARTICLE,
+                                theViewPager.getCurrentItem()));
+                    }
                 }
         }
     }
 
     @Override
-    public Object onRequestElement() {
-        return getItem(theViewPager.getCurrentItem());
+    public Particle onRequestParticle() {
+        return particles[theViewPager.getCurrentItem()];
     }
 
     @Override
