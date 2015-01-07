@@ -51,7 +51,7 @@ public class BMIActivity extends EditTextActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
 
-        getMenuInflater().inflate(R.menu.element_pager, menu);
+        getMenuInflater().inflate(R.menu.element_pager, menu); // TODO make different menu resource
         MenuItem menuItem = menu.findItem(R.id.pager_activity_show_list_action);
         menuItem.setTitle(getString(R.string.info));
 
