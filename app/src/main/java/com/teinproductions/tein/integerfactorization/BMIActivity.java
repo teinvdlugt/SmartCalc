@@ -23,9 +23,9 @@ public class BMIActivity extends EditTextActivity {
     private Integer backgroundColorActionBarID;
     private Integer backgroundColorStatusBarID;
 
-    private static String BACKGROUNDCOLORID = "BACKGROUNDCOLORID";
-    private static String BACKGROUNDCOLORACTIONBARID = "BACKGROUNDCOLORACTIONBARID";
-    private static String BACKGROUNDCOLORSTATUSBARID = "BACKGROUNDCOLORSTATUSBARID";
+    private static String BACKGROUND_COLOR_ID = "com.teinproductions.tein.integerfactorization.BACKGROUND_COLOR_ID";
+    private static String BACKGROUND_COLOR_ACTION_BAR_ID = "com.teinproductions.tein.integerfactorization.BACKGROUND_COLOR_ACTION_BAR_ID";
+    private static String BACKGROUND_COLOR_STATUS_BAR_ID = "com.teinproductions.tein.integerfactorization.BACKGROUND_COLOR_STATUS_BAR_ID";
 
     @Override
     protected void doYourStuff() {
@@ -49,19 +49,14 @@ public class BMIActivity extends EditTextActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.element_pager, menu); // TODO make different menu resource
-        MenuItem menuItem = menu.findItem(R.id.pager_activity_show_list_action);
-        menuItem.setTitle(getString(R.string.info));
-
+        getMenuInflater().inflate(R.menu.bmi, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.pager_activity_show_list_action:
+            case R.id.action_bar_bmi_info:
                 Intent intent = new Intent(this, BMIInfoActivity.class);
                 startActivity(intent);
         }
@@ -296,9 +291,9 @@ public class BMIActivity extends EditTextActivity {
 
         // Save the background colors
         try {
-            outState.putInt(BACKGROUNDCOLORID, backgroundColorID);
-            outState.putInt(BACKGROUNDCOLORACTIONBARID, backgroundColorActionBarID);
-            outState.putInt(BACKGROUNDCOLORSTATUSBARID, backgroundColorStatusBarID);
+            outState.putInt(BACKGROUND_COLOR_ID, backgroundColorID);
+            outState.putInt(BACKGROUND_COLOR_ACTION_BAR_ID, backgroundColorActionBarID);
+            outState.putInt(BACKGROUND_COLOR_STATUS_BAR_ID, backgroundColorStatusBarID);
         } catch (NullPointerException ignored) {
         }
     }
@@ -309,9 +304,9 @@ public class BMIActivity extends EditTextActivity {
 
         // Set the background colors
         try {
-            backgroundColorID = savedInstanceState.getInt(BACKGROUNDCOLORID);
-            backgroundColorActionBarID = savedInstanceState.getInt(BACKGROUNDCOLORACTIONBARID);
-            backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUNDCOLORSTATUSBARID);
+            backgroundColorID = savedInstanceState.getInt(BACKGROUND_COLOR_ID);
+            backgroundColorActionBarID = savedInstanceState.getInt(BACKGROUND_COLOR_ACTION_BAR_ID);
+            backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUND_COLOR_STATUS_BAR_ID);
 
             rootLayout.setBackgroundColor(getResources().getColor(backgroundColorID));
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(backgroundColorActionBarID)));
