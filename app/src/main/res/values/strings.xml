@@ -337,5 +337,9 @@
     <string name="forward_slash">/</string>
     <string name="a">a</string>
     <string name="b">b</string>
+    <string name="decimal">Decimal</string>
+    <string name="numeral_systems">Numeral Systems</string>
+    <string name="hexadecimal">Hexadecimal</string>
+    <string name="binary">Binary</string>
 
 </resources>

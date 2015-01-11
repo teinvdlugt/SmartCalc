@@ -9,9 +9,9 @@
         android:id="@+id/menu_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/menu_text_margin"
-        android:textColor="@color/menu_text_color"
-        android:textSize="20sp"
-        android:fontFamily="sans-serif-light"/>
+        android:layout_margin="?android:listPreferredItemPaddingStart"
+        android:fontFamily="sans-serif-light"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="20sp" />
 
 </FrameLayout>

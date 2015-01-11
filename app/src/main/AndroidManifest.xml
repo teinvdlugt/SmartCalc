@@ -105,6 +105,9 @@
             android:name=".VelocityConvertActivity"
             android:label="@string/velocity_conversion"
             android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".NumeralSystemConvertActivity"
+            android:label="@string/numeral_systems" />
     </application>
 
 </manifest>

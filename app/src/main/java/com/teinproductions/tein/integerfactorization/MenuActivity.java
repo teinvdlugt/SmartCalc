@@ -17,7 +17,8 @@ public class MenuActivity extends ActionBarActivity {
                         .add(new SmartCalcMenuItem(getString(R.string.greatest_common_factor), GCFActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.least_common_multiple), LCMActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.complex_numbers), ComplexActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.x_or_encoder), XOrEncoderActivity.class)))
+                        .add(new SmartCalcMenuItem(getString(R.string.x_or_encoder), XOrEncoderActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)))
                         // Physics
                 .add(new SmartCalcMenu(getString(R.string.physics))
                         // Special Relativity
@@ -37,7 +38,8 @@ public class MenuActivity extends ActionBarActivity {
                         .add(new SmartCalcMenuItem(getString(R.string.length), LengthConvertActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.time), TimeConvertActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.temperature), TemperatureConvertActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.velocity), VelocityConvertActivity.class)));
+                        .add(new SmartCalcMenuItem(getString(R.string.velocity), VelocityConvertActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)));
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(root);
