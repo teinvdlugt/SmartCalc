@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -29,6 +30,7 @@ public class ComplexActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complex);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         animDuration = getResources().getInteger(android.R.integer.config_shortAnimTime);
 
@@ -175,6 +177,15 @@ public class ComplexActivity extends ActionBarActivity {
         }
 
         resultTextView.setText(result.toString());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+            return true;
+        }
+        return false;
     }
 
     @Override

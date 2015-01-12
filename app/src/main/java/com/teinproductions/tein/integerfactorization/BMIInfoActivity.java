@@ -26,9 +26,9 @@ public class BMIInfoActivity extends ActionBarActivity {
     private Integer backgroundColorActionBarID;
     private Integer backgroundColorStatusBarID;
 
-    private static String BACKGROUNDCOLORID = "BACKGROUNDCOLORID";
-    private static String BACKGROUNDCOLORACTIONBARID = "BACKGROUNDCOLORACTIONBARID";
-    private static String BACKGROUNDCOLORSTATUSBARID = "BACKGROUNDCOLORSTATUSBARID";
+    public static final String BACKGROUND_COLOR_ID = "com.teinproductions.tein.integerfactorization.BACKGROUND_COLOR_ID";
+    public static final String BACKGROUND_COLOR_ACTION_BAR_ID = "com.teinproductions.tein.integerfactorization.BACKGROUND_COLOR_ACTION_BAR_ID";
+    public static final String BACKGROUND_COLOR_STATUS_BAR_ID = "com.teinproductions.tein.integerfactorization.BACKGROUND_COLOR_STATUS_BAR_ID";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,22 @@ public class BMIInfoActivity extends ActionBarActivity {
         listView.setAdapter(new BMIInfoAdapter(this));
 
         rootLayout = (LinearLayout) findViewById(R.id.root_layout);
+
+        if (getIntent().getExtras() != null) {
+            Integer backgroundColorID2 = getIntent().getExtras().getInt(BACKGROUND_COLOR_ID, -1);
+            Integer backgroundColorActionBarID2 = getIntent().getExtras().getInt(BACKGROUND_COLOR_ACTION_BAR_ID, -1);
+            Integer backgroundColorStatusBarID2 = getIntent().getExtras().getInt(BACKGROUND_COLOR_STATUS_BAR_ID, -1);
+
+            if (backgroundColorID2 != -1 && backgroundColorActionBarID2 != -1 && backgroundColorStatusBarID2 != -1) {
+                backgroundColorID = backgroundColorID2;
+                backgroundColorActionBarID = backgroundColorActionBarID2;
+                backgroundColorStatusBarID = backgroundColorStatusBarID2;
+
+                rootLayout.setBackgroundColor(getResources().getColor(backgroundColorID2));
+                getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(backgroundColorActionBarID2)));
+                getWindow().setStatusBarColor(getResources().getColor(backgroundColorStatusBarID2));
+            }
+        }
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -173,9 +189,9 @@ public class BMIInfoActivity extends ActionBarActivity {
 
         // Save the background colors
         try {
-            outState.putInt(BACKGROUNDCOLORID, backgroundColorID);
-            outState.putInt(BACKGROUNDCOLORACTIONBARID, backgroundColorActionBarID);
-            outState.putInt(BACKGROUNDCOLORSTATUSBARID, backgroundColorStatusBarID);
+            outState.putInt(BACKGROUND_COLOR_ID, backgroundColorID);
+            outState.putInt(BACKGROUND_COLOR_ACTION_BAR_ID, backgroundColorActionBarID);
+            outState.putInt(BACKGROUND_COLOR_STATUS_BAR_ID, backgroundColorStatusBarID);
         } catch (NullPointerException ignored) {
         }
     }
@@ -186,9 +202,9 @@ public class BMIInfoActivity extends ActionBarActivity {
 
         // Set the background colors
         try {
-            backgroundColorID = savedInstanceState.getInt(BACKGROUNDCOLORID);
-            backgroundColorActionBarID = savedInstanceState.getInt(BACKGROUNDCOLORACTIONBARID);
-            backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUNDCOLORSTATUSBARID);
+            backgroundColorID = savedInstanceState.getInt(BACKGROUND_COLOR_ID);
+            backgroundColorActionBarID = savedInstanceState.getInt(BACKGROUND_COLOR_ACTION_BAR_ID);
+            backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUND_COLOR_STATUS_BAR_ID);
 
             rootLayout.setBackgroundColor(getResources().getColor(backgroundColorID));
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(backgroundColorActionBarID)));

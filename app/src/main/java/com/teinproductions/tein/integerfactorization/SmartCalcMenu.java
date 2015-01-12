@@ -54,6 +54,9 @@ public class SmartCalcMenu implements SmartCalcMenuComponent {
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .commit();
+
+        activity.setCurrentMenu(this);
+        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

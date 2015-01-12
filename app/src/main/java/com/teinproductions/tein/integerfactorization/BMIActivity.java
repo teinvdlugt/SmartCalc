@@ -58,6 +58,9 @@ public class BMIActivity extends EditTextActivity {
         switch (item.getItemId()) {
             case R.id.action_bar_bmi_info:
                 Intent intent = new Intent(this, BMIInfoActivity.class);
+                intent.putExtra(BMIInfoActivity.BACKGROUND_COLOR_ID, backgroundColorID);
+                intent.putExtra(BMIInfoActivity.BACKGROUND_COLOR_ACTION_BAR_ID, backgroundColorActionBarID);
+                intent.putExtra(BMIInfoActivity.BACKGROUND_COLOR_STATUS_BAR_ID, backgroundColorStatusBarID);
                 startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
