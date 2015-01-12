@@ -57,6 +57,7 @@ public class SmartCalcMenu implements SmartCalcMenuComponent {
 
         activity.setCurrentMenu(this);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        activity.setTitle(name);
     }
 
     @Override

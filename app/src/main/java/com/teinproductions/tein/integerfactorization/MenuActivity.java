@@ -75,10 +75,11 @@ public class MenuActivity extends ActionBarActivity {
     public void onBackPressed() {
         super.onBackPressed();
         currentMenu = (SmartCalcMenu) currentMenu.getParent();
+        setTitle(currentMenu.getName());
         if (currentMenu == root) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            setTitle(R.string.app_name);
         }
-
     }
 
     @Override
@@ -97,6 +98,7 @@ public class MenuActivity extends ActionBarActivity {
 
         if (currentMenu != null && currentMenu != root) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            setTitle(currentMenu.getName());
         }
     }
 }

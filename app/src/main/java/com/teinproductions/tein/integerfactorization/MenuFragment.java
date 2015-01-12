@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MenuFragment extends ListFragment {
 
@@ -71,6 +70,10 @@ public class MenuFragment extends ListFragment {
 
             TextView theTextView = (TextView) theView.findViewById(R.id.menu_text);
             theTextView.setText(menu.getChildren()[position].getName());
+
+            if (menu.getChildren()[position] instanceof SmartCalcMenu) {
+                theView.findViewById(R.id.menu_arrow).setVisibility(View.VISIBLE);
+            }
 
             return theView;
         }
