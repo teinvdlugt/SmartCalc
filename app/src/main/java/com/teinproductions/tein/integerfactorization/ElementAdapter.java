@@ -5,7 +5,8 @@ import android.content.Context;
 
 public class ElementAdapter implements Particle {
 
-    private Context context;
+    private transient Context context;
+    // transient because a context is not Serializable (http://goo.gl/0OoIaS)
     private Element element;
 
     public ElementAdapter(Context context, Element element) {

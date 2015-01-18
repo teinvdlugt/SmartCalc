@@ -52,19 +52,19 @@ public class ParticlePagerActivity extends ActionBarActivity
         theViewPager = (ViewPager) findViewById(R.id.view_pager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerListView = (ListView) findViewById(R.id.drawer_listView);
-        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
+/*        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
                 this,
                 drawerLayout,
                 null,
                 R.string.xs_drawer_open,
                 R.string.xs_drawer_close
         );
-        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.setDrawerListener(drawerToggle);*/
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         loadParticles();
 
-        drawerListView.setAdapter(new ParticleListAdapter(this, particles));
+        setListViewAdapter();
         drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -76,6 +76,10 @@ public class ParticlePagerActivity extends ActionBarActivity
 
         setUpViewPagerAndSlidingTabLayout();
         theViewPager.setCurrentItem(0);
+    }
+
+    private void setListViewAdapter() {
+        drawerListView.setAdapter(new ParticleListAdapter(this, particles));
     }
 
     private void setUpViewPagerAndSlidingTabLayout() {
@@ -214,6 +218,9 @@ public class ParticlePagerActivity extends ActionBarActivity
                 if (resultCode == RESULT_OK) {
                     loadParticles();
                     setUpViewPagerAndSlidingTabLayout();
+                    setListViewAdapter();
+
+                    drawerLayout.closeDrawers();
 
                     if (data != null) {
                         theViewPager.setCurrentItem(data.getIntExtra(CustomParticlesActivity.CALCULATE_WITH_THIS_PARTICLE,
