@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,8 @@ import java.util.ArrayList;
 public class XOrEncoderActivity extends ActionBarActivity {
 
     private EditText plainText, keyText, ciphertext;
+    private boolean indirectTextChange = false;
+    private boolean encoding, decoding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,104 @@ public class XOrEncoderActivity extends ActionBarActivity {
         keyText = (EditText) findViewById(R.id.key);
         ciphertext = (EditText) findViewById(R.id.ciphertext);
 
+        setTextWatchers();
+    }
+
+    private void setTextWatchers() {
+        plainText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!indirectTextChange) {
+                    encoding = true;
+                    decoding = false;
+                    indirectTextChange = true;
+
+                    if (containsText(plainText) && containsText(keyText)) {
+                        final String plain = plainText.getText().toString(), key = keyText.getText().toString();
+                        ciphertext.setText(encode(plain, key));
+                    } else if (isEmpty(plainText)) ciphertext.setText("");
+
+                    indirectTextChange = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        ciphertext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!indirectTextChange) {
+                    decoding = true;
+                    encoding = false;
+                    indirectTextChange = true;
+
+                    if (containsText(ciphertext) && containsText(keyText)) {
+                        final String cipher = ciphertext.getText().toString(), key = keyText.getText().toString();
+                        plainText.setText(decode(cipher, key));
+                    } else if (isEmpty(ciphertext)) plainText.setText("");
+
+                    indirectTextChange = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        keyText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (containsText(keyText)) {
+                    indirectTextChange = true;
+                    if (encoding && containsText(plainText)) {
+
+                        final String plain = plainText.getText().toString(), key = keyText.getText().toString();
+                        ciphertext.setText(encode(plain, key));
+
+                    } else if (decoding && containsText(ciphertext)) {
+
+                        final String cipher = ciphertext.getText().toString(), key = keyText.getText().toString();
+                        plainText.setText(decode(cipher, key));
+
+                    }
+                    indirectTextChange = false;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    public static boolean containsText(EditText e) {
+        return e.getText().length() > 0;
+    }
+
+    public static boolean isEmpty(EditText e) {
+        return e.getText().length() == 0;
     }
 
     @Override
@@ -47,8 +149,10 @@ public class XOrEncoderActivity extends ActionBarActivity {
     }
 
     public void onClickEncode(View view) {
-        String message = plainText.getText().toString();
-        String key = keyText.getText().toString();
+        encoding = true;
+        decoding = false;
+        final String message = plainText.getText().toString();
+        final String key = keyText.getText().toString();
 
         if (message.equals("")) {
             CustomDialog.newInstance(
@@ -76,8 +180,10 @@ public class XOrEncoderActivity extends ActionBarActivity {
     }
 
     public void onClickDecode(View view) {
-        String cipher = ciphertext.getText().toString();
-        String key = keyText.getText().toString();
+        decoding = true;
+        encoding = false;
+        final String cipher = ciphertext.getText().toString();
+        final String key = keyText.getText().toString();
 
         if (cipher.equals("")) {
             CustomDialog.newInstance(

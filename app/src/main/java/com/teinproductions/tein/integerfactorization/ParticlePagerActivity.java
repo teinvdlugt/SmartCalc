@@ -52,14 +52,7 @@ public class ParticlePagerActivity extends ActionBarActivity
         theViewPager = (ViewPager) findViewById(R.id.view_pager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerListView = (ListView) findViewById(R.id.drawer_listView);
-/*        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                null,
-                R.string.xs_drawer_open,
-                R.string.xs_drawer_close
-        );
-        drawerLayout.setDrawerListener(drawerToggle);*/
+
         drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         loadParticles();

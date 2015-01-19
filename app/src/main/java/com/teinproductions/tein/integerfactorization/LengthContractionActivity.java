@@ -4,17 +4,37 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 
 public class LengthContractionActivity extends EditTextActivity {
 
     @Override
     protected void doYourStuff() {
+        setInputTypesAndTexts();
+
+        setAdapters();
+        setItemSelectedListeners();
+
+        final int mps = Units.Velocity.MPS.ordinal(), meters = Units.Length.METER.ordinal();
+
+        spinner1.setSelection(mps, false);
+        spinner2.setSelection(meters, false);
+        resultSpinner.setSelection(meters, false);
+
+        clickButtonWhenFilledEditText(editText2);
+        setTextWatcher(editText1);
+        setTextWatcher(editText2);
+    }
+
+    private void setInputTypesAndTexts() {
         editText1.setHint(getString(R.string.velocity));
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setHint(getString(R.string.proper_length));
         resultDeclaration.setText(getString(R.string.contracted_length));
+    }
 
+    private void setAdapters() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getAbbreviations(this));
@@ -35,15 +55,13 @@ public class LengthContractionActivity extends EditTextActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         resultSpinner.setAdapter(adapter);
+    }
 
-        spinner1.setSelection(0);
-        spinner2.setSelection(5);
-        resultSpinner.setSelection(2);
-
+    private void setItemSelectedListeners() {
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                recalculate();
+                onClickButton(view);
             }
 
             @Override
@@ -55,62 +73,51 @@ public class LengthContractionActivity extends EditTextActivity {
         spinner1.setOnItemSelectedListener(itemSelectedListener);
         spinner2.setOnItemSelectedListener(itemSelectedListener);
         resultSpinner.setOnItemSelectedListener(itemSelectedListener);
-
-        clickButtonWhenFilledEditText(editText2);
-        saveResultTextViewText = true;
     }
 
     @Override
     protected void onClickButton(View view) {
         try {
-            Double input1 = Double.parseDouble(editText1.getText().toString());
-            Double input2 = Double.parseDouble(editText2.getText().toString());
+            final Double velocity = getConvertedVelocity();
+            final Double properLength = getConvertedProperLength();
 
-            Units.Velocity velocity1 = Units.Velocity.values()[(spinner1.getSelectedItemPosition())];
-            Units.Length length2 = Units.Length.values()[(spinner2.getSelectedItemPosition())];
-            Units.Length resultLength = Units.Length.values()[(resultSpinner.getSelectedItemPosition())];
-
-            Double num1 = velocity1.convertTo(Units.Velocity.MPS, input1);
-            Double num2 = length2.convertTo(Units.Length.METER, input2);
-
-            if (num1 > Units.Velocity.C) {
-                CustomDialog.tooFast(getFragmentManager());
-                editText1.setText("");
+            if (velocity > Units.Velocity.C) {
+                if (view == button) {
+                    CustomDialog.tooFast(getFragmentManager());
+                    editText1.setText("");
+                    resultTextView.setText("");
+                } else if (view instanceof EditText) {
+                    resultTextView.setText("");
+                }
+                return;
             }
 
-            Double contracted = num2 * Math.sqrt(1 - ((num1 * num1) / (Units.Velocity.C * Units.Velocity.C)));
 
+            final Double velocitySquared = velocity * velocity;
+            final Double lightSpeedSquared = Units.Velocity.C * Units.Velocity.C;
+
+            Double contracted = properLength * Math.sqrt(1 - (velocitySquared / (lightSpeedSquared)));
+
+            Units.Length resultLength = Units.Length.values()[(resultSpinner.getSelectedItemPosition())];
             Double result = Units.Length.METER.convertTo(resultLength, contracted);
 
             resultTextView.setText(Units.format(result));
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber(getFragmentManager());
+            if (view == button) {
+                CustomDialog.invalidNumber(getFragmentManager());
+            }
         }
     }
 
-    protected void recalculate() {
-        try {
-            Double input1 = Double.parseDouble(editText1.getText().toString());
-            Double input2 = Double.parseDouble(editText2.getText().toString());
+    private Double getConvertedVelocity() {
+        Double value = Double.parseDouble(editText1.getText().toString());
+        Units.Velocity unit = Units.Velocity.values()[(spinner1.getSelectedItemPosition())];
+        return unit.convertTo(Units.Velocity.MPS, value);
+    }
 
-            Units.Velocity velocity1 = Units.Velocity.values()[(spinner1.getSelectedItemPosition())];
-            Units.Length length2 = Units.Length.values()[(spinner2.getSelectedItemPosition())];
-            Units.Length resultLength = Units.Length.values()[(resultSpinner.getSelectedItemPosition())];
-
-            Double num1 = velocity1.convertTo(Units.Velocity.MPS, input1);
-            Double num2 = length2.convertTo(Units.Length.METER, input2);
-
-            if (num1 > Units.Velocity.C) {
-                throw new NumberFormatException(getString(R.string.faster_than_light));
-            }
-
-            Double contracted = num2 * Math.sqrt(1 - ((num1 * num1) / (Units.Velocity.C * Units.Velocity.C)));
-
-            Double result = Units.Length.METER.convertTo(resultLength, contracted);
-
-            resultTextView.setText(Units.format(result));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+    private Double getConvertedProperLength() {
+        Double value = Double.parseDouble(editText2.getText().toString());
+        Units.Length unit = Units.Length.values()[(spinner2.getSelectedItemPosition())];
+        return unit.convertTo(Units.Length.METER, value);
     }
 }

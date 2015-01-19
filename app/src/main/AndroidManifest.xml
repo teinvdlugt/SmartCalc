@@ -107,7 +107,8 @@
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".NumeralSystemConvertActivity"
-            android:label="@string/numeral_systems" />
+            android:label="@string/numeral_systems"
+            android:theme="@style/Theme.AppCompat"/>
     </application>
 
 </manifest>

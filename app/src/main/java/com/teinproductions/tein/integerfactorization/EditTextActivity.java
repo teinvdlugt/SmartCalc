@@ -3,6 +3,8 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +26,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
     protected Button button;
 
     protected Integer animDuration;
-    protected Boolean saveResultTextViewText = false;
+    protected Boolean saveResultTextViewText = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +55,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
@@ -70,6 +72,25 @@ public abstract class EditTextActivity extends ActionBarActivity {
                     return true;
                 }
                 return false;
+            }
+        });
+    }
+
+    public void setTextWatcher(final EditText e) {
+        e.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                onClickButton(e);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
