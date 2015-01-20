@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:imeOptions="actionGo"
-            android:inputType="numberDecimal" />
+            android:inputType="numberSigned|numberDecimal" />
 
         <Spinner
             android:id="@+id/spinner1"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:imeOptions="actionGo"
-            android:inputType="numberDecimal" />
+            android:inputType="numberSigned|numberDecimal" />
 
         <Spinner
             android:id="@+id/spinner2"

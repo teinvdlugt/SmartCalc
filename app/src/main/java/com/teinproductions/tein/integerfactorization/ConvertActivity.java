@@ -4,10 +4,11 @@ package com.teinproductions.tein.integerfactorization;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +23,10 @@ public abstract class ConvertActivity extends ActionBarActivity {
 
     protected Double result;
     protected Double input1, input2;
+
+    private boolean indirectTextChange = false;
+
+    private enum InvalidDoubleActionType {CLEAR_OTHER_ET, SHOW_MESSAGE, TO_NEXT_ET}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,21 +43,10 @@ public abstract class ConvertActivity extends ActionBarActivity {
         button = (Button) findViewById(R.id.calculate_button);
 
         setAdapters();
-        setOnClickListeners();
+        setOnItemSelectedListeners();
 
-        TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_GO) {
-                    onClickConvert(view);
-                    return true;
-                }
-                return false;
-            }
-        };
-
-        editText1.setOnEditorActionListener(editorActionListener);
-        editText2.setOnEditorActionListener(editorActionListener);
+        setEditorActionListeners();
+        setTextWatchers();
     }
 
     @Override
@@ -72,12 +66,11 @@ public abstract class ConvertActivity extends ActionBarActivity {
 
     protected abstract void setAdapters();
 
-    protected void setOnClickListeners() {
+    protected void setOnItemSelectedListeners() {
         AdapterView.OnItemSelectedListener listener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onClickConvert(spinner1);
-                // Just a random spinner
+                convert(view, InvalidDoubleActionType.CLEAR_OTHER_ET);
             }
 
             @Override
@@ -95,8 +88,47 @@ public abstract class ConvertActivity extends ActionBarActivity {
         }
     }
 
+    private void setEditorActionListeners() {
+        TextView.OnEditorActionListener editorActionListener = new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                convert(view, InvalidDoubleActionType.TO_NEXT_ET);
+                return true;
+            }
+        };
+
+        editText1.setOnEditorActionListener(editorActionListener);
+        editText2.setOnEditorActionListener(editorActionListener);
+    }
+
+    private void setTextWatchers() {
+        for (final EditText e : new EditText[]{editText1, editText2}) {
+            e.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (!indirectTextChange) {
+                        convert(e, InvalidDoubleActionType.CLEAR_OTHER_ET);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
+    }
+
     public void onClickConvert(View view) {
-        if (view == editText1) {
+        if (view == button) {
+            convert(view, InvalidDoubleActionType.SHOW_MESSAGE);
+        }
+        /*if (view == editText1) {
             try {
                 input1 = Double.parseDouble(editText1.getText().toString());
                 input2 = null;
@@ -128,9 +160,59 @@ public abstract class ConvertActivity extends ActionBarActivity {
             } else if (view == button) {
                 CustomDialog.invalidNumber(getFragmentManager());
             }
+        }*/
+    }
+
+    private void convert(View view, InvalidDoubleActionType invalidDoubleActionType) {
+        indirectTextChange = true;
+
+        try {
+            if (view == editText1) {
+                input1 = Double.parseDouble(editText1.getText().toString());
+                input2 = null;
+                editText2.setText(convert().toString());
+                input1 = null;
+            } else if (view == editText2) {
+                input2 = Double.parseDouble(editText2.getText().toString());
+                input1 = null;
+                editText1.setText(convert().toString());
+                input2 = null;
+            } else {
+                if (editText1.hasFocus() && CalculateFragment.hasValidDecimalInput(editText1)) {
+                    convert(editText1, InvalidDoubleActionType.SHOW_MESSAGE);
+                } else if (editText2.hasFocus() && CalculateFragment.hasValidDecimalInput(editText2)) {
+                    convert(editText2, InvalidDoubleActionType.SHOW_MESSAGE);
+                } else if (CalculateFragment.hasValidDecimalInput(editText1)) {
+                    convert(editText1, InvalidDoubleActionType.SHOW_MESSAGE);
+                } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
+                    convert(editText2, InvalidDoubleActionType.SHOW_MESSAGE);
+                } else {
+                    throw new NumberFormatException();
+                }
+            }
+        } catch (NumberFormatException e) {
+            switch(invalidDoubleActionType) {
+                case CLEAR_OTHER_ET:
+                    clearOtherET();
+                    break;
+                case TO_NEXT_ET:
+                    editText2.requestFocus();
+                    break;
+                case SHOW_MESSAGE:
+                    CustomDialog.invalidNumber(getFragmentManager());
+            }
         }
+
+        indirectTextChange = false;
     }
 
     protected abstract Double convert();
 
+    private void clearOtherET() {
+        if (editText1.hasFocus()) {
+            editText2.setText("");
+        } else if (editText2.hasFocus()) {
+            editText1.setText("");
+        }
+    }
 }

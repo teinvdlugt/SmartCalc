@@ -1,7 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 public class VelocityConvertActivity extends ConvertActivity {
 
@@ -43,8 +42,6 @@ public class VelocityConvertActivity extends ConvertActivity {
 
         Double factor1 = length1.getFactor() / time1.getFactor();
         Double factor2 = length2.getFactor() / time2.getFactor();
-
-        Toast.makeText(this, "factor1: " + factor1, Toast.LENGTH_SHORT).show();
 
         if (input1 != null && input2 == null) {
             return input1 / factor1 * factor2;
