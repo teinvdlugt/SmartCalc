@@ -36,4 +36,5 @@
     <color name="molu_colorPrimary">#ffff0f0f</color>
     <color name="molu_colorPrimaryDark">#ffcc0000</color>
     <color name="molu_colorAccent">#fff7ff41</color>
+    <color name="molu_background_color_drawer_list">#303030</color>
 </resources>

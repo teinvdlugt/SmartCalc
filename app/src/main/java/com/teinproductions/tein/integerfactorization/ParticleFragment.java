@@ -55,7 +55,8 @@ public class ParticleFragment extends Fragment {
         try {
             yearOfDiscTextView.setText(particle.getYearOfDiscoveryString());
         } catch (UnsupportedOperationException e) {
-            theView.findViewById(R.id.yr_of_disc_layout).setVisibility(View.GONE);
+            yearOfDiscTextView.setVisibility(View.GONE);
+            theView.findViewById(R.id.fragment_element_year_of_disc_declaration).setVisibility(View.GONE);
         }
 
         // Density

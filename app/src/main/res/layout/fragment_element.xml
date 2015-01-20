@@ -47,9 +47,10 @@
 
         </TableRow>
 
-        <TableRow android:id="@+id/yr_of_disc_layout">
+        <TableRow>
 
             <TextView
+                android:id="@+id/fragment_element_year_of_disc_declaration"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"

@@ -65,7 +65,7 @@ public class ParticlePagerActivity extends ActionBarActivity
                 theViewPager.setCurrentItem(position, true);
             }
         });
-        drawerListView.setBackgroundColor(getResources().getColor(android.R.color.background_dark));
+        drawerListView.setBackgroundColor(getResources().getColor(R.color.molu_background_color_drawer_list));
 
         setUpViewPagerAndSlidingTabLayout();
         theViewPager.setCurrentItem(0);
