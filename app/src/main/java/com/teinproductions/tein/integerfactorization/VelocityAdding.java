@@ -2,6 +2,7 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -13,7 +14,7 @@ import android.widget.EditText;
 public class VelocityAdding extends EditTextActivity {
 
     @Override
-    public void doYourStuff() {
+    public void doYourStuff(Bundle savedInstanceState) {
         resultDeclaration.setVisibility(View.GONE);
 
         setTextAndInputTypes();

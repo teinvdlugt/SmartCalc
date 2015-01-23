@@ -4,6 +4,7 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 
@@ -12,7 +13,7 @@ public class GCFActivity extends EditTextActivity {
     Long num1, num2;
 
     @Override
-    protected void doYourStuff() {
+    protected void doYourStuff(Bundle savedInstanceState) {
         editText1.setHint(getString(R.string.number_1));
         editText2.setHint(getString(R.string.number_2));
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);

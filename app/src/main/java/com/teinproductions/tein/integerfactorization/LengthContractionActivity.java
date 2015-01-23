@@ -1,5 +1,6 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,7 +10,7 @@ import android.widget.EditText;
 public class LengthContractionActivity extends EditTextActivity {
 
     @Override
-    protected void doYourStuff() {
+    protected void doYourStuff(Bundle savedInstanceState) {
         setTextAndInputTypes();
         setAdapters();
         setOnItemSelectedListeners();

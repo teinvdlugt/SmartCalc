@@ -2,6 +2,7 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -14,7 +15,7 @@ import android.widget.Spinner;
 public class TimeDilationActivity extends EditTextActivity {
 
     @Override
-    protected void doYourStuff() {
+    protected void doYourStuff(Bundle savedInstanceState) {
         setTextAndInputTypes();
         setAdapters();
         setOnItemSelectedListeners();

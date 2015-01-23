@@ -3,6 +3,7 @@ package com.teinproductions.tein.integerfactorization;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.InputType;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -13,7 +14,7 @@ public class FactorizationActivity extends EditTextActivity {
     Long input;
 
     @Override
-    protected void doYourStuff() {
+    protected void doYourStuff(Bundle savedInstanceState) {
         editText1.setHint(getString(R.string.number_to_factorize_hint));
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText1.setImeOptions(EditorInfo.IME_ACTION_GO);

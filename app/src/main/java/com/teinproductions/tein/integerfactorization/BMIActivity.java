@@ -6,6 +6,7 @@ import android.animation.ArgbEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -223,7 +225,10 @@ public class BMIActivity extends EditTextActivity {
         colorToStatusBar = getResources().getColor(backgroundColorStatusBarID);
 
         // animate the background color
-        
+        animateBackgroundColors(
+                colorFrom, colorTo,
+                colorFromActionBar, colorToActionBar,
+                colorFromStatusBar, colorToStatusBar);
     }
 
     private Integer getColorFrom() {
@@ -251,8 +256,8 @@ public class BMIActivity extends EditTextActivity {
     }
 
     private void animateBackgroundColors(
-            final Integer colorFrom, final Integer colorTo, 
-            final Integer colorFromActionBar, final Integer colorToActionBar, 
+            final Integer colorFrom, final Integer colorTo,
+            final Integer colorFromActionBar, final Integer colorToActionBar,
             final Integer colorFromStatusBar, final Integer colorToStatusBar) {
 
         BMIActivity.BMIState.animateColor(
@@ -270,48 +275,48 @@ public class BMIActivity extends EditTextActivity {
                     public void onAnimationEnd(Animator animation) {
                         // After that, animate the color of the Action bar and the Status bar
                         onBackgroundColorAnimationEnd(
-                                colorFromActionBar, colorToActionBar, 
+                                colorFromActionBar, colorToActionBar,
                                 colorFromStatusBar, colorToStatusBar);
                     }
                 });
     }
 
     private void onBackgroundColorAnimationEnd(
-            final Integer colorFromActionBar, final Integer colorToActionBar, 
+            final Integer colorFromActionBar, final Integer colorToActionBar,
             final Integer colorFromStatusBar, final Integer colorToStatusBar) {
-        
+
         BMIActivity.BMIState.animateColor(
-                                getApplicationContext(),
-                                colorFromActionBar,
-                                colorToActionBar,
-                                new ValueAnimator.AnimatorUpdateListener() {
-                                    @Override
-                                    public void onAnimationUpdate(ValueAnimator animation) {
-                                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable((Integer) animation.getAnimatedValue()));
-                                        button.setBackgroundColor((Integer) animation.getAnimatedValue());
-                                    }
-                                },
-                                new AnimatorListenerAdapter() {
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        // After that, if lollipop or higher, animate the color of the status bar
-                                        onActionBarColorAnimationEnd(colorFromStatusBar, colorToStatusBar)
-                                    }
-                                });
+                getApplicationContext(),
+                colorFromActionBar,
+                colorToActionBar,
+                new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        getSupportActionBar().setBackgroundDrawable(new ColorDrawable((Integer) animation.getAnimatedValue()));
+                        button.setBackgroundColor((Integer) animation.getAnimatedValue());
+                    }
+                },
+                new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        // After that, if lollipop or higher, animate the color of the status bar
+                        onActionBarColorAnimationEnd(colorFromStatusBar, colorToStatusBar);
+                    }
+                });
     }
 
     private void onActionBarColorAnimationEnd(final Integer colorFromStatusBar, final Integer colorToStatusBar) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             BMIActivity.BMIState.animateColor(
-                getApplicationContext(),
-                colorFromStatusBar,
-                colorToStatusBar,
-                new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                    getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
-                    }
-                }, null);
+                    getApplicationContext(),
+                    colorFromStatusBar,
+                    colorToStatusBar,
+                    new ValueAnimator.AnimatorUpdateListener() {
+                        @Override
+                        public void onAnimationUpdate(ValueAnimator animation) {
+                            getWindow().setStatusBarColor((Integer) animation.getAnimatedValue());
+                        }
+                    }, null);
         }
     }
 
@@ -370,17 +375,21 @@ public class BMIActivity extends EditTextActivity {
     }
 
     private void saveColorIDs() {
-        SharedPreferences sp = getPreferences(Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor sp = getPreferences(Context.MODE_PRIVATE).edit();
 
-        sp.putInt(BACKGROUND_COLOR_ID, backgroundColorID);
-        sp.putInt(BACKGROUND_COLOR_ACTION_BAR_ID, backgroundColorActionBarID);
-        sp.putInt(BACKGROUND_COLOR_STATUS_BAR_ID, backgroundColorStatusBarID);
+        try {
+            sp.putInt(BACKGROUND_COLOR_ID, backgroundColorID);
+            sp.putInt(BACKGROUND_COLOR_ACTION_BAR_ID, backgroundColorActionBarID);
+            sp.putInt(BACKGROUND_COLOR_STATUS_BAR_ID, backgroundColorStatusBarID);
+        } catch (NullPointerException ignored) {
+        }
 
         sp.commit();
     }
 
     private void restoreColors(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            Toast.makeText(this, "not null", Toast.LENGTH_SHORT).show();
             backgroundColorID = savedInstanceState.getInt(BACKGROUND_COLOR_ID);
             backgroundColorActionBarID = savedInstanceState.getInt(BACKGROUND_COLOR_ACTION_BAR_ID);
             backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUND_COLOR_STATUS_BAR_ID);
@@ -388,6 +397,8 @@ public class BMIActivity extends EditTextActivity {
             rootLayout.setBackgroundColor(getResources().getColor(backgroundColorID));
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(backgroundColorActionBarID)));
             getWindow().setStatusBarColor(getResources().getColor(backgroundColorStatusBarID));
+        } else {
+            Toast.makeText(this, "null", Toast.LENGTH_SHORT).show();
         }
     }
 }

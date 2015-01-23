@@ -49,8 +49,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        doYourStuff();
-
+        doYourStuff(savedInstanceState);
     }
 
     @Override
@@ -95,7 +94,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
         });
     }
 
-    protected abstract void doYourStuff();
+    protected abstract void doYourStuff(Bundle savedInstanceState);
 
     public void fadeOut(View view, AnimatorListenerAdapter listener) {
         view.animate()
