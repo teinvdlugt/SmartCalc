@@ -1,116 +1,151 @@
 package com.teinproductions.tein.integerfactorization;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 public class TimeDilationActivity extends EditTextActivity {
 
     @Override
     protected void doYourStuff() {
+        setTextAndInputTypes();
+        setAdapters();
+        setOnItemSelectedListeners();
+        setSelections();
+        setTextWatchers();
+    }
+
+    private void setTextAndInputTypes() {
         editText1.setHint(getString(R.string.velocity));
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setHint(getString(R.string.proper_time));
         resultDeclaration.setText(getString(R.string.dilated_time));
+    }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+    private void setAdapters() {
+        final ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getAbbreviations(this));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(adapter1);
 
-        spinner1.setAdapter(adapter);
-
-        adapter = new ArrayAdapter<>(this,
+        final ArrayAdapter adapter2 = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Time.getAbbreviations(this));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner2.setAdapter(adapter2);
 
-        spinner2.setAdapter(adapter);
-
-        adapter = new ArrayAdapter<>(this,
+        final ArrayAdapter resultAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Time.getWords(this));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        resultAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        resultSpinner.setAdapter(resultAdapter);
+    }
 
-        resultSpinner.setAdapter(adapter);
+    private void setOnItemSelectedListeners() {
+        for (Spinner sp : new Spinner[]{spinner1, spinner2, resultSpinner}) {
+            sp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    onClickButton(view);
+                }
 
-        spinner1.setSelection(0);
-        spinner2.setSelection(3);
-        resultSpinner.setSelection(3);
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                recalculate();
-            }
+                }
+            });
+        }
+    }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+    private void setSelections() {
+        final int MPS = Units.Velocity.MPS.ordinal();
+        final int SEC = Units.Time.SEC.ordinal();
 
-            }
-        };
+        spinner1.setSelection(MPS, false);
+        spinner2.setSelection(SEC, false);
+        resultSpinner.setSelection(SEC, false);
+    }
 
-        spinner1.setOnItemSelectedListener(itemSelectedListener);
-        spinner2.setOnItemSelectedListener(itemSelectedListener);
-        resultSpinner.setOnItemSelectedListener(itemSelectedListener);
+    private void setTextWatchers() {
+        for (final EditText e : new EditText[]{editText1, editText2}) {
+            e.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        clickButtonWhenFilledEditText(editText2);
-        saveResultTextViewText = true;
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (CalculateFragment.hasValidDecimalInput(editText1) &&
+                            CalculateFragment.hasValidDecimalInput(editText2)) {
+                        onClickButton(e);
+                    } else {
+                        resultTextView.setText("");
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+        }
     }
 
     @Override
     protected void onClickButton(View view) {
         try {
-            Double input1 = Double.parseDouble(editText1.getText().toString());
-            Double input2 = Double.parseDouble(editText2.getText().toString());
+            Double v = getMPS();
+            Double t = getSEC();
 
-            Units.Velocity velocity1 = Units.Velocity.values()[(spinner1.getSelectedItemPosition())];
-            Units.Time time2 = Units.Time.values()[(spinner2.getSelectedItemPosition())];
-            Units.Time resultTime = Units.Time.values()[(resultSpinner.getSelectedItemPosition())];
-
-            Double num1 = velocity1.convertTo(Units.Velocity.MPS, input1);
-            Double num2 = time2.convertTo(Units.Time.SEC, input2);
-
-            if (num1 > Units.Velocity.C) {
-                CustomDialog.tooFast(getFragmentManager());
-                editText1.setText("");
+            if (v > Units.Velocity.C) {
+                if (view == button) {
+                    CustomDialog.tooFast(getFragmentManager());
+                }
+                resultTextView.setText("");
+                return;
             }
 
-            Double dilated = num2 / (Math.sqrt(1 - ((num1 * num1) / (Units.Velocity.C * Units.Velocity.C))));
+            final Double dilated = t / (Math.sqrt(1 - ((v * v) / (Units.Velocity.C * Units.Velocity.C))));
+            final Double result = getDesiredResult(dilated);
 
-            Double result = Units.Time.SEC.convertTo(resultTime, dilated);
-
-            resultTextView.setText(Units.format(result));
+            fadeOut(resultTextView, new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    resultTextView.setText(Units.format(result));
+                    fadeIn(resultTextView, null);
+                }
+            });
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber(getFragmentManager());
+            if (view == button) {
+                CustomDialog.invalidNumber(getFragmentManager());
+            }
         }
     }
 
-    protected void recalculate() {
-        try {
-            Double input1 = Double.parseDouble(editText1.getText().toString());
-            Double input2 = Double.parseDouble(editText2.getText().toString());
+    private Double getMPS() {
+        Double value = Double.parseDouble(editText1.getText().toString());
+        Units.Velocity unit = Units.Velocity.values()[(spinner1.getSelectedItemPosition())];
+        return unit.convertTo(Units.Velocity.MPS, value);
+    }
 
-            Units.Velocity velocity1 = Units.Velocity.values()[(spinner1.getSelectedItemPosition())];
-            Units.Time time2 = Units.Time.values()[(spinner2.getSelectedItemPosition())];
-            Units.Time resultTime = Units.Time.values()[(resultSpinner.getSelectedItemPosition())];
+    private Double getSEC() {
+        Double value = Double.parseDouble(editText2.getText().toString());
+        Units.Time unit = Units.Time.values()[(spinner2.getSelectedItemPosition())];
+        return unit.convertTo(Units.Time.SEC, value);
+    }
 
-            Double num1 = velocity1.convertTo(Units.Velocity.MPS, input1);
-            Double num2 = time2.convertTo(Units.Time.SEC, input2);
-
-            if (num1 > Units.Velocity.C) {
-                throw new NumberFormatException(getString(R.string.faster_than_light));
-            }
-
-            Double dilated = num2 / (Math.sqrt(1 - ((num1 * num1) / (Units.Velocity.C * Units.Velocity.C))));
-
-            Double result = Units.Time.SEC.convertTo(resultTime, dilated);
-
-            resultTextView.setText(Units.format(result));
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+    private Double getDesiredResult(Double resultNotConverted) {
+        Units.Time resultTime = Units.Time.values()[(resultSpinner.getSelectedItemPosition())];
+        return Units.Time.SEC.convertTo(resultTime, resultNotConverted);
     }
 }

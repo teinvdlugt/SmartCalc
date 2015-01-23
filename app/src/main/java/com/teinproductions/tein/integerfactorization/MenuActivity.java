@@ -50,6 +50,7 @@ public class MenuActivity extends ActionBarActivity {
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(root);
+            currentMenu = root;
 
             getSupportFragmentManager()
                     .beginTransaction()

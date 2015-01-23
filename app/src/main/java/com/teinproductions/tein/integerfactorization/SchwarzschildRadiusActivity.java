@@ -4,16 +4,12 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
-
-import java.text.DecimalFormat;
 
 public class SchwarzschildRadiusActivity extends ActionBarActivity {
 
@@ -23,9 +19,9 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
     private boolean indirectTextChange = false;
 
     // This enum specifies what should happen when an EditText was filled incorrectly
-    private enum InvalidDoubleType {
+    /*private enum InvalidDoubleType {
         TO_OTHER_ET, SHOW_DIALOG, CLEAR_OTHER_ET, DO_NOTHING
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +32,6 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
         initializeViews();
 
         setTextWatchers();
-        setEditorActionListeners();
-
         setAdapters();
         setOnItemSelectedListeners();
         setSpinnerSelections();
@@ -61,25 +55,13 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (!indirectTextChange) {
-                        calculate(e, InvalidDoubleType.CLEAR_OTHER_ET);
+                        calculate(e);
                     }
                 }
 
                 @Override
                 public void afterTextChanged(Editable s) {
 
-                }
-            });
-        }
-    }
-
-    private void setEditorActionListeners() {
-        for (final EditText e : new EditText[]{massET, radiusET}) {
-            e.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    calculate(e, InvalidDoubleType.TO_OTHER_ET);
-                    return true;
                 }
             });
         }
@@ -97,7 +79,6 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
                 Units.Length.getAbbreviations(SchwarzschildRadiusActivity.this));
         lengthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         radiusSpinner.setAdapter(lengthAdapter);
-
     }
 
     private void setOnItemSelectedListeners() {
@@ -105,7 +86,7 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    calculate(view, InvalidDoubleType.DO_NOTHING);
+                    calculate(view);
                 }
 
                 @Override
@@ -133,52 +114,69 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
     }
 
     public void onClickCalculate(View view) {
-        calculate(view, InvalidDoubleType.SHOW_DIALOG);
+        calculate(view);
     }
 
-    public void calculate(View view, InvalidDoubleType invalidDoubleType) {
-        try {
-            if (view == massET) {
-                calculateWithMass();
-            } else if (view == radiusET) {
-                calculateWithRadius();
-            } else if (massET.hasFocus() && CalculateFragment.hasValidDecimalInput(massET)) {
-                calculateWithMass();
-            } else if (radiusET.hasFocus() && CalculateFragment.hasValidDecimalInput(radiusET)) {
-                calculateWithRadius();
-            } else if (CalculateFragment.hasValidDecimalInput(massET)) {
-                calculateWithMass();
-            } else if (CalculateFragment.hasValidDecimalInput(radiusET)) {
-                calculateWithRadius();
-            }
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-            switch (invalidDoubleType) {
-                case TO_OTHER_ET:
-                    focusOnOtherET(view);
-                    break;
-                case SHOW_DIALOG:
-                    CustomDialog.invalidNumber(getFragmentManager());
-                    break;
-                case CLEAR_OTHER_ET:
-                    clearOtherET(view);
-                    break;
-            }
+    public void calculate(View view) {
+        if (view == massET) {
+            calculateWithMass(massET);
+        } else if (view == radiusET) {
+            calculateWithRadius(radiusET);
+        } else if (massET.hasFocus() && CalculateFragment.hasValidDecimalInput(massET)) {
+            calculateWithMass(null);
+        } else if (radiusET.hasFocus() && CalculateFragment.hasValidDecimalInput(radiusET)) {
+            calculateWithRadius(null);
+        } else if (CalculateFragment.hasValidDecimalInput(massET)) {
+            calculateWithMass(null);
+        } else if (CalculateFragment.hasValidDecimalInput(radiusET)) {
+            calculateWithRadius(null);
         }
     }
 
-    private void calculateWithMass() {
-        final Double mass = getMassKG();
-        final Double result = (2 * Units.G * mass) / (Units.Velocity.C * Units.Velocity.C);
+    private void calculateWithMass(View view) {
+        final Double mass;
+        try {
+            mass = getMassKG();
+        } catch (NumberFormatException e) {
+            if (view == massET) {
+                indirectTextChange = true;
+                radiusET.setText("");
+                indirectTextChange = false;
+            } else if (view == null) {
+                indirectTextChange = true;
+                radiusET.setText("");
+                massET.setText("");
+                indirectTextChange = false;
+            }
+            return;
+        }
+
         final Units.Length lengthUnit = Units.Length.values()[radiusSpinner.getSelectedItemPosition()];
+        final Double result = (2 * Units.G * mass) / (Units.Velocity.C * Units.Velocity.C);
 
         indirectTextChange = true;
         radiusET.setText(Units.format(Units.Length.METER.convertTo(lengthUnit, result)));
         indirectTextChange = false;
     }
 
-    private void calculateWithRadius() {
-        final Double radius = getRadiusM();
+    private void calculateWithRadius(View view) {
+        final Double radius;
+        try {
+            radius = getRadiusM();
+        } catch (NumberFormatException e) {
+            if (view == radiusET) {
+                indirectTextChange = true;
+                massET.setText("");
+                indirectTextChange = false;
+            } else if (view == null) {
+                indirectTextChange = true;
+                radiusET.setText("");
+                massET.setText("");
+                indirectTextChange = false;
+            }
+            return;
+        }
+
         final Double result = radius * (Units.Velocity.C * Units.Velocity.C) / (2 * Units.G);
         final Units.Mass massUnit = Units.Mass.values()[massSpinner.getSelectedItemPosition()];
 
@@ -197,21 +195,5 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
         Double value = Double.parseDouble(radiusET.getText().toString());
         Units.Length unit = Units.Length.values()[radiusSpinner.getSelectedItemPosition()];
         return unit.convertTo(Units.Length.METER, value);
-    }
-
-    private void focusOnOtherET(View view) {
-        if (view.equals(massET)) {
-            radiusET.requestFocus();
-        } else if (view.equals(radiusET)) {
-            massET.hasFocus();
-        }
-    }
-
-    private void clearOtherET(View view) {
-        if (view.equals(massET)) {
-            radiusET.setText("");
-        } else if (view.equals(radiusET)) {
-            massET.setText("");
-        }
     }
 }

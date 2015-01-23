@@ -10,23 +10,16 @@ public class LengthContractionActivity extends EditTextActivity {
 
     @Override
     protected void doYourStuff() {
-        setInputTypesAndTexts();
-
+        setTextAndInputTypes();
         setAdapters();
-        setItemSelectedListeners();
+        setOnItemSelectedListeners();
+        setSelections();
 
-        final int mps = Units.Velocity.MPS.ordinal(), meters = Units.Length.METER.ordinal();
-
-        spinner1.setSelection(mps, false);
-        spinner2.setSelection(meters, false);
-        resultSpinner.setSelection(meters, false);
-
-        clickButtonWhenFilledEditText(editText2);
         setTextWatcher(editText1);
         setTextWatcher(editText2);
     }
 
-    private void setInputTypesAndTexts() {
+    private void setTextAndInputTypes() {
         editText1.setHint(getString(R.string.velocity));
         editText1.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
         editText2.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_NUMBER_FLAG_SIGNED);
@@ -35,29 +28,29 @@ public class LengthContractionActivity extends EditTextActivity {
     }
 
     private void setAdapters() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Velocity.getAbbreviations(this));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner1.setAdapter(adapter);
+        spinner1.setAdapter(adapter1);
 
-        adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Length.getAbbreviations(this));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        spinner2.setAdapter(adapter);
+        spinner2.setAdapter(adapter2);
 
-        adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> resultAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
                 Units.Length.getWords(this));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        resultAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        resultSpinner.setAdapter(adapter);
+        resultSpinner.setAdapter(resultAdapter);
     }
 
-    private void setItemSelectedListeners() {
+    private void setOnItemSelectedListeners() {
         AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +66,15 @@ public class LengthContractionActivity extends EditTextActivity {
         spinner1.setOnItemSelectedListener(itemSelectedListener);
         spinner2.setOnItemSelectedListener(itemSelectedListener);
         resultSpinner.setOnItemSelectedListener(itemSelectedListener);
+    }
+
+    private void setSelections() {
+        final int MPS = Units.Velocity.MPS.ordinal();
+        final int M = Units.Length.METER.ordinal();
+
+        spinner1.setSelection(MPS, false);
+        spinner2.setSelection(M, false);
+        resultSpinner.setSelection(M, false);
     }
 
     @Override
@@ -91,7 +93,6 @@ public class LengthContractionActivity extends EditTextActivity {
                 }
                 return;
             }
-
 
             final Double velocitySquared = velocity * velocity;
             final Double lightSpeedSquared = Units.Velocity.C * Units.Velocity.C;

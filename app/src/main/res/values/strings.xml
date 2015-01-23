@@ -28,7 +28,7 @@
     <string name="proper_length">Proper Length</string>
     <string name="contracted_length">Contracted Length: </string>
     <string name="faster_than_light">Faster than light</string>
-    <string name="faster_than_light_message">You\'re kidding, right?</string>
+    <string name="faster_than_light_message">You can\'t go faster than light</string>
     <string name="mass">Mass</string>
     <string name="schwarzchild_radius">Schwarzchild Radius</string>
 
