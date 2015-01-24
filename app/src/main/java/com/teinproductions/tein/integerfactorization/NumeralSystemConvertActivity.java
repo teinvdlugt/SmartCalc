@@ -3,29 +3,62 @@ package com.teinproductions.tein.integerfactorization;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 
 public class NumeralSystemConvertActivity extends ActionBarActivity {
 
-    EditText decimalET, binaryET, hexET;
+    private EditText decET;
+    private NumeralSystemEditText[] preloadedEditTexts;
+    private NumeralSystemEditText[] editTexts;
 
-    boolean indirectTextChange;
+    private LinearLayout ll;
 
-    public static final char[] hexChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    private boolean indirectTextChangeDecET = false;
+    public static final String FILE_NAME = "saved_numeral_systems";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_numeral_system_convert);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        decimalET = (EditText) findViewById(R.id.decimal_number);
-        binaryET = (EditText) findViewById(R.id.binary_number);
-        hexET = (EditText) findViewById(R.id.hexadecimal_number);
+        initializeDecET();
+        loadPreloadedEditTexts();
+        loadEditTexts();
 
-        decimalET.addTextChangedListener(new TextWatcher() {
+        ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        final int topBottom = getResources().getDimensionPixelOffset(R.dimen.activity_horizontal_margin);
+        final int leftRight = getResources().getDimensionPixelOffset(R.dimen.activity_vertical_margin);
+        ll.setPadding(leftRight, topBottom, leftRight, topBottom);
+        ll.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        loadScreenContent();
+        setContentView(ll);
+    }
+
+    private void initializeDecET() {
+        decET = new EditText(this);
+        decET.setInputType(InputType.TYPE_CLASS_NUMBER);
+        decET.setHint(getString(R.string.decimal));
+        decET.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -33,86 +66,15 @@ public class NumeralSystemConvertActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!indirectTextChange) {
-
-                    indirectTextChange = true;
-
-                    if (decimalET.getText().toString().equals("")) {
+                if (!indirectTextChangeDecET) {
+                    final String text = decET.getText().toString();
+                    try {
+                        Integer value = Integer.parseInt(text);
+                        convert(value);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
                         clearAllEditTexts();
-                    } else if (hasValidIntegerInput(decimalET)) {
-                        fromDecimal(decimalET.getText().toString());
-                    } else {
-                        // I don't expect this to happen since the inputType for
-                        // decimalET is InputType.TYPE_NUMBER_FLAG_SIGNED
-                        removeLastCharacterFromEditText(decimalET);
-                        decimalET.setSelection(decimalET.getText().length());
                     }
-
-                    indirectTextChange = false;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        binaryET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!indirectTextChange) {
-
-                    indirectTextChange = true;
-
-                    if (binaryET.getText().toString().equals("")) {
-                        clearAllEditTexts();
-                    } else if (hasValidBinaryInput(binaryET)) {
-                        fromBinary(binaryET.getText().toString());
-                    } else {
-                        removeLastCharacterFromEditText(binaryET);
-                        binaryET.setSelection(binaryET.getText().length());
-                    }
-
-                    indirectTextChange = false;
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        hexET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!indirectTextChange) {
-
-                    indirectTextChange = true;
-
-                    if (hexET.getText().toString().equals("")) {
-                        clearAllEditTexts();
-                    } else if (hasValidHexadecimalInput(hexET)) {
-                        hexET.setText(hexET.getText().toString().toUpperCase());
-                        hexET.setSelection(hexET.getText().length());
-                        fromHex(hexET.getText().toString());
-                    } else {
-                        removeLastCharacterFromEditText(hexET);
-                        hexET.setSelection(hexET.getText().length());
-                    }
-
-                    indirectTextChange = false;
                 }
             }
 
@@ -123,116 +85,139 @@ public class NumeralSystemConvertActivity extends ActionBarActivity {
         });
     }
 
-    private void fromDecimal(String decimal) {
-        binaryET.setText(Integer.toBinaryString(Integer.parseInt(decimal)));
-        hexET.setText(Integer.toHexString(Integer.parseInt(decimal)).toUpperCase());
+    private void loadPreloadedEditTexts() {
+        NumeralSystem BIN = new NumeralSystem(getString(R.string.binary),
+                new char[]{'0', '1'});
+        NumeralSystem OCT = new NumeralSystem(getString(R.string.octal),
+                new char[]{'0', '1', '2', '3', '4', '5', '6', '7'});
+        NumeralSystem NOV = new NumeralSystem(getString(R.string.nonary),
+                new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8'});
+        NumeralSystem DUODEC = new NumeralSystem(getString(R.string.duodecimal),
+                new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B'});
+        NumeralSystem HEX = new NumeralSystem(getString(R.string.hexadecimal),
+                new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'});
+
+        preloadedEditTexts = new NumeralSystemEditText[]{
+                new NumeralSystemEditText(this, BIN),
+                new NumeralSystemEditText(this, OCT),
+                new NumeralSystemEditText(this, NOV),
+                new NumeralSystemEditText(this, DUODEC),
+                new NumeralSystemEditText(this, HEX)
+        };
     }
 
-    private void fromBinary(String binary) {
-        String dec = binToDec(binary);
-        decimalET.setText(dec);
-        hexET.setText(Integer.toHexString(Integer.parseInt(dec)).toUpperCase());
-    }
+    private void loadEditTexts() {
+        String jsonString = getFile();
+        if (jsonString == null) {
+            // File didn't exist (yet)
+            editTexts = new NumeralSystemEditText[0];
+        } else {
+            try {
+                JSONObject jObject = new JSONObject(jsonString);
+                JSONArray jArray = jObject.getJSONArray(NumeralSystem.CHAR_ARRAY);
+                NumeralSystem[] systems = NumeralSystem.arrayFromJSON(jArray);
+                editTexts = new NumeralSystemEditText[systems.length];
 
-    private void fromHex(String hex) {
-        String dec = hexToDec(hex);
-        decimalET.setText(dec);
-        binaryET.setText(Integer.toBinaryString(Integer.parseInt(dec)));
-    }
-
-    private void clearAllEditTexts() {
-        decimalET.setText("");
-        binaryET.setText("");
-        hexET.setText("");
-    }
-
-    public static String binToDec(String bin) {
-        int result = 0;
-
-        for (int i = bin.length() - 1; i >= 0; i--) { // TODO try --i
-            char character = bin.charAt(i);
-            if (character == '1') {
-                result += Math.pow(2, bin.length() - 1 - i);
+                for (int i = 0; i < systems.length; i++) {
+                    editTexts[i] = new NumeralSystemEditText(this, systems[i]);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                editTexts = new NumeralSystemEditText[0];
             }
         }
-
-        return Integer.toString(result);
     }
 
-    public static String hexToDec(String hex) {
-        int result = 0;
+    private void loadScreenContent() {
+        decET.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        ll.addView(decET);
+        decET.setVisibility(View.VISIBLE);
 
-        for (int i = hex.length() - 1; i >= 0; i--) {
-            char character = hex.charAt(i);
-            int index = indexOfChar(hexChars, character);
-
-            if (index == -1) {
-                throw new NumberFormatException("invalid hexadecimal string");
-            }
-
-            result += index * Math.pow(16, hex.length() - 1 - i);
+        for (NumeralSystemEditText e : preloadedEditTexts) {
+            e.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            ll.addView(e);
         }
-        return Integer.toString(result);
+
+        for (NumeralSystemEditText e : editTexts) {
+            e.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            ll.addView(e);
+        }
     }
 
-    public static int indexOfChar(char[] chars, char character) {
-        // I convert both parameters to strings, so that I can
-        // easily ignore the case of the character with String.equalsIgnoreCase()
+    private String getFile() {
+        StringBuilder sb;
 
-        String[] strings = new String[chars.length];
-        for (int i = 0; i < chars.length; i++) {
-            strings[i] = String.valueOf(chars[i]);
-        }
-
-        String string = String.valueOf(character);
-
-        for (int i = 0; i < strings.length; i++) {
-            if (strings[i].equalsIgnoreCase(string)) return i;
-        }
-
-        return -1;
-    }
-
-    public static boolean hasValidIntegerInput(EditText editText) {
         try {
-            Integer.parseInt(editText.getText().toString());
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
+            // Opens a stream so we can read from our local file
+            FileInputStream fis = this.openFileInput(FILE_NAME);
+
+            // Gets an input stream for reading data
+            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
+
+            // Used to read the data in small bytes to minimize system load
+            BufferedReader bufferedReader = new BufferedReader(isr);
+
+            // Read the data in bytes until nothing is left to read
+            sb = new StringBuilder();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                sb.append(line).append("\n");
+            }
+
+            return sb.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
-    public static boolean hasValidBinaryInput(EditText editText) {
-        String string = editText.getText().toString();
-        for (int i = 0; i < string.length(); i++) {
-            if (!((string.charAt(i) == '0') || string.charAt(i) == '1')) return false;
+    public void clearAllEditTexts() {
+        if (preloadedEditTexts != null) {
+            for (NumeralSystemEditText e : preloadedEditTexts) {
+                e.setSafeText("");
+            }
         }
-        return true;
+
+        if (editTexts != null) {
+            for (NumeralSystemEditText e : editTexts) {
+                e.setSafeText("");
+            }
+        }
+
+        indirectTextChangeDecET = true;
+        decET.setText("");
+        indirectTextChangeDecET = false;
     }
 
-    public static boolean hasValidHexadecimalInput(EditText editText) {
-        String string = editText.getText().toString();
-        for (int i = 0; i < string.length(); i++) {
-            if (indexOfChar(hexChars, string.charAt(i)) == -1) return false;
-        }
-        return true;
-    }
+    public void convert(int decimal) {
+        indirectTextChangeDecET = true;
+        decET.setText(Integer.toString(decimal));
+        decET.setSelection(decET.length());
+        indirectTextChangeDecET = false;
 
-    public static void removeLastCharacterFromEditText(EditText editText) {
-        if (editText.getText().toString().length() == 1 || editText.getText().toString().length() == 0) {
-            editText.setText("");
-            return;
+
+        for (NumeralSystemEditText e : preloadedEditTexts) {
+            e.convertFromDec(decimal);
         }
 
-        editText.setText(
-                String.valueOf(
-                        editText.getText().toString().toCharArray(), 0, editText.getText().toString().length() - 1));
+        for (NumeralSystemEditText e : editTexts) {
+            e.convertFromDec(decimal);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
+            finish();
             return true;
         }
         return false;
