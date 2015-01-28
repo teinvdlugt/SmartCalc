@@ -5,11 +5,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -22,15 +24,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 
-public class NumeralSystemConvertActivity extends ActionBarActivity {
+public class NumeralSystemConvertActivity extends ActionBarActivity
+        implements NumeralSystemEditDialog.OnClickListener {
 
-    private EditText decET;
-    private NumeralSystemEditText[] preloadedEditTexts;
+    private NumeralSystem[] systems;
     private NumeralSystemEditText[] editTexts;
 
     private LinearLayout ll;
 
-    private boolean indirectTextChangeDecET = false;
     public static final String FILE_NAME = "saved_numeral_systems";
 
     @Override
@@ -38,10 +39,66 @@ public class NumeralSystemConvertActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        initializeDecET();
-        loadPreloadedEditTexts();
         loadEditTexts();
 
+        initializeLinearLayout();
+
+        loadScreenContent();
+        setContentView(ll);
+    }
+
+    private void loadEditTexts() {
+        String jsonString = getFile();
+        if (jsonString == null) {
+            // File didn't exist (yet)
+            systems = NumeralSystem.preloaded();
+
+            Toast.makeText(this, "File didn't exist in loadEditTexts()", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                JSONObject jObject = new JSONObject(jsonString);
+                JSONArray jArray = jObject.getJSONArray(NumeralSystem.SYSTEMS);
+
+                systems = NumeralSystem.arrayFromJSON(jArray);
+                checkForPreloadedSystems();
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+                systems = NumeralSystem.preloaded();
+
+                Toast.makeText(this, "JSONException in loadEditTexts()", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, jsonString, Toast.LENGTH_LONG).show();
+            }
+        }
+
+        editTexts = NumeralSystemEditText.getArrayFromSystems(this, systems);
+    }
+
+    private void checkForPreloadedSystems() {
+        NumeralSystem[] preloaded = NumeralSystem.preloaded();
+        for (int i = 0; i < preloaded.length; i++) {
+            if (NumeralSystem.contains(systems, preloaded[i], this)) {
+                continue;
+            } else {
+                insertAtPos(preloaded[i], i);
+            }
+        }
+    }
+
+    private void insertAtPos(NumeralSystem system, int pos) {
+        NumeralSystem[] altered = new NumeralSystem[systems.length + 1];
+        int passed = 0; // 0 if false, 1 if true
+        for (int i = 0; i < altered.length; i++) {
+            if (i == pos) {
+                altered[i] = system;
+                passed = 1;
+            } else {
+                altered[i] = systems[i - passed];
+            }
+        }
+    }
+
+    private void initializeLinearLayout() {
         ll = new LinearLayout(this);
         ll.setOrientation(LinearLayout.VERTICAL);
         final int topBottom = getResources().getDimensionPixelOffset(R.dimen.activity_horizontal_margin);
@@ -49,101 +106,17 @@ public class NumeralSystemConvertActivity extends ActionBarActivity {
         ll.setPadding(leftRight, topBottom, leftRight, topBottom);
         ll.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        loadScreenContent();
-        setContentView(ll);
-    }
-
-    private void initializeDecET() {
-        decET = new EditText(this);
-        decET.setInputType(InputType.TYPE_CLASS_NUMBER);
-        decET.setHint(getString(R.string.decimal));
-        decET.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!indirectTextChangeDecET) {
-                    final String text = decET.getText().toString();
-                    try {
-                        Integer value = Integer.parseInt(text);
-                        convert(value);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                        clearAllEditTexts();
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-    }
-
-    private void loadPreloadedEditTexts() {
-        NumeralSystem BIN = new NumeralSystem(getString(R.string.binary),
-                new char[]{'0', '1'});
-        NumeralSystem OCT = new NumeralSystem(getString(R.string.octal),
-                new char[]{'0', '1', '2', '3', '4', '5', '6', '7'});
-        NumeralSystem NOV = new NumeralSystem(getString(R.string.nonary),
-                new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8'});
-        NumeralSystem DUODEC = new NumeralSystem(getString(R.string.duodecimal),
-                new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B'});
-        NumeralSystem HEX = new NumeralSystem(getString(R.string.hexadecimal),
-                new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'});
-
-        preloadedEditTexts = new NumeralSystemEditText[]{
-                new NumeralSystemEditText(this, BIN),
-                new NumeralSystemEditText(this, OCT),
-                new NumeralSystemEditText(this, NOV),
-                new NumeralSystemEditText(this, DUODEC),
-                new NumeralSystemEditText(this, HEX)
-        };
-    }
-
-    private void loadEditTexts() {
-        String jsonString = getFile();
-        if (jsonString == null) {
-            // File didn't exist (yet)
-            editTexts = new NumeralSystemEditText[0];
-        } else {
-            try {
-                JSONObject jObject = new JSONObject(jsonString);
-                JSONArray jArray = jObject.getJSONArray(NumeralSystem.CHAR_ARRAY);
-                NumeralSystem[] systems = NumeralSystem.arrayFromJSON(jArray);
-                editTexts = new NumeralSystemEditText[systems.length];
-
-                for (int i = 0; i < systems.length; i++) {
-                    editTexts[i] = new NumeralSystemEditText(this, systems[i]);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                editTexts = new NumeralSystemEditText[0];
-            }
-        }
     }
 
     private void loadScreenContent() {
-        decET.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        ll.addView(decET);
-        decET.setVisibility(View.VISIBLE);
-
-        for (NumeralSystemEditText e : preloadedEditTexts) {
-            e.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ll.addView(e);
-        }
+        ll.removeAllViews();
 
         for (NumeralSystemEditText e : editTexts) {
-            e.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            ll.addView(e);
+            if (e.getSystem().isVisible()) {
+                e.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                ll.addView(e);
+            }
         }
     }
 
@@ -181,45 +154,59 @@ public class NumeralSystemConvertActivity extends ActionBarActivity {
     }
 
     public void clearAllEditTexts() {
-        if (preloadedEditTexts != null) {
-            for (NumeralSystemEditText e : preloadedEditTexts) {
-                e.setSafeText("");
-            }
-        }
-
         if (editTexts != null) {
             for (NumeralSystemEditText e : editTexts) {
-                e.setSafeText("");
+                if (e != null) {
+                    e.setSafeText("");
+                }
             }
         }
-
-        indirectTextChangeDecET = true;
-        decET.setText("");
-        indirectTextChangeDecET = false;
     }
 
     public void convert(int decimal) {
-        indirectTextChangeDecET = true;
-        decET.setText(Integer.toString(decimal));
-        decET.setSelection(decET.length());
-        indirectTextChangeDecET = false;
-
-
-        for (NumeralSystemEditText e : preloadedEditTexts) {
-            e.convertFromDec(decimal);
-        }
-
         for (NumeralSystemEditText e : editTexts) {
             e.convertFromDec(decimal);
         }
     }
 
+    public void edit(NumeralSystem system) {
+        for (int i = 0; i < systems.length; i++) {
+            if (system.equals(systems[i])) {
+                NumeralSystemEditDialog.show(getSupportFragmentManager(), systems, i);
+            }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.numeral_system_convert, menu);
+        return true;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.action_add:
+                NumeralSystemEditDialog.show(
+                        getSupportFragmentManager(),
+                        systems,
+                        NumeralSystemEditDialog.NEW_SYSTEM);
+                return true;
+            case R.id.action_visible_systems:
+                NumeralSystemVisibleDialog
+                        .newInstance(systems)
+                        .show(getSupportFragmentManager(), "NumeralSystemVisibleDialog");
+            default:
+                return false;
         }
-        return false;
+    }
+
+    @Override
+    public void reload() {
+        loadEditTexts();
+        loadScreenContent();
     }
 }

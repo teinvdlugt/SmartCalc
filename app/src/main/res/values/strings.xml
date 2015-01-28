@@ -302,7 +302,7 @@
     <string name="livermorium">Livermorium</string>
     <string name="ununseptium">Ununseptium</string>
     <string name="ununoctium">Ununoctium</string>
-    <string name="Save">Save</string>
+    <string name="save">Save</string>
     <string name="name_colon">Name:</string>
     <string name="custom_particles">Custom Particles</string>
     <string name="edit_particle">Edit Particle</string>
@@ -344,5 +344,9 @@
     <string name="octal">Octal</string>
     <string name="nonary">Nonary</string>
     <string name="duodecimal">Duodecimal</string>
+    <string name="name">Name</string>
+    <string name="characters">Characters</string>
+    <string name="visible">Visible</string>
+    <string name="visible_systems">Visible Systems</string>
 
 </resources>
