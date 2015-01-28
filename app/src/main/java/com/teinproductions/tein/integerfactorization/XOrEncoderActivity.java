@@ -158,13 +158,13 @@ public class XOrEncoderActivity extends ActionBarActivity {
             CustomDialog.newInstance(
                     R.string.no_plain_text_given_dialog_title,
                     R.string.no_plain_text_given_dialog_message)
-                    .show(getFragmentManager(), "NO_PLAIN_TEXT_GIVEN_DIALOG");
+                    .show(getSupportFragmentManager(), "NO_PLAIN_TEXT_GIVEN_DIALOG");
             return;
         } else if (key.equals("")) {
             CustomDialog.newInstance(
                     R.string.no_key_given_dialog_title,
                     R.string.no_key_given_dialog_message)
-                    .show(getFragmentManager(), "NO_KEY_GIVEN_DIALOG");
+                    .show(getSupportFragmentManager(), "NO_KEY_GIVEN_DIALOG");
             return;
         }
 
@@ -175,7 +175,7 @@ public class XOrEncoderActivity extends ActionBarActivity {
             CustomDialog.newInstance(
                     R.string.error,
                     R.string.encoding_error_dialog_message)
-                    .show(getFragmentManager(), "ENCODING_ERROR_DIALOG");
+                    .show(getSupportFragmentManager(), "ENCODING_ERROR_DIALOG");
         }
     }
 
@@ -189,13 +189,13 @@ public class XOrEncoderActivity extends ActionBarActivity {
             CustomDialog.newInstance(
                     R.string.no_ciphertext_given_dialog_title,
                     R.string.no_ciphertext_given_dialog_message)
-                    .show(getFragmentManager(), "NO_PLAIN_TEXT_GIVEN_DIALOG");
+                    .show(getSupportFragmentManager(), "NO_PLAIN_TEXT_GIVEN_DIALOG");
             return;
         } else if (key.equals("")) {
             CustomDialog.newInstance(
                     R.string.no_key_given_dialog_title,
                     R.string.no_key_given_dialog_message2)
-                    .show(getFragmentManager(), "NO_KEY_GIVEN_DIALOG");
+                    .show(getSupportFragmentManager(), "NO_KEY_GIVEN_DIALOG");
             return;
         }
 
@@ -206,7 +206,7 @@ public class XOrEncoderActivity extends ActionBarActivity {
             CustomDialog.newInstance(
                     R.string.error,
                     R.string.decoding_error_dialog_message)
-                    .show(getFragmentManager(), "ENCODING_ERROR_DIALOG");
+                    .show(getSupportFragmentManager(), "ENCODING_ERROR_DIALOG");
         }
     }
 

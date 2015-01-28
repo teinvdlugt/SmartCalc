@@ -158,7 +158,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
             } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
                 onClickConvert(editText2);
             } else if (view == button) {
-                CustomDialog.invalidNumber(getFragmentManager());
+                CustomDialog.invalidNumber(getSupportFragmentManager());
             }
         }*/
     }
@@ -199,7 +199,7 @@ public abstract class ConvertActivity extends ActionBarActivity {
                     editText2.requestFocus();
                     break;
                 case SHOW_MESSAGE:
-                    CustomDialog.invalidNumber(getFragmentManager());
+                    CustomDialog.invalidNumber(getSupportFragmentManager());
             }
         }
 

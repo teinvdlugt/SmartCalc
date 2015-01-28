@@ -110,7 +110,7 @@ public class TimeDilationActivity extends EditTextActivity {
 
             if (v > Units.Velocity.C) {
                 if (view == button) {
-                    CustomDialog.tooFast(getFragmentManager());
+                    CustomDialog.tooFast(getSupportFragmentManager());
                 }
                 resultTextView.setText("");
                 return;
@@ -128,7 +128,7 @@ public class TimeDilationActivity extends EditTextActivity {
             });
         } catch (NumberFormatException e) {
             if (view == button) {
-                CustomDialog.invalidNumber(getFragmentManager());
+                CustomDialog.invalidNumber(getSupportFragmentManager());
             }
         }
     }

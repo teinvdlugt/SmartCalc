@@ -167,7 +167,7 @@ public class CalculateFragment extends Fragment {
             return calculateWithVolume(warn);
         } else {
             if (warn) {
-                CustomDialog.invalidNumber(getActivity().getFragmentManager());
+                CustomDialog.invalidNumber(getActivity().getSupportFragmentManager());
             }
             return false;
         }
@@ -228,7 +228,7 @@ public class CalculateFragment extends Fragment {
             return true;
         } catch (NumberFormatException e) {
             if (warn) {
-                CustomDialog.invalidNumber(getActivity().getFragmentManager());
+                CustomDialog.invalidNumber(getActivity().getSupportFragmentManager());
             }
 
             return false;
@@ -294,7 +294,7 @@ public class CalculateFragment extends Fragment {
             return true;
         } catch (NumberFormatException e) {
             if (warn) {
-                CustomDialog.invalidNumber(getActivity().getFragmentManager());
+                CustomDialog.invalidNumber(getActivity().getSupportFragmentManager());
             }
 
             return false;
@@ -359,7 +359,7 @@ public class CalculateFragment extends Fragment {
             return true;
         } catch (NumberFormatException e) {
             if (warn) {
-                CustomDialog.invalidNumber(getActivity().getFragmentManager());
+                CustomDialog.invalidNumber(getActivity().getSupportFragmentManager());
             }
 
             return false;
@@ -437,7 +437,7 @@ public class CalculateFragment extends Fragment {
             return true;
         } catch (NumberFormatException e) {
             if (warn) {
-                CustomDialog.invalidNumber(getActivity().getFragmentManager());
+                CustomDialog.invalidNumber(getActivity().getSupportFragmentManager());
             }
 
             return false;

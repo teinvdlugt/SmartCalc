@@ -2,10 +2,11 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 
 public class CustomDialog extends DialogFragment {
 
@@ -21,6 +22,7 @@ public class CustomDialog extends DialogFragment {
 
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder theDialog = new AlertDialog.Builder(getActivity());
@@ -55,9 +57,5 @@ public class CustomDialog extends DialogFragment {
 
     public static void tooFast(FragmentManager fragManager) {
         CustomDialog.newInstance(R.string.faster_than_light, R.string.faster_than_light_message).show(fragManager, "tooFastDialog");
-    }
-
-    public static void errorParsingJSON(FragmentManager fragManager) {
-        CustomDialog.newInstance(R.string.error, R.string.error_parsing_json).show(fragManager, "errorParsingJSONDialog");
     }
 }

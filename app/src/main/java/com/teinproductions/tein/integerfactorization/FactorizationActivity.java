@@ -45,7 +45,7 @@ public class FactorizationActivity extends EditTextActivity {
             });
 
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber(getFragmentManager());
+            CustomDialog.invalidNumber(getSupportFragmentManager());
 
             fadeOut(resultTextView, new AnimatorListenerAdapter() {
                 @Override

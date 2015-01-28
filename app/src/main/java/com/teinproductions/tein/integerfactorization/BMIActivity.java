@@ -186,7 +186,7 @@ public class BMIActivity extends EditTextActivity {
             });
 
         } catch (NumberFormatException e) {
-            CustomDialog.invalidNumber(getFragmentManager());
+            CustomDialog.invalidNumber(getSupportFragmentManager());
         }
     }
 

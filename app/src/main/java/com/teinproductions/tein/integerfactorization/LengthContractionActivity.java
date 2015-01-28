@@ -86,7 +86,7 @@ public class LengthContractionActivity extends EditTextActivity {
 
             if (velocity > Units.Velocity.C) {
                 if (view == button) {
-                    CustomDialog.tooFast(getFragmentManager());
+                    CustomDialog.tooFast(getSupportFragmentManager());
                     editText1.setText("");
                     resultTextView.setText("");
                 } else if (view instanceof EditText) {
@@ -106,7 +106,7 @@ public class LengthContractionActivity extends EditTextActivity {
             resultTextView.setText(Units.format(result));
         } catch (NumberFormatException e) {
             if (view == button) {
-                CustomDialog.invalidNumber(getFragmentManager());
+                CustomDialog.invalidNumber(getSupportFragmentManager());
             }
         }
     }

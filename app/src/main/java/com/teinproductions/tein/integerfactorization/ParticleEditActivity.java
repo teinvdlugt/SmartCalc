@@ -112,7 +112,7 @@ public class ParticleEditActivity extends ActionBarActivity {
             if (view != null) {
                 CustomDialog
                         .newInstance(R.string.no_name, R.string.no_name_dialog_message)
-                        .show(getFragmentManager(), "noNameForParticleDialog");
+                        .show(getSupportFragmentManager(), "noNameForParticleDialog");
             } else {
                 deleteParticle();
             }

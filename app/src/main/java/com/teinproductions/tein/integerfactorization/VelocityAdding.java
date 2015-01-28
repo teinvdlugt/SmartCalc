@@ -108,7 +108,7 @@ public class VelocityAdding extends EditTextActivity {
 
             if (v1 > C || v2 > C) {
                 if (view == button) {
-                    CustomDialog.tooFast(getFragmentManager());
+                    CustomDialog.tooFast(getSupportFragmentManager());
                 }
                 resultTextView.setText("");
                 return;

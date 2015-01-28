@@ -119,7 +119,7 @@ public class ComplexActivity extends ActionBarActivity {
             number1bInput = Double.parseDouble(number1b.getText().toString());
         } catch (NumberFormatException e) {
             if (view != null) {
-                CustomDialog.invalidNumber(getFragmentManager());
+                CustomDialog.invalidNumber(getSupportFragmentManager());
             }
             return;
         }
@@ -133,7 +133,7 @@ public class ComplexActivity extends ActionBarActivity {
                 power = Integer.parseInt(powerET.getText().toString());
             } catch (NumberFormatException e) {
                 if (view != null) {
-                    CustomDialog.invalidNumber(getFragmentManager());
+                    CustomDialog.invalidNumber(getSupportFragmentManager());
                 }
                 return;
             }
@@ -149,7 +149,7 @@ public class ComplexActivity extends ActionBarActivity {
                 number2bInput = Double.parseDouble(number2b.getText().toString());
             } catch (NumberFormatException e) {
                 if (view != null) {
-                    CustomDialog.invalidNumber(getFragmentManager());
+                    CustomDialog.invalidNumber(getSupportFragmentManager());
                 }
                 return;
             }
