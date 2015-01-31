@@ -94,7 +94,7 @@
 
     <fragment
         android:id="@+id/fragment_element_container"
-        android:name="com.teinproductions.tein.integerfactorization.CalculateFragment"
+        android:name="com.teinproductions.tein.integerfactorization.chemistry.molu.CalculateFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_element_table_layout"

@@ -11,7 +11,7 @@
         <!-- MENU -->
 
         <activity
-            android:name=".MenuActivity"
+            android:name=".menu.MenuActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,90 +23,90 @@
         <!-- MATHS -->
 
         <activity
-            android:name=".FactorizationActivity"
+            android:name=".maths.FactorizationActivity"
             android:label="@string/integer_factorization"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".GCFActivity"
+            android:name=".maths.GCFActivity"
             android:label="@string/greatest_common_factor"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".LCMActivity"
+            android:name=".maths.LCMActivity"
             android:label="@string/least_common_multiple"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".ComplexActivity"
+            android:name=".maths.ComplexActivity"
             android:label="@string/complex_numbers"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".XOrEncoderActivity"
+            android:name=".maths.XOrEncoderActivity"
             android:label="@string/x_or_encoder"
             android:theme="@style/Theme.AppCompat" />
 
         <!-- PHYSICS -->
 
         <activity
-            android:name=".VelocityAdding"
+            android:name=".physics.VelocityAdding"
             android:label="@string/adding_velocities"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".TimeDilationActivity"
+            android:name=".physics.TimeDilationActivity"
             android:label="@string/time_dilation"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".LengthContractionActivity"
+            android:name=".physics.LengthContractionActivity"
             android:label="@string/length_contraction"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".SchwarzschildRadiusActivity"
+            android:name=".physics.SchwarzschildRadiusActivity"
             android:label="@string/schwarzchild_radius"
             android:windowSoftInputMode="stateVisible" />
 
         <!-- CHEMISTRY -->
 
         <activity
-            android:name=".ParticlePagerActivity"
+            android:name=".chemistry.molu.ParticlePagerActivity"
             android:label="@string/elements"
             android:theme="@style/molu_theme" />
         <activity
-            android:name=".CustomParticlesActivity"
+            android:name=".chemistry.molu.CustomParticlesActivity"
             android:label="@string/custom_particles"
             android:theme="@style/molu_theme" />
         <activity
-            android:name=".ParticleEditActivity"
+            android:name=".chemistry.molu.ParticleEditActivity"
             android:label="@string/edit_particle"
             android:theme="@style/molu_theme" />
 
         <!-- BIOLOGY -->
 
         <activity
-            android:name=".BMIActivity"
+            android:name=".biology.bmi.BMIActivity"
             android:label="@string/bmi_title"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".BMIInfoActivity"
+            android:name=".biology.bmi.BMIInfoActivity"
             android:label="@string/info" />
 
         <!-- CONVERTER -->
 
         <activity
-            android:name=".LengthConvertActivity"
+            android:name=".conversion.LengthConvertActivity"
             android:label="@string/length_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".TimeConvertActivity"
+            android:name=".conversion.TimeConvertActivity"
             android:label="@string/time_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".TemperatureConvertActivity"
+            android:name=".conversion.TemperatureConvertActivity"
             android:label="@string/temperature_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".VelocityConvertActivity"
+            android:name=".conversion.VelocityConvertActivity"
             android:label="@string/velocity_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".NumeralSystemConvertActivity"
+            android:name=".conversion.numeralsystem.NumeralSystemConvertActivity"
             android:label="@string/numeral_systems"
             android:theme="@style/Theme.AppCompat"/>
     </application>
