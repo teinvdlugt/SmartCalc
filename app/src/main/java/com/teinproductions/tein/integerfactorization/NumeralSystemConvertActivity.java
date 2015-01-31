@@ -2,15 +2,11 @@ package com.teinproductions.tein.integerfactorization;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -30,6 +26,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
     private NumeralSystem[] systems;
     private NumeralSystemEditText[] editTexts;
 
+    private ScrollView scrollView;
     private LinearLayout ll;
 
     public static final String FILE_NAME = "saved_numeral_systems";
@@ -41,10 +38,11 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
 
         loadEditTexts();
 
+        initializeScrollView();
         initializeLinearLayout();
 
         loadScreenContent();
-        setContentView(ll);
+        setContentView(scrollView);
     }
 
     private void loadEditTexts() {
@@ -74,6 +72,37 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         editTexts = NumeralSystemEditText.getArrayFromSystems(this, systems);
     }
 
+    private void initializeScrollView() {
+        scrollView = new ScrollView(this);
+        scrollView.setHorizontalScrollBarEnabled(false);
+        scrollView.setVerticalScrollBarEnabled(true);
+        final int topBottom = getResources().getDimensionPixelOffset(R.dimen.activity_horizontal_margin);
+        final int leftRight = getResources().getDimensionPixelOffset(R.dimen.activity_vertical_margin);
+        scrollView.setPadding(leftRight, topBottom, leftRight, topBottom);
+        scrollView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+    }
+
+    private void initializeLinearLayout() {
+        ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        ll.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        scrollView.addView(ll, ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT);
+    }
+
+    private void loadScreenContent() {
+        ll.removeAllViews();
+
+        for (NumeralSystemEditText e : editTexts) {
+            if (e.getSystem().isVisible()) {
+                e.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                ll.addView(e);
+            }
+        }
+    }
+
     private void checkForPreloadedSystems() {
         NumeralSystem[] preloaded = NumeralSystem.preloaded();
         for (int i = 0; i < preloaded.length; i++) {
@@ -94,28 +123,6 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
                 passed = 1;
             } else {
                 altered[i] = systems[i - passed];
-            }
-        }
-    }
-
-    private void initializeLinearLayout() {
-        ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        final int topBottom = getResources().getDimensionPixelOffset(R.dimen.activity_horizontal_margin);
-        final int leftRight = getResources().getDimensionPixelOffset(R.dimen.activity_vertical_margin);
-        ll.setPadding(leftRight, topBottom, leftRight, topBottom);
-        ll.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-    }
-
-    private void loadScreenContent() {
-        ll.removeAllViews();
-
-        for (NumeralSystemEditText e : editTexts) {
-            if (e.getSystem().isVisible()) {
-                e.setLayoutParams(new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                ll.addView(e);
             }
         }
     }

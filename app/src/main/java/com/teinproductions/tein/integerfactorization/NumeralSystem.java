@@ -202,15 +202,32 @@ public class NumeralSystem {
         return false;
     }
 
+    public String correctCases(String s) {
+        char[] charArray = s.toCharArray();
+        for (int i = 0; i < charArray.length; i++) {
+            if (containsChar(chars, charArray[i])) continue;
+
+            final char otherCase = toOtherCase(charArray[i]);
+            if (containsChar(chars, otherCase)) charArray[i] = otherCase;
+        }
+
+        return String.valueOf(charArray);
+    }
+
+    public static char toOtherCase(char c) {
+        if (Character.isLowerCase(c)) return Character.toUpperCase(c);
+        if (Character.isUpperCase(c)) return Character.toLowerCase(c);
+        return c;
+    }
+
 
     public static boolean isValidCharArray(char[] chars) {
         if (chars.length < 2) {
             return false;
         }
         for (char character : chars) {
-            if (occursNotOrOnce(chars, character)) {
-                return false;
-            }
+            if (occursNotOrOnce(chars, character)) continue;
+            return false;
         }
         return true;
     }

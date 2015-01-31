@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
@@ -31,7 +33,7 @@ public class NumeralSystemEditDialog extends DialogFragment {
     private Integer index;
 
     /* I don't want the dialog to warn the user more than once
-     * when he click on an edit text while editing an non-editable
+     * when he clicks on an edit text while editing an non-editable
      * NumeralSystem.
      */
     private boolean alreadyWarned = false;
@@ -64,15 +66,7 @@ public class NumeralSystemEditDialog extends DialogFragment {
                         NumeralSystemEditDialog.this.getDialog().cancel();
                     }
                 })
-                .setPositiveButton(R.string.save, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (applyChanges()) {
-                            save(getActivity(), systems);
-                        }
-                        listener.reload();
-                    }
-                });
+                .setPositiveButton(R.string.save, null); // OnClickListener is handled in onStart()
         if (systems[index].isEditable()) {
             builder.setNeutralButton(R.string.delete, new DialogInterface.OnClickListener() {
                 @Override
@@ -107,7 +101,51 @@ public class NumeralSystemEditDialog extends DialogFragment {
         charactersET.setText(String.valueOf(systems[index].getChars()));
         visibleCheck.setChecked(systems[index].isVisible());
 
+        setTextWatcher();
+
+        nameET.setSelection(nameET.length());
+
         return layout;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        AlertDialog dialog = (AlertDialog) getDialog();
+        if (dialog != null) {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (applyChanges()) {
+                        save(getActivity(), systems);
+                        listener.reload();
+                        dismiss();
+                    }
+                }
+            });
+        }
+    }
+
+    private void setTextWatcher() {
+        charactersET.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (charactersET.length() <= 1) return;
+                if (NumeralSystem.isValidCharArray(charactersET.getText().toString().toCharArray()))
+                    return;
+                removeLastCharacter(charactersET);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     private void blockEdits() {
@@ -146,8 +184,8 @@ public class NumeralSystemEditDialog extends DialogFragment {
         final String charStr = charactersET.getText().toString();
         final boolean visible = visibleCheck.isChecked();
 
-        if (name.length() < 1 || charStr.length() < 1) {
-            showWarning();
+        if (name.length() < 1 || charStr.length() < 2 || !NumeralSystem.isValidCharArray(charStr.toCharArray())) {
+            Toast.makeText(getActivity(), "Please enter a valid name and characters", Toast.LENGTH_SHORT).show();
             return false;
         }
 
@@ -177,10 +215,6 @@ public class NumeralSystemEditDialog extends DialogFragment {
         systems = systems1;
 
         save(getActivity(), systems);
-    }
-
-    private void showWarning() {
-        // TODO show a warning
     }
 
     private void expandSystems() {
@@ -225,5 +259,20 @@ public class NumeralSystemEditDialog extends DialogFragment {
             throw new ClassCastException(activity.toString() +
                     "must implement NumeralSystemEditDialog.OnClickListener");
         }
+    }
+
+
+    public static void removeLastCharacter(EditText e) {
+        String text = e.getText().toString();
+        char[] chars = text.toCharArray();
+
+        if (text.length() == 0) return;
+        if (text.length() == 1) e.setText("");
+
+        char[] buffer = new char[text.length() - 1];
+        System.arraycopy(chars, 0, buffer, 0, buffer.length);
+
+        e.setText(String.valueOf(buffer));
+        e.setSelection(buffer.length);
     }
 }

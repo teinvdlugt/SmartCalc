@@ -36,6 +36,7 @@ public class NumeralSystemEditText extends EditText {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!indirectTextChange) {
+                    correctCases();
                     String text = NumeralSystemEditText.this.getText().toString();
                     if (text.equals("")) {
                         activity.clearAllEditTexts();
@@ -45,7 +46,6 @@ public class NumeralSystemEditText extends EditText {
                         NumeralSystemEditText.this.setSelection(NumeralSystemEditText.this.length());
                     } else {
                         NumeralSystemEditText.this.setSafeText(system.removeInvalidCharacters(text));
-
                         NumeralSystemEditText.this.setSelection(NumeralSystemEditText.this.length());
                     }
                 }
@@ -62,7 +62,9 @@ public class NumeralSystemEditText extends EditText {
         if (onlyContainsNumbers(system.getChars())) {
             this.setInputType(InputType.TYPE_CLASS_NUMBER);
         } else if (onlyContainsUpperCaseLetters(system.getChars())) {
-            this.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS);
+            this.setInputType(InputType.TYPE_CLASS_TEXT |
+                    InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS |
+                    InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         } else {
             this.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
         }
@@ -107,6 +109,10 @@ public class NumeralSystemEditText extends EditText {
         indirectTextChange = false;
     }
 
+    private void correctCases() {
+        setSafeText(system.correctCases(getText().toString()));
+        setSelection(length());
+    }
 
     public static boolean onlyContainsNumbers(char[] chars) {
         for (char character : chars) {
