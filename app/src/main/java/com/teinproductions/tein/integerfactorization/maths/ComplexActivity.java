@@ -164,7 +164,7 @@ public class ComplexActivity extends ActionBarActivity {
                     result = Complex.add(number1, number2);
                     break;
                 case 1:
-                    result = Complex.substract(number1, number2);
+                    result = Complex.subtract(number1, number2);
                     break;
                 case 2:
                     result = Complex.multiply(number1, number2);

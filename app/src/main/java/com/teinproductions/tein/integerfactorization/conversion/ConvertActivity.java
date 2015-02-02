@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.teinproductions.tein.integerfactorization.EditTextActivity;
 import com.teinproductions.tein.integerfactorization.chemistry.molu.CalculateFragment;
 import com.teinproductions.tein.integerfactorization.CustomDialog;
 import com.teinproductions.tein.integerfactorization.R;
@@ -132,39 +133,6 @@ public abstract class ConvertActivity extends ActionBarActivity {
         if (view == button) {
             convert(view, InvalidDoubleActionType.SHOW_MESSAGE);
         }
-        /*if (view == editText1) {
-            try {
-                input1 = Double.parseDouble(editText1.getText().toString());
-                input2 = null;
-                editText2.setText(convert().toString());
-                input1 = null;
-            } catch (NumberFormatException e) {
-                editText1.setText("");
-                editText2.requestFocus();
-            }
-        } else if (view == editText2) {
-            try {
-                input2 = Double.parseDouble(editText2.getText().toString());
-                input1 = null;
-                editText1.setText(convert().toString());
-                input2 = null;
-            } catch (NumberFormatException e) {
-                editText2.setText("");
-                editText1.requestFocus();
-            }
-        } else if (view == button || view == spinner1) {
-            if (editText1.hasFocus() && CalculateFragment.hasValidDecimalInput(editText1)) {
-                onClickConvert(editText1);
-            } else if (editText2.hasFocus() && CalculateFragment.hasValidDecimalInput(editText2)) {
-                onClickConvert(editText2);
-            } else if (CalculateFragment.hasValidDecimalInput(editText1)) {
-                onClickConvert(editText1);
-            } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
-                onClickConvert(editText2);
-            } else if (view == button) {
-                CustomDialog.invalidNumber(getSupportFragmentManager());
-            }
-        }*/
     }
 
     private void convert(View view, InvalidDoubleActionType invalidDoubleActionType) {
@@ -182,13 +150,13 @@ public abstract class ConvertActivity extends ActionBarActivity {
                 editText1.setText(convert().toString());
                 input2 = null;
             } else {
-                if (editText1.hasFocus() && CalculateFragment.hasValidDecimalInput(editText1)) {
+                if (editText1.hasFocus() && EditTextActivity.hasValidDecimalInput(editText1)) {
                     convert(editText1, InvalidDoubleActionType.SHOW_MESSAGE);
-                } else if (editText2.hasFocus() && CalculateFragment.hasValidDecimalInput(editText2)) {
+                } else if (editText2.hasFocus() && EditTextActivity.hasValidDecimalInput(editText2)) {
                     convert(editText2, InvalidDoubleActionType.SHOW_MESSAGE);
-                } else if (CalculateFragment.hasValidDecimalInput(editText1)) {
+                } else if (EditTextActivity.hasValidDecimalInput(editText1)) {
                     convert(editText1, InvalidDoubleActionType.SHOW_MESSAGE);
-                } else if (CalculateFragment.hasValidDecimalInput(editText2)) {
+                } else if (EditTextActivity.hasValidDecimalInput(editText2)) {
                     convert(editText2, InvalidDoubleActionType.SHOW_MESSAGE);
                 } else {
                     throw new NumberFormatException();

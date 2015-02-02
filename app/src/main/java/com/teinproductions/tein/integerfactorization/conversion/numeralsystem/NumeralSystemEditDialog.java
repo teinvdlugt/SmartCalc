@@ -4,7 +4,6 @@ package com.teinproductions.tein.integerfactorization.conversion.numeralsystem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -19,10 +18,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 public class NumeralSystemEditDialog extends DialogFragment {
 
@@ -119,7 +116,7 @@ public class NumeralSystemEditDialog extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     if (applyChanges()) {
-                        save(getActivity(), systems);
+                        IOHandler.save(getActivity(), systems);
                         listener.reload();
                         dismiss();
                     }
@@ -166,21 +163,6 @@ public class NumeralSystemEditDialog extends DialogFragment {
         charactersET.setOnClickListener(listener);
     }
 
-    public static void save(Context context, NumeralSystem[] systems) {
-        String jsonString = NumeralSystem.arrayToJSON(systems);
-
-        final String FILE_NAME = NumeralSystemConvertActivity.FILE_NAME;
-
-        try {
-            FileOutputStream outputStream = context.openFileOutput(FILE_NAME, Context.MODE_PRIVATE);
-            outputStream.write(jsonString.getBytes());
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Failed to save system", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     private boolean applyChanges() {
         final String name = nameET.getText().toString();
         final String charStr = charactersET.getText().toString();
@@ -216,7 +198,7 @@ public class NumeralSystemEditDialog extends DialogFragment {
         }
         systems = systems1;
 
-        save(getActivity(), systems);
+        IOHandler.save(getActivity(), systems);
     }
 
     private void expandSystems() {

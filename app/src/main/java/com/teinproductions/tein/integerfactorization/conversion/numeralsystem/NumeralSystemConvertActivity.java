@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
 
 import org.json.JSONArray;
@@ -57,9 +58,9 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         } else {
             try {
                 JSONObject jObject = new JSONObject(jsonString);
-                JSONArray jArray = jObject.getJSONArray(NumeralSystem.SYSTEMS);
+                JSONArray jArray = jObject.getJSONArray(IOHandler.NS_SYSTEMS);
 
-                systems = NumeralSystem.arrayFromJSON(jArray);
+                systems = IOHandler.numeralSystemArrayFromJSON(jArray);
                 checkForPreloadedSystems();
             } catch (JSONException e) {
                 e.printStackTrace();

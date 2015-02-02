@@ -62,14 +62,14 @@ public class BMIInfoActivity extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                BMIActivity.BMIState state = BMIActivity.BMIState.values()[position];
+                BMIState state = BMIState.values()[position];
                 animateBackgroundColors(state);
             }
         });
 
     }
 
-    private void animateBackgroundColors(final BMIActivity.BMIState state) {
+    private void animateBackgroundColors(final BMIState state) {
         final Integer colorFrom;
         final Integer colorTo;
         final Integer colorFromActionBar;
@@ -105,7 +105,7 @@ public class BMIInfoActivity extends ActionBarActivity {
         colorToStatusBar = getResources().getColor(backgroundColorStatusBarID);
 
         // animate the background color
-        BMIActivity.BMIState.animateColor(
+        BMIState.animateColor(
                 getApplicationContext(),
                 colorFrom,
                 colorTo,
@@ -119,7 +119,7 @@ public class BMIInfoActivity extends ActionBarActivity {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         // After that, animate the color of the action bar
-                        BMIActivity.BMIState.animateColor(
+                        BMIState.animateColor(
                                 getApplicationContext(),
                                 colorFromActionBar,
                                 colorToActionBar,
@@ -134,7 +134,7 @@ public class BMIInfoActivity extends ActionBarActivity {
                                     public void onAnimationEnd(Animator animation) {
                                         // After that, if lollipop or higher, animate the color of the status bar
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                            BMIActivity.BMIState.animateColor(
+                                            BMIState.animateColor(
                                                     getApplicationContext(),
                                                     colorFromStatusBar,
                                                     colorToStatusBar,
@@ -167,7 +167,7 @@ public class BMIInfoActivity extends ActionBarActivity {
     public class BMIInfoAdapter extends ArrayAdapter<String> {
 
         public BMIInfoAdapter(Context context) {
-            super(context, R.layout.bmi_info_row_layout, BMIActivity.BMIState.getNames(context));
+            super(context, R.layout.bmi_info_row_layout, BMIState.getNames(context));
         }
 
         @Override
@@ -178,8 +178,8 @@ public class BMIInfoActivity extends ActionBarActivity {
             TextView name = (TextView) theView.findViewById(R.id.state_name);
             TextView value = (TextView) theView.findViewById(R.id.state_value);
 
-            name.setText(BMIActivity.BMIState.values()[position].getName(getContext()));
-            value.setText(BMIActivity.BMIState.values()[position].getValue(getContext()));
+            name.setText(BMIState.values()[position].getName(getContext()));
+            value.setText(BMIState.values()[position].getValue(getContext()));
 
             return theView;
         }

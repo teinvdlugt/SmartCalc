@@ -2,6 +2,7 @@ package com.teinproductions.tein.integerfactorization.conversion.numeralsystem;
 
 import android.content.Context;
 
+import com.teinproductions.tein.integerfactorization.ArrayChecker;
 import com.teinproductions.tein.integerfactorization.R;
 
 import org.json.JSONArray;
@@ -17,13 +18,6 @@ public class NumeralSystem {
     private char[] chars;
     private final boolean editable;
     private boolean visible = true;
-
-    public static final String SYSTEMS = "systems";
-    public static final String NAME = "name";
-    public static final String NAME_ID = "nameID";
-    public static final String CHARS = "chars";
-    public static final String EDITABLE = "editable";
-    public static final String VISIBLE = "visible";
 
     public NumeralSystem(String name, char[] chars, boolean editable, boolean visible) {
         this.name = name;
@@ -90,6 +84,14 @@ public class NumeralSystem {
         this.visible = visible;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getNameID() {
+        return nameID;
+    }
+
 
     public int convertToDec(String number) {
         int result = 0;
@@ -153,7 +155,7 @@ public class NumeralSystem {
             return false;
         }
         for (char charToCheck : stringToCheck.toCharArray()) {
-            if (!containsChar(chars, charToCheck)) {
+            if (!ArrayChecker.containsChar(chars, charToCheck)) {
                 return false;
             }
         }
@@ -164,34 +166,11 @@ public class NumeralSystem {
     public String removeInvalidCharacters(String stringToCheck) {
         char[] charArray = stringToCheck.toCharArray();
         for (char character : charArray) {
-            if (!containsChar(chars, character)) {
+            if (!ArrayChecker.containsChar(chars, character)) {
                 stringToCheck = stringToCheck.replace(Character.toString(character), "");
             }
         }
         return stringToCheck;
-    }
-
-    public static boolean containsChar(char[] chars, char charToCheck) {
-        for (char character : chars) {
-            if (character == charToCheck) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public static boolean occursNotOrOnce(char[] chars, char character) {
-        boolean alreadyOccurred = false;
-        for (char character2 : chars) {
-            if (character2 == character) {
-                if (alreadyOccurred) {
-                    return false;
-                } else {
-                    alreadyOccurred = true;
-                }
-            }
-        }
-        return true;
     }
 
     public static boolean contains(NumeralSystem[] systems, NumeralSystem system, Context context) {
@@ -207,10 +186,10 @@ public class NumeralSystem {
     public String correctCases(String s) {
         char[] charArray = s.toCharArray();
         for (int i = 0; i < charArray.length; i++) {
-            if (containsChar(chars, charArray[i])) continue;
+            if (ArrayChecker.containsChar(chars, charArray[i])) continue;
 
             final char otherCase = toOtherCase(charArray[i]);
-            if (containsChar(chars, otherCase)) charArray[i] = otherCase;
+            if (ArrayChecker.containsChar(chars, otherCase)) charArray[i] = otherCase;
         }
 
         return String.valueOf(charArray);
@@ -228,95 +207,9 @@ public class NumeralSystem {
             return false;
         }
         for (char character : chars) {
-            if (occursNotOrOnce(chars, character)) continue;
+            if (ArrayChecker.occursNotOrOnce(chars, character)) continue;
             return false;
         }
         return true;
-    }
-
-
-    public static NumeralSystem fromJSON(JSONObject jObject) {
-
-        try {
-            char[] chars = getCharsFromJSON(jObject.getJSONArray(CHARS));
-            boolean editable = jObject.getBoolean(EDITABLE);
-            boolean visible = jObject.getBoolean(VISIBLE);
-
-            if (!jObject.isNull(NAME_ID)) {
-                return new NumeralSystem(jObject.getInt(NAME_ID), chars, editable, visible);
-            } else if (!jObject.isNull(NAME)) {
-                return new NumeralSystem(jObject.getString(NAME), chars, editable, visible);
-            } else {
-                return null;
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static char[] getCharsFromJSON(JSONArray jArray) throws JSONException {
-        char[] chars = new char[jArray.length()];
-        for (int i = 0; i < chars.length; i++) {
-            chars[i] = ((String) jArray.get(i)).charAt(0);
-        }
-        return chars;
-    }
-
-    public static NumeralSystem[] arrayFromJSON(JSONArray jArray) {
-        NumeralSystem[] array = new NumeralSystem[jArray.length()];
-
-        for (int i = 0; i < array.length; i++) {
-            try {
-                array[i] = fromJSON(jArray.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return array;
-    }
-
-    public String toJSON() {
-        final String NAMEQuotes;
-        final String CHARSQuotes = "\"" + CHARS + "\"";
-        final String EDITABLEQuotes = "\"" + EDITABLE + "\"";
-        final String VISIBLEQuotes = "\"" + VISIBLE + "\"";
-
-        final String nameJSON;
-        if (name != null) {
-            nameJSON = "\"" + name + "\"";
-            NAMEQuotes = "\"" + NAME + "\"";
-        } else {
-            nameJSON = Integer.toString(nameID);
-            NAMEQuotes = "\"" + NAME_ID + "\"";
-        }
-
-        final String charsJSON = charsToJSON();
-        final String editableJSON = editable ? "true" : "false";
-        final String visibleJSON = visible ? "true" : "false";
-
-        return "{" + NAMEQuotes + ":" + nameJSON + "," + CHARSQuotes + ":" + charsJSON + "," +
-                EDITABLEQuotes + ":" + editableJSON + "," + VISIBLEQuotes + ":" + visibleJSON + "}";
-    }
-
-    public String charsToJSON() {
-        StringBuilder sb = new StringBuilder("");
-        sb.append("[");
-        for (int i = 0; i < chars.length; i++) {
-            sb.append("'").append(chars[i]).append("'");
-            if (i != chars.length - 1) { // If it isn't the last character
-                sb.append(",");
-            }
-        }
-        return sb.append("]").toString();
-    }
-
-    public static String arrayToJSON(NumeralSystem[] array) {
-        StringBuilder sb = new StringBuilder("{\"" + SYSTEMS + "\":[");
-        for (NumeralSystem system : array) {
-            sb.append(system.toJSON());
-        }
-        return sb.append("]}").toString().replace("}{", "},{");
     }
 }

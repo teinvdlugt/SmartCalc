@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teinproductions.tein.integerfactorization.CustomDialog;
+import com.teinproductions.tein.integerfactorization.EditTextActivity;
 import com.teinproductions.tein.integerfactorization.R;
 import com.teinproductions.tein.integerfactorization.Units;
 
@@ -153,21 +154,21 @@ public class CalculateFragment extends Fragment {
     }
 
     public boolean calculate(boolean warn) {
-        if (molEditText.hasFocus() && hasValidDecimalInput(molEditText)) {
+        if (molEditText.hasFocus() && EditTextActivity.hasValidDecimalInput(molEditText)) {
             return calculateWithMol(warn);
-        } else if (gramEditText.hasFocus() && hasValidDecimalInput(gramEditText)) {
+        } else if (gramEditText.hasFocus() && EditTextActivity.hasValidDecimalInput(gramEditText)) {
             return calculateWithGram(warn);
-        } else if (particlesEditText.hasFocus() && hasValidDecimalInput(particlesEditText)) {
+        } else if (particlesEditText.hasFocus() && EditTextActivity.hasValidDecimalInput(particlesEditText)) {
             return calculateWithParticles(warn);
-        } else if (volumeEditText.hasFocus() && hasValidDecimalInput(volumeEditText)) {
+        } else if (volumeEditText.hasFocus() && EditTextActivity.hasValidDecimalInput(volumeEditText)) {
             return calculateWithVolume(warn);
-        } else if (hasValidDecimalInput(molEditText)) {
+        } else if (EditTextActivity.hasValidDecimalInput(molEditText)) {
             return calculateWithMol(warn);
-        } else if (hasValidDecimalInput(gramEditText)) {
+        } else if (EditTextActivity.hasValidDecimalInput(gramEditText)) {
             return calculateWithGram(warn);
-        } else if (hasValidDecimalInput(particlesEditText)) {
+        } else if (EditTextActivity.hasValidDecimalInput(particlesEditText)) {
             return calculateWithParticles(warn);
-        } else if (hasValidDecimalInput(volumeEditText)) {
+        } else if (EditTextActivity.hasValidDecimalInput(volumeEditText)) {
             return calculateWithVolume(warn);
         } else {
             if (warn) {
@@ -462,14 +463,6 @@ public class CalculateFragment extends Fragment {
 
     }
 
-    public static boolean hasValidDecimalInput(EditText editText) {
-        try {
-            Double test = Double.parseDouble(editText.getText().toString());
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
 
     private Double getVm() {
         switch (temperatureSpinner.getSelectedItemPosition()) {

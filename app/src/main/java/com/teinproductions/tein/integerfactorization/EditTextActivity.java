@@ -16,6 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+// This class is also a container for all sorts of static methods that
+// have to do with EditTexts.
 public abstract class EditTextActivity extends ActionBarActivity {
 
     protected LinearLayout rootLayout;
@@ -139,5 +141,25 @@ public abstract class EditTextActivity extends ActionBarActivity {
             resultExplanation.setText(savedInstanceState.getString("RESULT_EXPLANATION"));
         } catch (NullPointerException ignored) {
         }
+    }
+
+
+    // Static methods not specifically used by subclasses of EditTextActivity
+
+    public static boolean hasValidDecimalInput(EditText editText) {
+        try {
+            Double test = Double.parseDouble(editText.getText().toString());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean containsText(EditText e) {
+        return e.getText().length() > 0;
+    }
+
+    public static boolean isEmpty(EditText e) {
+        return e.getText().length() == 0;
     }
 }

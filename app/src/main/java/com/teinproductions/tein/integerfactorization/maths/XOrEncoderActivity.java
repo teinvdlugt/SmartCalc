@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.teinproductions.tein.integerfactorization.CustomDialog;
+import com.teinproductions.tein.integerfactorization.EditTextActivity;
 import com.teinproductions.tein.integerfactorization.R;
 
 import java.util.ArrayList;
@@ -49,10 +50,10 @@ public class XOrEncoderActivity extends ActionBarActivity {
                     decoding = false;
                     indirectTextChange = true;
 
-                    if (containsText(plainText) && containsText(keyText)) {
+                    if (EditTextActivity.containsText(plainText) && EditTextActivity.containsText(keyText)) {
                         final String plain = plainText.getText().toString(), key = keyText.getText().toString();
                         ciphertext.setText(encode(plain, key));
-                    } else if (isEmpty(plainText)) ciphertext.setText("");
+                    } else if (EditTextActivity.isEmpty(plainText)) ciphertext.setText("");
 
                     indirectTextChange = false;
                 }
@@ -77,10 +78,10 @@ public class XOrEncoderActivity extends ActionBarActivity {
                     encoding = false;
                     indirectTextChange = true;
 
-                    if (containsText(ciphertext) && containsText(keyText)) {
+                    if (EditTextActivity.containsText(ciphertext) && EditTextActivity.containsText(keyText)) {
                         final String cipher = ciphertext.getText().toString(), key = keyText.getText().toString();
                         plainText.setText(decode(cipher, key));
-                    } else if (isEmpty(ciphertext)) plainText.setText("");
+                    } else if (EditTextActivity.isEmpty(ciphertext)) plainText.setText("");
 
                     indirectTextChange = false;
                 }
@@ -100,14 +101,14 @@ public class XOrEncoderActivity extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (containsText(keyText)) {
+                if (EditTextActivity.containsText(keyText)) {
                     indirectTextChange = true;
-                    if (encoding && containsText(plainText)) {
+                    if (encoding && EditTextActivity.containsText(plainText)) {
 
                         final String plain = plainText.getText().toString(), key = keyText.getText().toString();
                         ciphertext.setText(encode(plain, key));
 
-                    } else if (decoding && containsText(ciphertext)) {
+                    } else if (decoding && EditTextActivity.containsText(ciphertext)) {
 
                         final String cipher = ciphertext.getText().toString(), key = keyText.getText().toString();
                         plainText.setText(decode(cipher, key));
@@ -122,14 +123,6 @@ public class XOrEncoderActivity extends ActionBarActivity {
 
             }
         });
-    }
-
-    public static boolean containsText(EditText e) {
-        return e.getText().length() > 0;
-    }
-
-    public static boolean isEmpty(EditText e) {
-        return e.getText().length() == 0;
     }
 
     @Override

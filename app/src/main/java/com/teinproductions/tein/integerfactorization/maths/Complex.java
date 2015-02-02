@@ -19,7 +19,7 @@ public class Complex {
         return new Complex(a + c, b + d);
     }
 
-    public static Complex substract(Complex complex1, Complex complex2) {
+    public static Complex subtract(Complex complex1, Complex complex2) {
         // (a + bi) - (c + di) = (a - c) + (b - d)i
         double a = complex1.getReal(), b = complex1.getImaginary(), c = complex2.getReal(), d = complex2.getImaginary();
         return new Complex(a - c, b - d);

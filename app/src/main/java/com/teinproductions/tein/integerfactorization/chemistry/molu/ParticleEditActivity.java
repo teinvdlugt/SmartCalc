@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.teinproductions.tein.integerfactorization.CustomDialog;
+import com.teinproductions.tein.integerfactorization.EditTextActivity;
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
 
 import java.io.FileOutputStream;
@@ -123,10 +125,10 @@ public class ParticleEditActivity extends ActionBarActivity {
         }
 
         Double mass = null, density = null;
-        if (CalculateFragment.hasValidDecimalInput(massET)) {
+        if (EditTextActivity.hasValidDecimalInput(massET)) {
             mass = Double.parseDouble(massET.getText().toString());
         }
-        if (CalculateFragment.hasValidDecimalInput(densityET)) {
+        if (EditTextActivity.hasValidDecimalInput(densityET)) {
             density = Double.parseDouble(densityET.getText().toString());
         }
 
@@ -140,25 +142,11 @@ public class ParticleEditActivity extends ActionBarActivity {
     }
 
     private void saveParticlesAndFinishActivity() {
-        try {
-            // Save the values
-            String jsonString = CustomParticle.arrayToJSON(customParticles);
+        IOHandler.save(this, customParticles);
 
-            FileOutputStream outputStream;
-            outputStream = openFileOutput(CustomParticlesActivity.FILE_NAME, Context.MODE_PRIVATE);
-            outputStream.write(jsonString.getBytes());
-            outputStream.close();
-
-            // Finish the activity
-            setResult(RESULT_OK);
-            finish();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Failed to save particle", Toast.LENGTH_SHORT).show();
-
-            setResult(RESULT_CANCELED);
-            finish();
-        }
+        // Finish the activity
+        setResult(RESULT_OK);
+        finish();
     }
 
     public void deleteParticle() {

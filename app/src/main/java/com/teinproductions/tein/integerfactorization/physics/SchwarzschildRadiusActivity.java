@@ -11,9 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.teinproductions.tein.integerfactorization.EditTextActivity;
 import com.teinproductions.tein.integerfactorization.R;
 import com.teinproductions.tein.integerfactorization.Units;
-import com.teinproductions.tein.integerfactorization.chemistry.molu.CalculateFragment;
 
 public class SchwarzschildRadiusActivity extends ActionBarActivity {
 
@@ -126,13 +126,13 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
             calculateWithMass(massET);
         } else if (view == radiusET) {
             calculateWithRadius(radiusET);
-        } else if (massET.hasFocus() && CalculateFragment.hasValidDecimalInput(massET)) {
+        } else if (massET.hasFocus() && EditTextActivity.hasValidDecimalInput(massET)) {
             calculateWithMass(null);
-        } else if (radiusET.hasFocus() && CalculateFragment.hasValidDecimalInput(radiusET)) {
+        } else if (radiusET.hasFocus() && EditTextActivity.hasValidDecimalInput(radiusET)) {
             calculateWithRadius(null);
-        } else if (CalculateFragment.hasValidDecimalInput(massET)) {
+        } else if (EditTextActivity.hasValidDecimalInput(massET)) {
             calculateWithMass(null);
-        } else if (CalculateFragment.hasValidDecimalInput(radiusET)) {
+        } else if (EditTextActivity.hasValidDecimalInput(radiusET)) {
             calculateWithRadius(null);
         }
     }

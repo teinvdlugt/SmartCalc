@@ -19,7 +19,6 @@ public class CustomDialog extends DialogFragment {
 
         title = getArguments().getInt(TITLE);
         message = getArguments().getInt(MESSAGE);
-
     }
 
     @NonNull

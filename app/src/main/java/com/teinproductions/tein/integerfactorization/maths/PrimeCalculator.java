@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class PrimeCalculator {
 
+    @SuppressWarnings("ConstantConditions")
     public static Integer[] factorize(int integer) {
 
         ArrayList<Integer> factors = new ArrayList<>();
@@ -33,6 +34,7 @@ public class PrimeCalculator {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public static Integer[] factorize(Long integer) {
 
         ArrayList<Integer> factors = new ArrayList<>();
@@ -62,6 +64,7 @@ public class PrimeCalculator {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
     public static Integer findNextPrimeNumber(Integer integer) {
 
         int i = integer + 1;

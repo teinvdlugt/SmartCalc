@@ -92,8 +92,8 @@ public class TimeDilationActivity extends EditTextActivity {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (CalculateFragment.hasValidDecimalInput(editText1) &&
-                            CalculateFragment.hasValidDecimalInput(editText2)) {
+                    if (EditTextActivity.hasValidDecimalInput(editText1) &&
+                            EditTextActivity.hasValidDecimalInput(editText2)) {
                         onClickButton(e);
                     } else {
                         resultTextView.setText("");

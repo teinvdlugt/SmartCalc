@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.ListView;
 
+import com.teinproductions.tein.integerfactorization.IOHandler;
+
 public class NumeralSystemVisibleDialog extends DialogFragment {
 
     private NumeralSystem[] systems;
@@ -43,7 +45,7 @@ public class NumeralSystemVisibleDialog extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        NumeralSystemEditDialog.save(getActivity(), systems);
+                        IOHandler.save(getActivity(), systems);
                         listener.reload();
                     }
                 })

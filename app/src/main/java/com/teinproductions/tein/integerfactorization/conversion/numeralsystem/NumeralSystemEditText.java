@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import com.teinproductions.tein.integerfactorization.ArrayChecker;
 import com.teinproductions.tein.integerfactorization.R;
 
 public class NumeralSystemEditText extends EditText {
@@ -61,9 +62,9 @@ public class NumeralSystemEditText extends EditText {
     }
 
     private void setProperInputType() {
-        if (onlyContainsNumbers(system.getChars())) {
+        if (ArrayChecker.onlyContainsNumbers(system.getChars())) {
             this.setInputType(InputType.TYPE_CLASS_NUMBER);
-        } else if (onlyContainsUpperCaseLetters(system.getChars())) {
+        } else if (ArrayChecker.onlyContainsUpperCaseLetters(system.getChars())) {
             this.setInputType(InputType.TYPE_CLASS_TEXT |
                     InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS |
                     InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
@@ -114,24 +115,6 @@ public class NumeralSystemEditText extends EditText {
     private void correctCases() {
         setSafeText(system.correctCases(getText().toString()));
         setSelection(length());
-    }
-
-    public static boolean onlyContainsNumbers(char[] chars) {
-        for (char character : chars) {
-            if (!Character.isDigit(character)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean onlyContainsUpperCaseLetters(char[] chars) {
-        for (char character : chars) {
-            if (Character.isLowerCase(character)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static NumeralSystemEditText[] getArrayFromSystems(

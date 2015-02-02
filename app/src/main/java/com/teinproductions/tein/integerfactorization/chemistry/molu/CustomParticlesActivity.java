@@ -13,18 +13,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 
 public class CustomParticlesActivity extends ActionBarActivity {
 
@@ -49,54 +43,9 @@ public class CustomParticlesActivity extends ActionBarActivity {
     }
 
     private void reloadParticles() {
-        String jsonString = getFile();
-        if (jsonString == null) {
-            // File didn't exist (yet)
-            customParticles = new CustomParticle[0];
-        } else {
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString);
-                JSONArray jsonArray = jsonObject.getJSONArray("particles");
-                customParticles = CustomParticle.arrayFromJSON(jsonArray);
-            } catch (JSONException e) {
-                e.printStackTrace();
-                customParticles = new CustomParticle[0];
-            }
-        }
+        String jsonString = IOHandler.getFile(this, FILE_NAME);
+        customParticles = IOHandler.getSavedParticles(jsonString);
         listView.setAdapter(new CustomParticlesListAdapter(this, customParticles));
-    }
-
-    private String getFile() {
-        StringBuilder sb;
-
-        try {
-            // Opens a stream so we can read from our local file
-            FileInputStream fis = this.openFileInput(FILE_NAME);
-
-            // Gets an input stream for reading data
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-
-            // Used to read the data in small bytes to minimize system load
-            BufferedReader bufferedReader = new BufferedReader(isr);
-
-            // Read the data in bytes until nothing is left to read
-            sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-
-            return sb.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
