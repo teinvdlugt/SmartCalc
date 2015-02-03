@@ -29,6 +29,8 @@ public class LCMActivity extends EditTextActivity {
 
         clickButtonWhenFilledEditText(editText2);
         saveResultTextViewText = true;
+
+        infoWebPageUri = "http://en.wikipedia.org/wiki/Least_common_multiple";
     }
 
     public void onClickButton(View view) {

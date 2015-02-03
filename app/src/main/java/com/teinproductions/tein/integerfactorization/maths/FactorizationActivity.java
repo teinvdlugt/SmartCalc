@@ -32,6 +32,8 @@ public class FactorizationActivity extends EditTextActivity {
 
         clickButtonWhenFilledEditText(editText1);
         saveResultTextViewText = true;
+
+        infoWebPageUri = "http://en.wikipedia.org/wiki/Integer_factorization";
     }
 
     public void onClickButton(View view) {

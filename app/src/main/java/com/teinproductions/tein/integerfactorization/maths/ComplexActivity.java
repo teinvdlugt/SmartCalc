@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.teinproductions.tein.integerfactorization.CustomDialog;
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
 
 public class ComplexActivity extends ActionBarActivity {
@@ -183,10 +185,19 @@ public class ComplexActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_icon, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
-            return true;
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.info_icon:
+                IOHandler.openWebPage(this, "http://en.wikipedia.org/wiki/Complex_number");
         }
         return false;
     }

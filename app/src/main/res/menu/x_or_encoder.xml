@@ -9,4 +9,11 @@
         android:title="@string/copy_ciphertext"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/info_icon"
+        android:icon="@drawable/ic_info_white_36dp"
+        android:title="@string/info"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="101"/>
+
 </menu>

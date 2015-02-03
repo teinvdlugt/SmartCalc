@@ -29,6 +29,8 @@ public class GCFActivity extends EditTextActivity {
 
         clickButtonWhenFilledEditText(editText2);
         saveResultTextViewText = true;
+
+        infoWebPageUri = "http://en.wikipedia.org/wiki/Greatest_common_factor";
     }
 
     public void onClickButton(View view) {

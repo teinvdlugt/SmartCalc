@@ -23,6 +23,8 @@ public class LengthContractionActivity extends EditTextActivity {
 
         setTextWatcher(editText1);
         setTextWatcher(editText2);
+
+        infoWebPageUri = "http://en.wikipedia.org/wiki/Length_contraction";
     }
 
     private void setTextAndInputTypes() {

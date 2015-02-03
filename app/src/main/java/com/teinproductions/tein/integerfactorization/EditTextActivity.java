@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -29,6 +30,11 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
     protected Integer animDuration;
     protected Boolean saveResultTextViewText = true;
+
+    /* When not null, an info icon will appear in the action
+     * bar with a link to the web page with the provided url
+     */
+    protected String infoWebPageUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,11 +61,22 @@ public abstract class EditTextActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (infoWebPageUri != null) {
+            getMenuInflater().inflate(R.menu.info_icon, menu);
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.info_icon:
+                IOHandler.openWebPage(this, infoWebPageUri);
         }
         return super.onOptionsItemSelected(item);
     }

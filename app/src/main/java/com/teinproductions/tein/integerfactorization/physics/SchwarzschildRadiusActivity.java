@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.teinproductions.tein.integerfactorization.EditTextActivity;
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
 import com.teinproductions.tein.integerfactorization.Units;
 
@@ -21,11 +23,6 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
     private Spinner massSpinner, radiusSpinner;
 
     private boolean indirectTextChange = false;
-
-    // This enum specifies what should happen when an EditText was filled incorrectly
-    /*private enum InvalidDoubleType {
-        TO_OTHER_ET, SHOW_DIALOG, CLEAR_OTHER_ET, DO_NOTHING
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,10 +106,20 @@ public class SchwarzschildRadiusActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.info_icon, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.info_icon:
+                IOHandler.openWebPage(this, "http://en.wikipedia.org/wiki/Schwarzschild_radius");
+                return true;
         }
         return false;
     }

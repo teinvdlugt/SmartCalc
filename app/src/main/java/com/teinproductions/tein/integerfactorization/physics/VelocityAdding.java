@@ -28,6 +28,8 @@ public class VelocityAdding extends EditTextActivity {
         setOnItemSelectedListeners();
         setSelections();
         setTextWatchers();
+
+        infoWebPageUri = "http://en.wikipedia.org/wiki/Velocity-addition_formula";
     }
 
     private void setTextAndInputTypes() {

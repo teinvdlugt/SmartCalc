@@ -2,17 +2,22 @@ package com.teinproductions.tein.integerfactorization.maths;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.widget.EditText;
 
 import com.teinproductions.tein.integerfactorization.CustomDialog;
 import com.teinproductions.tein.integerfactorization.EditTextActivity;
+import com.teinproductions.tein.integerfactorization.IOHandler;
 import com.teinproductions.tein.integerfactorization.R;
 
 import java.util.ArrayList;
@@ -139,6 +144,9 @@ public class XOrEncoderActivity extends ActionBarActivity {
                 return true;
             case android.R.id.copy:
                 copyToClipboard();
+                return true;
+            case R.id.info_icon:
+                IOHandler.openWebPage(this, "http://en.wikipedia.org/wiki/XOR_cipher");
             default:
                 return false;
         }

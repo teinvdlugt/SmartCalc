@@ -2,6 +2,10 @@ package com.teinproductions.tein.integerfactorization;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.webkit.URLUtil;
 import android.widget.Toast;
 
 import com.teinproductions.tein.integerfactorization.chemistry.molu.CustomParticle;
@@ -20,6 +24,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.List;
 
 public class IOHandler {
 
@@ -57,6 +62,21 @@ public class IOHandler {
         } catch (IOException e) {
             e.printStackTrace();
             Toast.makeText(context, "Failed to save particle", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static void openWebPage(Context context, String URL) {
+        if (URLUtil.isValidUrl(URL)) {
+            Uri webPage = Uri.parse(URL);
+            Intent webIntent = new Intent(Intent.ACTION_VIEW, webPage);
+
+            PackageManager packageManager = context.getPackageManager();
+            List activities = packageManager.queryIntentActivities(webIntent, PackageManager.MATCH_DEFAULT_ONLY);
+            boolean isIntentSafe = activities.size() > 0;
+
+            if (isIntentSafe) {
+                context.startActivity(webIntent);
+            }
         }
     }
 

@@ -27,6 +27,8 @@ public class TimeDilationActivity extends EditTextActivity {
         setOnItemSelectedListeners();
         setSelections();
         setTextWatchers();
+
+        infoWebPageUri = "http://en.wikipedia.org/wiki/Time_dilation";
     }
 
     private void setTextAndInputTypes() {
