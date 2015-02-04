@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.teinproductions.tein.integerfactorization">
+    package="com.teinproductions.tein.smartcalc">
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,7 @@
         <!-- MENU -->
 
         <activity
-            android:name=".menu.MenuActivity"
+            android:name="com.teinproductions.tein.smartcalc.menu.MenuActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,90 +23,90 @@
         <!-- MATHS -->
 
         <activity
-            android:name=".maths.FactorizationActivity"
+            android:name="com.teinproductions.tein.smartcalc.maths.FactorizationActivity"
             android:label="@string/integer_factorization"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".maths.GCFActivity"
+            android:name="com.teinproductions.tein.smartcalc.maths.GCFActivity"
             android:label="@string/greatest_common_factor"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".maths.LCMActivity"
+            android:name="com.teinproductions.tein.smartcalc.maths.LCMActivity"
             android:label="@string/least_common_multiple"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".maths.ComplexActivity"
+            android:name="com.teinproductions.tein.smartcalc.maths.ComplexActivity"
             android:label="@string/complex_numbers"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".maths.XOrEncoderActivity"
+            android:name="com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity"
             android:label="@string/x_or_encoder"
             android:theme="@style/Theme.AppCompat" />
 
         <!-- PHYSICS -->
 
         <activity
-            android:name=".physics.VelocityAdding"
+            android:name="com.teinproductions.tein.smartcalc.physics.VelocityAdding"
             android:label="@string/adding_velocities"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".physics.TimeDilationActivity"
+            android:name="com.teinproductions.tein.smartcalc.physics.TimeDilationActivity"
             android:label="@string/time_dilation"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".physics.LengthContractionActivity"
+            android:name="com.teinproductions.tein.smartcalc.physics.LengthContractionActivity"
             android:label="@string/length_contraction"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".physics.SchwarzschildRadiusActivity"
+            android:name="com.teinproductions.tein.smartcalc.physics.SchwarzschildRadiusActivity"
             android:label="@string/schwarzchild_radius"
             android:windowSoftInputMode="stateVisible" />
 
         <!-- CHEMISTRY -->
 
         <activity
-            android:name=".chemistry.molu.ParticlePagerActivity"
+            android:name="com.teinproductions.tein.smartcalc.chemistry.molu.ParticlePagerActivity"
             android:label="@string/elements"
             android:theme="@style/molu_theme" />
         <activity
-            android:name=".chemistry.molu.CustomParticlesActivity"
+            android:name="com.teinproductions.tein.smartcalc.chemistry.molu.CustomParticlesActivity"
             android:label="@string/custom_particles"
             android:theme="@style/molu_theme" />
         <activity
-            android:name=".chemistry.molu.ParticleEditActivity"
+            android:name="com.teinproductions.tein.smartcalc.chemistry.molu.ParticleEditActivity"
             android:label="@string/edit_particle"
             android:theme="@style/molu_theme" />
 
         <!-- BIOLOGY -->
 
         <activity
-            android:name=".biology.bmi.BMIActivity"
+            android:name="com.teinproductions.tein.smartcalc.biology.bmi.BMIActivity"
             android:label="@string/bmi_title"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".biology.bmi.BMIInfoActivity"
+            android:name="com.teinproductions.tein.smartcalc.biology.bmi.BMIInfoActivity"
             android:label="@string/info" />
 
         <!-- CONVERTER -->
 
         <activity
-            android:name=".conversion.LengthConvertActivity"
+            android:name="com.teinproductions.tein.smartcalc.conversion.LengthConvertActivity"
             android:label="@string/length_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".conversion.TimeConvertActivity"
+            android:name="com.teinproductions.tein.smartcalc.conversion.TimeConvertActivity"
             android:label="@string/time_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".conversion.TemperatureConvertActivity"
+            android:name="com.teinproductions.tein.smartcalc.conversion.TemperatureConvertActivity"
             android:label="@string/temperature_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".conversion.VelocityConvertActivity"
+            android:name="com.teinproductions.tein.smartcalc.conversion.VelocityConvertActivity"
             android:label="@string/velocity_conversion"
             android:windowSoftInputMode="stateVisible" />
         <activity
-            android:name=".conversion.numeralsystem.NumeralSystemConvertActivity"
+            android:name="com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystemConvertActivity"
             android:label="@string/numeral_systems"
             android:theme="@style/Theme.AppCompat"/>
     </application>
