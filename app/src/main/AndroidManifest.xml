@@ -108,7 +108,13 @@
         <activity
             android:name="com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystemConvertActivity"
             android:label="@string/numeral_systems"
-            android:theme="@style/Theme.AppCompat"/>
+            android:theme="@style/Theme.AppCompat" />
+
+        <!-- MEASURE -->
+
+        <activity
+            android:name=".measure.GravityMeasureActivity"
+            android:label="@string/measure_gravity" />
     </application>
 
 </manifest>

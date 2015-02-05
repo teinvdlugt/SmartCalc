@@ -348,5 +348,11 @@
     <string name="characters">Characters</string>
     <string name="visible">Visible</string>
     <string name="visible_systems">Visible Systems</string>
+    <string name="total_gravity">Total Gravity</string>
+    <string name="total_colon">Total:</string>
+    <string name="measure_gravity">Measure Gravity</string>
+    <string name="measure">Measure</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
 
 </resources>
