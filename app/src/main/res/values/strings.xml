@@ -355,5 +355,11 @@
     <string name="play">Play</string>
     <string name="pause">Pause</string>
     <string name="miscellaneous_measures">Miscellaneous Measures</string>
+    <string name="no_data">No Data</string>
+    <string name="ambient_air_temp">Ambient Air Temperature</string>
+    <string name="ambient_air_pressure">Ambient Air Pressure</string>
+    <string name="ambient_light">Ambient Light</string>
+    <string name="relative_humidity">Relative Humidity</string>
+    <string name="average_colon">Average:</string>
 
 </resources>

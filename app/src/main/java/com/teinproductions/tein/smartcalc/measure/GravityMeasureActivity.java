@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -21,9 +22,11 @@ public class GravityMeasureActivity extends ActionBarActivity
     private SensorManager sensorManager;
     private Sensor sensor;
 
-    private TextView xTextView, yTextView, zTextView, totalTextView;
-    private MenuItem pauseButton;
+    private TextView xTextView, yTextView, zTextView, totalTextView, averageTextView;
     private boolean paused = false;
+
+    private double average = 0;
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +42,7 @@ public class GravityMeasureActivity extends ActionBarActivity
         yTextView = (TextView) findViewById(R.id.y_value);
         zTextView = (TextView) findViewById(R.id.z_value);
         totalTextView = (TextView) findViewById(R.id.total_value);
-
-        sensorManager.registerListener(
-                this,
-                sensor, SensorManager.SENSOR_DELAY_FASTEST);
+        averageTextView = (TextView) findViewById(R.id.average_value);
     }
 
     @Override
@@ -52,10 +52,24 @@ public class GravityMeasureActivity extends ActionBarActivity
         final float z = event.values[2];
         final double total = Math.sqrt((x * x) + (y * y) + (z * z));
 
-        xTextView.setText(x + " m/s^2");
-        yTextView.setText(y + " m/s^2");
-        zTextView.setText(z + " m/s^2");
-        totalTextView.setText(total + " m/s^2");
+        xTextView.setText(x + " ");
+        xTextView.append(Html.fromHtml("m/s<sup>2</sup>"));
+        yTextView.setText(y + " ");
+        yTextView.append(Html.fromHtml("m/s<sup>2</sup>"));
+        zTextView.setText(z + " ");
+        zTextView.append(Html.fromHtml("m/s<sup>2</sup>"));
+        totalTextView.setText(total + " ");
+        totalTextView.append(Html.fromHtml("m/s<sup>2</sup>"));
+
+        calculateAverage(total);
+        averageTextView.setText(average + " ");
+        averageTextView.append(Html.fromHtml("m/s<sup>2</sup>"));
+    }
+
+    private void calculateAverage(double lastMeasure) {
+        double everything = average * count + lastMeasure;
+        count++;
+        average = everything / count;
     }
 
     @Override
@@ -99,5 +113,19 @@ public class GravityMeasureActivity extends ActionBarActivity
             default:
                 return false;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        sensorManager.unregisterListener(this, sensor);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sensorManager.registerListener(
+                this,
+                sensor, SensorManager.SENSOR_DELAY_FASTEST);
     }
 }

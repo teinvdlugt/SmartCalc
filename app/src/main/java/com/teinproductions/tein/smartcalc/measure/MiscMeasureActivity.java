@@ -43,8 +43,6 @@ public class MiscMeasureActivity extends ActionBarActivity implements SensorEven
         pressureSensor = sensorManager.getDefaultSensor(Sensor.TYPE_PRESSURE);
         lightSensor = sensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
         humiditySensor = sensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-
-        registerListeners();
     }
 
     private void registerListeners() {
@@ -113,5 +111,17 @@ public class MiscMeasureActivity extends ActionBarActivity implements SensorEven
             default:
                 return false;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerListeners();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterListeners();
     }
 }

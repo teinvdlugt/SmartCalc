@@ -12,7 +12,7 @@
         android:id="@+id/ambient_air_temp_decl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ambient Air Temperature"
+        android:text="@string/ambient_air_temp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -20,14 +20,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="No Data"
+        android:text="@string/no_data"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/ambient_air_pressure_decl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ambient Air Pressure"
+        android:text="@string/ambient_air_pressure"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -35,14 +35,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="No Data"
+        android:text="@string/no_data"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/ambient_light_decl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ambient Light"
+        android:text="@string/ambient_light"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -50,14 +50,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="No Data"
+        android:text="@string/no_data"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/relative_humidity_decl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Relative Humidity"
+        android:text="@string/relative_humidity"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="No Data"
+        android:text="@string/no_data"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

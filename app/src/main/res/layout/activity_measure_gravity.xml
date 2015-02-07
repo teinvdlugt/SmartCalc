@@ -107,4 +107,28 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </TableRow>
 
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:text="@string/average_colon"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/average_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </TableRow>
+
 </TableLayout>
