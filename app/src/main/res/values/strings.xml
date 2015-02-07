@@ -354,5 +354,6 @@
     <string name="measure">Measure</string>
     <string name="play">Play</string>
     <string name="pause">Pause</string>
+    <string name="miscellaneous_measures">Miscellaneous Measures</string>
 
 </resources>

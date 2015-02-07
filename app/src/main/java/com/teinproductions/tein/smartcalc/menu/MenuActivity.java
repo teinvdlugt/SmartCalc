@@ -19,6 +19,7 @@ import com.teinproductions.tein.smartcalc.maths.GCFActivity;
 import com.teinproductions.tein.smartcalc.maths.LCMActivity;
 import com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity;
 import com.teinproductions.tein.smartcalc.measure.GravityMeasureActivity;
+import com.teinproductions.tein.smartcalc.measure.MiscMeasureActivity;
 import com.teinproductions.tein.smartcalc.physics.LengthContractionActivity;
 import com.teinproductions.tein.smartcalc.physics.SchwarzschildRadiusActivity;
 import com.teinproductions.tein.smartcalc.physics.TimeDilationActivity;
@@ -68,7 +69,8 @@ public class MenuActivity extends ActionBarActivity {
                         .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)))
                         // Measure
                 .add(new SmartCalcMenu(getString(R.string.measure))
-                        .add(new SmartCalcMenuItem(getString(R.string.measure_gravity), GravityMeasureActivity.class)));
+                        .add(new SmartCalcMenuItem(getString(R.string.measure_gravity), GravityMeasureActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.miscellaneous_measures), MiscMeasureActivity.class)));
 
         if (savedInstanceState == null) {
             MenuFragment mainListFragment = MenuFragment.newInstance(root);
