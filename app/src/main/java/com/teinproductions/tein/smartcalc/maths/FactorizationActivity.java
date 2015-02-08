@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
@@ -74,6 +75,18 @@ public class FactorizationActivity extends EditTextActivity {
     public void onBackPressed() {
         asyncTask.cancel(true);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                asyncTask.cancel(true);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     class FactorizationAsyncTask extends AsyncTask<Void, Void, Void> {

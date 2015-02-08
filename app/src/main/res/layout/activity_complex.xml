@@ -137,6 +137,7 @@
 
     <Button
         android:id="@+id/calculate_button"
+        style="@style/floatingButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onClickCalculate"
@@ -150,10 +151,10 @@
             android:id="@+id/result_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="40sp"
+            android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:layout_marginEnd="5dp"/>
+            android:gravity="center"
+            android:textSize="40sp" />
 
     </ScrollView>
 

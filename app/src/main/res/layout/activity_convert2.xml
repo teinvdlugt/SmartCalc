@@ -100,9 +100,8 @@
     <Button
         android:id="@+id/calculate_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:text="@string/convert"
-        android:onClick="onClickConvert"/>
-
+        android:onClick="onClickConvert"
+        style="@style/floatingButtonStyle"/>
 
 </LinearLayout>

@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorPrimary">#CDDC39</color>
+    <color name="colorPrimaryDark">#AFB42B</color>
+    <color name="windowBackground">#E6EE9C</color>
+    <color name="colorButtonNormal">#03A9F4</color>
+
     <color name="menu_text_color">@android:color/black</color>
 
     <color name="blue_text">@android:color/darker_gray</color>

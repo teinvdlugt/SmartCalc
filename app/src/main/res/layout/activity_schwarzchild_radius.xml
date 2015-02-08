@@ -54,8 +54,8 @@
     <Button
         android:id="@id/calculate_button"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:onClick="onClickCalculate"
-        android:text="@string/calculate" />
+        android:text="@string/calculate"
+        style="@style/floatingButtonStyle"/>
 
 </LinearLayout>

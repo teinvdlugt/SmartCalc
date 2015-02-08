@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.teinproductions.tein.smartcalc.CustomDialog;
@@ -74,6 +75,18 @@ public class GCFActivity extends EditTextActivity {
     public void onBackPressed() {
         asyncTask.cancel(true);
         finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                asyncTask.cancel(true);
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     class GCFCreator extends AsyncTask<Long, Void, Void> {
