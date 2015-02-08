@@ -24,7 +24,7 @@
 
         <activity
             android:name="com.teinproductions.tein.smartcalc.maths.FactorizationActivity"
-            android:label="@string/integer_factorization"
+            android:label="@string/prime_factorization"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name="com.teinproductions.tein.smartcalc.maths.GCFActivity"

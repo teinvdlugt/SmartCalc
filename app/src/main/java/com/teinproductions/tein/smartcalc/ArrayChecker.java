@@ -1,6 +1,9 @@
 package com.teinproductions.tein.smartcalc;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class ArrayChecker {
 
     public static boolean containsChar(char[] chars, char charToCheck) {
@@ -42,5 +45,20 @@ public class ArrayChecker {
             }
         }
         return true;
+    }
+
+    public static ArrayList<Integer> convertToArrayList(Integer[] integers) {
+        ArrayList<Integer> arrayList = new ArrayList<>();
+        Collections.addAll(arrayList, integers);
+
+        return arrayList;
+    }
+
+    public static Integer[] convertToArray(ArrayList<Integer> integers) {
+        Integer[] result = new Integer[integers.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = integers.get(i);
+        }
+        return result;
     }
 }

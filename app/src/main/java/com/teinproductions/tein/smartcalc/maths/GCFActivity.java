@@ -15,6 +15,7 @@ import com.teinproductions.tein.smartcalc.R;
 public class GCFActivity extends EditTextActivity {
 
     Long num1, num2;
+    private GCFCreator asyncTask;
 
     @Override
     protected void doYourStuff(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class GCFActivity extends EditTextActivity {
         saveResultTextViewText = true;
 
         infoWebPageUri = "http://en.wikipedia.org/wiki/Greatest_common_factor";
+        asyncTask = new GCFCreator();
     }
 
     public void onClickButton(View view) {
@@ -45,7 +47,7 @@ public class GCFActivity extends EditTextActivity {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     resultTextView.setVisibility(View.GONE);
-                    new GCFCreator().execute();
+                    execute();
                 }
             });
 
@@ -62,15 +64,27 @@ public class GCFActivity extends EditTextActivity {
         }
     }
 
-    class GCFCreator extends AsyncTask<Void, Void, Void> {
+    private void execute() {
+        asyncTask.cancel(true);
+        asyncTask = new GCFCreator();
+        asyncTask.execute(num1, num2);
+    }
+
+    @Override
+    public void onBackPressed() {
+        asyncTask.cancel(true);
+        finish();
+    }
+
+    class GCFCreator extends AsyncTask<Long, Void, Void> {
 
         Integer result;
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(Long... params) {
 
             try {
-                result = PrimeCalculator.findLongGCF(num1, num2);
+                result = PrimeCalculator.findGCF(params[0], params[1], this);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }

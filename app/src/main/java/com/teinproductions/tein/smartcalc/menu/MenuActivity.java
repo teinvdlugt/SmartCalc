@@ -40,7 +40,7 @@ public class MenuActivity extends ActionBarActivity {
 
         root = (SmartCalcMenu) new SmartCalcMenu()
                 .add(new SmartCalcMenu(getString(R.string.maths))
-                        .add(new SmartCalcMenuItem(getString(R.string.integer_factorization), FactorizationActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.prime_factorization), FactorizationActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.greatest_common_factor), GCFActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.least_common_multiple), LCMActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.complex_numbers), ComplexActivity.class))

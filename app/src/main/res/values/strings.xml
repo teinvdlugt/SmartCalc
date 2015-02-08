@@ -6,10 +6,10 @@
     <!-- MATHS -->
     <string name="maths">Maths</string>
     <!-- factorization -->
-    <string name="integer_factorization">Integer factorization</string>
+    <string name="prime_factorization">Prime factorization</string>
     <string name="number_to_factorize_hint">Number to Factorize</string>
     <string name="factorize_button">Factorize</string>
-    <string name="factorize_result_declaration">Integer factors:</string>
+    <string name="factorize_result_declaration">Prime factors:</string>
     <string name="greatest_common_factor">Greatest Common Factor</string>
     <string name="least_common_multiple">Least Common Multiple</string>
     <string name="complex_numbers">Complex Numbers</string>

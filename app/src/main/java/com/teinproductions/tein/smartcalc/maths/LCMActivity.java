@@ -15,6 +15,7 @@ import com.teinproductions.tein.smartcalc.R;
 public class LCMActivity extends EditTextActivity {
 
     private Long num1, num2;
+    private LCMCreator asyncTask;
 
     @Override
     protected void doYourStuff(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class LCMActivity extends EditTextActivity {
         saveResultTextViewText = true;
 
         infoWebPageUri = "http://en.wikipedia.org/wiki/Least_common_multiple";
+        asyncTask = new LCMCreator();
     }
 
     public void onClickButton(View view) {
@@ -45,10 +47,9 @@ public class LCMActivity extends EditTextActivity {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     resultTextView.setVisibility(View.GONE);
-                    new LCMCreator().execute();
+                    execute();
                 }
             });
-
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber(getSupportFragmentManager());
 
@@ -60,18 +61,30 @@ public class LCMActivity extends EditTextActivity {
                 }
             });
         }
-
     }
 
-    class LCMCreator extends AsyncTask<Void, Void, Void> {
+    private void execute() {
+        asyncTask.cancel(true);
+        asyncTask = new LCMCreator();
+        asyncTask.execute(num1, num2);
+    }
+
+    @Override
+    public void onBackPressed() {
+        asyncTask.cancel(true);
+        finish();
+    }
+
+    class LCMCreator extends AsyncTask<Long, Void, Void> {
 
         Integer result;
 
         @Override
-        protected Void doInBackground(Void... params) {
+        protected Void doInBackground(Long... params) {
 
             try {
-                result = PrimeCalculator.findLongLCM(num1, num2);
+                //result = PrimeCalculator.findLCM(params[0], params[1], this);
+                result = 3;
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }

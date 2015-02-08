@@ -13,7 +13,7 @@
     <string name="invalid_number_title">Ongeldig Nummer</string>
     <string name="invalid_number_message">Voer een geldig nummer in.</string>
     <string name="maths">Wiskunde</string>
-    <string name="integer_factorization">Priemfactoren Berekenen</string>
+    <string name="prime_factorization">Priemfactoren Berekenen</string>
     <string name="physics">Natuurkunde</string>
     <string name="special_relativity">Speciale Relativiteit</string>
     <string name="adding_velocities">Snelheden Optellen</string>
