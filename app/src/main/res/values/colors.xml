@@ -38,8 +38,8 @@
     <color name="severely_obese_statusBar">#C2185B</color>
     <color name="very_severely_obese_statusBar">#D32F2F</color>
 
-    <color name="molu_colorPrimary">#ffff0f0f</color>
-    <color name="molu_colorPrimaryDark">#ffcc0000</color>
+    <color name="molu_colorPrimary">#F44336</color>
+    <color name="molu_colorPrimaryDark">#D32F2F</color>
     <color name="molu_colorAccent">#fff7ff41</color>
-    <color name="molu_background_color_drawer_list">#303030</color>
+    <color name="molu_background_color_drawer_list">#D32F2F</color>
 </resources>

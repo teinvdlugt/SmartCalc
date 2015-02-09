@@ -5,10 +5,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,10 +25,13 @@ public class ParticlePagerActivity extends ActionBarActivity
         CalculateFragment.MassViewHider {
 
     public static final int CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE = 1;
+    public static final String RELOAD_PARTICLES = "com.teinproductions.tein.smartcalc.RELOAD_PARTICLES";
+    public static final String GOTO_PARTICLE = "com.teinproductions.tein.smartcalc.GOTO_PARTICLE";
 
+    private Toolbar toolbar;
+    private ActionBarDrawerToggle toggle;
     private ViewPager theViewPager;
     private SlidingTabLayout slidingTabLayout;
-
     private DrawerLayout drawerLayout;
     private ListView drawerListView;
 
@@ -37,17 +41,17 @@ public class ParticlePagerActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_element_pager);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
-        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
-        theViewPager = (ViewPager) findViewById(R.id.view_pager);
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerListView = (ListView) findViewById(R.id.drawer_listView);
+        initializeViews();
 
-        drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 
         loadParticles();
+
+        setDrawerToggle();
 
         setListViewAdapter();
         drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,6 +65,13 @@ public class ParticlePagerActivity extends ActionBarActivity
 
         setUpViewPagerAndSlidingTabLayout();
         theViewPager.setCurrentItem(0);
+    }
+
+    private void initializeViews() {
+        slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        theViewPager = (ViewPager) findViewById(R.id.view_pager);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawerListView = (ListView) findViewById(R.id.drawer_listView);
     }
 
     private void setListViewAdapter() {
@@ -108,6 +119,28 @@ public class ParticlePagerActivity extends ActionBarActivity
         slidingTabLayout.setBackground(new ColorDrawable(R.color.molu_colorPrimaryDark));
     }
 
+    private void setDrawerToggle() {
+        toggle = new ActionBarDrawerToggle(
+                this,
+                drawerLayout,
+                toolbar,
+                R.string.xs_drawer_open,
+                R.string.xs_drawer_close) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                invalidateOptionsMenu();
+            }
+        };
+        drawerLayout.setDrawerListener(toggle);
+    }
+
     private void loadParticles() {
         ElementAdapter[] elementAdapters = ElementAdapter.values(this);
 
@@ -121,28 +154,26 @@ public class ParticlePagerActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.element_pager, menu);
+        getMenuInflater().inflate(R.menu.info_icon, menu);
+        menu.findItem(R.id.info_icon).setIcon(R.drawable.ic_edit_white_24dp);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.pager_activity_show_list_action:
-                if (drawerLayout.isDrawerOpen(drawerListView)) {
-                    drawerLayout.closeDrawer(drawerListView);
-                } else {
-                    drawerLayout.openDrawer(drawerListView);
-                }
-                return true;
-            case R.id.pager_activity_edit_button:
+            case R.id.info_icon:
                 startCustomParticlesActivity();
                 return true;
-            case android.R.id.home:
-                super.onBackPressed();
-                return true;
+            default:
+                return false;
         }
-        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        toggle.syncState();
     }
 
     private void startCustomParticlesActivity() {
@@ -153,20 +184,19 @@ public class ParticlePagerActivity extends ActionBarActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE:
-                if (resultCode == RESULT_OK) {
-                    loadParticles();
-                    setUpViewPagerAndSlidingTabLayout();
-                    setListViewAdapter();
+        if (requestCode == CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data.getBooleanExtra(RELOAD_PARTICLES, false)) {
+                loadParticles();
+                setUpViewPagerAndSlidingTabLayout();
+                setListViewAdapter();
+            }
 
-                    drawerLayout.closeDrawers();
+            int goToPos = data.getIntExtra(GOTO_PARTICLE, -1);
+            if (goToPos != -1) {
+                theViewPager.setCurrentItem(goToPos);
+            }
 
-                    if (data != null) {
-                        theViewPager.setCurrentItem(data.getIntExtra(CustomParticlesActivity.CALCULATE_WITH_THIS_PARTICLE,
-                                theViewPager.getCurrentItem()));
-                    }
-                }
+            drawerLayout.closeDrawers();
         }
     }
 

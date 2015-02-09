@@ -3,6 +3,7 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,16 +21,19 @@ public class CustomParticlesActivity extends ActionBarActivity {
 
     public static final String FILE_NAME = "particles";
     public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
-    public static final String CALCULATE_WITH_THIS_PARTICLE = "com.teinproductions.tein.integerfactorization." +
-            "CALCULATE_WITH_THIS_PARTICLE";
 
     private ListView listView;
     private CustomParticle[] customParticles;
+
+    private boolean changed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_view_activity);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setBackgroundResource(R.color.molu_colorPrimary);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listView = (ListView) findViewById(R.id.listView);
@@ -77,13 +81,16 @@ public class CustomParticlesActivity extends ActionBarActivity {
 
         if (requestCode == PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             reloadParticles();
+            changed = true;
         }
 
     }
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_OK);
+        Intent intent = new Intent();
+        intent.putExtra(ParticlePagerActivity.RELOAD_PARTICLES, changed);
+        setResult(RESULT_OK, intent);
         finish();
     }
 
@@ -144,9 +151,9 @@ public class CustomParticlesActivity extends ActionBarActivity {
         }
 
         private void calculateWithParticle(int position) {
-            Intent goingBack = new Intent();
-            goingBack.putExtra(CALCULATE_WITH_THIS_PARTICLE, position);
-            activity.setResult(RESULT_OK, goingBack);
+            Intent intent = new Intent();
+            intent.putExtra(ParticlePagerActivity.GOTO_PARTICLE, position);
+            activity.setResult(RESULT_OK, intent);
             activity.finish();
         }
     }
