@@ -11,32 +11,32 @@
     <color name="blue_text">@android:color/darker_gray</color>
     <color name="green_text">@android:color/darker_gray</color>
 
-    <color name="very_severely_underweight">#ff9999ff</color>
-    <color name="severely_underweight">#ffff99ff</color>
-    <color name="underweight">#ffffcce5</color>
-    <color name="good_weight">#ff64ff65</color>
-    <color name="overweight">#ffff9999</color>
-    <color name="moderately_obese">#ffff9999</color>
-    <color name="severely_obese">#ffff6666</color>
-    <color name="very_severely_obese">#ffff0000</color>
+    <color name="very_severely_underweight">#FF7043</color>
+    <color name="severely_underweight">#FFA726</color>
+    <color name="underweight">#FFCA28</color>
+    <color name="good_weight">#9CCC65</color>
+    <color name="overweight">#26C6DA</color>
+    <color name="moderately_obese">#26A69A</color>
+    <color name="severely_obese">#EC407A</color>
+    <color name="very_severely_obese">#EF5350</color>
 
-    <color name="very_severely_underweight_actionBar">#ff8383cd</color>
-    <color name="severely_underweight_actionBar">#ffcd72cd</color>
-    <color name="underweight_actionBar">#ffcda1b7</color>
-    <color name="good_weight_actionBar">#ff4ecd4f</color>
-    <color name="overweight_actionBar">#ffcd7b7b</color>
-    <color name="moderately_obese_actionBar">#ffcd7f7f</color>
-    <color name="severely_obese_actionBar">#ffcd4747</color>
-    <color name="very_severely_obese_actionBar">#ffcd0000</color>
+    <color name="very_severely_underweight_actionBar">#FF5722</color>
+    <color name="severely_underweight_actionBar">#FF9800</color>
+    <color name="underweight_actionBar">#FFC107</color>
+    <color name="good_weight_actionBar">#8BC34A</color>
+    <color name="overweight_actionBar">#00BCD4</color>
+    <color name="moderately_obese_actionBar">#009688</color>
+    <color name="severely_obese_actionBar">#E91E63</color>
+    <color name="very_severely_obese_actionBar">#F44336</color>
 
-    <color name="very_severely_underweight_statusBar">#ff6767af</color>
-    <color name="severely_underweight_statusBar">#ffaf59af</color>
-    <color name="underweight_statusBar">#ffaf8599</color>
-    <color name="good_weight_statusBar">#ff4caf4d</color>
-    <color name="overweight_statusBar">#ffaf6262</color>
-    <color name="moderately_obese_statusBar">#ffaf6565</color>
-    <color name="severely_obese_statusBar">#ffaf4444</color>
-    <color name="very_severely_obese_statusBar">#ffaf0000</color>
+    <color name="very_severely_underweight_statusBar">#E64A19</color>
+    <color name="severely_underweight_statusBar">#F57C00</color>
+    <color name="underweight_statusBar">#FFA000</color>
+    <color name="good_weight_statusBar">#689F38</color>
+    <color name="overweight_statusBar">#0097A7</color>
+    <color name="moderately_obese_statusBar">#00796B</color>
+    <color name="severely_obese_statusBar">#C2185B</color>
+    <color name="very_severely_obese_statusBar">#D32F2F</color>
 
     <color name="molu_colorPrimary">#ffff0f0f</color>
     <color name="molu_colorPrimaryDark">#ffcc0000</color>

@@ -41,7 +41,7 @@
         <activity
             android:name="com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity"
             android:label="@string/x_or_encoder"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/DarkActivityStyle" />
 
         <!-- PHYSICS -->
 
@@ -108,7 +108,7 @@
         <activity
             android:name="com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystemConvertActivity"
             android:label="@string/numeral_systems"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/DarkActivityStyle" />
 
         <!-- MEASURE -->
 

@@ -2,60 +2,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/app_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
-        <EditText
-            android:id="@+id/mass_edit_text"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:hint="@string/mass"
-            android:imeOptions="actionNext"
-            android:inputType="numberDecimal"
-            style="@style/EditTextStyle"/>
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/mass_spinner"
-            android:layout_width="0dp"
+            <EditText
+                android:id="@+id/mass_edit_text"
+                style="@style/EditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:hint="@string/mass"
+                android:imeOptions="actionNext"
+                android:inputType="numberDecimal" />
+
+            <Spinner
+                android:id="@+id/mass_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/schwarzchildRadius_editText"
+                style="@style/EditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:hint="@string/schwarzchild_radius"
+                android:inputType="numberDecimal" />
+
+            <Spinner
+                android:id="@+id/schwarzchildRadius_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <Button
+            android:id="@id/calculate_button"
+            style="@style/floatingButtonStyle"
+            android:layout_width="match_parent"
+            android:onClick="onClickCalculate"
+            android:text="@string/calculate" />
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/schwarzchildRadius_editText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:hint="@string/schwarzchild_radius"
-            android:inputType="numberDecimal"
-            style="@style/EditTextStyle"/>
-
-        <Spinner
-            android:id="@+id/schwarzchildRadius_spinner"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-
-    <Button
-        android:id="@id/calculate_button"
-        android:layout_width="match_parent"
-        android:onClick="onClickCalculate"
-        android:text="@string/calculate"
-        style="@style/floatingButtonStyle"/>
-
 </LinearLayout>

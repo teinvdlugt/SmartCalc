@@ -3,6 +3,7 @@ package com.teinproductions.tein.smartcalc;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -40,6 +41,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_with_edit_texts);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         rootLayout = (LinearLayout) findViewById(R.id.root_layout);
         editText1 = (EditText) findViewById(R.id.edit_text1);                           // Needs Hint and InputType

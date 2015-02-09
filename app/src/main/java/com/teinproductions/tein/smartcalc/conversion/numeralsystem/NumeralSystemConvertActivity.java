@@ -2,12 +2,12 @@ package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
@@ -30,6 +30,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
     private NumeralSystemEditText[] editTexts;
 
     private ScrollView scrollView;
+    private LinearLayout container;
     private LinearLayout ll;
 
     public static final String FILE_NAME = "saved_numeral_systems";
@@ -37,6 +38,20 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ll = new LinearLayout(this);
+        ll.setOrientation(LinearLayout.VERTICAL);
+        ll.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        ll.setWeightSum(1);
+
+        Toolbar toolbar = new Toolbar(this);
+        // TODO set elevation for toolbar
+        toolbar.setBackgroundResource(R.color.primary_material_dark);
+
+        ll.addView(toolbar);
+
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         loadEditTexts();
@@ -45,7 +60,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         initializeLinearLayout();
 
         loadScreenContent();
-        setContentView(scrollView);
+        setContentView(ll);
     }
 
     private void loadEditTexts() {
@@ -54,7 +69,6 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
             // File didn't exist (yet)
             systems = NumeralSystem.preloaded();
 
-            Toast.makeText(this, "File didn't exist in loadEditTexts()", Toast.LENGTH_SHORT).show();
         } else {
             try {
                 JSONObject jObject = new JSONObject(jsonString);
@@ -67,8 +81,6 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
 
                 systems = NumeralSystem.preloaded();
 
-                Toast.makeText(this, "JSONException in loadEditTexts()", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, jsonString, Toast.LENGTH_LONG).show();
             }
         }
 
@@ -82,26 +94,28 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         final int topBottom = getResources().getDimensionPixelOffset(R.dimen.activity_horizontal_margin);
         final int leftRight = getResources().getDimensionPixelOffset(R.dimen.activity_vertical_margin);
         scrollView.setPadding(leftRight, topBottom, leftRight, topBottom);
-        scrollView.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0);
+        params.weight = 1f;
+        scrollView.setLayoutParams(params);
+        ll.addView(scrollView);
     }
 
     private void initializeLinearLayout() {
-        ll = new LinearLayout(this);
-        ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setLayoutParams(new ViewGroup.LayoutParams(
+        container = new LinearLayout(this);
+        container.setOrientation(LinearLayout.VERTICAL);
+        container.setLayoutParams(new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        scrollView.addView(ll, ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT);
+        scrollView.addView(container, ScrollView.LayoutParams.MATCH_PARENT, ScrollView.LayoutParams.MATCH_PARENT);
     }
 
     private void loadScreenContent() {
-        ll.removeAllViews();
+        container.removeAllViews();
 
         for (NumeralSystemEditText e : editTexts) {
             if (e.getSystem().isVisible()) {
                 e.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                ll.addView(e);
+                container.addView(e);
             }
         }
     }

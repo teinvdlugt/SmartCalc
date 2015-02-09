@@ -277,6 +277,7 @@ public class BMIActivity extends EditTextActivity {
             backgroundColorStatusBarID = savedInstanceState.getInt(BACKGROUND_COLOR_STATUS_BAR_ID);
 
             rootLayout.setBackgroundColor(getResources().getColor(backgroundColorID));
+            button.setBackgroundResource(backgroundColorID);
             getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getResources().getColor(backgroundColorActionBarID)));
             getWindow().setStatusBarColor(getResources().getColor(backgroundColorStatusBarID));
         } catch (NullPointerException ignored) {

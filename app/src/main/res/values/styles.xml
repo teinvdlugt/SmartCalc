@@ -1,13 +1,19 @@
 <resources>
+
     <style name="AppTheme" parent="AppTheme.Base">
 
     </style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:colorButtonNormal">@color/colorButtonNormal</item>
+    </style>
+
+    <style name="DarkActivityStyle" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/primary_material_dark</item>
+        <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
     </style>
 
     <style name="floatingButtonStyle">
