@@ -71,7 +71,7 @@
         <activity
             android:name=".chemistry.molu.ElementRecyclerActivity"
             android:label="@string/elements"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/molu_theme" />
         <activity
             android:name="com.teinproductions.tein.smartcalc.chemistry.molu.CustomParticlesActivity"
             android:label="@string/custom_particles"

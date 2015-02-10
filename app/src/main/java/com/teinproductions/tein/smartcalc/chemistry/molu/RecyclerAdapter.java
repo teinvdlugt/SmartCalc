@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.R;
 
+import java.text.DecimalFormat;
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
     Element[] data;
@@ -55,6 +57,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         public void setData(Context context, Element element) {
             this.name.setText(element.getName(context));
             this.number.setText(element.getAtomicNumber().toString());
+            this.number.append(" -- " + new DecimalFormat().format(element.getMass()) + " u");
             //this.image.setImageResource(element.getImageId());
         }
     }
