@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.R;
@@ -38,13 +39,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.setData(context, data[i]);
+        myViewHolder.setData(context, data, i);
     }
 
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, number;
         ImageView image;
+        RelativeLayout root;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -52,13 +54,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             name = (TextView) itemView.findViewById(R.id.name);
             image = (ImageView) itemView.findViewById(R.id.image);
             number = (TextView) itemView.findViewById(R.id.number_and_mass);
+            root = (RelativeLayout) itemView;
         }
 
-        public void setData(Context context, Element element) {
-            this.name.setText(element.getName(context));
-            this.number.setText(element.getAtomicNumber().toString());
-            this.number.append(" -- " + new DecimalFormat().format(element.getMass()) + " u");
+        public void setData(Context context, Element[] data, int pos) {
+            this.name.setText(data[pos].getName(context));
+            this.number.setText(data[pos].getAtomicNumber().toString());
+            this.number.append(" -- " + new DecimalFormat().format(data[pos].getMass()) + " u");
             //this.image.setImageResource(element.getImageId());
+            this.image.setImageResource(R.drawable.banana);
         }
     }
 }
