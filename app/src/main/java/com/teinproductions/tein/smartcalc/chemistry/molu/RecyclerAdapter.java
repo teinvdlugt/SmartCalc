@@ -1,6 +1,8 @@
 package com.teinproductions.tein.smartcalc.chemistry.molu;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,24 +10,37 @@ import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.R;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>{
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+
+    Element[] data;
+    LayoutInflater inflater;
+    Context context;
+
+    public RecyclerAdapter(Element[] data, Context context) {
+        super();
+        this.data = data;
+        this.context = context;
+        this.inflater = LayoutInflater.from(context);
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        return null;
+        View view = inflater.inflate(R.layout.element_row, viewGroup, false);
+        return new MyViewHolder(view);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return data.length;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-
+        myViewHolder.setData(context, data[i]);
     }
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+
+    static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, number;
         ImageView image;
 
@@ -34,7 +49,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
             name = (TextView) itemView.findViewById(R.id.name);
             image = (ImageView) itemView.findViewById(R.id.image);
-            number = (TextView) itemView.findViewById(R.id.atomic_number);
+            number = (TextView) itemView.findViewById(R.id.number_and_mass);
+        }
+
+        public void setData(Context context, Element element) {
+            this.name.setText(element.getName(context));
+            this.number.setText(element.getAtomicNumber().toString());
+            //this.image.setImageResource(element.getImageId());
         }
     }
 }
