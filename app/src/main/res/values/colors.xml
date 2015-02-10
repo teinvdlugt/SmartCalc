@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#CDDC39</color>
-    <color name="colorPrimaryDark">#AFB42B</color>
-    <color name="windowBackground">#E6EE9C</color>
-    <color name="colorButtonNormal">#03A9F4</color>
+    <color name="colorPrimary">#8BC34A</color>
+    <color name="colorPrimaryDark">#689F38</color>
+    <color name="windowBackground">#9CCC65</color>
+    <color name="colorButtonNormal">#64DD17</color>
 
     <color name="menu_text_color">@android:color/black</color>
+
+    <color name="molu_colorPrimary">#F44336</color>
+    <color name="molu_colorPrimaryDark">#D32F2F</color>
+    <color name="molu_colorAccent">#fff7ff41</color>
+    <color name="molu_background_color_drawer_list">#D32F2F</color>
 
     <color name="blue_text">@android:color/darker_gray</color>
     <color name="green_text">@android:color/darker_gray</color>
@@ -37,9 +42,4 @@
     <color name="moderately_obese_statusBar">#00796B</color>
     <color name="severely_obese_statusBar">#C2185B</color>
     <color name="very_severely_obese_statusBar">#D32F2F</color>
-
-    <color name="molu_colorPrimary">#F44336</color>
-    <color name="molu_colorPrimaryDark">#D32F2F</color>
-    <color name="molu_colorAccent">#fff7ff41</color>
-    <color name="molu_background_color_drawer_list">#D32F2F</color>
 </resources>
