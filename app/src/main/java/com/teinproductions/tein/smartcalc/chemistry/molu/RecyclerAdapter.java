@@ -2,10 +2,10 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -39,29 +39,35 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.setData(context, data, i);
+        myViewHolder.fillData(context, data, i);
     }
 
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView name, number;
-        ImageView image;
+        TextView name, mass, atomicNumber;
         RelativeLayout root;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             name = (TextView) itemView.findViewById(R.id.name);
-            image = (ImageView) itemView.findViewById(R.id.image);
-            number = (TextView) itemView.findViewById(R.id.number_and_mass);
+            mass = (TextView) itemView.findViewById(R.id.number_and_mass);
             root = (RelativeLayout) itemView;
+            atomicNumber = (TextView) itemView.findViewById(R.id.atomic_number);
         }
 
-        public void setData(Context context, Element[] data, int i) {
+        public void fillData(Context context, Element[] data, int i) {
             this.name.setText(data[i].getName(context));
-            this.number.setText(data[i].getAtomicNumber().toString());
-            this.number.append(" -- " + new DecimalFormat().format(data[i].getMass()) + " u");
-            this.image.setImageResource(data[i].getImageId());
+            this.mass.setText(new DecimalFormat().format(data[i].getMass()) + " u");
+
+            String number = data[i].getAtomicNumber().toString();
+            if (number.length() == 1) {
+                this.atomicNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
+            } else {
+                this.atomicNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 44 / number.length());
+            }
+
+            this.atomicNumber.setText(number);
         }
     }
 }
