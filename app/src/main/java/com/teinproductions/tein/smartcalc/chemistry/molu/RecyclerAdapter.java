@@ -1,5 +1,6 @@
 package com.teinproductions.tein.smartcalc.chemistry.molu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -15,15 +16,22 @@ import java.text.DecimalFormat;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
 
-    Element[] data;
-    LayoutInflater inflater;
-    Context context;
+    private Element[] data;
+    private LayoutInflater inflater;
+    private Context context;
+    private OnRecyclerItemClickListener clickListener;
 
-    public RecyclerAdapter(Element[] data, Context context) {
+    public RecyclerAdapter(Element[] data, Activity activity) {
         super();
         this.data = data;
-        this.context = context;
+        this.context = activity;
         this.inflater = LayoutInflater.from(context);
+        try {
+            this.clickListener = (OnRecyclerItemClickListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() +
+                    " must implement RecyclerAdapter.OnRecyclerItemClickListener");
+        }
     }
 
     @Override
@@ -37,13 +45,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         return data.length;
     }
 
+    public Element getElementAtPosition(int i) {
+        return data[i];
+    }
+
     @Override
-    public void onBindViewHolder(MyViewHolder myViewHolder, int i) {
-        myViewHolder.fillData(context, data, i);
+    public void onBindViewHolder(MyViewHolder myViewHolder, final int i) {
+        myViewHolder.name.setText(data[i].getName(context));
+        myViewHolder.mass.setText(new DecimalFormat().format(data[i].getMass()) + " u");
+
+        String number = data[i].getAtomicNumber().toString();
+        if (number.length() == 1) {
+            myViewHolder.atomicNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
+        } else {
+            myViewHolder.atomicNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 44 / number.length());
+        }
+
+        myViewHolder.atomicNumber.setText(number);
+
+        myViewHolder.root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.onItemClick(RecyclerAdapter.this, i);
+            }
+        });
     }
 
 
-    static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView name, mass, atomicNumber;
         RelativeLayout root;
 
@@ -55,19 +84,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             root = (RelativeLayout) itemView;
             atomicNumber = (TextView) itemView.findViewById(R.id.atomic_number);
         }
+    }
 
-        public void fillData(Context context, Element[] data, int i) {
-            this.name.setText(data[i].getName(context));
-            this.mass.setText(new DecimalFormat().format(data[i].getMass()) + " u");
-
-            String number = data[i].getAtomicNumber().toString();
-            if (number.length() == 1) {
-                this.atomicNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 22);
-            } else {
-                this.atomicNumber.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 44 / number.length());
-            }
-
-            this.atomicNumber.setText(number);
-        }
+    public static interface OnRecyclerItemClickListener {
+        public void onItemClick(RecyclerAdapter recyclerAdapter, int i);
     }
 }

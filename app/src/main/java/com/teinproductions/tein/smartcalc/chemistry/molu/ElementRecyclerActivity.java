@@ -7,10 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.R;
 
-public class ElementRecyclerActivity extends ActionBarActivity {
+public class ElementRecyclerActivity extends ActionBarActivity
+        implements RecyclerAdapter.OnRecyclerItemClickListener {
 
     LinearLayout root;
     Toolbar toolbar;
@@ -56,5 +58,11 @@ public class ElementRecyclerActivity extends ActionBarActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT, 0);
         params.weight = 1f;
         root.addView(recyclerView);
+    }
+
+    @Override
+    public void onItemClick(RecyclerAdapter recyclerAdapter, int i) {
+        Toast.makeText(this, "You clicked on item" + i, Toast.LENGTH_SHORT).show();
+        Element clickedElement = recyclerAdapter.getElementAtPosition(i);
     }
 }
