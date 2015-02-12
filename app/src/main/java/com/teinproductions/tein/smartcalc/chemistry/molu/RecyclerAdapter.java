@@ -57,12 +57,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             root = (RelativeLayout) itemView;
         }
 
-        public void setData(Context context, Element[] data, int pos) {
-            this.name.setText(data[pos].getName(context));
-            this.number.setText(data[pos].getAtomicNumber().toString());
-            this.number.append(" -- " + new DecimalFormat().format(data[pos].getMass()) + " u");
-            //this.image.setImageResource(element.getImageId());
-            this.image.setImageResource(R.drawable.banana);
+        public void setData(Context context, Element[] data, int i) {
+            this.name.setText(data[i].getName(context));
+            this.number.setText(data[i].getAtomicNumber().toString());
+            this.number.append(" -- " + new DecimalFormat().format(data[i].getMass()) + " u");
+            this.image.setImageResource(data[i].getImageId());
         }
     }
 }
