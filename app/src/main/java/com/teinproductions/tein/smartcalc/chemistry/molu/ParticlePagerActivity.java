@@ -1,7 +1,6 @@
 package com.teinproductions.tein.smartcalc.chemistry.molu;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -9,31 +8,32 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
+import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
 import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
-import com.teinproductions.tein.smartcalc.slidingtabs.SlidingTabLayout;
+
 
 public class ParticlePagerActivity extends ActionBarActivity
         implements CalculateFragment.OnCalculateClickListener,
-        CalculateFragment.MassViewHider {
+        RecyclerAdapter.OnRecyclerItemClickListener {
 
     public static final int CUSTOM_PARTICLES_ACTIVITY_REQUEST_CODE = 1;
     public static final String RELOAD_PARTICLES = "com.teinproductions.tein.smartcalc.RELOAD_PARTICLES";
-    public static final String GOTO_PARTICLE = "com.teinproductions.tein.smartcalc.GOTO_PARTICLE";
+    public static final String GO_TO_PARTICLE = "com.teinproductions.tein.smartcalc.GO_TO_PARTICLE";
 
     private Toolbar toolbar;
     private ActionBarDrawerToggle toggle;
     private ViewPager theViewPager;
     private SlidingTabLayout slidingTabLayout;
     private DrawerLayout drawerLayout;
-    private ListView drawerListView;
+    private RecyclerView recyclerView;
 
     private Particle[] particles;
 
@@ -53,15 +53,13 @@ public class ParticlePagerActivity extends ActionBarActivity
 
         setDrawerToggle();
 
-        setListViewAdapter();
-        drawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                drawerLayout.closeDrawer(drawerListView);
-                theViewPager.setCurrentItem(position, true);
-            }
-        });
-        drawerListView.setBackgroundColor(getResources().getColor(R.color.molu_background_color_drawer_list));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new RecyclerAdapter(Element.values(), this));
+        recyclerView.setBackgroundResource(R.color.background_material_light);
+
+        slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.molu_colorAccent));
+        slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.molu_colorPrimary));
+        slidingTabLayout.setCustomTabView(R.layout.tab, R.id.text_view);
 
         setUpViewPagerAndSlidingTabLayout();
         theViewPager.setCurrentItem(0);
@@ -71,11 +69,7 @@ public class ParticlePagerActivity extends ActionBarActivity
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         theViewPager = (ViewPager) findViewById(R.id.view_pager);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerListView = (ListView) findViewById(R.id.drawer_listView);
-    }
-
-    private void setListViewAdapter() {
-        drawerListView.setAdapter(new ParticleListAdapter(this, particles));
+        recyclerView = (RecyclerView) findViewById(R.id.drawer_recyclerView);
     }
 
     private void setUpViewPagerAndSlidingTabLayout() {
@@ -116,7 +110,6 @@ public class ParticlePagerActivity extends ActionBarActivity
 
             }
         });
-        slidingTabLayout.setBackground(new ColorDrawable(R.color.molu_colorPrimaryDark));
     }
 
     private void setDrawerToggle() {
@@ -188,10 +181,10 @@ public class ParticlePagerActivity extends ActionBarActivity
             if (data.getBooleanExtra(RELOAD_PARTICLES, false)) {
                 loadParticles();
                 setUpViewPagerAndSlidingTabLayout();
-                setListViewAdapter();
+                recyclerView.swapAdapter(new RecyclerAdapter(Element.values(), this), true);
             }
 
-            int goToPos = data.getIntExtra(GOTO_PARTICLE, -1);
+            int goToPos = data.getIntExtra(GO_TO_PARTICLE, -1);
             if (goToPos != -1) {
                 theViewPager.setCurrentItem(goToPos);
             }
@@ -206,7 +199,8 @@ public class ParticlePagerActivity extends ActionBarActivity
     }
 
     @Override
-    public boolean hideMassView() {
-        return true;
+    public void onItemClick(RecyclerAdapter recyclerAdapter, int i) {
+        drawerLayout.closeDrawer(recyclerView);
+        theViewPager.setCurrentItem(i, true);
     }
 }

@@ -61,7 +61,8 @@ public class MenuActivity extends ActionBarActivity {
                         .add(new SmartCalcMenuItem(getString(R.string.schwarzchild_radius), SchwarzschildRadiusActivity.class)))
                         // Chemistry
                 .add(new SmartCalcMenu(getString(R.string.chemistry))
-                        .add(new SmartCalcMenuItem(getString(R.string.elements), ElementRecyclerActivity.class)))
+                        .add(new SmartCalcMenuItem(getString(R.string.elements), ElementRecyclerActivity.class))
+                        .add(new SmartCalcMenuItem("More elements", ParticlePagerActivity.class)))
                         // Biology
                 .add(new SmartCalcMenu(getString(R.string.biology))
                         .add(new SmartCalcMenuItem(getString(R.string.bmi_title), BMIActivity.class)))

@@ -152,7 +152,7 @@ public class CustomParticlesActivity extends ActionBarActivity {
 
         private void calculateWithParticle(int position) {
             Intent intent = new Intent();
-            intent.putExtra(ParticlePagerActivity.GOTO_PARTICLE, position);
+            intent.putExtra(ParticlePagerActivity.GO_TO_PARTICLE, position);
             activity.setResult(RESULT_OK, intent);
             activity.finish();
         }
