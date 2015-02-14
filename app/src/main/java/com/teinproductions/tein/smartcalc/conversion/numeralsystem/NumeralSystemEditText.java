@@ -10,6 +10,8 @@ import android.widget.EditText;
 import com.teinproductions.tein.smartcalc.ArrayChecker;
 import com.teinproductions.tein.smartcalc.R;
 
+import java.math.BigInteger;
+
 public class NumeralSystemEditText extends EditText {
 
     private final NumeralSystem system;
@@ -93,14 +95,23 @@ public class NumeralSystemEditText extends EditText {
     }
 
 
-    public int convertToDec() {
+    public long convertToDec() {
         return system.convertToDec(this.getText().toString());
     }
 
-    public void convertFromDec(int dec) {
+    /*public BigInteger convertToBigInt() {
+        return system.convertToBigInt(this.getText().toString());
+    }*/
+
+    public void convertFromDec(long dec) {
         String converted = system.convertFromDec(dec);
         this.setSafeText(converted);
     }
+
+    /*public void convertFromBigInt(BigInteger bigInt) {
+        String converted = system.convertFromBigInt(bigInt);
+        this.setSafeText(converted);
+    }*/
 
     public NumeralSystem getSystem() {
         return system;

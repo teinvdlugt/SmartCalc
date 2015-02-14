@@ -3,6 +3,7 @@ package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 
 public class NumeralSystemConvertActivity extends ActionBarActivity
         implements NumeralSystemEditDialog.OnClickListener {
@@ -46,7 +48,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         ll.setWeightSum(1);
 
         Toolbar toolbar = new Toolbar(this);
-        // TODO set elevation for toolbar
+        toolbar.setElevation(4);
         toolbar.setBackgroundResource(R.color.primary_material_dark);
 
         ll.addView(toolbar);
@@ -64,7 +66,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
     }
 
     private void loadEditTexts() {
-        String jsonString = getFile();
+        String jsonString = IOHandler.getFile(this, FILE_NAME);
         if (jsonString == null) {
             // File didn't exist (yet)
             systems = NumeralSystem.preloaded();
@@ -144,39 +146,6 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         }
     }
 
-    private String getFile() {
-        StringBuilder sb;
-
-        try {
-            // Opens a stream so we can read from our local file
-            FileInputStream fis = this.openFileInput(FILE_NAME);
-
-            // Gets an input stream for reading data
-            InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
-
-            // Used to read the data in small bytes to minimize system load
-            BufferedReader bufferedReader = new BufferedReader(isr);
-
-            // Read the data in bytes until nothing is left to read
-            sb = new StringBuilder();
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                sb.append(line).append("\n");
-            }
-
-            return sb.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     public void clearAllEditTexts() {
         if (editTexts != null) {
             for (NumeralSystemEditText e : editTexts) {
@@ -187,9 +156,11 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
         }
     }
 
-    public void convert(int decimal) {
+    public void convert(long dec) {
         for (NumeralSystemEditText e : editTexts) {
-            e.convertFromDec(decimal);
+            if (e.getSystem().isVisible()) {
+                e.convertFromDec(dec);
+            }
         }
     }
 

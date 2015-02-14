@@ -1,10 +1,12 @@
 package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.teinproductions.tein.smartcalc.ArrayChecker;
 import com.teinproductions.tein.smartcalc.R;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 public class NumeralSystem {
@@ -89,8 +91,8 @@ public class NumeralSystem {
     }
 
 
-    public int convertToDec(String number) {
-        int result = 0;
+    public long convertToDec(String number) {
+        long result = 0;
         char[] charsToConvert = number.toCharArray();
 
         for (int i = 0; i < charsToConvert.length; i++) {
@@ -100,8 +102,22 @@ public class NumeralSystem {
         return result;
     }
 
+    /*public BigInteger convertToBigInt(String number) { TODO
+        BigInteger result = new BigInteger("0");
+        char[] charsToConvert = number.toCharArray();
+
+        for (int i = 0; i < charsToConvert.length; i++) {
+            double toAdd = index(charsToConvert[i]) * Math.pow(chars.length, number.length() - i - 1);
+            int floor = (int) Math.floor(toAdd);
+            BigInteger floorBigInt = new BigInteger(Integer.toString(floor));
+            result = result.add(floorBigInt);
+        }
+
+        return result;
+    }*/
+
     @SuppressWarnings("ConstantConditions")
-    public String convertFromDec(int dec) {
+    public String convertFromDec(long dec) {
         StringBuilder sb = new StringBuilder("");
 
         if (dec == 0) {
@@ -127,7 +143,6 @@ public class NumeralSystem {
                 }
             }
 
-            //sb.append(Integer.toString((int) Math.pow(chars.length, maxPow) * maxMult));
             sb.append(chars[maxMult]);
             dec -= Math.pow(chars.length, maxPow) * maxMult;
 
@@ -136,6 +151,57 @@ public class NumeralSystem {
 
         return sb.toString();
     }
+
+    /*@SuppressWarnings("ConstantConditions") TODO
+    public String convertFromBigInt(BigInteger bigInt) {
+        StringBuilder sb = new StringBuilder("");
+
+        if (bigInt.toString().equals("0")) {
+            return Character.toString(chars[0]);
+        }
+
+        int maxPow = 0;
+        while (1 + 1 == 2) {
+            maxPow++;
+
+            // if chars.length ^ maxPow > bigInt
+            if (new BigInteger(Integer.toString(chars.length)).pow(maxPow).subtract(bigInt).doubleValue() > 0) {
+                maxPow--;
+                break;
+            }
+        }
+        Log.d("DEBUG", "maxPow: " + maxPow);
+
+        while (maxPow >= 0) {
+            int maxMult = 0;
+            while (1 + 1 == 2) {
+                maxMult++;
+
+                // if maxMult * chars.length ^ maxPow > bigInt
+                if (new BigInteger(
+                        Integer.toString(chars.length))
+                        .pow(maxPow)
+                        .multiply(new BigInteger(Integer.toString(maxMult)))
+                        .subtract(bigInt).doubleValue()
+                        > 0) {
+                    maxMult--;
+                    break;
+                }
+            }
+
+            Log.d("DEBUG", "maxMult: " + maxMult);
+
+            sb.append(chars[maxMult]);
+            bigInt = bigInt.subtract(
+                    new BigInteger(
+                            Integer.toString((int) Math.floor(
+                                    Math.pow(chars.length, maxPow) * maxMult))));
+
+            maxPow--;
+        }
+
+        return sb.toString();
+    }*/
 
     public int index(char charToCheck) {
         for (int i = 0; i < chars.length; i++) {
