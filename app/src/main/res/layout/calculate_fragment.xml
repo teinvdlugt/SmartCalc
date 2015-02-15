@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:imeOptions="actionGo"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 
@@ -53,7 +54,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:imeOptions="actionGo"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 
@@ -79,7 +81,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:imeOptions="actionGo"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 
@@ -110,7 +113,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionGo"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 
@@ -135,7 +139,8 @@
             android:id="@+id/temperature_spinner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="4" />
+            android:layout_weight="4"
+            android:textCursorDrawable="@null" />
 
     </LinearLayout>
 

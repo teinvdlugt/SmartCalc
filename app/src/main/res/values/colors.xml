@@ -10,7 +10,7 @@
 
     <color name="molu_colorPrimary">#2196F3</color>
     <color name="molu_colorPrimaryDark">#1976D2</color>
-    <color name="molu_colorAccent">#82B1FF</color>
+    <color name="molu_colorAccent">#FFEB3B</color>
 
     <color name="blue_text">@android:color/darker_gray</color>
     <color name="green_text">@android:color/darker_gray</color>
