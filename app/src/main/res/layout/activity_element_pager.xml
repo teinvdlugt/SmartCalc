@@ -22,7 +22,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                app:theme="@style/MoluToolbarTheme" />
+                app:theme="@style/MoluToolbarTheme"
+                android:background="@color/molu_colorPrimary"/>
 
             <com.google.samples.apps.iosched.ui.widget.SlidingTabLayout
                 android:id="@+id/sliding_tabs"

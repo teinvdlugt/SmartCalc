@@ -147,15 +147,14 @@ public class ParticlePagerActivity extends ActionBarActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.info_icon, menu);
-        menu.findItem(R.id.info_icon).setIcon(R.drawable.ic_edit_white_24dp);
+        getMenuInflater().inflate(R.menu.particle_pager, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.info_icon:
+            case android.R.id.edit:
                 startCustomParticlesActivity();
                 return true;
             default:

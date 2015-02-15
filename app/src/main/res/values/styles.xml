@@ -28,7 +28,6 @@
     <style name="MoluToolbarTheme">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
-        <item name="android:background">@color/molu_colorPrimary</item>
     </style>
 
     <style name="molu_theme" parent="Theme.AppCompat.Light.NoActionBar">
