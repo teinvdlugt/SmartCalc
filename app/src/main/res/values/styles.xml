@@ -37,6 +37,10 @@
         <item name="android:colorButtonNormal">@color/molu_colorAccent</item>
     </style>
 
+    <style name="activity_particle_pager_theme" parent="molu_theme">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
     <style name="EditTextStyle">
         <item name="android:textSize">25sp</item>
         <item name="android:inputType">number</item>

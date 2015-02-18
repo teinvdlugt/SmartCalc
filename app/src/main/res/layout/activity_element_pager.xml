@@ -21,29 +21,33 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                app:theme="@style/MoluToolbarTheme"
-                android:background="@color/molu_colorPrimary"/>
+                android:layout_height="72dp"
+                android:background="@color/molu_colorPrimary"
+                android:elevation="4dp"
+                android:paddingTop="@dimen/moluToolbarTranslucentStatusBarPadding"
+                app:theme="@style/MoluToolbarTheme" />
 
             <com.google.samples.apps.iosched.ui.widget.SlidingTabLayout
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:elevation="4dp" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:scrollbars="vertical"
+            android:paddingTop="@dimen/moluToolbarTranslucentStatusBarPadding"
             android:id="@+id/drawer_recyclerView"
             android:layout_width="@dimen/navDrawerWidth"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:elevation="6dp" />
+            android:elevation="6dp"
+            android:scrollbars="vertical" />
 
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
