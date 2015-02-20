@@ -20,31 +20,25 @@
         <item name="android:layout_height">42dp</item>
         <item name="android:minWidth">88dp</item>
         <item name="android:layout_margin">3dp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="progress_bar_style" parent="@android:style/Widget.ProgressBar" />
-
-    <style name="text_view_style">\
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-
-    <style name="number_edit_style" parent="text_view_style">
-        <item name="android:inputType">numberDecimal</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
 
     <style name="MoluToolbarTheme">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
     </style>
 
-    <style name="molu_theme" parent="Theme.AppCompat.NoActionBar">
+    <style name="molu_theme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/molu_colorPrimary</item>
         <item name="colorPrimaryDark">@color/molu_colorPrimaryDark</item>
         <item name="colorAccent">@color/molu_colorAccent</item>
+        <item name="android:colorButtonNormal">@color/molu_colorAccent</item>
+    </style>
+
+    <style name="activity_particle_pager_theme" parent="molu_theme">
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="EditTextStyle">

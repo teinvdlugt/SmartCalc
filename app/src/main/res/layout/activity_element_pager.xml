@@ -7,44 +7,47 @@
     android:orientation="vertical"
     tools:context=".ParticlePagerActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/molu_colorPrimary"
-        app:theme="@style/MoluToolbarTheme" />
-
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <com.teinproductions.tein.smartcalc.slidingtabs.SlidingTabLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/molu_colorPrimary"
+                android:elevation="4dp"
+                android:paddingTop="@dimen/moluToolbarTranslucentStatusBarPadding"
+                app:theme="@style/MoluToolbarTheme" />
+
+            <com.google.samples.apps.iosched.ui.widget.SlidingTabLayout
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true" />
+                android:elevation="4dp" />
 
             <android.support.v4.view.ViewPager
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@id/sliding_tabs" />
-        </RelativeLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+        </LinearLayout>
 
-        <ListView
-            android:id="@+id/drawer_listView"
+        <android.support.v7.widget.RecyclerView
+            android:paddingTop="@dimen/moluToolbarTranslucentStatusBarPadding"
+            android:id="@+id/drawer_recyclerView"
             android:layout_width="@dimen/navDrawerWidth"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@null"
-            android:elevation="6dp" />
+            android:elevation="6dp"
+            android:scrollbars="vertical" />
+
     </android.support.v4.widget.DrawerLayout>
 </LinearLayout>

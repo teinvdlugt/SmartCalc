@@ -132,7 +132,8 @@ public enum Element {
     private int discYear;
     private Double mass, density;
 
-    Element(int name, String abbreviation, Double mass, Integer atomicNumber, Integer yearOfDiscovery, Double density) {
+    Element(int name, String abbreviation, Double mass,
+            Integer atomicNumber, Integer yearOfDiscovery, Double density) {
         this.name = name;
         this.abbreviation = abbreviation;
         this.mass = mass;
@@ -140,7 +141,6 @@ public enum Element {
         this.discYear = yearOfDiscovery;
         this.density = density;
     }
-
 
     public static Element findElementByAbbreviation(String abbreviation) {
         for (Element currentElement : Element.values()) {

@@ -27,8 +27,7 @@
             <TextView
                 android:id="@+id/fragment_element_abbreviation"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
-
+                android:textColor="@android:color/black" />
         </TableRow>
 
         <TableRow>
@@ -43,8 +42,7 @@
             <TextView
                 android:id="@+id/fragment_element_atomic_mass"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
-
+                android:textColor="@android:color/black" />
         </TableRow>
 
         <TableRow>
@@ -60,8 +58,7 @@
             <TextView
                 android:id="@+id/fragment_element_year_of_disc"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
-
+                android:textColor="@android:color/black" />
         </TableRow>
 
         <TableRow>
@@ -76,8 +73,7 @@
             <TextView
                 android:id="@+id/fragment_element_density"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="@android:color/white" />
-
+                android:textColor="@android:color/black" />
         </TableRow>
 
     </TableLayout>
@@ -89,7 +85,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:textColor="@color/blue_text"
+        android:textColor="@color/molu_colorPrimaryDark"
         android:textSize="50sp" />
 
     <fragment
@@ -99,6 +95,5 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_element_table_layout"
         tools:layout="@layout/calculate_fragment" />
-
 
 </RelativeLayout>

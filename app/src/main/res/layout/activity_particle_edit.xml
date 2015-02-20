@@ -7,10 +7,11 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        app:theme="@style/MoluToolbarTheme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/molu_colorPrimary" />
+        android:background="@color/molu_colorPrimary"
+        android:elevation="4dp"
+        app:theme="@style/MoluToolbarTheme" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -39,7 +40,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                android:textCursorDrawable="@null" />
 
         </LinearLayout>
 
@@ -60,7 +62,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:inputType="textCapWords" />
+                android:inputType="textCapWords"
+                android:textCursorDrawable="@null" />
 
         </LinearLayout>
 
@@ -81,7 +84,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textCursorDrawable="@null" />
 
         </LinearLayout>
 
@@ -104,7 +108,8 @@
                 android:layout_weight="2"
                 android:imeActionLabel="@string/save"
                 android:imeOptions="actionGo"
-                android:inputType="numberDecimal" />
+                android:inputType="numberDecimal"
+                android:textCursorDrawable="@null" />
 
         </LinearLayout>
 

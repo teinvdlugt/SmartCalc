@@ -3,26 +3,22 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
 
-public class CustomParticlesActivity extends ActionBarActivity {
+public class CustomParticlesActivity extends ActionBarActivity
+        implements CustomParticleRecyclerAdapter.OnClickListener {
 
     public static final String FILE_NAME = "particles";
     public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
 
-    private ListView listView;
+    private RecyclerView recyclerView;
     private CustomParticle[] customParticles;
 
     private boolean changed = false;
@@ -30,22 +26,21 @@ public class CustomParticlesActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_view_activity);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setBackgroundResource(R.color.molu_colorPrimary);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_custom_particles);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        listView = (ListView) findViewById(R.id.listView);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         // Initialize particles and load the saved particles into the list view
         reloadParticles();
+        recyclerView.setAdapter(new CustomParticleRecyclerAdapter(customParticles, this));
     }
 
     private void reloadParticles() {
         String jsonString = IOHandler.getFile(this, FILE_NAME);
         customParticles = IOHandler.getSavedParticles(jsonString);
-        listView.setAdapter(new CustomParticlesListAdapter(this, customParticles));
     }
 
     @Override
@@ -81,6 +76,7 @@ public class CustomParticlesActivity extends ActionBarActivity {
 
         if (requestCode == PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             reloadParticles();
+            recyclerView.swapAdapter(new CustomParticleRecyclerAdapter(customParticles, this), true);
             changed = true;
         }
 
@@ -94,7 +90,23 @@ public class CustomParticlesActivity extends ActionBarActivity {
         finish();
     }
 
-    private static class CustomParticlesListAdapter extends ArrayAdapter<String> {
+    @Override
+    public void onClickEdit(int i) {
+        Intent intent = new Intent(this, ParticleEditActivity.class);
+        intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, customParticles);
+        intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, i);
+        startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
+    }
+
+    @Override
+    public void onClickGoTo(int i) {
+        Intent intent = new Intent();
+        intent.putExtra(ParticlePagerActivity.GO_TO_PARTICLE, i);
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    /*private static class CustomParticlesListAdapter extends ArrayAdapter<String> {
 
         CustomParticle[] customParticles;
         CustomParticlesActivity activity;
@@ -152,9 +164,9 @@ public class CustomParticlesActivity extends ActionBarActivity {
 
         private void calculateWithParticle(int position) {
             Intent intent = new Intent();
-            intent.putExtra(ParticlePagerActivity.GOTO_PARTICLE, position);
+            intent.putExtra(ParticlePagerActivity.GO_TO_PARTICLE, position);
             activity.setResult(RESULT_OK, intent);
             activity.finish();
         }
-    }
+    }*/
 }

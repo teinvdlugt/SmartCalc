@@ -4,6 +4,7 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -30,7 +31,6 @@ import java.text.DecimalFormat;
 public class CalculateFragment extends Fragment {
 
     private EditText molEditText, gramEditText, particlesEditText, volumeEditText;
-    private TextView molarMassTextView;
     private Spinner volumeSpinner, temperatureSpinner;
     private LinearLayout temperatureLayout;
 
@@ -45,13 +45,10 @@ public class CalculateFragment extends Fragment {
         molEditText = (EditText) theView.findViewById(R.id.mol_edit_text);
         gramEditText = (EditText) theView.findViewById(R.id.gram_edit_text);
         particlesEditText = (EditText) theView.findViewById(R.id.particles_edit_text);
-        molarMassTextView = (TextView) theView.findViewById(R.id.mass_amount_text_view);
         volumeSpinner = (Spinner) theView.findViewById(R.id.volume_spinner);
         volumeEditText = (EditText) theView.findViewById(R.id.volume_edit_text);
         temperatureSpinner = (Spinner) theView.findViewById(R.id.temperature_spinner);
         temperatureLayout = (LinearLayout) theView.findViewById(R.id.temperature_layout);
-        LinearLayout massLayout = (LinearLayout) theView.findViewById(R.id.mass_layout);
-        if (massViewHider.hideMassView()) massLayout.setVisibility(View.GONE);
         Button calculateButton = (Button) theView.findViewById(R.id.calculate_button);
 
         molEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -141,7 +138,9 @@ public class CalculateFragment extends Fragment {
         });
         temperatureSpinner.setSelection(1, false);
 
-        if (calculateButton != null) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            calculateButton.setVisibility(View.GONE);
+        } else {
             calculateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -185,12 +184,6 @@ public class CalculateFragment extends Fragment {
 
             Double mass = particle.getMass();
             Double density = particle.getDensity();
-
-            if (mass == null) {
-                molarMassTextView.setText(R.string.unknown);
-            } else {
-                molarMassTextView.setText((new DecimalFormat().format(mass)));
-            }
 
             // Mol
             Double givenMol = Double.parseDouble(String.valueOf(molEditText.getText()));
@@ -249,12 +242,6 @@ public class CalculateFragment extends Fragment {
 
             Double mass = particle.getMass();
             Double density = particle.getDensity();
-
-            if (mass == null) {
-                molarMassTextView.setText(R.string.unknown);
-            } else {
-                molarMassTextView.setText((new DecimalFormat().format(mass)));
-            }
 
             // Gram
             Double givenGram = Double.parseDouble(String.valueOf(gramEditText.getText()));
@@ -318,12 +305,6 @@ public class CalculateFragment extends Fragment {
             Double mass = particle.getMass();
             Double density = particle.getDensity();
 
-            if (mass == null) {
-                molarMassTextView.setText(R.string.unknown);
-            } else {
-                molarMassTextView.setText((new DecimalFormat().format(mass)));
-            }
-
             // Particles
             Integer givenParticles = Integer.parseInt(String.valueOf(particlesEditText.getText()));
 
@@ -381,12 +362,6 @@ public class CalculateFragment extends Fragment {
 
             Double mass = particle.getMass();
             Double density = particle.getDensity();
-
-            if (mass == null) {
-                molarMassTextView.setText(R.string.unknown);
-            } else {
-                molarMassTextView.setText((new DecimalFormat().format(mass)));
-            }
 
             Double givenVolume = Double.parseDouble(volumeEditText.getText().toString());
             Double calculatedMol, calculatedGram = null, calculatedParticles;
@@ -478,14 +453,9 @@ public class CalculateFragment extends Fragment {
 
 
     private OnCalculateClickListener onCalculateClickListener;
-    private MassViewHider massViewHider;
 
     public interface OnCalculateClickListener {
         public Particle onRequestParticle();
-    }
-
-    public interface MassViewHider {
-        public boolean hideMassView();
     }
 
     @Override
@@ -494,7 +464,6 @@ public class CalculateFragment extends Fragment {
 
         try {
             onCalculateClickListener = (OnCalculateClickListener) activity;
-            massViewHider = (MassViewHider) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OnCalculateClickListener and MassViewHider");
         }

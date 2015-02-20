@@ -1,32 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
+    android:layout_height="56dp">
 
     <TextView
         android:id="@+id/particle_name_text_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="4"
-        android:padding="10dp"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <ImageView
-        android:id="@+id/img_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:contentDescription="@string/xs_edit_custom_particle"
-        android:src="@drawable/ic_edit_white_24dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/img_go"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="?android:attr/selectableItemBackground"
         android:contentDescription="@string/xs_calculate_with_this_particle"
-        android:src="@drawable/ic_arrow_forward_white_24dp" />
+        android:padding="16dp"
+        android:src="@drawable/ic_arrow_forward_grey600_24dp" />
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/img_edit"
+        android:layout_width="56dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/img_go"
+        android:layout_toStartOf="@id/img_go"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="@string/xs_edit_custom_particle"
+        android:padding="16dp"
+        android:src="@drawable/ic_edit_grey600_24dp" />
+
+
+</RelativeLayout>

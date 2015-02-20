@@ -3,5 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="menu_text_margin">10dp</dimen>
-    <dimen name="navDrawerWidth">290dp</dimen>
+    <dimen name="navDrawerWidth">300dp</dimen>
+    <dimen name="moluToolbarTranslucentStatusBarPadding">0dp</dimen>
 </resources>
