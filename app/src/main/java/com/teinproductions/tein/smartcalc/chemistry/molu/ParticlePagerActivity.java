@@ -54,7 +54,7 @@ public class ParticlePagerActivity extends ActionBarActivity
         setDrawerToggle();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new RecyclerAdapter(Element.values(), this));
+        recyclerView.setAdapter(new RecyclerAdapter(particles, this));
         recyclerView.setBackgroundResource(R.color.background_material_light);
 
         slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.molu_colorAccent));
@@ -180,7 +180,7 @@ public class ParticlePagerActivity extends ActionBarActivity
             if (data.getBooleanExtra(RELOAD_PARTICLES, false)) {
                 loadParticles();
                 setUpViewPagerAndSlidingTabLayout();
-                recyclerView.swapAdapter(new RecyclerAdapter(Element.values(), this), true);
+                recyclerView.swapAdapter(new RecyclerAdapter(particles, this), true);
             }
 
             int goToPos = data.getIntExtra(GO_TO_PARTICLE, -1);

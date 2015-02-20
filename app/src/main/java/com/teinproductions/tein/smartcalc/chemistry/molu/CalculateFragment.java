@@ -4,6 +4,7 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -137,7 +138,9 @@ public class CalculateFragment extends Fragment {
         });
         temperatureSpinner.setSelection(1, false);
 
-        if (calculateButton != null) {
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            calculateButton.setVisibility(View.GONE);
+        } else {
             calculateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

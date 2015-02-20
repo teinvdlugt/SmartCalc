@@ -69,10 +69,6 @@
             android:label="@string/elements"
             android:theme="@style/activity_particle_pager_theme" />
         <activity
-            android:name=".chemistry.molu.ElementRecyclerActivity"
-            android:label="@string/elements"
-            android:theme="@style/molu_theme" />
-        <activity
             android:name="com.teinproductions.tein.smartcalc.chemistry.molu.CustomParticlesActivity"
             android:label="@string/custom_particles"
             android:theme="@style/molu_theme" />

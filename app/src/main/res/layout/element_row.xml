@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="72dp"
-    android:background="@drawable/recycler_ripple">
+    android:background="@drawable/recycler_ripple"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
 
     <!--<ImageView
         android:id="@+id/image"
@@ -20,28 +22,22 @@
         android:id="@+id/atomic_number"
         android:layout_width="72dp"
         android:layout_height="72dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:gravity="center_vertical|center_horizontal"
-        android:padding="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:paddingTop="12dp"
+        android:textColor="@color/molu_colorPrimary"
         android:textSize="44dp"
         android:typeface="monospace"
-        tools:ignore="SpUsage"
-        android:textColor="@color/molu_colorPrimary"/>
+        tools:ignore="RtlSymmetry,SpUsage" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
         android:orientation="vertical"
-        android:paddingEnd="16dp"
-        android:paddingLeft="72dp"
-        android:paddingRight="16dp"
-        android:paddingStart="72dp">
+        android:paddingLeft="12dp"
+        android:paddingRight="16dp">
 
         <TextView
             android:id="@+id/name"
@@ -57,4 +53,5 @@
             android:textColor="@android:color/darker_gray"
             android:textSize="14sp" />
     </LinearLayout>
-</RelativeLayout>
+
+</LinearLayout>

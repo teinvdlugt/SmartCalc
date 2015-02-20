@@ -8,7 +8,6 @@ import android.view.MenuItem;
 
 import com.teinproductions.tein.smartcalc.R;
 import com.teinproductions.tein.smartcalc.biology.bmi.BMIActivity;
-import com.teinproductions.tein.smartcalc.chemistry.molu.ElementRecyclerActivity;
 import com.teinproductions.tein.smartcalc.chemistry.molu.ParticlePagerActivity;
 import com.teinproductions.tein.smartcalc.conversion.LengthConvertActivity;
 import com.teinproductions.tein.smartcalc.conversion.TemperatureConvertActivity;
@@ -61,8 +60,7 @@ public class MenuActivity extends ActionBarActivity {
                         .add(new SmartCalcMenuItem(getString(R.string.schwarzchild_radius), SchwarzschildRadiusActivity.class)))
                         // Chemistry
                 .add(new SmartCalcMenu(getString(R.string.chemistry))
-                        .add(new SmartCalcMenuItem(getString(R.string.elements), ElementRecyclerActivity.class))
-                        .add(new SmartCalcMenuItem("More elements", ParticlePagerActivity.class)))
+                        .add(new SmartCalcMenuItem(getString(R.string.elements), ParticlePagerActivity.class)))
                         // Biology
                 .add(new SmartCalcMenu(getString(R.string.biology))
                         .add(new SmartCalcMenuItem(getString(R.string.bmi_title), BMIActivity.class)))

@@ -115,7 +115,6 @@
             android:imeOptions="actionGo"
             android:inputType="numberDecimal"
             android:textCursorDrawable="@null" />
-
     </LinearLayout>
 
     <LinearLayout
