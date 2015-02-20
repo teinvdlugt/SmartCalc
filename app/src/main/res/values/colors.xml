@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#8BC34A</color>
-    <color name="colorPrimaryDark">#689F38</color>
-    <color name="windowBackground">#9CCC65</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="windowBackground">#29B6F6</color>
     <color name="colorButtonNormal">#64DD17</color>
 
     <color name="menu_text_color">@android:color/black</color>

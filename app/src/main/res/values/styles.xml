@@ -11,6 +11,11 @@
         <item name="android:colorButtonNormal">@color/colorButtonNormal</item>
     </style>
 
+    <style name="AppBarStyle">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+    </style>
+
     <style name="DarkActivityStyle" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/primary_material_dark</item>
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>

@@ -88,6 +88,12 @@ public class LCMActivity extends EditTextActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        asyncTask.cancel(true);
+        super.onDestroy();
+    }
+
     class LCMCreator extends AsyncTask<Long, Void, Void> {
 
         Integer result;
@@ -96,8 +102,7 @@ public class LCMActivity extends EditTextActivity {
         protected Void doInBackground(Long... params) {
 
             try {
-                //result = PrimeCalculator.findLCM(params[0], params[1], this);
-                result = 3;
+                result = PrimeCalculator.findLCM(params[0], params[1], this);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }

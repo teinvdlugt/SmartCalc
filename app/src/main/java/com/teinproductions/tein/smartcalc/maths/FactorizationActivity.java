@@ -89,6 +89,12 @@ public class FactorizationActivity extends EditTextActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        asyncTask.cancel(true);
+        super.onDestroy();
+    }
+
     class FactorizationAsyncTask extends AsyncTask<Void, Void, Void> {
 
         String result;

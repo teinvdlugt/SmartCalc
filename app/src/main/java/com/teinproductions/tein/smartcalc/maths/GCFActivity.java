@@ -89,6 +89,12 @@ public class GCFActivity extends EditTextActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        asyncTask.cancel(true);
+        super.onDestroy();
+    }
+
     class GCFCreator extends AsyncTask<Long, Void, Void> {
 
         Integer result;
