@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.samples.apps.iosched.ui.widget.SlidingTabLayout;
-import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
 
 
@@ -36,6 +35,7 @@ public class ParticlePagerActivity extends ActionBarActivity
     private RecyclerView recyclerView;
 
     private Particle[] particles;
+    private DatabaseManager dbManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,8 +137,11 @@ public class ParticlePagerActivity extends ActionBarActivity
     private void loadParticles() {
         ElementAdapter[] elementAdapters = ElementAdapter.values(this);
 
-        String jsonString = IOHandler.getFile(this, CustomParticlesActivity.FILE_NAME);
-        CustomParticle[] customParticles = IOHandler.getSavedParticles(jsonString);
+        if (dbManager == null) {
+            dbManager = new DatabaseManager(this);
+        }
+
+        CustomParticle[] customParticles = dbManager.getParticles();
 
         particles = new Particle[elementAdapters.length + customParticles.length];
         System.arraycopy(customParticles, 0, particles, 0, customParticles.length);

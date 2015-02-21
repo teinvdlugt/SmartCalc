@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
 
 public class CustomParticlesActivity extends ActionBarActivity
@@ -20,6 +19,7 @@ public class CustomParticlesActivity extends ActionBarActivity
 
     private RecyclerView recyclerView;
     private CustomParticle[] customParticles;
+    private DatabaseManager dbManager = null;
 
     private boolean changed = false;
 
@@ -39,8 +39,11 @@ public class CustomParticlesActivity extends ActionBarActivity
     }
 
     private void reloadParticles() {
-        String jsonString = IOHandler.getFile(this, FILE_NAME);
-        customParticles = IOHandler.getSavedParticles(jsonString);
+        if (dbManager == null) {
+            dbManager = new DatabaseManager(this);
+        }
+
+        customParticles = dbManager.getParticles();
     }
 
     @Override

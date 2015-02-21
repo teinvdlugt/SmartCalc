@@ -9,14 +9,38 @@ import android.content.Context;
 import com.teinproductions.tein.smartcalc.R;
 
 public enum BMIState {
-    VERY_SEVERELY_UNDERWEIGHT(R.color.very_severely_underweight, R.color.very_severely_underweight_actionBar, R.color.very_severely_underweight_statusBar),
-    SEVERELY_UNDERWEIGHT(R.color.severely_underweight, R.color.severely_underweight_actionBar, R.color.severely_underweight_statusBar),
-    UNDERWEIGHT(R.color.underweight, R.color.underweight_actionBar, R.color.underweight_statusBar),
-    GOOD_WEIGHT(R.color.good_weight, R.color.good_weight_actionBar, R.color.good_weight_statusBar),
-    OVERWEIGHT(R.color.overweight, R.color.overweight_actionBar, R.color.overweight_statusBar),
-    MODERATELY_OBESE(R.color.moderately_obese, R.color.moderately_obese_actionBar, R.color.moderately_obese_statusBar),
-    SEVERELY_OBESE(R.color.severely_obese, R.color.severely_obese_actionBar, R.color.severely_obese_statusBar),
-    VERY_SEVERELY_OBESE(R.color.very_severely_obese, R.color.very_severely_obese_actionBar, R.color.very_severely_obese_statusBar);
+    VERY_SEVERELY_UNDERWEIGHT(
+            R.color.very_severely_underweight,
+            R.color.very_severely_underweight_actionBar,
+            R.color.very_severely_underweight_statusBar),
+    SEVERELY_UNDERWEIGHT(
+            R.color.severely_underweight,
+            R.color.severely_underweight_actionBar,
+            R.color.severely_underweight_statusBar),
+    UNDERWEIGHT(
+            R.color.underweight,
+            R.color.underweight_actionBar,
+            R.color.underweight_statusBar),
+    GOOD_WEIGHT(
+            R.color.good_weight,
+            R.color.good_weight_actionBar,
+            R.color.good_weight_statusBar),
+    OVERWEIGHT(
+            R.color.overweight,
+            R.color.overweight_actionBar,
+            R.color.overweight_statusBar),
+    MODERATELY_OBESE(
+            R.color.moderately_obese,
+            R.color.moderately_obese_actionBar,
+            R.color.moderately_obese_statusBar),
+    SEVERELY_OBESE(
+            R.color.severely_obese,
+            R.color.severely_obese_actionBar,
+            R.color.severely_obese_statusBar),
+    VERY_SEVERELY_OBESE(
+            R.color.very_severely_obese,
+            R.color.very_severely_obese_actionBar,
+            R.color.very_severely_obese_statusBar);
 
     BMIState(int colorID, int colorActionBar, int colorStatusBar) {
         this.colorID = colorID;
