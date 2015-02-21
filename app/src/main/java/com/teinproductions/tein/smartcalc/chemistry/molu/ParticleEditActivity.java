@@ -1,9 +1,12 @@
 package com.teinproductions.tein.smartcalc.chemistry.molu;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,22 +16,23 @@ import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.CustomDialog;
 import com.teinproductions.tein.smartcalc.EditTextActivity;
-import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 
-public class ParticleEditActivity extends ActionBarActivity {
+public class ParticleEditActivity extends ActionBarActivity
+        implements DiscardChangesConfirmDialog.SaveOrDiscard {
 
-    public static final String PARTICLE_ARRAY = "com.teinproductions.PARTICLE_ARRAY";
-    public static final String PARTICLE_POSITION = "com.teinproductions.PARTICLE_POSITION";
+    public static final String PARTICLE_ID = "com.teinproductions.PARTICLE_ID";
+    public static final String CHANGED = "com.teinproductions.CHANGED";
 
     private EditText nameET, abbrET, massET, densityET;
-    private CustomParticle[] customParticles;
-    private int position;
-    private CustomParticle customParticle;
+
+    private DatabaseManager dbManager;
+    private int id;
+    private CustomParticle particle;
+
+    private boolean typedInAnEditText = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +46,13 @@ public class ParticleEditActivity extends ActionBarActivity {
         massET = (EditText) findViewById(R.id.mass_edit_text);
         densityET = (EditText) findViewById(R.id.density_edit_text);
 
-        customParticles = (CustomParticle[]) getIntent().getExtras().getSerializable(PARTICLE_ARRAY);
-        position = getIntent().getExtras().getInt(PARTICLE_POSITION);
-        if (position == customParticles.length) {
-            customParticles = extendParticles(customParticles);
-        }
-        customParticle = customParticles[position];
+        dbManager = new DatabaseManager(this);
+        id = getIntent().getExtras().getInt(PARTICLE_ID);
+        particle = dbManager.getParticleWithId(id);
 
-        setText();
+        if (particle != null) {
+            setText();
+        }
 
         densityET.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -58,27 +61,41 @@ public class ParticleEditActivity extends ActionBarActivity {
                 return true;
             }
         });
-    }
 
-    private CustomParticle[] extendParticles(CustomParticle[] customParticles) {
-        CustomParticle[] particlesExtended = new CustomParticle[customParticles.length + 1];
-        System.arraycopy(customParticles, 0, particlesExtended, 0, customParticles.length);
-        particlesExtended[customParticles.length] = new CustomParticle(null, null, null, null);
-        return particlesExtended;
+        setTextWatchers();
     }
 
     private void setText() {
-        if (customParticle.getName() != null) {
-            nameET.setText(customParticle.getName());
+        if (particle.getName() != null) {
+            nameET.setText(particle.getName());
         }
-        if (customParticle.getAbbreviation() != null) {
-            abbrET.setText(customParticle.getAbbreviation());
+        if (particle.getAbbreviation() != null) {
+            abbrET.setText(particle.getAbbreviation());
         }
-        if (customParticle.getMass() != null) {
-            massET.setText(new DecimalFormat().format(customParticle.getMass()));
+        if (particle.getMass() != null) {
+            massET.setText(new DecimalFormat().format(particle.getMass()));
         }
-        if (customParticle.getDensity() != null) {
-            densityET.setText(new DecimalFormat().format(customParticle.getDensity()));
+        if (particle.getDensity() != null) {
+            densityET.setText(new DecimalFormat().format(particle.getDensity()));
+        }
+    }
+
+    private void setTextWatchers() {
+        for (final EditText e : new EditText[]{nameET, abbrET, massET, densityET}) {
+            e.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    typedInAnEditText = true;
+                }
+            });
         }
     }
 
@@ -104,7 +121,20 @@ public class ParticleEditActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        onClickSave(null);
+        if (typedInAnEditText) {
+            new DiscardChangesConfirmDialog().show(getSupportFragmentManager(), "discard or save changes");
+        } else {
+            finish(false);
+        }
+    }
+
+    @Override
+    public void saveOrDiscard(boolean save) {
+        if (save) {
+            onClickSave(densityET); // Just a view
+        }
+
+        finish(false);
     }
 
     public void onClickSave(View view) {
@@ -116,8 +146,6 @@ public class ParticleEditActivity extends ActionBarActivity {
                 CustomDialog
                         .newInstance(R.string.no_name, R.string.no_name_dialog_message)
                         .show(getSupportFragmentManager(), "noNameForParticleDialog");
-            } else {
-                deleteParticle();
             }
             return;
         }
@@ -130,35 +158,34 @@ public class ParticleEditActivity extends ActionBarActivity {
             density = Double.parseDouble(densityET.getText().toString());
         }
 
-        customParticle.setName(name);
-        customParticle.setAbbreviation(abbr);
-        customParticle.setMass(mass);
-        customParticle.setDensity(density);
+        particle = new CustomParticle(name, abbr, mass, density);
 
         // Save and finish activity
-        saveParticlesAndFinishActivity();
+        saveParticle();
     }
 
-    private void saveParticlesAndFinishActivity() {
-        IOHandler.save(this, customParticles);
-
-        // Finish the activity
-        setResult(RESULT_OK);
-        finish();
-    }
-
-    public void deleteParticle() {
-        // Convert particles to ArrayList
-        ArrayList<CustomParticle> customParticleArrayList = new ArrayList<>();
-        Collections.addAll(customParticleArrayList, customParticles);
-
-        customParticleArrayList.remove(position);
-        // Convert back to Array
-        customParticles = new CustomParticle[customParticleArrayList.size()];
-        for (int i = 0; i < customParticleArrayList.size(); i++) {
-            customParticles[i] = customParticleArrayList.get(i);
+    private void saveParticle() {
+        if (id == -1) {
+            dbManager.addParticle(particle);
+        } else {
+            dbManager.updateParticle(id, particle);
         }
 
-        saveParticlesAndFinishActivity();
+        finish(true);
+    }
+
+    private void deleteParticle() {
+        if (id != -1) {
+            dbManager.deleteParticle(id);
+        }
+
+        finish(true);
+    }
+
+    private void finish(boolean changed) {
+        Intent intent = new Intent();
+        intent.putExtra(CHANGED, changed);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

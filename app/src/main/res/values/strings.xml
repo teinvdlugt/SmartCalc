@@ -362,5 +362,7 @@
     <string name="relative_humidity">Relative Humidity</string>
     <string name="average_colon">Average:</string>
     <string name="xs_element_image">This is an image of the element</string>
+    <string name="discard_changes">Do you want to discard your changes?</string>
+    <string name="discard">Discard</string>
 
 </resources>

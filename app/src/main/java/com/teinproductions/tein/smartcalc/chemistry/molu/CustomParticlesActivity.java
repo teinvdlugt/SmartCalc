@@ -14,7 +14,6 @@ import com.teinproductions.tein.smartcalc.R;
 public class CustomParticlesActivity extends ActionBarActivity
         implements CustomParticleRecyclerAdapter.OnClickListener {
 
-    public static final String FILE_NAME = "particles";
     public static final int PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE = 1;
 
     private RecyclerView recyclerView;
@@ -68,8 +67,7 @@ public class CustomParticlesActivity extends ActionBarActivity
 
     private void addParticle() {
         Intent intent = new Intent(this, ParticleEditActivity.class);
-        intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, customParticles);
-        intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, customParticles.length); // particles.length is one more than the last index in particles
+        intent.putExtra(ParticleEditActivity.PARTICLE_ID, -1);
         startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
     }
 
@@ -80,9 +78,13 @@ public class CustomParticlesActivity extends ActionBarActivity
         if (requestCode == PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             reloadParticles();
             recyclerView.swapAdapter(new CustomParticleRecyclerAdapter(customParticles, this), true);
-            changed = true;
-        }
 
+            if (data != null && !changed) {
+                changed = data.getBooleanExtra(ParticleEditActivity.CHANGED, true);
+            }
+            if (data == null) {
+            }
+        }
     }
 
     @Override
@@ -96,80 +98,16 @@ public class CustomParticlesActivity extends ActionBarActivity
     @Override
     public void onClickEdit(int i) {
         Intent intent = new Intent(this, ParticleEditActivity.class);
-        intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, customParticles);
-        intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, i);
+        intent.putExtra(ParticleEditActivity.PARTICLE_ID, i + 1);
         startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
     }
 
     @Override
     public void onClickGoTo(int i) {
         Intent intent = new Intent();
+        intent.putExtra(ParticlePagerActivity.RELOAD_PARTICLES, changed);
         intent.putExtra(ParticlePagerActivity.GO_TO_PARTICLE, i);
         setResult(RESULT_OK, intent);
         finish();
     }
-
-    /*private static class CustomParticlesListAdapter extends ArrayAdapter<String> {
-
-        CustomParticle[] customParticles;
-        CustomParticlesActivity activity;
-
-        public CustomParticlesListAdapter(CustomParticlesActivity activity, CustomParticle[] customParticles) {
-            super(activity, R.layout.list_item_custom_particles);
-            this.customParticles = customParticles;
-            this.activity = activity;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            LayoutInflater theInflater = LayoutInflater.from(getContext());
-            View theView = theInflater.inflate(R.layout.list_item_custom_particles, parent, false);
-
-            TextView customParticleName = (TextView) theView.findViewById(R.id.particle_name_text_view);
-            ImageView imgEdit = (ImageView) theView.findViewById(R.id.img_edit);
-            ImageView imgGo = (ImageView) theView.findViewById(R.id.img_go);
-
-            if (customParticles[position].getName() != null) {
-                customParticleName.setText(customParticles[position].getName());
-            }
-
-            View.OnClickListener listener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editParticle(position);
-                }
-            };
-
-            imgEdit.setOnClickListener(listener);
-            customParticleName.setOnClickListener(listener);
-
-            imgGo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    calculateWithParticle(position);
-                }
-            });
-
-            return theView;
-        }
-
-        @Override
-        public int getCount() {
-            return customParticles.length;
-        }
-
-        private void editParticle(int position) {
-            Intent intent = new Intent(getContext(), ParticleEditActivity.class);
-            intent.putExtra(ParticleEditActivity.PARTICLE_ARRAY, customParticles);
-            intent.putExtra(ParticleEditActivity.PARTICLE_POSITION, position);
-            activity.startActivityForResult(intent, PARTICLE_EDIT_TEXT_ACTIVITY_REQUEST_CODE);
-        }
-
-        private void calculateWithParticle(int position) {
-            Intent intent = new Intent();
-            intent.putExtra(ParticlePagerActivity.GO_TO_PARTICLE, position);
-            activity.setResult(RESULT_OK, intent);
-            activity.finish();
-        }
-    }*/
 }

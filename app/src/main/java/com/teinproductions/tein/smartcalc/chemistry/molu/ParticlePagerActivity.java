@@ -47,8 +47,6 @@ public class ParticlePagerActivity extends ActionBarActivity
 
         initializeViews();
 
-        // drawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-
         loadParticles();
 
         setDrawerToggle();
@@ -94,22 +92,6 @@ public class ParticlePagerActivity extends ActionBarActivity
         });
 
         slidingTabLayout.setViewPager(theViewPager);
-        slidingTabLayout.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
     }
 
     private void setDrawerToggle() {
@@ -137,10 +119,7 @@ public class ParticlePagerActivity extends ActionBarActivity
     private void loadParticles() {
         ElementAdapter[] elementAdapters = ElementAdapter.values(this);
 
-        if (dbManager == null) {
-            dbManager = new DatabaseManager(this);
-        }
-
+        dbManager = new DatabaseManager(this);
         CustomParticle[] customParticles = dbManager.getParticles();
 
         particles = new Particle[elementAdapters.length + customParticles.length];

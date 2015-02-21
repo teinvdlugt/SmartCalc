@@ -50,21 +50,6 @@ public class IOHandler {
         }
     }
 
-    public static void save(Context context, CustomParticle[] particles) {
-        try {
-            // Save the values
-            String jsonString = IOHandler.arrayToJSON(particles);
-
-            FileOutputStream outputStream;
-            outputStream = context.openFileOutput(CustomParticlesActivity.FILE_NAME, Context.MODE_PRIVATE);
-            outputStream.write(jsonString.getBytes());
-            outputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(context, "Failed to save particle", Toast.LENGTH_SHORT).show();
-        }
-    }
-
     public static void openWebPage(Context context, String URL) {
         if (URLUtil.isValidUrl(URL)) {
             Uri webPage = Uri.parse(URL);
@@ -77,98 +62,6 @@ public class IOHandler {
             if (isIntentSafe) {
                 context.startActivity(webIntent);
             }
-        }
-    }
-
-
-    public static String toJSON(CustomParticle particle) {
-        String strName, strAbbr, strMass, strDensity, quote = "\"";
-        if (particle.getName() != null) {
-            strName = quote + particle.getName() + quote;
-        } else {
-            strName = "null";
-        }
-        if (particle.getAbbreviation() != null) {
-            strAbbr = quote + particle.getAbbreviation() + quote;
-        } else {
-            strAbbr = "null";
-        }
-        if (particle.getMass() != null) {
-            strMass = particle.getMass().toString();
-        } else {
-            strMass = "null";
-        }
-        if (particle.getDensity() != null) {
-            strDensity = particle.getDensity().toString();
-        } else {
-            strDensity = "null";
-        }
-        return "{\"name\":" + strName + ",\"abbreviation\":" + strAbbr +
-                ",\"mass\":" + strMass + ",\"density\":" + strDensity + "}";
-    }
-
-    public static CustomParticle particleFromJSON(JSONObject jObject) {
-        String name = null, abbr = null;
-        Double mass = null, density = null;
-        try {
-            if (!jObject.isNull("name")) {
-                name = jObject.getString("name");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (!jObject.isNull("abbreviation")) {
-                abbr = jObject.getString("abbreviation");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            mass = jObject.getDouble("mass");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            density = jObject.getDouble("density");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return new CustomParticle(name, abbr, mass, density);
-    }
-
-    public static String arrayToJSON(CustomParticle[] customParticles) {
-        StringBuilder sb = new StringBuilder("{\"particles\":[");
-        for (CustomParticle customParticle : customParticles) {
-            sb.append(toJSON(customParticle));
-        }
-        sb.append("]}");
-        return sb.toString().replace("}{", "},{"); // put commas between the multiple JSONObjects
-    }
-
-    public static CustomParticle[] particleArrayFromJSON(JSONArray jArray) {
-        CustomParticle[] customParticles = new CustomParticle[jArray.length()];
-        try {
-            for (int i = 0; i < jArray.length(); i++) {
-                customParticles[i] = particleFromJSON(jArray.getJSONObject(i));
-            }
-            return customParticles;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public static CustomParticle[] getSavedParticles(String jsonString) {
-        if (jsonString == null) return new CustomParticle[0];
-
-        try {
-            JSONObject jsonObject = new JSONObject(jsonString);
-            JSONArray jsonArray = jsonObject.getJSONArray("particles");
-            return particleArrayFromJSON(jsonArray);
-        } catch (JSONException e) {
-            e.printStackTrace();
-            return new CustomParticle[0];
         }
     }
 
