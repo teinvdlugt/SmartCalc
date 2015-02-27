@@ -2,13 +2,13 @@ package com.teinproductions.tein.smartcalc.maths;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.CustomDialog;
 import com.teinproductions.tein.smartcalc.EditTextActivity;
@@ -37,7 +37,7 @@ public class FactorizationActivity extends EditTextActivity {
         saveResultTextViewText = true;
 
         infoWebPageUri = "http://en.wikipedia.org/wiki/Integer_factorization";
-        asyncTask = new FactorizationAsyncTask();
+        asyncTask = new FactorizationAsyncTask(this);
     }
 
     public void onClickButton(View view) {
@@ -67,7 +67,7 @@ public class FactorizationActivity extends EditTextActivity {
 
     private void execute() {
         asyncTask.cancel(true);
-        asyncTask = new FactorizationAsyncTask();
+        asyncTask = new FactorizationAsyncTask(this);
         asyncTask.execute();
     }
 
@@ -79,7 +79,7 @@ public class FactorizationActivity extends EditTextActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 asyncTask.cancel(true);
                 finish();
@@ -97,15 +97,17 @@ public class FactorizationActivity extends EditTextActivity {
 
     class FactorizationAsyncTask extends AsyncTask<Void, Void, Void> {
 
-        String result;
+        private Integer[] result;
+        private Context context;
+
+        FactorizationAsyncTask(Context context) {
+            this.context = context;
+        }
 
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                Integer[] resultArray = PrimeCalculator.factorize(input, this);
-
-                outputResult(resultArray);
-
+                result = PrimeCalculator.factorize(input, this);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
@@ -114,7 +116,27 @@ public class FactorizationActivity extends EditTextActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            resultTextView.setText(result);
+            String resultText;
+
+
+            if (result == null) {
+                resultText = context.getString(R.string.none);
+            } else {
+                StringBuilder stringBuilder = new StringBuilder("");
+
+                for (int i = 0; i < result.length; i++) {
+                    if (i == 0) {
+                        stringBuilder.append(result[i].toString());
+                    } else {
+                        stringBuilder.append(", ").append(result[i].toString());
+                    }
+                }
+
+                resultText = stringBuilder.toString();
+            }
+
+
+            resultTextView.setText(resultText);
             fadeIn(resultTextView, null);
             fadeOut(progressBar, new AnimatorListenerAdapter() {
                 @Override
@@ -122,20 +144,6 @@ public class FactorizationActivity extends EditTextActivity {
                     progressBar.setVisibility(View.GONE);
                 }
             });
-        }
-
-        private void outputResult(Integer[] factors) {
-            StringBuilder stringBuilder = new StringBuilder("");
-
-            for (int i = 0; i < factors.length; i++) {
-                if (i == 0) {
-                    stringBuilder.append(factors[i].toString());
-                } else {
-                    stringBuilder.append(", ").append(factors[i].toString());
-                }
-            }
-
-            result = stringBuilder.toString();
         }
     }
 }

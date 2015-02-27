@@ -1,8 +1,6 @@
 package com.teinproductions.tein.smartcalc.maths;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.ArrayChecker;
 
@@ -46,6 +44,10 @@ public class PrimeCalculator {
         Integer[] factors1 = factorize(num1, asyncTask);
         Integer[] factors2 = factorize(num2, asyncTask);
 
+        if (factors1 == null || factors2 == null) {
+            return null;
+        }
+
         ArrayList<Integer> factorList1 = ArrayChecker.convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = ArrayChecker.convertToArrayList(factors2);
 
@@ -70,6 +72,10 @@ public class PrimeCalculator {
     public static Integer findLCM(Long num1, Long num2, AsyncTask asyncTask) {
         Integer[] factors1 = factorize(num1, asyncTask);
         Integer[] factors2 = factorize(num2, asyncTask);
+
+        if (factors1 == null || factors2 == null) {
+            return null;
+        }
 
         ArrayList<Integer> factorList1 = ArrayChecker.convertToArrayList(factors1);
         ArrayList<Integer> factorList2 = ArrayChecker.convertToArrayList(factors2);

@@ -3,6 +3,7 @@ package com.teinproductions.tein.smartcalc.maths;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
@@ -33,7 +34,7 @@ public class LCMActivity extends EditTextActivity {
         saveResultTextViewText = true;
 
         infoWebPageUri = "http://en.wikipedia.org/wiki/Least_common_multiple";
-        asyncTask = new LCMCreator();
+        asyncTask = new LCMCreator(this);
     }
 
     public void onClickButton(View view) {
@@ -66,7 +67,7 @@ public class LCMActivity extends EditTextActivity {
 
     private void execute() {
         asyncTask.cancel(true);
-        asyncTask = new LCMCreator();
+        asyncTask = new LCMCreator(this);
         asyncTask.execute(num1, num2);
     }
 
@@ -97,6 +98,11 @@ public class LCMActivity extends EditTextActivity {
     class LCMCreator extends AsyncTask<Long, Void, Void> {
 
         Integer result;
+        Context context;
+
+        LCMCreator(Context context) {
+            this.context = context;
+        }
 
         @Override
         protected Void doInBackground(Long... params) {
@@ -112,8 +118,15 @@ public class LCMActivity extends EditTextActivity {
 
         @Override
         protected void onPostExecute(Void aVoid) {
+            String resultText;
 
-            resultTextView.setText(result.toString());
+            if (result == null) {
+                resultText = context.getString(R.string.none);
+            } else {
+                resultText = result.toString();
+            }
+
+            resultTextView.setText(resultText);
             fadeIn(resultTextView, null);
             fadeOut(progressBar, new AnimatorListenerAdapter() {
                 @Override
