@@ -3,7 +3,6 @@ package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -16,14 +15,6 @@ import com.teinproductions.tein.smartcalc.R;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 
 public class NumeralSystemConvertActivity extends ActionBarActivity
         implements NumeralSystemEditDialog.OnClickListener {
@@ -47,7 +38,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ll.setWeightSum(1);
 
-        Toolbar toolbar = (Toolbar) getLayoutInflater().inflate(R.layout.app_bar_dark, ll, false);
+        Toolbar toolbar = (Toolbar) getLayoutInflater().inflate(R.layout.layout_app_bar_dark, ll, false);
         ll.addView(toolbar);
 
         setSupportActionBar(toolbar);

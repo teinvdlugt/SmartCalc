@@ -3,7 +3,6 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +36,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = inflater.inflate(R.layout.element_row, viewGroup, false);
+        View view = inflater.inflate(R.layout.list_item_element, viewGroup, false);
         return new MyViewHolder(view);
     }
 

@@ -59,7 +59,7 @@ public class ParticlePagerActivity extends ActionBarActivity
 
         slidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.molu_colorAccent));
         slidingTabLayout.setBackgroundColor(getResources().getColor(R.color.molu_colorPrimary));
-        slidingTabLayout.setCustomTabView(R.layout.tab, R.id.text_view);
+        slidingTabLayout.setCustomTabView(R.layout.layout_tab, R.id.text_view);
 
         setUpViewPagerAndSlidingTabLayout();
         theViewPager.setCurrentItem(0);

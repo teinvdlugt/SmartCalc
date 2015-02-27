@@ -336,5 +336,21 @@
     <string name="x_or_encoder">XOR codeur</string>
     <string name="xs_calculate_with_this_particle">Rekenen met dit deeltje</string>
     <string name="xs_edit_custom_particle">Bewerk dit deeltje</string>
+    <string name="ambient_air_pressure">Omgevinsluchtdruk</string>
+    <string name="ambient_air_temp">Omgevingstemperatuur</string>
+    <string name="ambient_light">Omgevingslicht</string>
+    <string name="average_colon">Gemiddeld:</string>
+    <string name="measure">Meten</string>
+    <string name="measure_gravity">Meet de zwaartekracht</string>
+    <string name="miscellaneous_measures">Verschillend</string>
+    <string name="no_data">Geen gegevens</string>
+    <string name="none">Geen</string>
+    <string name="pause">Pauze</string>
+    <string name="play">Play</string>
+    <string name="relative_humidity">Relatieve luchtvochtigheid</string>
+    <string name="short_ton"></string>
+    <string name="total_colon">Totaal:</string>
+    <string name="total_gravity">Totale zwaartekracht</string>
+    <string name="xs_element_image">Dit is een plaatje van het element</string>
 
 </resources>

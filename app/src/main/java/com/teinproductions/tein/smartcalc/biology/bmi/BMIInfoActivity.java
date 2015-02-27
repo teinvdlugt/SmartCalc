@@ -36,7 +36,7 @@ public class BMIInfoActivity extends ActionBarActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_view_activity);
+        setContentView(R.layout.activity_list_view);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -81,7 +81,7 @@ public class BMIInfoActivity extends ActionBarActivity {
 
         // initialize colorFrom and colorTo
         if (backgroundColorID == null) {
-            colorFrom = getResources().getColor(android.R.color.white);
+            colorFrom = getResources().getColor(R.color.windowBackground);
         } else {
             colorFrom = getResources().getColor(backgroundColorID);
         }
@@ -90,7 +90,7 @@ public class BMIInfoActivity extends ActionBarActivity {
 
         // Initialize colorFromActionBar and colorToActionBar
         if (backgroundColorActionBarID == null) {
-            colorFromActionBar = getResources().getColor(android.R.color.darker_gray);
+            colorFromActionBar = getResources().getColor(R.color.colorPrimary);
         } else {
             colorFromActionBar = getResources().getColor(backgroundColorActionBarID);
         }
@@ -99,7 +99,7 @@ public class BMIInfoActivity extends ActionBarActivity {
 
         // Initialize colorFromStatusBar and colorToStatusBar
         if (backgroundColorStatusBarID == null) {
-            colorFromStatusBar = getResources().getColor(android.R.color.darker_gray);
+            colorFromStatusBar = getResources().getColor(R.color.colorPrimaryDark);
         } else {
             colorFromStatusBar = getResources().getColor(backgroundColorStatusBarID);
         }
@@ -169,13 +169,13 @@ public class BMIInfoActivity extends ActionBarActivity {
     public class BMIInfoAdapter extends ArrayAdapter<String> {
 
         public BMIInfoAdapter(Context context) {
-            super(context, R.layout.bmi_info_row_layout, BMIState.getNames(context));
+            super(context, R.layout.list_item_bmi_info, BMIState.getNames(context));
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            View theView = inflater.inflate(R.layout.bmi_info_row_layout, parent, false);
+            View theView = inflater.inflate(R.layout.list_item_bmi_info, parent, false);
 
             TextView name = (TextView) theView.findViewById(R.id.state_name);
             TextView value = (TextView) theView.findViewById(R.id.state_value);

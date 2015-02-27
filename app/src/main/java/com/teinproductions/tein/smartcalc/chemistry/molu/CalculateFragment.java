@@ -38,7 +38,7 @@ public class CalculateFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View theView = inflater.inflate(R.layout.calculate_fragment, container, false);
+        View theView = inflater.inflate(R.layout.fragment_calculate, container, false);
 
         animDuration = getActivity().getResources().getInteger(android.R.integer.config_shortAnimTime);
 

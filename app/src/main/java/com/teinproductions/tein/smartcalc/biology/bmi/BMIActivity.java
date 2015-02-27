@@ -149,7 +149,7 @@ public class BMIActivity extends EditTextActivity {
 
     private Integer getColorFrom() {
         if (backgroundColorID == null) {
-            return getResources().getColor(android.R.color.white);
+            return getResources().getColor(R.color.windowBackground);
         } else {
             return getResources().getColor(backgroundColorID);
         }
@@ -157,7 +157,7 @@ public class BMIActivity extends EditTextActivity {
 
     private Integer getColorFromActionBar() {
         if (backgroundColorActionBarID == null) {
-            return getResources().getColor(android.R.color.darker_gray);
+            return getResources().getColor(R.color.colorPrimary);
         } else {
             return getResources().getColor(backgroundColorActionBarID);
         }
@@ -165,7 +165,7 @@ public class BMIActivity extends EditTextActivity {
 
     private Integer getColorFromStatusBar() {
         if (backgroundColorStatusBarID == null) {
-            return getResources().getColor(android.R.color.darker_gray);
+            return getResources().getColor(R.color.colorPrimaryDark);
         } else {
             return getResources().getColor(backgroundColorStatusBarID);
         }

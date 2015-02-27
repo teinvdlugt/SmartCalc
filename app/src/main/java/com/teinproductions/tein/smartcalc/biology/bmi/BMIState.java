@@ -87,6 +87,4 @@ public enum BMIState {
         if (endListener != null) animator.addListener(endListener);
         animator.start();
     }
-
-
 }

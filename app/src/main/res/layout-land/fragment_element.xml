@@ -99,7 +99,7 @@
             android:name="com.teinproductions.tein.smartcalc.chemistry.molu.CalculateFragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:layout="@layout/calculate_fragment" />
+            tools:layout="@layout/fragment_calculate" />
 
     </ScrollView>
 
