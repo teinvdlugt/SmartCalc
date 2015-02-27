@@ -47,10 +47,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         ll.setWeightSum(1);
 
-        Toolbar toolbar = new Toolbar(this);
-        toolbar.setElevation(4);
-        toolbar.setBackgroundResource(R.color.primary_material_dark);
-
+        Toolbar toolbar = (Toolbar) getLayoutInflater().inflate(R.layout.app_bar_dark, ll, false);
         ll.addView(toolbar);
 
         setSupportActionBar(toolbar);
