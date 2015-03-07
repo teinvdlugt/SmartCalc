@@ -348,9 +348,10 @@
     <string name="pause">Pauze</string>
     <string name="play">Play</string>
     <string name="relative_humidity">Relatieve luchtvochtigheid</string>
-    <string name="short_ton"></string>
+    <string name="short_ton">Short tons</string>
     <string name="total_colon">Totaal:</string>
     <string name="total_gravity">Totale zwaartekracht</string>
     <string name="xs_element_image">Dit is een plaatje van het element</string>
+    <string name="short_ton_abbr">ST</string>
 
 </resources>

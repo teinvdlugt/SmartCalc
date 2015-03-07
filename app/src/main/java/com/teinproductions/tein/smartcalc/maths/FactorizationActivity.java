@@ -1,7 +1,5 @@
 package com.teinproductions.tein.smartcalc.maths;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +11,8 @@ import android.view.inputmethod.EditorInfo;
 import com.teinproductions.tein.smartcalc.CustomDialog;
 import com.teinproductions.tein.smartcalc.EditTextActivity;
 import com.teinproductions.tein.smartcalc.R;
+
+import java.util.ArrayList;
 
 
 public class FactorizationActivity extends EditTextActivity {
@@ -43,25 +43,11 @@ public class FactorizationActivity extends EditTextActivity {
     public void onClickButton(View view) {
         try {
             input = Long.parseLong(editText1.getText().toString());
-
-            fadeIn(progressBar, null);
-            fadeOut(resultTextView, new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    resultTextView.setVisibility(View.GONE);
-                    execute();
-                }
-            });
+            execute();
         } catch (NumberFormatException e) {
             CustomDialog.invalidNumber(getSupportFragmentManager());
 
-            fadeOut(resultTextView, new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    resultTextView.setText("");
-                    fadeIn(resultTextView, null);
-                }
-            });
+            resultTextView.setText("");
         }
     }
 
@@ -95,9 +81,10 @@ public class FactorizationActivity extends EditTextActivity {
         super.onDestroy();
     }
 
-    class FactorizationAsyncTask extends AsyncTask<Void, Void, Void> {
+    class FactorizationAsyncTask extends AsyncTask<Void, String, Void> {
 
-        private Integer[] result;
+        private ArrayList<Integer> result;
+        private boolean lastThingStillInProgress = true;
         private Context context;
 
         FactorizationAsyncTask(Context context) {
@@ -107,43 +94,126 @@ public class FactorizationActivity extends EditTextActivity {
         @Override
         protected Void doInBackground(Void... params) {
             try {
-                result = PrimeCalculator.factorize(input, this);
+                result = new ArrayList<>();
+                factorize(input);
+                result.clone();
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
             return null;
         }
 
+        private void publishProgress2() {
+            String resultString = formatResult(result);
+            publishProgress(resultString);
+        }
+
         @Override
-        protected void onPostExecute(Void aVoid) {
-            String resultText;
+        protected void onProgressUpdate(String... text) {
+            resultTextView.setText(text[0]);
+        }
 
-
-            if (result == null) {
-                resultText = context.getString(R.string.none);
+        private String formatResult(ArrayList<Integer> result) {
+            if (result.isEmpty()) {
+                return context.getString(R.string.none);
             } else {
                 StringBuilder stringBuilder = new StringBuilder("");
 
-                for (int i = 0; i < result.length; i++) {
+                for (int i = 0; i < result.size(); i++) {
                     if (i == 0) {
-                        stringBuilder.append(result[i].toString());
+                        stringBuilder.append(result.get(i).toString());
                     } else {
-                        stringBuilder.append(", ").append(result[i].toString());
+                        stringBuilder.append(", ").append(result.get(i).toString());
                     }
                 }
 
-                resultText = stringBuilder.toString();
+                return stringBuilder.toString();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            if (result != null && !result.isEmpty()) {
+                resultTextView.setText(formatResult(result) + "...");
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            resultTextView.setText(formatResult(result));
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        public void factorize(Long integer) {
+            if (integer == 0 || integer == 1) {
+                result.clear();
+                return;
             }
 
+            Double squareRoot = Math.sqrt(integer);
 
-            resultTextView.setText(resultText);
-            fadeIn(resultTextView, null);
-            fadeOut(progressBar, new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    progressBar.setVisibility(View.GONE);
+            Integer i = 2;
+            while (1 + 1 == 2) {
+                if (isCancelled()) return;
+
+                if (integer == 1) {
+                    return;
                 }
-            });
+                if (i > squareRoot && (long) i != integer) {
+                    if (lastThingStillInProgress) {
+                        if (!result.isEmpty()) {
+                            result.remove(result.size() - 1);
+                        }
+                        lastThingStillInProgress = false;
+                    }
+                    result.add(Integer.parseInt(integer.toString()));
+                    return;
+                } else if (integer % i == 0) {
+                    if (lastThingStillInProgress) {
+                        if (!result.isEmpty()) {
+                            result.remove(result.size() - 1);
+                        }
+                        lastThingStillInProgress = false;
+                    }
+                    result.add(i);
+                    lastThingStillInProgress = false;
+                    publishProgress2();
+                    integer /= i;
+                    squareRoot = Math.sqrt(integer);
+                    continue;
+                }
+
+                if (lastThingStillInProgress) {
+                    // overwrite last item in result
+                    try {
+                        result.remove(result.size() - 1);
+                        result.add(i);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        // if this is the first item in the result arrayList
+                        result.add(i);
+                    }
+                } else {
+                    // add item
+                    result.add(i);
+                    lastThingStillInProgress = true;
+                }
+                publishProgress2();
+                i = findNextPrimeNumber(i);
+            }
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        public Integer findNextPrimeNumber(Integer integer) {
+
+            int i = integer + 1;
+            while (1 + 1 == 2) {
+                if (isCancelled()) return null;
+
+                if (PrimeCalculator.isPrimeNumber(i, this)) {
+                    return i;
+                }
+                i++;
+            }
         }
     }
 }
