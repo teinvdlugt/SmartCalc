@@ -42,6 +42,10 @@
             android:name="com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity"
             android:label="@string/x_or_encoder"
             android:theme="@style/DarkActivityStyle" />
+        <activity
+            android:name=".maths.RSAEncryptionActivity"
+            android:label="@string/rsa_encryption"
+            android:theme="@style/DarkActivityStyle" />
 
         <!-- PHYSICS -->
 

@@ -363,5 +363,9 @@
     <string name="average_colon">Average:</string>
     <string name="xs_element_image">This is an image of the element</string>
     <string name="none">None</string>
+    <string name="calculate_prime_numbers">Calculate Prime Numbers</string>
+    <string name="calculating">Calculating...</string>
+    <string name="rsa_encryption">RSA Encryption</string>
+    <string name="large_prime_number">Large Prime Number</string>
 
 </resources>

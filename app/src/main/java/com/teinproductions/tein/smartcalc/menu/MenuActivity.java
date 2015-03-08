@@ -18,6 +18,7 @@ import com.teinproductions.tein.smartcalc.maths.ComplexActivity;
 import com.teinproductions.tein.smartcalc.maths.FactorizationActivity;
 import com.teinproductions.tein.smartcalc.maths.GCFActivity;
 import com.teinproductions.tein.smartcalc.maths.LCMActivity;
+import com.teinproductions.tein.smartcalc.maths.RSAEncryptionActivity;
 import com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity;
 import com.teinproductions.tein.smartcalc.measure.GravityMeasureActivity;
 import com.teinproductions.tein.smartcalc.measure.MiscMeasureActivity;
@@ -43,12 +44,14 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         root = (SmartCalcMenu) new SmartCalcMenu()
+                         // Maths
                 .add(new SmartCalcMenu(getString(R.string.maths))
                         .add(new SmartCalcMenuItem(getString(R.string.prime_factorization), FactorizationActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.greatest_common_factor), GCFActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.least_common_multiple), LCMActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.complex_numbers), ComplexActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.x_or_encoder), XOrEncoderActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.rsa_encryption), RSAEncryptionActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)))
                         // Physics
                 .add(new SmartCalcMenu(getString(R.string.physics))
