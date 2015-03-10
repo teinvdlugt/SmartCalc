@@ -367,5 +367,7 @@
     <string name="calculating">Calculating...</string>
     <string name="rsa_encryption">RSA Encryption</string>
     <string name="large_prime_number">Large Prime Number</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 
 </resources>
