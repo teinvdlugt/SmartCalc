@@ -369,5 +369,8 @@
     <string name="large_prime_number">Large Prime Number</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="create_keys">Create Keys</string>
+    <string name="encrypt">Encrypt</string>
+    <string name="decrypt">Decrypt</string>
 
 </resources>

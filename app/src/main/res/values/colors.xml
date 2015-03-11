@@ -15,6 +15,9 @@
     <color name="blue_text">@android:color/darker_gray</color>
     <color name="green_text">@android:color/darker_gray</color>
 
+    <color name="button_bar_button_inactive">#ff6d6d6d</color>
+    <color name="button_bar_button_active">#ffafafaf</color>
+
     <color name="very_severely_underweight">#FF7043</color>
     <color name="severely_underweight">#FFA726</color>
     <color name="underweight">#FFCA28</color>

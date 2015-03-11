@@ -46,6 +46,10 @@
             android:name=".maths.RSAEncryptionActivity"
             android:label="@string/rsa_encryption"
             android:theme="@style/DarkActivityStyle" />
+        <activity
+            android:name=".maths.RSAEncryptionActivityViewPager"
+            android:label="RSA ViewPager"
+            android:theme="@style/DarkActivityStyle" />
 
         <!-- PHYSICS -->
 

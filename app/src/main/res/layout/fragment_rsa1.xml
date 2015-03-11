@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/encrypt_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="@string/encrypt" />
+
+    <Button
+        android:id="@+id/create_keys_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/encrypt_button"
+        android:layout_marginBottom="16dp"
+        android:text="@string/create_keys" />
+
+    <Button
+        android:id="@+id/decrypt_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/encrypt_button"
+        android:layout_marginTop="16dp"
+        android:text="@string/decrypt" />
+
+</RelativeLayout>
