@@ -372,5 +372,8 @@
     <string name="create_keys">Create Keys</string>
     <string name="encrypt">Encrypt</string>
     <string name="decrypt">Decrypt</string>
+    <string name="choose_prime_numbers_title">Choose two numbers.</string>
+    <string name="choose_prime_numbers_explanation">The bigger the safer, but it will take longer.</string>
+    <string name="choose_one_of_these_options_colon">Choose one of these options:</string>
 
 </resources>
