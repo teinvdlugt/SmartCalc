@@ -306,7 +306,6 @@
     <string name="edit_particle">Bewerk deeltje</string>
     <string name="encode">Coderen</string>
     <string name="encoding_error_dialog_message">Er is iets mis gegaan tijdens het coderen van je bericht.</string>
-    <string name="error_parsing_json">Er is iets mis gegaan tijdens het opslaan van het deeltje.</string>
     <string name="forward_slash">/</string>
     <string name="hexadecimal">Hexadecimaal</string>
     <string name="i_imaginary_part">i</string>
@@ -351,7 +350,17 @@
     <string name="short_ton">Short tons</string>
     <string name="total_colon">Totaal:</string>
     <string name="total_gravity">Totale zwaartekracht</string>
-    <string name="xs_element_image">Dit is een plaatje van het element</string>
     <string name="short_ton_abbr">ST</string>
+    <string name="calculate_prime_numbers">Bereken priemgetallen</string>
+    <string name="calculating">Berekenen&#8230;</string>
+    <string name="choose_one_of_these_options_colon">Maak een keuze:</string>
+    <string name="choose_prime_numbers_explanation">Hoe groter hoe veiliger, maar hoe langer het duurt.</string>
+    <string name="choose_prime_numbers_title">Kies twee getallen</string>
+    <string name="create_keys">Maak sleutels</string>
+    <string name="decrypt">Decoderen</string>
+    <string name="encrypt">Versleutelen</string>
+    <string name="large_prime_number">Groot priemgetal</string>
+    <string name="next">Volgende</string>
+    <string name="previous">Vorige</string>
 
 </resources>

@@ -10,8 +10,6 @@ import android.widget.EditText;
 import com.teinproductions.tein.smartcalc.ArrayChecker;
 import com.teinproductions.tein.smartcalc.R;
 
-import java.math.BigInteger;
-
 public class NumeralSystemEditText extends EditText {
 
     private final NumeralSystem system;

@@ -83,7 +83,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                clickListener.onItemClick(RecyclerAdapter.this, i);
+                clickListener.onItemClick(i);
             }
         });
     }
@@ -104,6 +104,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     }
 
     public static interface OnRecyclerItemClickListener {
-        public void onItemClick(RecyclerAdapter recyclerAdapter, int i);
+        public void onItemClick(int i);
     }
 }

@@ -198,7 +198,7 @@ public class ParticlePagerActivity extends ActionBarActivity
     }
 
     @Override
-    public void onItemClick(RecyclerAdapter recyclerAdapter, int i) {
+    public void onItemClick(int i) {
         drawerLayout.closeDrawer(recyclerView);
         theViewPager.setCurrentItem(i, true);
     }

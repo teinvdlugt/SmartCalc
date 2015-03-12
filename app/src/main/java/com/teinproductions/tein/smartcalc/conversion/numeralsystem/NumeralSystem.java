@@ -1,12 +1,10 @@
 package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.teinproductions.tein.smartcalc.ArrayChecker;
 import com.teinproductions.tein.smartcalc.R;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 
 public class NumeralSystem {

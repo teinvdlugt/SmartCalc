@@ -226,9 +226,9 @@ public class RSAEncryptionActivity extends ActionBarActivity {
 
 
             // To keep track of the calculations, you can use this StringBuilder.
-            sb.append(totient + " = " + floorDivs.get(0) + "(" + betweenBrackets.get(0) + ")" + " + " + modulos.get(0));
+            sb.append(totient).append(" = ").append(floorDivs.get(0)).append("(").append(betweenBrackets.get(0)).append(")").append(" + ").append(modulos.get(0));
             for (int i = 1; i < floorDivs.size(); i++) {
-                sb.append("\n" + betweenBrackets.get(i - 1) + " = " + floorDivs.get(i) + "(" + betweenBrackets.get(i) + ")" + " + " + modulos.get(i));
+                sb.append("\n").append(betweenBrackets.get(i - 1)).append(" = ").append(floorDivs.get(i)).append("(").append(betweenBrackets.get(i)).append(")").append(" + ").append(modulos.get(i));
             }
 
 
@@ -242,7 +242,7 @@ public class RSAEncryptionActivity extends ActionBarActivity {
             }
             map.put(betweenBrackets.get(betweenBrackets.size() - 1), -floorDivs.get(floorDivs.size() - 1));
 
-            sb.append("\n" + calcToString(map));
+            sb.append("\n").append(calcToString(map));
 
             while (!isReady(map, totient, e)) {
                 if (isCancelled()) return;
@@ -267,18 +267,18 @@ public class RSAEncryptionActivity extends ActionBarActivity {
                     map.remove(key);
                 }
 
-                sb.append("\n" + calcToString(map));
+                sb.append("\n").append(calcToString(map));
             }
 
             Long result = map.get(e);
             if (result < 0) {
                 d = totient + result;
-                sb.append("\nd = " + totient + " - " + -result);
+                sb.append("\nd = ").append(totient).append(" - ").append(-result);
             } else {
                 d = result;
             }
 
-            sb.append("\nd = " + d);
+            sb.append("\nd = ").append(d);
         }
 
         private long floorDiv(long totient, long e) {
@@ -311,7 +311,7 @@ public class RSAEncryptionActivity extends ActionBarActivity {
                 final Long key = (Long) map.keySet().toArray()[i];
                 final Long value = map.get(key);
 
-                sb.append(value + "(" + key + ")");
+                sb.append(value).append("(").append(key).append(")");
             }
 
             return sb.toString();

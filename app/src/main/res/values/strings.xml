@@ -307,7 +307,6 @@
     <string name="custom_particles">Custom Particles</string>
     <string name="edit_particle">Edit Particle</string>
     <string name="temperature_conversion">Temperature Conversion</string>
-    <string name="error_parsing_json">Something went wrong while reading your saved particles.</string>
     <string name="add_particle">Add</string>
     <string name="delete">Delete</string>
     <string name="no_name">No Name</string>
@@ -361,10 +360,9 @@
     <string name="ambient_light">Ambient Light</string>
     <string name="relative_humidity">Relative Humidity</string>
     <string name="average_colon">Average:</string>
-    <string name="xs_element_image">This is an image of the element</string>
     <string name="none">None</string>
     <string name="calculate_prime_numbers">Calculate Prime Numbers</string>
-    <string name="calculating">Calculating...</string>
+    <string name="calculating">Calculating&#8230;</string>
     <string name="rsa_encryption">RSA Encryption</string>
     <string name="large_prime_number">Large Prime Number</string>
     <string name="next">Next</string>

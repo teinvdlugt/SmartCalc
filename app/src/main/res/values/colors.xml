@@ -12,9 +12,6 @@
     <color name="molu_colorPrimaryDark">#1976D2</color>
     <color name="molu_colorAccent">#FFEB3B</color>
 
-    <color name="blue_text">@android:color/darker_gray</color>
-    <color name="green_text">@android:color/darker_gray</color>
-
     <color name="button_bar_button_inactive">#ff6d6d6d</color>
     <color name="button_bar_button_active">#ffafafaf</color>
 

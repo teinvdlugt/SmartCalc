@@ -113,9 +113,7 @@ public class NumeralSystemConvertActivity extends ActionBarActivity
     private void checkForPreloadedSystems() {
         NumeralSystem[] preloaded = NumeralSystem.preloaded();
         for (int i = 0; i < preloaded.length; i++) {
-            if (NumeralSystem.contains(systems, preloaded[i], this)) {
-                continue;
-            } else {
+            if (!NumeralSystem.contains(systems, preloaded[i], this)) {
                 insertAtPos(preloaded[i], i);
             }
         }

@@ -20,10 +20,10 @@ public class Units {
             this.word = word;
         }
 
-        private Double factor;
-        private Integer word, abbreviation;
+        private final Double factor;
+        private final Integer word, abbreviation;
 
-        public static Double C = 299792485.0;
+        public static final Double C = 299792485.0;
 
         public Double convertTo(Velocity converted, Double value) {
             return value / this.getFactor() * converted.getFactor();
@@ -80,8 +80,8 @@ public class Units {
             this.abbreviation = abbreviation;
         }
 
-        private Double factor;
-        private int word, abbreviation;
+        private final Double factor;
+        private final int word, abbreviation;
 
         public Double convertTo(Time converted, Double value) {
             return value / this.getFactor() * converted.getFactor();
@@ -139,8 +139,8 @@ public class Units {
             this.abbreviation = abbreviation;
         }
 
-        private Double factor;
-        private int word, abbreviation;
+        private final Double factor;
+        private final int word, abbreviation;
 
         public Double convertTo(Length converted, Double value) {
             return value / this.getFactor() * converted.getFactor();
@@ -190,8 +190,8 @@ public class Units {
         POUND(2.20462, R.string.pound, R.string.pound_abbr),
         OUNCE(35.274, R.string.ounce, R.string.ounce_abbr);
 
-        Double factor;
-        int word, abbreviation;
+        final Double factor;
+        final int word, abbreviation;
 
         Mass(Double factor, int word, int abbreviation) {
             this.factor = factor;
@@ -242,7 +242,7 @@ public class Units {
         CELSIUS(R.string.celsius, R.string.celsius_abbr),
         FAHRENHEIT(R.string.fahrenheit, R.string.fahrenheit_abbr);
 
-        private int word, abbreviation;
+        private final int word, abbreviation;
 
         Temperature(int word, int abbreviation) {
             this.word = word;

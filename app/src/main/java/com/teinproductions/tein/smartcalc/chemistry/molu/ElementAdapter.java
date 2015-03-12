@@ -7,7 +7,7 @@ public class ElementAdapter implements Particle {
 
     private transient Context context;
     // transient because a context is not Serializable (http://goo.gl/0OoIaS)
-    private Element element;
+    private final Element element;
 
     public ElementAdapter(Context context, Element element) {
         this.context = context;

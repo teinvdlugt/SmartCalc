@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentManager;
 public class CustomDialog extends DialogFragment {
 
     private int title, message;
-    public static String TITLE = "TITLE", MESSAGE = "MESSAGE";
+    public static final String TITLE = "TITLE", MESSAGE = "MESSAGE";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

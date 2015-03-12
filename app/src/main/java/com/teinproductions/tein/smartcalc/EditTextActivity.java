@@ -167,7 +167,7 @@ public abstract class EditTextActivity extends ActionBarActivity {
 
     public static boolean hasValidDecimalInput(EditText editText) {
         try {
-            Double test = Double.parseDouble(editText.getText().toString());
+            Double.parseDouble(editText.getText().toString());
             return true;
         } catch (NumberFormatException e) {
             return false;

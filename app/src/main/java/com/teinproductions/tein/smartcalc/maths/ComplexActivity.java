@@ -30,7 +30,7 @@ public class ComplexActivity extends ActionBarActivity {
 
     Integer animDuration;
 
-    public static String[] operators = {"+", "-", "×", "÷", "^"};
+    public static final String[] operators = {"+", "-", "×", "÷", "^"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
