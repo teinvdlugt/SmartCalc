@@ -1,26 +1,31 @@
 package com.teinproductions.tein.smartcalc.maths;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.R;
 
 public class RSAEncryptionActivityViewPager extends ActionBarActivity
-        implements RSAFragment1.OnClickListener, RSAFragmentPrimeNumbers.DisableButtons {
+        implements RSAFragment1.OnClickListener, RSAFragmentPrimeNumbers.Listener {
 
     Button next, previous;
 
     long inputP = -1, inputQ = -1;
+
+    long p, q, n, totient, e, d;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rsa_viewpager);
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
 
         next = (Button) findViewById(R.id.next_button);
         previous = (Button) findViewById(R.id.previous_button);
@@ -92,6 +97,14 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
     public void disablePreviousButton() {
         previous.setClickable(false);
         previous.setTextColor(getResources().getColor(R.color.button_bar_button_inactive));
+    }
+
+    @Override
+    public void calculatedPrimeNumbers(long p, long q) {
+        this.p = p;
+        this.q = q;
+
+        Toast.makeText(this, "" + p + " and " + q, Toast.LENGTH_SHORT).show();
     }
 
     @Override

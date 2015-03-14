@@ -1,6 +1,7 @@
 package com.teinproductions.tein.smartcalc.maths;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,13 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.R;
 
 public class RSAFragmentPrimeNumbers extends Fragment {
 
     EditText editText1, editText2;
+    boolean directTextChange = true;
 
     public static final String P = "P", Q = "Q";
 
@@ -53,10 +54,12 @@ public class RSAFragmentPrimeNumbers extends Fragment {
 
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (editText1.length() == 0 || editText2.length() == 0) {
-                        listener.disableNextButton();
-                    } else {
-                        listener.enableNextButton();
+                    if (directTextChange) {
+                        if (editText1.length() == 0 || editText2.length() == 0) {
+                            listener.disableNextButton();
+                        } else {
+                            listener.enableNextButton();
+                        }
                     }
                 }
 
@@ -69,7 +72,7 @@ public class RSAFragmentPrimeNumbers extends Fragment {
     }
 
     public void onClickNext() {
-        Toast.makeText(getActivity(), "clicked next from fragment", Toast.LENGTH_SHORT).show();
+        new PrimeFinder().execute();
     }
 
     public long[] onClickPrevious() {
@@ -105,20 +108,108 @@ public class RSAFragmentPrimeNumbers extends Fragment {
         }
     }
 
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public static boolean validLongInput(EditText et) {
+        try {
+            Long.parseLong(et.getText().toString());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
-    private DisableButtons listener;
+    public static long longValue(EditText et) {
+        return Long.parseLong(et.getText().toString());
+    }
 
-    public interface DisableButtons {
+
+    class PrimeFinder extends AsyncTask<Void, Void, Void> {
+
+        long num1, num2;
+        long prime1, prime2;
+
+        final long EDIT_TEXT_1 = 1, EDIT_TEXT_2 = 2;
+
+        @Override
+        protected void onPreExecute() {
+            directTextChange = false;
+
+            listener.disableNextButton();
+            listener.disablePreviousButton();
+
+            num1 = longValue(editText1);
+            num2 = longValue(editText2);
+
+            editText1.setText(getString(R.string.calculating));
+
+            editText1.setFocusable(false);
+            editText2.setFocusable(false);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            prime1 = findNextPrimeNumber(num1, EDIT_TEXT_1);
+            publishProgress();
+            prime2 = findNextPrimeNumber(num2, EDIT_TEXT_2);
+
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            editText1.setText(prime1 + "");
+            editText2.setText(getString(R.string.calculating));
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            editText2.setText(prime2 + "");
+
+            listener.calculatedPrimeNumbers(prime1, prime2);
+
+            editText1.setFocusable(false);
+            editText2.setFocusable(false);
+
+            directTextChange = true;
+        }
+
+        @SuppressWarnings("ConstantConditions")
+        long findNextPrimeNumber(long num, long editText) {
+            long i = num;
+            while (1 + 1 == 2) {
+                if (isCancelled()) return -1;
+
+                if (PrimeCalculator.isPrimeNumber(i, this)) {
+                    return i;
+                }
+
+                if (isCancelled()) return -1;
+                i++;
+            }
+        }
+    }
+
+
+    private Listener listener;
+
+
+    public interface Listener {
         public void disableNextButton();
 
         public void enableNextButton();
+
+        public void disablePreviousButton();
+
+        public void calculatedPrimeNumbers(long p, long q);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
-        listener = (DisableButtons) activity;
+        listener = (Listener) activity;
     }
 
 }
