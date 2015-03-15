@@ -18,6 +18,8 @@ public class RSAFragmentPrimeNumbers extends Fragment {
 
     EditText editText1, editText2;
     boolean directTextChange = true;
+    PrimeFinder asyncTask;
+    Long input1, input2;
 
     public static final String P = "P", Q = "Q";
 
@@ -71,27 +73,6 @@ public class RSAFragmentPrimeNumbers extends Fragment {
         }
     }
 
-    public void onClickNext() {
-        new PrimeFinder().execute();
-    }
-
-    public long[] onClickPrevious() {
-        long[] result = new long[2];
-        try {
-            result[0] = Long.parseLong(editText1.getText().toString());
-        } catch (NumberFormatException e) {
-            result[0] = -1;
-        }
-
-        try {
-            result[1] = Long.parseLong(editText2.getText().toString());
-        } catch (NumberFormatException e) {
-            result[1] = -1;
-        }
-
-        return result;
-    }
-
     public void setTexts() {
         long p = getArguments().getLong(P), q = getArguments().getLong(Q);
 
@@ -106,6 +87,39 @@ public class RSAFragmentPrimeNumbers extends Fragment {
         } else {
             editText1.setText("");
         }
+    }
+
+    public void onClickNext() {
+        asyncTask = new PrimeFinder();
+        asyncTask.execute();
+    }
+
+    public long[] onClickPrevious() {
+        if (asyncTask != null) asyncTask.cancel(true);
+
+        return getInputValues();
+    }
+
+    private long[] getInputValues() {
+        long[] result = new long[2];
+
+        if (input1 != null) {
+            result[0] = input1;
+        } else if (validLongInput(editText1)) {
+            result[0] = longValue(editText1);
+        } else {
+            result[0] = -1;
+        }
+
+        if (input2 != null) {
+            result[1] = input2;
+        } else if (validLongInput(editText2)) {
+            result[1] = longValue(editText2);
+        } else {
+            result[1] = -1;
+        }
+
+        return result;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -125,7 +139,6 @@ public class RSAFragmentPrimeNumbers extends Fragment {
 
     class PrimeFinder extends AsyncTask<Void, Void, Void> {
 
-        long num1, num2;
         long prime1, prime2;
 
         final long EDIT_TEXT_1 = 1, EDIT_TEXT_2 = 2;
@@ -135,10 +148,9 @@ public class RSAFragmentPrimeNumbers extends Fragment {
             directTextChange = false;
 
             listener.disableNextButton();
-            listener.disablePreviousButton();
 
-            num1 = longValue(editText1);
-            num2 = longValue(editText2);
+            input1 = longValue(editText1);
+            input2 = longValue(editText2);
 
             editText1.setText(getString(R.string.calculating));
 
@@ -148,9 +160,10 @@ public class RSAFragmentPrimeNumbers extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            prime1 = findNextPrimeNumber(num1, EDIT_TEXT_1);
+            prime1 = findNextPrimeNumber(input1, EDIT_TEXT_1);
+            if (isCancelled()) return null;
             publishProgress();
-            prime2 = findNextPrimeNumber(num2, EDIT_TEXT_2);
+            prime2 = findNextPrimeNumber(input2, EDIT_TEXT_2);
 
             return null;
         }
@@ -162,17 +175,23 @@ public class RSAFragmentPrimeNumbers extends Fragment {
         }
 
         @Override
+        protected void onCancelled() {
+            editText1.setText(input1 + "");
+            editText2.setText(input1 + "");
+        }
+
+        @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
 
             editText2.setText(prime2 + "");
 
-            listener.calculatedPrimeNumbers(prime1, prime2);
-
             editText1.setFocusable(false);
             editText2.setFocusable(false);
 
             directTextChange = true;
+
+            listener.calculatedPrimeNumbers(prime1, prime2);
         }
 
         @SuppressWarnings("ConstantConditions")
