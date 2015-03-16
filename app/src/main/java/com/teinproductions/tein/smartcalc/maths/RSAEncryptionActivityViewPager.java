@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -12,13 +13,15 @@ import android.widget.Toast;
 import com.teinproductions.tein.smartcalc.R;
 
 public class RSAEncryptionActivityViewPager extends ActionBarActivity
-        implements RSAFragment1.OnClickListener, RSAFragmentPrimeNumbers.Listener {
+        implements RSAFragment1.OnClickListener, RSAFragmentPrimeNumbers.Listener, RSAFragmentE.Listener {
 
     Button next, previous;
 
-    long inputP = -1, inputQ = -1;
-
     long p, q, n, totient, e, d;
+
+    RSAFragment1 fragment1;
+    RSAFragmentPrimeNumbers fragmentPrimeNumbers;
+    RSAFragmentE fragmentE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,15 +33,15 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
         next = (Button) findViewById(R.id.next_button);
         previous = (Button) findViewById(R.id.previous_button);
 
+        if (fragment1 == null) fragment1 = new RSAFragment1();
+
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.fragment_container, new RSAFragment1())
+                    .add(R.id.fragment_container, fragment1)
                     .commit();
-            previous.setClickable(false);
-            previous.setTextColor(getResources().getColor(R.color.button_bar_button_inactive));
-            next.setClickable(false);
-            next.setTextColor(getResources().getColor(R.color.button_bar_button_inactive));
+            disablePreviousButton();
+            disableNextButton();
         }
     }
 
@@ -47,24 +50,35 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
                 .beginTransaction()
                 .setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit)
                 .replace(R.id.fragment_container, newFragment)
-                .addToBackStack(null)
+                .commit();
+    }
+
+    private void slideBack(Fragment newFragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.pop_enter, R.anim.pop_exit, R.anim.enter, R.anim.exit)
+                .replace(R.id.fragment_container, newFragment)
                 .commit();
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     public void onClickCreateKeys() {
-        final RSAFragmentPrimeNumbers fragment = RSAFragmentPrimeNumbers.newInstance(inputP, inputQ);
-        slide(fragment);
-        previous.setClickable(true);
-        previous.setTextColor(getResources().getColor(R.color.button_bar_button_active));
+        if (fragmentPrimeNumbers == null) {
+            fragmentPrimeNumbers = RSAFragmentPrimeNumbers.newInstance();
+        }
+
+        slide(fragmentPrimeNumbers);
 
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long[] inputs = fragment.onClickPrevious();
-                inputP = inputs[0];
-                inputQ = inputs[1];
-                getSupportFragmentManager().popBackStack();
+                fragmentPrimeNumbers.cancelTasks();
+                slideBack(fragment1);
                 disableNextButton();
                 disablePreviousButton();
             }
@@ -73,7 +87,52 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.onClickNext();
+                fragmentPrimeNumbers.onClickNext();
+            }
+        });
+    }
+
+    @Override
+    public void calculatedPrimeNumbers(long p, long q) {
+        this.p = p;
+        this.q = q;
+        this.n = p*q;
+        this.totient = (p - 1) * (q - 1);
+
+        fragmentE = RSAFragmentE.newInstance(totient);
+        slide(fragmentE);
+
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentE.cancelTasks();
+                slideBack(fragmentPrimeNumbers);
+                next.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fragmentPrimeNumbers.onClickNext();
+                    }
+                });
+                previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        slideBack(fragment1);
+                        fragmentPrimeNumbers.cancelTasks();
+                        slideBack(fragment1);
+                        disableNextButton();
+                        disablePreviousButton();
+                    }
+                });
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long[] eAndD = fragmentE.onClickNext();
+                e = eAndD[0];
+                d = eAndD[1];
+
+                Toast.makeText(RSAEncryptionActivityViewPager.this, e + " and " + d, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -89,27 +148,21 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
     }
 
     @Override
+    public void enableNextButton() {
+        next.setEnabled(true);
+    }
+
+    @Override
+    public void enablePreviousButton() {
+        previous.setEnabled(true);
+    }
+
+    @Override
     public void disableNextButton() {
-        next.setClickable(false);
-        next.setTextColor(getResources().getColor(R.color.button_bar_button_inactive));
+        next.setEnabled(false);
     }
 
     public void disablePreviousButton() {
-        previous.setClickable(false);
-        previous.setTextColor(getResources().getColor(R.color.button_bar_button_inactive));
-    }
-
-    @Override
-    public void calculatedPrimeNumbers(long p, long q) {
-        this.p = p;
-        this.q = q;
-
-        Toast.makeText(this, "" + p + " and " + q, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void enableNextButton() {
-        next.setClickable(true);
-        next.setTextColor(getResources().getColor(R.color.button_bar_button_active));
+        previous.setEnabled(false);
     }
 }

@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentManager;
 public class CustomDialog extends DialogFragment {
 
     private int title, message;
+    private String titleStr, messageStr;
     public static final String TITLE = "TITLE", MESSAGE = "MESSAGE";
 
     @Override
@@ -19,6 +20,9 @@ public class CustomDialog extends DialogFragment {
 
         title = getArguments().getInt(TITLE);
         message = getArguments().getInt(MESSAGE);
+
+        titleStr = getArguments().getString(TITLE);
+        messageStr = getArguments().getString(MESSAGE);
     }
 
     @NonNull
@@ -26,8 +30,13 @@ public class CustomDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder theDialog = new AlertDialog.Builder(getActivity());
 
-        theDialog.setTitle(title);
-        theDialog.setMessage(message);
+        try {
+            theDialog.setTitle(title);
+            theDialog.setMessage(message);
+        } catch (Exception e) {
+            theDialog.setTitle(titleStr);
+            theDialog.setMessage(messageStr);
+        }
 
         theDialog.setPositiveButton(getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
             @Override
@@ -37,7 +46,6 @@ public class CustomDialog extends DialogFragment {
         });
 
         return theDialog.create();
-
     }
 
     public static CustomDialog newInstance(int title, int message) {
@@ -45,6 +53,16 @@ public class CustomDialog extends DialogFragment {
         Bundle args = new Bundle();
         args.putInt(MESSAGE, message);
         args.putInt(TITLE, title);
+        theDialog.setArguments(args);
+
+        return theDialog;
+    }
+
+    public static CustomDialog newInstance(String title, String message) {
+        CustomDialog theDialog = new CustomDialog();
+        Bundle args = new Bundle();
+        args.putString(MESSAGE, message);
+        args.putString(TITLE, title);
         theDialog.setArguments(args);
 
         return theDialog;

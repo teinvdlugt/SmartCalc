@@ -373,5 +373,11 @@
     <string name="choose_prime_numbers_title">Choose two numbers.</string>
     <string name="choose_prime_numbers_explanation">The bigger the safer, but it will take longer.</string>
     <string name="choose_one_of_these_options_colon">Choose one of these options:</string>
+    <string name="choose_e_fragment_heading">Choose E</string>
+    <string name="choose_e_fragment_explanation">Type in a number which e must approach. This number doesn\'t have to be big.</string>
+    <string name="calculate_d">Calculate D</string>
+    <string name="calculate_e">Calculate E</string>
+    <string name="out_of_range_rsa_title">Out of range</string>
+    <string name="out_of_range_rsa_message">The number has to be between 2 and</string>
 
 </resources>

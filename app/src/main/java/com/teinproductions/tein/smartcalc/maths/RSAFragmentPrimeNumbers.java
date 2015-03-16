@@ -19,15 +19,11 @@ public class RSAFragmentPrimeNumbers extends Fragment {
     EditText editText1, editText2;
     boolean directTextChange = true;
     PrimeFinder asyncTask;
-    Long input1, input2;
+    String input1, input2;
 
-    public static final String P = "P", Q = "Q";
-
-    public static RSAFragmentPrimeNumbers newInstance(long p, long q) {
+    public static RSAFragmentPrimeNumbers newInstance() {
         RSAFragmentPrimeNumbers fragment = new RSAFragmentPrimeNumbers();
         Bundle args = new Bundle();
-        args.putLong(P, p);
-        args.putLong(Q, q);
         fragment.setArguments(args);
 
         return fragment;
@@ -41,13 +37,13 @@ public class RSAFragmentPrimeNumbers extends Fragment {
         editText2 = (EditText) layout.findViewById(R.id.edit_text2);
 
         setTextWatchers();
-        setTexts();
+        listener.enablePreviousButton();
 
         return layout;
     }
 
     private void setTextWatchers() {
-        for (EditText e : new EditText[]{editText1, editText2}) {
+        for (final EditText e : new EditText[]{editText1, editText2}) {
             e.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -57,6 +53,9 @@ public class RSAFragmentPrimeNumbers extends Fragment {
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (directTextChange) {
+                        if (e.equals(editText1)) input1 = editText1.getText().toString();
+                        else if (e.equals(editText2)) input2 = editText2.getText().toString();
+
                         if (editText1.length() == 0 || editText2.length() == 0) {
                             listener.disableNextButton();
                         } else {
@@ -73,53 +72,16 @@ public class RSAFragmentPrimeNumbers extends Fragment {
         }
     }
 
-    public void setTexts() {
-        long p = getArguments().getLong(P), q = getArguments().getLong(Q);
-
-        if (p > -1) {
-            editText1.setText("" + p);
-        } else {
-            editText1.setText("");
-        }
-
-        if (q > -1) {
-            editText2.setText("" + q);
-        } else {
-            editText1.setText("");
-        }
-    }
-
     public void onClickNext() {
         asyncTask = new PrimeFinder();
         asyncTask.execute();
     }
 
-    public long[] onClickPrevious() {
+    public void cancelTasks() {
         if (asyncTask != null) asyncTask.cancel(true);
 
-        return getInputValues();
-    }
-
-    private long[] getInputValues() {
-        long[] result = new long[2];
-
-        if (input1 != null) {
-            result[0] = input1;
-        } else if (validLongInput(editText1)) {
-            result[0] = longValue(editText1);
-        } else {
-            result[0] = -1;
-        }
-
-        if (input2 != null) {
-            result[1] = input2;
-        } else if (validLongInput(editText2)) {
-            result[1] = longValue(editText2);
-        } else {
-            result[1] = -1;
-        }
-
-        return result;
+        if (!RSAFragmentPrimeNumbers.validLongInput(editText1)) editText1.setText(input1);
+        if (!RSAFragmentPrimeNumbers.validLongInput(editText2)) editText2.setText(input2);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -140,6 +102,7 @@ public class RSAFragmentPrimeNumbers extends Fragment {
     class PrimeFinder extends AsyncTask<Void, Void, Void> {
 
         long prime1, prime2;
+        long input1, input2;
 
         final long EDIT_TEXT_1 = 1, EDIT_TEXT_2 = 2;
 
@@ -213,13 +176,14 @@ public class RSAFragmentPrimeNumbers extends Fragment {
 
     private Listener listener;
 
-
     public interface Listener {
         public void disableNextButton();
 
         public void enableNextButton();
 
         public void disablePreviousButton();
+
+        public void enablePreviousButton();
 
         public void calculatedPrimeNumbers(long p, long q);
     }
@@ -230,5 +194,4 @@ public class RSAFragmentPrimeNumbers extends Fragment {
 
         listener = (Listener) activity;
     }
-
 }
