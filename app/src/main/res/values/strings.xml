@@ -379,5 +379,8 @@
     <string name="calculate_e">Calculate E</string>
     <string name="out_of_range_rsa_title">Out of range</string>
     <string name="out_of_range_rsa_message">The number has to be between 2 and</string>
+    <string name="done">Done</string>
+    <string name="private_key_colon">Private key:</string>
+    <string name="public_key_colon">Public key:</string>
 
 </resources>

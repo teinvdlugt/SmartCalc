@@ -220,10 +220,7 @@ public class RSAFragmentE extends Fragment {
         protected void onPostExecute(Void aVoid) {
             textViewD.setText("d = " + d);
 
-            progressBarD.animate()
-                    .alpha(0f)
-                    .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))
-                    .start();
+            progressBarD.setVisibility(View.INVISIBLE);
             textViewD.animate()
                     .alpha(1f)
                     .setDuration(getResources().getInteger(android.R.integer.config_shortAnimTime))

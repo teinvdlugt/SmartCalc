@@ -22,6 +22,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
     RSAFragment1 fragment1;
     RSAFragmentPrimeNumbers fragmentPrimeNumbers;
     RSAFragmentE fragmentE;
+    RSAFragmentKeysDone fragmentKeysDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,11 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
 
     @Override
     public void onBackPressed() {
-        finish();
+        if (previous.isEnabled()) {
+            previous.callOnClick();
+        } else {
+            finish();
+        }
     }
 
     @Override
@@ -131,8 +136,24 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
                 long[] eAndD = fragmentE.onClickNext();
                 e = eAndD[0];
                 d = eAndD[1];
+                onCalculatedEAndD();
+            }
+        });
+    }
 
-                Toast.makeText(RSAEncryptionActivityViewPager.this, e + " and " + d, Toast.LENGTH_SHORT).show();
+    private void onCalculatedEAndD() {
+        fragmentKeysDone = RSAFragmentKeysDone.newInstance(n, e, d);
+        slide(fragmentKeysDone);
+
+        previous.setEnabled(false);
+        next.setEnabled(true);
+        next.setText(R.string.done);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slideBack(new RSAFragment1());
+                next.setEnabled(false);
+                next.setText(R.string.next);
             }
         });
     }
