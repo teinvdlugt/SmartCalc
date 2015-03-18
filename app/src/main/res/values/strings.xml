@@ -393,5 +393,9 @@
     <string name="enter_the_private_key">Enter the private key:</string>
     <string name="the_message_is">"The message is "</string>
     <string name="the_cipher_is">"The cipher is "</string>
+    <string name="crack">Crack</string>
+    <string name="cracking_dot_dot_dot">Cracking&#8230;</string>
+    <string name="crack_successful">Crack Successful</string>
+    <string name="the_message_was">The message was:</string>
 
 </resources>

@@ -40,6 +40,38 @@ public class PrimeCalculator {
         }
     }
 
+    @SuppressWarnings("ConstantConditions")
+    public static Long[] factorizeLong(Long integer, AsyncTask asyncTask) {
+
+        ArrayList<Long> factors = new ArrayList<>();
+
+        if (integer == 0 || integer == 1) {
+            return null;
+        }
+
+        Double squareRoot = Math.sqrt(integer);
+
+        long j = 2;
+        while (1 + 1 == 2) {
+            if (asyncTask.isCancelled()) return null;
+
+            if (integer == 1) {
+                return ArrayChecker.convertToLongArray(factors);
+            }
+            if (j > squareRoot && j != integer) {
+                factors.add(integer);
+                return ArrayChecker.convertToLongArray(factors);
+            } else if (integer % j == 0) {
+                factors.add(j);
+                integer /= j;
+                squareRoot = Math.sqrt(integer);
+                continue;
+            }
+
+            j = findNextPrimeNumber(j, asyncTask);
+        }
+    }
+
     public static Integer findGCF(Long num1, Long num2, AsyncTask asyncTask) {
         Integer[] factors1 = factorize(num1, asyncTask);
         Integer[] factors2 = factorize(num2, asyncTask);

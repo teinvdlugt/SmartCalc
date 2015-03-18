@@ -9,27 +9,39 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/choose_one_of_these_options_colon"/>
 
-    <Button
-        android:id="@+id/encrypt_button"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="@string/encrypt" />
+        android:layout_centerVertical="true">
 
-    <Button
-        android:id="@+id/create_keys_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/encrypt_button"
-        android:layout_marginBottom="16dp"
-        android:text="@string/create_keys" />
+        <Button
+            android:id="@+id/create_keys_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="@string/create_keys" />
 
-    <Button
-        android:id="@+id/decrypt_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/encrypt_button"
-        android:layout_marginTop="16dp"
-        android:text="@string/decrypt" />
+        <Button
+            android:id="@+id/encrypt_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/encrypt"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/decrypt_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/decrypt"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/crack_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crack"/>
+    </LinearLayout>
+
 
 </RelativeLayout>

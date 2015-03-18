@@ -61,4 +61,12 @@ public class ArrayChecker {
         }
         return result;
     }
+
+    public static Long[] convertToLongArray(ArrayList<Long> longs) {
+        Long[] result = new Long[longs.size()];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = longs.get(i);
+        }
+        return result;
+    }
 }

@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.R;
 
@@ -25,6 +23,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
     RSAFragmentKeysDone fragmentKeysDone;
     RSAFragmentEncrypt fragmentEncrypt;
     RSAFragmentDecrypt fragmentDecrypt;
+    RSAFragmentCrack1 fragmentCrack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +102,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
     public void calculatedPrimeNumbers(long p, long q) {
         this.p = p;
         this.q = q;
-        this.n = p*q;
+        this.n = p * q;
         this.totient = (p - 1) * (q - 1);
 
         fragmentE = RSAFragmentE.newInstance(totient);
@@ -196,6 +195,51 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
             @Override
             public void onClick(View view) {
                 fragmentDecrypt.onClickDecrypt();
+            }
+        });
+        previous.setEnabled(true);
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slideBack(new RSAFragment1());
+                previous.setEnabled(false);
+                next.setEnabled(false);
+                next.setText(R.string.next);
+            }
+        });
+    }
+
+    @Override
+    public void onClickCrack() {
+        if (fragmentCrack == null) fragmentCrack = new RSAFragmentCrack1();
+
+        slide(fragmentCrack);
+        next.setText(getString(R.string.crack) + "!");
+        next.setEnabled(true);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long[] input = fragmentCrack.onClickCrack();
+                /* input[0] must be the cipher,
+                *  input[1] must be n,
+                *  input[2] must be e
+                */
+                long cipher = input[0], n = input[1], e = input[2];
+
+                final RSAFragmentCrack2 fragmentCrack2 = RSAFragmentCrack2.newInstance(cipher, n, e);
+                slide(fragmentCrack2);
+                previous.setEnabled(true);
+                previous.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        fragmentCrack2.cancelTasks();
+                        slideBack(new RSAFragment1());
+                        next.setText(R.string.next);
+                        next.setEnabled(false);
+                        previous.setEnabled(false);
+                    }
+                });
+                next.setEnabled(false);
             }
         });
         previous.setEnabled(true);

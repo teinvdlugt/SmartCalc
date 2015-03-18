@@ -20,6 +20,7 @@ public class RSAFragment1 extends Fragment {
         Button createButton = (Button) layout.findViewById(R.id.create_keys_button);
         Button encryptButton = (Button) layout.findViewById(R.id.encrypt_button);
         Button decryptButton = (Button) layout.findViewById(R.id.decrypt_button);
+        Button crackButton = (Button) layout.findViewById(R.id.crack_button);
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,18 +28,22 @@ public class RSAFragment1 extends Fragment {
                 listener.onClickCreateKeys();
             }
         });
-
         encryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickEncrypt();
             }
         });
-
         decryptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClickDecrypt();
+            }
+        });
+        crackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onClickCrack();
             }
         });
 
@@ -50,6 +55,7 @@ public class RSAFragment1 extends Fragment {
         public void onClickCreateKeys();
         public void onClickEncrypt();
         public void onClickDecrypt();
+        public void onClickCrack();
     }
 
     OnClickListener listener;
