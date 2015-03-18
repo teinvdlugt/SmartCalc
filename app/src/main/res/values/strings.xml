@@ -382,5 +382,11 @@
     <string name="done">Done</string>
     <string name="private_key_colon">Private key:</string>
     <string name="public_key_colon">Public key:</string>
+    <string name="your_message">Your Message</string>
+    <string name="enter_your_message_below">Enter your message:</string>
+    <string name="enter_the_public_key">Enter the public key:</string>
+    <string name="fill_all_fields">Please fill all fields</string>
+    <string name="message_gt_n_title">The message is greater than n</string>
+    <string name="message_gt_n_message">This leads to incorrect encryption</string>
 
 </resources>
