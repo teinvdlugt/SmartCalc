@@ -15,7 +15,7 @@ import java.math.BigInteger;
 
 public class RSAFragmentEncrypt extends Fragment {
 
-    EditText nET, eET, messageET;
+    private EditText nET, eET, messageET;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class RSAFragmentEncrypt extends Fragment {
 
         BigInteger cipher = message.pow(e).mod(n);
 
-        CustomDialog.newInstance("", "The cipher is " + cipher.toString())
+        CustomDialog.newInstance("", getString(R.string.the_cipher_is) + cipher.toString())
                 .show(getActivity().getSupportFragmentManager(), "the_cipher_is_dialog");
     }
 }

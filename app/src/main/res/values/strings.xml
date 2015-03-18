@@ -388,5 +388,10 @@
     <string name="fill_all_fields">Please fill all fields</string>
     <string name="message_gt_n_title">The message is greater than n</string>
     <string name="message_gt_n_message">This leads to incorrect encryption</string>
+    <string name="enter_the_cipher">Enter the cipher:</string>
+    <string name="cipher">Cipher</string>
+    <string name="enter_the_private_key">Enter the private key:</string>
+    <string name="the_message_is">"The message is "</string>
+    <string name="the_cipher_is">"The cipher is "</string>
 
 </resources>

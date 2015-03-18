@@ -24,6 +24,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
     RSAFragmentE fragmentE;
     RSAFragmentKeysDone fragmentKeysDone;
     RSAFragmentEncrypt fragmentEncrypt;
+    RSAFragmentDecrypt fragmentDecrypt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +162,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
 
     @Override
     public void onClickEncrypt() {
-        fragmentEncrypt = new RSAFragmentEncrypt();
+        if (fragmentEncrypt == null) fragmentEncrypt = new RSAFragmentEncrypt();
 
         slide(fragmentEncrypt);
         next.setText(R.string.encrypt);
@@ -186,7 +187,27 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
 
     @Override
     public void onClickDecrypt() {
+        if (fragmentDecrypt == null) fragmentDecrypt = new RSAFragmentDecrypt();
 
+        slide(fragmentDecrypt);
+        next.setText(R.string.decrypt);
+        next.setEnabled(true);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentDecrypt.onClickDecrypt();
+            }
+        });
+        previous.setEnabled(true);
+        previous.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                slideBack(new RSAFragment1());
+                previous.setEnabled(false);
+                next.setEnabled(false);
+                next.setText(R.string.next);
+            }
+        });
     }
 
     @Override
