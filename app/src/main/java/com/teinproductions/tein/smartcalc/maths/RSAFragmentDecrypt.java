@@ -1,5 +1,6 @@
 package com.teinproductions.tein.smartcalc.maths;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,8 @@ public class RSAFragmentDecrypt extends Fragment {
 
     private EditText nET, dET, cipherET;
 
+    private Decrypter decrypter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_rsa_decrypt, container, false);
@@ -33,18 +36,36 @@ public class RSAFragmentDecrypt extends Fragment {
             CustomDialog.newInstance("", getString(R.string.fill_all_fields))
                     .show(getActivity().getSupportFragmentManager(), "fill_all_fields_dialog");
         } else {
-            decrypt();
+            decrypter = new Decrypter();
+            decrypter.execute();
         }
     }
 
-    public void decrypt() {
-        BigInteger cipher = new BigInteger(cipherET.getText().toString());
-        int d = Integer.parseInt(dET.getText().toString());
-        BigInteger n = new BigInteger(nET.getText().toString());
+    public void cancelTasks() {
+        if (decrypter != null) {
+            decrypter.cancel(true);
+        }
+    }
 
-        BigInteger message = cipher.pow(d).mod(n);
 
-        CustomDialog.newInstance("", getString(R.string.the_message_is) + message.toString())
-                .show(getActivity().getSupportFragmentManager(), "the_cipher_is_dialog");
+    class Decrypter extends AsyncTask<Void, Void, BigInteger> {
+
+        @Override
+        protected BigInteger doInBackground(Void... voids) {
+            BigInteger cipher = new BigInteger(cipherET.getText().toString());
+            int d = Integer.parseInt(dET.getText().toString());
+            BigInteger n = new BigInteger(nET.getText().toString());
+            if (isCancelled()) return null;
+
+            return cipher.pow(d).mod(n);
+        }
+
+        @Override
+        protected void onPostExecute(BigInteger message) {
+            if (message != null) {
+                CustomDialog.newInstance("", getString(R.string.the_message_is) + message.toString())
+                        .show(getActivity().getSupportFragmentManager(), "the_message_is_dialog");
+            }
+        }
     }
 }

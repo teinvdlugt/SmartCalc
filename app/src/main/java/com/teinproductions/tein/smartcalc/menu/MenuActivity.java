@@ -18,7 +18,6 @@ import com.teinproductions.tein.smartcalc.maths.ComplexActivity;
 import com.teinproductions.tein.smartcalc.maths.FactorizationActivity;
 import com.teinproductions.tein.smartcalc.maths.GCFActivity;
 import com.teinproductions.tein.smartcalc.maths.LCMActivity;
-import com.teinproductions.tein.smartcalc.maths.RSAEncryptionActivity;
 import com.teinproductions.tein.smartcalc.maths.RSAEncryptionActivityViewPager;
 import com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity;
 import com.teinproductions.tein.smartcalc.measure.GravityMeasureActivity;
@@ -52,8 +51,7 @@ public class MenuActivity extends ActionBarActivity {
                         .add(new SmartCalcMenuItem(getString(R.string.least_common_multiple), LCMActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.complex_numbers), ComplexActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.x_or_encoder), XOrEncoderActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.rsa_encryption), RSAEncryptionActivity.class))
-                        .add(new SmartCalcMenuItem("RSA ViewPager", RSAEncryptionActivityViewPager.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.rsa_encryption), RSAEncryptionActivityViewPager.class))
                         .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)))
                         // Physics
                 .add(new SmartCalcMenu(getString(R.string.physics))

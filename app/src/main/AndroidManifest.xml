@@ -44,12 +44,8 @@
             android:label="@string/x_or_encoder"
             android:theme="@style/DarkActivityStyle" />
         <activity
-            android:name=".maths.RSAEncryptionActivity"
-            android:label="@string/rsa_encryption"
-            android:theme="@style/DarkActivityStyle" />
-        <activity
             android:name=".maths.RSAEncryptionActivityViewPager"
-            android:label="RSA ViewPager"
+            android:label="@string/rsa_encryption"
             android:theme="@style/DarkActivityStyle" />
 
         <!-- PHYSICS -->

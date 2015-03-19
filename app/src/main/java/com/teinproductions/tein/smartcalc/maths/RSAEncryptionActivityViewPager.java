@@ -176,6 +176,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragmentEncrypt.cancelTasks();
                 slideBack(new RSAFragment1());
                 previous.setEnabled(false);
                 next.setEnabled(false);
@@ -201,6 +202,7 @@ public class RSAEncryptionActivityViewPager extends ActionBarActivity
         previous.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fragmentDecrypt.cancelTasks();
                 slideBack(new RSAFragment1());
                 previous.setEnabled(false);
                 next.setEnabled(false);
