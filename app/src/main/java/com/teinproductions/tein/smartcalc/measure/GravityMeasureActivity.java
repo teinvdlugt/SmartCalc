@@ -84,10 +84,10 @@ public class GravityMeasureActivity extends ActionBarActivity
         // I use R.menu.info_icon because I don't want to create another file.
         getMenuInflater().inflate(R.menu.info_icon, menu);
         if (paused) {
-            menu.findItem(R.id.info_icon).setIcon(R.drawable.ic_play_arrow_grey600_36dp);
+            menu.findItem(R.id.info_icon).setIcon(R.drawable.ic_play_arrow_white_36dp);
             menu.findItem(R.id.info_icon).setTitle(R.string.play);
         } else {
-            menu.findItem(R.id.info_icon).setIcon(R.drawable.ic_pause_grey600_36dp);
+            menu.findItem(R.id.info_icon).setIcon(R.drawable.ic_pause_white_36dp);
             menu.findItem(R.id.info_icon).setTitle(R.string.pause);
         }
         return true;

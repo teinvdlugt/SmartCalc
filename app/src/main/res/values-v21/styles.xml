@@ -6,7 +6,7 @@
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:windowBackground">@color/windowBackground</item>
+        <!--<item name="android:windowBackground">@color/windowBackground</item>-->
     </style>
 
     <style name="DarkActivityStyle" parent="Theme.AppCompat.NoActionBar">

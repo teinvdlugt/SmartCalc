@@ -24,7 +24,7 @@
         android:layout_centerVertical="true"
         android:layout_margin="?android:listPreferredItemPaddingStart"
         android:contentDescription="This is a menu"
-        android:src="@drawable/ic_chevron_right_black_24dp"
+        android:src="@drawable/ic_chevron_right_white_24dp"
         android:visibility="gone" />
 
 </RelativeLayout>
