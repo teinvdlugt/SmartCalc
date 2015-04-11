@@ -1,4 +1,4 @@
-package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
+package com.teinproductions.tein.smartcalc.computerscience.numeralsystem;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

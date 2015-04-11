@@ -1,6 +1,5 @@
 package com.teinproductions.tein.smartcalc.menu;
 
-
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,11 +8,12 @@ import android.view.MenuItem;
 import com.teinproductions.tein.smartcalc.R;
 import com.teinproductions.tein.smartcalc.biology.bmi.BMIActivity;
 import com.teinproductions.tein.smartcalc.chemistry.molu.ParticlePagerActivity;
+import com.teinproductions.tein.smartcalc.computerscience.numeralsystem.NumeralSystemConvertActivity;
+import com.teinproductions.tein.smartcalc.computerscience.unixtime.UnixTimeActivity;
 import com.teinproductions.tein.smartcalc.conversion.LengthConvertActivity;
 import com.teinproductions.tein.smartcalc.conversion.TemperatureConvertActivity;
 import com.teinproductions.tein.smartcalc.conversion.TimeConvertActivity;
 import com.teinproductions.tein.smartcalc.conversion.VelocityConvertActivity;
-import com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystemConvertActivity;
 import com.teinproductions.tein.smartcalc.maths.ComplexActivity;
 import com.teinproductions.tein.smartcalc.maths.FactorizationActivity;
 import com.teinproductions.tein.smartcalc.maths.GCFActivity;
@@ -26,6 +26,7 @@ import com.teinproductions.tein.smartcalc.physics.LengthContractionActivity;
 import com.teinproductions.tein.smartcalc.physics.SchwarzschildRadiusActivity;
 import com.teinproductions.tein.smartcalc.physics.TimeDilationActivity;
 import com.teinproductions.tein.smartcalc.physics.VelocityAdding;
+
 
 public class MenuActivity extends ActionBarActivity {
 
@@ -44,15 +45,12 @@ public class MenuActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
 
         root = (SmartCalcMenu) new SmartCalcMenu()
-                         // Maths
+                // Maths
                 .add(new SmartCalcMenu(getString(R.string.maths))
                         .add(new SmartCalcMenuItem(getString(R.string.prime_factorization), FactorizationActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.greatest_common_factor), GCFActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.least_common_multiple), LCMActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.complex_numbers), ComplexActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.x_or_encoder), XOrEncoderActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.rsa_encryption), RSAEncryptionActivityViewPager.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)))
+                        .add(new SmartCalcMenuItem(getString(R.string.complex_numbers), ComplexActivity.class)))
                         // Physics
                 .add(new SmartCalcMenu(getString(R.string.physics))
                         // Special Relativity
@@ -67,13 +65,18 @@ public class MenuActivity extends ActionBarActivity {
                         // Biology
                 .add(new SmartCalcMenu(getString(R.string.biology))
                         .add(new SmartCalcMenuItem(getString(R.string.bmi_title), BMIActivity.class)))
+                        // Computer Science
+                .add(new SmartCalcMenu(getString(R.string.computer_science))
+                        .add(new SmartCalcMenuItem(getString(R.string.unix_time), UnixTimeActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.rsa_encryption), RSAEncryptionActivityViewPager.class))
+                        .add(new SmartCalcMenuItem(getString(R.string.x_or_encoder), XOrEncoderActivity.class)))
                         // Converter
                 .add(new SmartCalcMenu(getString(R.string.converter))
                         .add(new SmartCalcMenuItem(getString(R.string.length), LengthConvertActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.time), TimeConvertActivity.class))
                         .add(new SmartCalcMenuItem(getString(R.string.temperature), TemperatureConvertActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.velocity), VelocityConvertActivity.class))
-                        .add(new SmartCalcMenuItem(getString(R.string.numeral_systems), NumeralSystemConvertActivity.class)))
+                        .add(new SmartCalcMenuItem(getString(R.string.velocity), VelocityConvertActivity.class)))
                         // Measure
                 .add(new SmartCalcMenu(getString(R.string.measure))
                         .add(new SmartCalcMenuItem(getString(R.string.measure_gravity), GravityMeasureActivity.class))

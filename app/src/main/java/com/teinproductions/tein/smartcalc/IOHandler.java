@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import com.teinproductions.tein.smartcalc.chemistry.molu.CustomParticle;
 import com.teinproductions.tein.smartcalc.chemistry.molu.CustomParticlesActivity;
-import com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystem;
-import com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystemConvertActivity;
+import com.teinproductions.tein.smartcalc.computerscience.numeralsystem.NumeralSystem;
+import com.teinproductions.tein.smartcalc.computerscience.numeralsystem.NumeralSystemConvertActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;

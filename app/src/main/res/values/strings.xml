@@ -387,7 +387,7 @@
     <string name="enter_the_public_key">Enter the public key:</string>
     <string name="fill_all_fields">Please fill all fields</string>
     <string name="message_gt_n_title">The message is greater than n</string>
-    <string name="message_gt_n_message">This leads to incorrect encryption</string>
+    <string name="message_gt_n_message">This leads to incorrect decryption</string>
     <string name="enter_the_cipher">Enter the cipher:</string>
     <string name="cipher">Cipher</string>
     <string name="enter_the_private_key">Enter the private key:</string>
@@ -397,5 +397,11 @@
     <string name="cracking_dot_dot_dot">Cracking&#8230;</string>
     <string name="crack_successful">Crack Successful</string>
     <string name="the_message_was">The message was:</string>
+    <string name="current_unix_time_colon">Current Unix Time:</string>
+    <string name="countdown_to_end_of_unix_time_colon">Countdown to end of Unix Time:</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="pick_time">Pick Time</string>
+    <string name="unix_time">Unix Time</string>
+    <string name="computer_science">Computer Science</string>
 
 </resources>

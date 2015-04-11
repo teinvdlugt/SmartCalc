@@ -362,5 +362,36 @@
     <string name="large_prime_number">Groot priemgetal</string>
     <string name="next">Volgende</string>
     <string name="previous">Vorige</string>
+    <string name="calculate_d">Bereken D</string>
+    <string name="calculate_e">Bereken E</string>
+    <string name="choose_e_fragment_explanation">Typ een getal waar e dichtbij moet gaan zitten. Het hoeft niet groot te zijn.</string>
+    <string name="choose_e_fragment_heading">Kies E</string>
+    <string name="cipher">Code</string>
+    <string name="computer_science">Computerwetenschappen</string>
+    <string name="countdown_to_end_of_unix_time_colon">Aftellen naar het eind van Unix tijd:</string>
+    <string name="crack">Kraken</string>
+    <string name="crack_successful">Kraak geslaagd</string>
+    <string name="cracking_dot_dot_dot">Kraken&#8230;</string>
+    <string name="current_unix_time_colon">Huidige Unix tijd:</string>
+    <string name="done">Klaar</string>
+    <string name="enter_the_cipher">Geef de code:</string>
+    <string name="enter_the_private_key">Geef de geheime sleutel:</string>
+    <string name="enter_the_public_key">Geef de publieke sleutel:</string>
+    <string name="enter_your_message_below">Geef je bericht:</string>
+    <string name="fill_all_fields">Vul alle velden in</string>
+    <string name="message_gt_n_message">Dit leidt tot incorrecte decodering</string>
+    <string name="message_gt_n_title">Het bericht is groter dan n</string>
+    <string name="out_of_range_rsa_message">Het getal moet liggen tussen 2 en </string>
+    <string name="out_of_range_rsa_title">Buiten bereik</string>
+    <string name="pick_date">Kies een datum</string>
+    <string name="pick_time">Kies een tijd</string>
+    <string name="private_key_colon">Geheime sleutel:</string>
+    <string name="public_key_colon">Publieke sleutel:</string>
+    <string name="rsa_encryption">RSA Encryptie</string>
+    <string name="the_cipher_is">"De code is "</string>
+    <string name="the_message_is">"Het bericht is "</string>
+    <string name="the_message_was">Het bericht was:</string>
+    <string name="unix_time">Unix tijd</string>
+    <string name="your_message">Je bericht</string>
 
 </resources>

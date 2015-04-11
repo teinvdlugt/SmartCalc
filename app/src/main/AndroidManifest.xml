@@ -39,14 +39,6 @@
             android:name="com.teinproductions.tein.smartcalc.maths.ComplexActivity"
             android:label="@string/complex_numbers"
             android:windowSoftInputMode="stateVisible" />
-        <activity
-            android:name="com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity"
-            android:label="@string/x_or_encoder"
-            android:theme="@style/DarkActivityStyle" />
-        <activity
-            android:name=".maths.RSAEncryptionActivityViewPager"
-            android:label="@string/rsa_encryption"
-            android:theme="@style/DarkActivityStyle" />
 
         <!-- PHYSICS -->
 
@@ -92,6 +84,24 @@
             android:name="com.teinproductions.tein.smartcalc.biology.bmi.BMIInfoActivity"
             android:label="@string/info" />
 
+        <!-- COMPUTER SCIENCE -->
+
+        <activity
+            android:name=".computerscience.unixtime.UnixTimeActivity"
+            android:label="@string/unix_time" />
+        <activity
+            android:name=".computerscience.numeralsystem.NumeralSystemConvertActivity"
+            android:label="@string/numeral_systems"
+            android:theme="@style/DarkActivityStyle" />
+        <activity
+            android:name=".maths.RSAEncryptionActivityViewPager"
+            android:label="@string/rsa_encryption"
+            android:theme="@style/DarkActivityStyle" />
+        <activity
+            android:name="com.teinproductions.tein.smartcalc.maths.XOrEncoderActivity"
+            android:label="@string/x_or_encoder"
+            android:theme="@style/DarkActivityStyle" />
+
         <!-- CONVERTER -->
 
         <activity
@@ -110,10 +120,6 @@
             android:name="com.teinproductions.tein.smartcalc.conversion.VelocityConvertActivity"
             android:label="@string/velocity_conversion"
             android:windowSoftInputMode="stateVisible" />
-        <activity
-            android:name="com.teinproductions.tein.smartcalc.conversion.numeralsystem.NumeralSystemConvertActivity"
-            android:label="@string/numeral_systems"
-            android:theme="@style/DarkActivityStyle" />
 
         <!-- MEASURE -->
 
@@ -123,6 +129,7 @@
         <activity
             android:name=".measure.MiscMeasureActivity"
             android:label="@string/miscellaneous_measures" />
+
     </application>
 
 </manifest>

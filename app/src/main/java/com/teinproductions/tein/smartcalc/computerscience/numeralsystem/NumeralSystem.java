@@ -1,4 +1,4 @@
-package com.teinproductions.tein.smartcalc.conversion.numeralsystem;
+package com.teinproductions.tein.smartcalc.computerscience.numeralsystem;
 
 import android.content.Context;
 
