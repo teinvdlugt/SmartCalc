@@ -2,6 +2,7 @@ package com.teinproductions.tein.smartcalc.physics;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,7 +19,7 @@ import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
 import com.teinproductions.tein.smartcalc.Units;
 
-public class SchwarzschildRadiusActivity extends ActionBarActivity {
+public class SchwarzschildRadiusActivity extends AppCompatActivity {
 
     private EditText massET, radiusET;
     private Spinner massSpinner, radiusSpinner;

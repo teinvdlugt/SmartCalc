@@ -3,6 +3,7 @@ package com.teinproductions.tein.smartcalc.chemistry.molu;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -20,7 +21,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ParticleEditActivity extends ActionBarActivity {
+public class ParticleEditActivity extends AppCompatActivity {
 
     public static final String PARTICLE_ARRAY = "com.teinproductions.PARTICLE_ARRAY";
     public static final String PARTICLE_POSITION = "com.teinproductions.PARTICLE_POSITION";

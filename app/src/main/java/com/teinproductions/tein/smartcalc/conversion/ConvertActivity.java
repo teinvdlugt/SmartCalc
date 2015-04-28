@@ -4,6 +4,7 @@ package com.teinproductions.tein.smartcalc.conversion;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,7 @@ import com.teinproductions.tein.smartcalc.EditTextActivity;
 import com.teinproductions.tein.smartcalc.CustomDialog;
 import com.teinproductions.tein.smartcalc.R;
 
-public abstract class ConvertActivity extends ActionBarActivity {
+public abstract class ConvertActivity extends AppCompatActivity {
 
     protected Spinner spinner1, spinner2, spinner1b, spinner2b;
     protected EditText editText1, editText2;

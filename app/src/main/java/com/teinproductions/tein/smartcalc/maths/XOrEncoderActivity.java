@@ -4,6 +4,7 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,7 +20,7 @@ import com.teinproductions.tein.smartcalc.R;
 
 import java.util.ArrayList;
 
-public class XOrEncoderActivity extends ActionBarActivity {
+public class XOrEncoderActivity extends AppCompatActivity {
 
     private EditText plainText, keyText, ciphertext;
     private boolean indirectTextChange = false;

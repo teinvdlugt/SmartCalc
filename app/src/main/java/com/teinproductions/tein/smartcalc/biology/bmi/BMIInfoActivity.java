@@ -7,7 +7,7 @@ import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.R;
 
-public class BMIInfoActivity extends ActionBarActivity {
+public class BMIInfoActivity extends AppCompatActivity {
 
     private LinearLayout rootLayout;
 

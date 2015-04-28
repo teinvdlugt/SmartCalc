@@ -3,6 +3,7 @@ package com.teinproductions.tein.smartcalc;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -20,7 +21,7 @@ import android.widget.TextView;
 
 // This class is also a container for all sorts of static methods that
 // have to do with EditTexts.
-public abstract class EditTextActivity extends ActionBarActivity {
+public abstract class EditTextActivity extends AppCompatActivity {
 
     protected LinearLayout rootLayout;
     protected EditText editText1, editText2;

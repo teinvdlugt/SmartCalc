@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,7 +22,7 @@ import com.teinproductions.tein.smartcalc.CustomDialog;
 import com.teinproductions.tein.smartcalc.IOHandler;
 import com.teinproductions.tein.smartcalc.R;
 
-public class ComplexActivity extends ActionBarActivity {
+public class ComplexActivity extends AppCompatActivity {
 
     EditText number1a, number1b, number2a, number2b, powerET;
     Spinner operatorSpinner;

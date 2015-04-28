@@ -2,6 +2,7 @@ package com.teinproductions.tein.smartcalc.menu;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
@@ -28,7 +29,7 @@ import com.teinproductions.tein.smartcalc.physics.TimeDilationActivity;
 import com.teinproductions.tein.smartcalc.physics.VelocityAdding;
 
 
-public class MenuActivity extends ActionBarActivity {
+public class MenuActivity extends AppCompatActivity {
 
     private SmartCalcMenu currentMenu;
     private SmartCalcMenu root;

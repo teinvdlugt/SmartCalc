@@ -9,6 +9,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.Menu;
@@ -17,7 +18,7 @@ import android.widget.TextView;
 
 import com.teinproductions.tein.smartcalc.R;
 
-public class GravityMeasureActivity extends ActionBarActivity
+public class GravityMeasureActivity extends AppCompatActivity
         implements SensorEventListener {
 
     private SensorManager sensorManager;

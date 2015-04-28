@@ -5,6 +5,7 @@ import android.app.TimePickerDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -21,7 +22,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 
-public class UnixTimeActivity extends ActionBarActivity {
+public class UnixTimeActivity extends AppCompatActivity {
 
     TextView currentTime, countDown;
     Updater updater;

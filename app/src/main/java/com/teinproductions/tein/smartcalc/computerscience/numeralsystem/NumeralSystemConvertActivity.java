@@ -2,6 +2,7 @@ package com.teinproductions.tein.smartcalc.computerscience.numeralsystem;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,7 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class NumeralSystemConvertActivity extends ActionBarActivity
+public class NumeralSystemConvertActivity extends AppCompatActivity
         implements NumeralSystemEditDialog.OnClickListener {
 
     private NumeralSystem[] systems;
